@@ -1,12 +1,12 @@
-import pymsql
+import pymysql
 import dbconfig
-connection = pymsql.connect(host='localhost',
+connection = pymysql.connect(host='localhost',
 				user=dbconfig.db_user,
-				passwd=dbconfic.db_password)
+				passwd=dbconfig.db_password)
 
 try:
 	with connection.cursor() as cursor:
-		sql="CREATE DABASE IF NOT EXISTS map"
+		sql="CREATE DATABASE IF NOT EXISTS map"
 		cursor.execute(sql)
 		sql="""CREATE TABLE IF NOT EXISTS map.projects(
 id int NOT NULL AUTO_INCREMENT,

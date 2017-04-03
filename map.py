@@ -1,7 +1,11 @@
-from dbhelper import DBHelper
 from flask import Flask
 from flask import render_template
 from flask import request
+import dbconfig
+if dbconfig.test:
+	from mockdbhelper import MockDBHelper as DBHelper
+else:
+	from dbhelper import DBHelper
 
 
 app=Flask(__name__)
@@ -18,6 +22,15 @@ def home():
 
 @app.route("/add", methods=['GET','POST'])
 def add():
+	try:
+		data=request.form.get("userinput")
+		DB.add_input(data)
+	except Exception as e:
+		print e
+	return home()
+
+@app.route("/submitproject", methods=['GET','POST'])
+def submit():
 	try:
 		data=request.form.get("userinput")
 		DB.add_input(data)

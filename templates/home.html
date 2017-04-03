@@ -1,14 +1,69 @@
-<html>
-<body>
-	<head>
-		<title>Projects map</title>
-	</head>
+<!DOCTYPE html>
 
+<html lang="en">
+
+<head>
+	<title>Projects map</title>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js">
+	</script>
+	<script type="text/javascript">
+		var map;
+		var marker;
+		function initialize() {
+			var mapOptions={
+				center: new google.maps.LatLng(51.758830,-1.253731),
+				zoom: 15
+			};
+			map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
+			google.maps.event.addListener(map, 
+				'click', 
+				function(event){
+					placeMarker(event.latLng);
+				}
+			);
+		}
+		function placeMarker(location){
+			if (marker) {
+				marker.setPosition(location);
+			} else {
+				marker = new google.maps.Marker({
+					position: location,
+					map: map
+					});
+			}
+			document.getElementById('latitude').value = location.lat();
+			document.getElementById('longitude').value = location.lng();
+		}
+
+	</script>
+</head>
+
+<body onload="initialize()">
 	<h1>Projects map</h1>
-	<form action="/add" method="PSOT">
-		<input type="text" name="userinput">
-		<input type="submit" name="submit">		
-	</form>
+	<div id="map-canvas" style="width:80%; height:500px;"></div>
+
+	<div id="newprojectform">
+		<h2>Submit new project</h2>
+		<form action="/submitproject" method="POST">
+			<label for="category">Category</label>
+			<select name="category" id="category">
+				<option value="research">Research</option>
+				<option value="teaching">Teaching</option>
+				<option value="datacollection">Data Collection</option>
+			</select>
+			<label for="startdate">Start Date</label>
+			<input name="startdate" id="startdate" type="date">
+			<label for="enddate">End Date</label>
+			<input name="enddate" id="enddate" type="date">
+			<label for="enddate">Latitude</label>
+			<input name="latitude" id="latitude" type="text">
+			<label for="enddate">Longitude</label>
+			<input name="longitude" id="longitude" type="text">
+			<label for="description">Description</label>
+			<textarea name="description" id="description" placeholder="A brief but detailed description of the project"></textarea>
+			<input type="submit" name="submit">		
+		</form>
+	</div>
 	<a href="/clear">Clear</a>
 	{% for userinput in data %}
 		<p>{{userinput}}</p>

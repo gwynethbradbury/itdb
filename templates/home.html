@@ -1,0 +1,18 @@
+<html>
+<body>
+	<head>
+		<title>Projects map</title>
+	</head>
+
+	<h1>Projects map</h1>
+	<form action="/add" method="PSOT">
+		<input type="text" name="userinput">
+		<input type="submit" name="submit">		
+	</form>
+	<a href="/clear">Clear</a>
+	{% for userinput in data %}
+		<p>{{userinput}}</p>
+	{% endfor %}
+
+</body>
+</html>

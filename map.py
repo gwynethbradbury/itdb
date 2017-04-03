@@ -16,7 +16,7 @@ def home():
 		data=None
 	return render_template("home.html",data=data)
 
-@app.route("/add", methods=["PSOT"])
+@app.route("/add", methods=['GET','POST'])
 def add():
 	try:
 		data=request.form.get("userinput")
@@ -28,6 +28,7 @@ def add():
 @app.route("/clear")
 def clear():
 	try:
+		print("hi")
 		DB.clear_all()
 	except Exception as e:
 		print e

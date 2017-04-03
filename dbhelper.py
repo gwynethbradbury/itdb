@@ -20,24 +20,22 @@ class DBHelper:
 		finally:
 			connection.close()
 
-	def add_input(self,data):
+	def add_input(self, data):
 		connection=self.connect()
 		try:
-			#introduces a security flaw:
-			query="INSERT INTO projects (description) VALUES ('{}');".format(data)			
+			query="INSERT INTO projects (description) VALUES (%s);"
 			with connection.cursor() as cursor:
-				cursor.execute(query)
+				cursor.execute(query,data)
 				connection.commit()
 		finally:
-			conncetion.close()
+			connection.close()
 
 	def clear_all(self):
 		connection=self.connect()
 		try:
-			query="DELETE FROM projects;"	
+			query="DELETE FROM projects;"
 			with connection.cursor() as cursor:
 				cursor.execute(query)
-				connection.commit()			
+				connection.commit()
 		finally:
-			conncetion.close()
-	
+			connection.close()

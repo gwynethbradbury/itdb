@@ -22,6 +22,16 @@
 					placeMarker(event.latLng);
 				}
 			);
+			placeProjects({{projects | safe}});
+		}
+		function placeProjects(projects){
+			for(i=0;i<projects.length-1;i++){
+				project=new google.maps.Marker({
+						position:new google.maps.LatLng(projects[i].latitude,projects[i].longitude),
+						map:map,
+						title:projects[i].startdate +"\n"+projects[i].enddate+"\n"+projects[i].category+"\n"+projects[i].description
+						});
+			}
 		}
 		function placeMarker(location){
 			if (marker) {

@@ -4,6 +4,7 @@
 
 <head>
 	<title>Projects map</title>
+	<link type="text/css" rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}"/>
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js">
 	</script>
 	<script type="text/javascript">
@@ -40,7 +41,7 @@
 
 <body onload="initialize()">
 	<h1>Projects map</h1>
-	<div id="map-canvas" style="width:80%; height:500px;"></div>
+	<div id="map-canvas"></div>
 
 	<div id="newprojectform">
 		<h2>Submit new project</h2>
@@ -63,8 +64,8 @@
 			<textarea name="description" id="description" placeholder="A brief but detailed description of the project"></textarea>
 			<input type="submit" name="submit">		
 		</form>
-	</div>
 	<a href="/clear">Clear</a>
+	</div>
 	{% for userinput in data %}
 		<p>{{userinput}}</p>
 	{% endfor %}

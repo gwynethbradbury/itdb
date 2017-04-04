@@ -24,6 +24,18 @@ input[type="submit"]:hover{
 background:steelblue;
 }
 
+input[type="uploadxls"]{
+padding: 5px 10px 5px 10px;
+color:black;
+background:lightsteelblue;
+border:none;
+box-shadow: 1px 1px 1px #4C6E91;
+}
+
+input[type="uploadxls"]:hover{
+background:steelblue;
+}
+
 #map-canvas{
 width:70%; 
 height:500px;

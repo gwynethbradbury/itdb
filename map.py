@@ -47,7 +47,7 @@ def submit():
 def upload():
 	try:
 		filename=request.form.get("filename")
-		#DB.add_project(latitude,longitude,startdate,enddate,category,description)
+		DB.uploadxls(filename)
 	except Exception as e:
 		print e
 	return home()

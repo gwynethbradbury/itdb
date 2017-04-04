@@ -43,6 +43,19 @@ class DBHelper:
 		finally:
 			connection.close()
 
+	def uploadxls(self, filename):
+		connection=self.connect()
+		try:#not working yet
+			query="LOAD DATA INFILE (%s) INTO TABLE projects;"
+			print(filename)
+			with connection.cursor() as cursor:
+				cursor.execute(query,filename)
+				connection.commit()
+		except Exception as e:
+			print(e)
+		finally:
+			connection.close()
+
 	def get_all_projects(self):
 		connection=self.connect()
 		try:

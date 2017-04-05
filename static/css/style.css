@@ -37,7 +37,7 @@ background:steelblue;
 }
 
 #map-canvas{
-width:70%; 
+width:75%; 
 height:500px;
 float:left;
 }
@@ -45,4 +45,9 @@ float:left;
 #newprojectform{
 float: right;
 width:25%;
+}
+
+#datalist{
+width:500px;
+clear: left;
 }

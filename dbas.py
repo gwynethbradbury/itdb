@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template
+from flask import render_template, redirect, url_for
 from flask import request
 import json
 import dbconfig
@@ -11,26 +11,24 @@ else:
 app=Flask(__name__)
 DB=DBHelper()
 
+projects=[]
+
 @app.route("/")
 def home():
-	projects=None
+	projects=[]
 	try:
+		data=DB.get_all_inputs()
+		print(data)
 		projects=DB.get_all_projects()
 		projects=json.dumps(projects)
+		print(str(projects.count))
 	except Exception as e:
 		print e
-	return render_template("index.html",projects=projects)
+		data=None
+	return render_template("index.html",projects=projects,data=data)
 
-@app.route("/add", methods=['GET','POST'])
-def add():
-	try:
-		data=request.form.get("userinput")
-		DB.add_input(data)
-	except Exception as e:
-		print e
-	return home()
 
-@app.route("/submitproject", methods=['POST'])
+@app.route("/submitproject", methods=['GET','POST'])
 def submit():
 	try:
 		category=request.form.get("category")
@@ -42,6 +40,8 @@ def submit():
 		DB.add_project(latitude,longitude,startdate,enddate,category,description)
 	except Exception as e:
 		print e
+	home()
+	return redirect(url_for('home'))
 
 @app.route("/uploadxls", methods=['GET','POST'])
 def upload():
@@ -50,7 +50,8 @@ def upload():
 		DB.uploadxls(filename)
 	except Exception as e:
 		print e
-	return home()
+	return redirect(url_for('home'))
+	#return home()
 
 @app.route("/clear")
 def clear():
@@ -58,7 +59,8 @@ def clear():
 		DB.clear_all()
 	except Exception as e:
 		print e
-	return home()
+	return redirect(url_for('home'))
+	#return home()
 
 if __name__ =='__main__':
 	app.run(host="0.0.0.0", port=5000, debug=True)

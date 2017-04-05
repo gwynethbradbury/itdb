@@ -24,10 +24,13 @@ class DBHelper:
 	def add_project(self, latitude,longitude,startdate,enddate,category,description):
 		connection=self.connect()
 		try:
+			print("doop")
 			query="INSERT INTO projects (latitude,longitude,startdate,enddate,category,description) VALUES (%s,%s,%s,%s,%s,%s);"
 			with connection.cursor() as cursor:
 				cursor.execute(query,(latitude,longitude,startdate,enddate,category,description))
 				connection.commit()
+				print("derp")
+			print("deep")
 		except Exception as e:
 			print(e)
 		finally:
@@ -36,11 +39,12 @@ class DBHelper:
 	def uploadxls(self, filename):
 		connection=self.connect()
 		try:#not working yet
-			query="LOAD DATA INFILE (%s) INTO TABLE projects;"
-			print(filename)
-			with connection.cursor() as cursor:
-				cursor.execute(query,filename)
-				connection.commit()
+			#query="LOAD DATA INFILE (%s) INTO TABLE projects;"
+			#print(filename)
+			#with connection.cursor() as cursor:
+			#	cursor.execute(query,filename)
+			#	connection.commit()
+			print("uploadxls function not written")
 		except Exception as e:
 			print(e)
 		finally:

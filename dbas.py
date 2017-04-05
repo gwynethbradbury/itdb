@@ -19,7 +19,7 @@ def home():
 		projects=json.dumps(projects)
 	except Exception as e:
 		print e
-	return render_template("home.html",projects=projects)
+	return render_template("index.html",projects=projects)
 
 @app.route("/add", methods=['GET','POST'])
 def add():

@@ -21,16 +21,6 @@ class DBHelper:
 		finally:
 			connection.close()
 
-	def add_input(self, data):
-		connection=self.connect()
-		try:
-			query="INSERT INTO projects (description) VALUES (%s);"
-			with connection.cursor() as cursor:
-				cursor.execute(query,data)
-				connection.commit()
-		finally:
-			connection.close()
-
 	def add_project(self, latitude,longitude,startdate,enddate,category,description):
 		connection=self.connect()
 		try:

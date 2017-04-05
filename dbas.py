@@ -30,7 +30,7 @@ def add():
 		print e
 	return home()
 
-@app.route("/submitproject", methods=['GET','POST'])
+@app.route("/submitproject", methods=['POST'])
 def submit():
 	try:
 		category=request.form.get("category")
@@ -61,7 +61,7 @@ def clear():
 	return home()
 
 if __name__ =='__main__':
-	app.run(host="127.0.0.2",  debug=True)
+	app.run(host="0.0.0.0", port=5000, debug=True)
 
 
 

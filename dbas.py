@@ -1,17 +1,36 @@
+#!/usr/bin/env python
+import os
 from flask import Flask
 from flask import render_template, redirect, url_for
 from flask import request
 import json
+
+from iaas_home.iaas_home import iaas_home
+from iaas_home import create_app, db
+from iaas_home.models import User, Role
+from flask_script import Manager, Shell
+from flask_migrate import Migrate, MigrateCommand
+
 import dbconfig
 if dbconfig.test:
 	from mockdbhelper import MockDBHelper as DBHelper
 else:
 	from dbhelper import DBHelper
 
-app=Flask(__name__)
+
+app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+manager = Manager(app)
+migrate = Migrate(app, db)
+app.register_blueprint(iaas_home)
+#app=Flask(__name__)
 DB=DBHelper()
 
 projects=[]
+
+
+
+
+
 
 @app.route("/")
 def home():

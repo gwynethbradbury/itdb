@@ -1,10 +1,14 @@
 import pymysql
 import dbconfig
-import datetime
+from time import time
+from datetime import datetime
+from numpy import genfromtxt
+
+
+
 
 
 class DBHelper:
-
 	def connect(self,database="map"):
 		return pymysql.connect(host='localhost',
 				user=dbconfig.db_user,
@@ -24,13 +28,10 @@ class DBHelper:
 	def add_project(self, latitude,longitude,startdate,enddate,category,description):
 		connection=self.connect()
 		try:
-			print("doop")
 			query="INSERT INTO projects (latitude,longitude,startdate,enddate,category,description) VALUES (%s,%s,%s,%s,%s,%s);"
 			with connection.cursor() as cursor:
 				cursor.execute(query,(latitude,longitude,startdate,enddate,category,description))
 				connection.commit()
-				print("derp")
-			print("deep")
 		except Exception as e:
 			print(e)
 		finally:
@@ -38,13 +39,22 @@ class DBHelper:
 
 	def uploadxls(self, filename):
 		connection=self.connect()
-		try:#not working yet
-			#query="LOAD DATA INFILE (%s) INTO TABLE projects;"
-			#print(filename)
-			#with connection.cursor() as cursor:
-			#	cursor.execute(query,filename)
-			#	connection.commit()
-			print("uploadxls function not written")
+		try:
+			data=genfromtxt(filename,delimiter=',',skip_header=1,converters={0: lambda s: str(s),1: lambda s: str(s),2: lambda s: str(s),3: lambda s: str(s),4: lambda s: str(s),5: lambda s: str(s)})
+			data=data.tolist()
+			for i in data:
+
+				latitude=i[0]
+				longitude=i[1]
+				startdate=datetime.strptime(i[2],'%Y-%m-%d').date()
+				enddate=datetime.strptime(i[3],'%Y-%m-%d').date()
+				category=i[4]
+				description=i[5]
+
+				query="INSERT INTO projects (latitude,longitude,startdate,enddate,category,description) VALUES (%s,%s,%s,%s,%s,%s);"
+				with connection.cursor() as cursor:
+					cursor.execute(query,(latitude,longitude,startdate,enddate,category,description))
+					connection.commit()
 		except Exception as e:
 			print(e)
 		finally:

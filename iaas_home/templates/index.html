@@ -7,7 +7,6 @@
     <h4>Projects map</h4>
 </div>
 
-
 	<link type="text/css" rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}"/>
 
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4ndLXKNwNeNfopLxqmcI3BDtTFB4pbJE" type="text/javascript"></script>
@@ -55,49 +54,59 @@
 
 <body onload="initialize()">
 
-	<div id="datalist">
+<!--div class="large-12 columns">
 		{% for project in data %}
 			<p>{{project}}</p>
 		{% endfor %}
+</div-->
 
+
+<div class="row">
+	<div class="large-12 columns">
+		<form action="/uploadxls" method="POST">
+			<label for="filename">File Name</label>
+			<input type="file" name="filename" size="40">	
+			<input type="submit" name="submit">	
+		</form>
 	</div>
-	<div>
-		<div id="map-canvas"></div>
+</div>
 
-		<div id="newprojectform">
-			<h2>Submit new project</h2>
-			<form action="/submitproject" method="POST">
-				<label for="category">Category</label>
-				<select name="category" id="category">
-					<option value="research">Research</option>
-					<option value="teaching">Teaching</option>
-					<option value="datacollection">Data Collection</option>
-				</select>
-				<label for="startdate">Start Date</label>
-				<input name="startdate" id="startdate" type="date">
-				<label for="enddate">End Date</label>
-				<input name="enddate" id="enddate" type="date">
-				<label for="enddate">Latitude</label>
-				<input name="latitude" id="latitude" type="text">
-				<label for="enddate">Longitude</label>
-				<input name="longitude" id="longitude" type="text">
-				<label for="description">Description</label>
-				<textarea name="description" id="description" placeholder="A brief but detailed description of the project"></textarea>
-				<input type="submit" name="submit">		
-			</form>
-		<a href="/clear">Clear</a>
+
+<div class="row">
+	<div class="large-8 medium-8 columns">
+		<div class="primary callout">
+			<div id="map-canvas" ></div>
 		</div>
 	</div>
 
 
-
-	<!--<div id="newxlsuploadform">
-		<form action="/uploadxls" method="POST">
-			<label for="filename">File Name</label>
-			<input type="file" name="filename" size="40">	
-			<input type="uploadxls" name="submit">	
+	<div class="large-4 medium-4 columns primary callout">
+		<h2>Submit new project</h2>
+		<form action="/submitproject" method="POST">
+			<label for="category">Category</label>
+			<select name="category" id="category">
+				<option value="research">Research</option>
+				<option value="teaching">Teaching</option>
+				<option value="datacollection">Data Collection</option>
+			</select>
+			<label for="startdate">Start Date</label>
+			<input name="startdate" id="startdate" type="date">
+			<label for="enddate">End Date</label>
+			<input name="enddate" id="enddate" type="date">
+			<label for="enddate">Latitude</label>
+			<input name="latitude" id="latitude" type="text">
+			<label for="enddate">Longitude</label>
+			<input name="longitude" id="longitude" type="text">
+			<label for="description">Description</label>
+			<textarea name="description" id="description" placeholder="A brief but detailed description of the project"></textarea>
+			<input type="submit" name="submit">		
 		</form>
-	</div>-->
+		<a href="/clear">Clear</a>
+	</div>
+
+</div>
+
+
 
 
 </body>

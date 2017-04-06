@@ -2,12 +2,8 @@
 
 {% block title %}Data visualisation and editing, uploading etc{% endblock %}
 
-{% block body2 %}
-<div class="page-header">
-    <h4>Projects map</h4>
-</div>
-
-	<link type="text/css" rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}"/>
+{% block scripts %}
+<link type="text/css" rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}"/>
 
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4ndLXKNwNeNfopLxqmcI3BDtTFB4pbJE" type="text/javascript"></script>
 
@@ -51,8 +47,29 @@
 		}
 
 	</script>
+{% endblock %}
 
-<body onload="initialize()">
+
+
+
+
+
+{% block bodycalls %}
+ onload="initialize()"
+{% endblock %}
+
+
+
+
+
+
+{% block body2 %}
+<div class="page-header">
+    <h4>Projects map</h4>
+</div>
+
+	
+
 
 <!--div class="large-12 columns">
 		{% for project in data %}
@@ -66,7 +83,7 @@
 		<form action="/uploadxls" method="POST">
 			<label for="filename">File Name</label>
 			<input type="file" name="filename" size="40">	
-			<input type="submit" name="submit">	
+			<input type="submit" name="submit" class="button">	
 		</form>
 	</div>
 </div>
@@ -99,7 +116,7 @@
 			<input name="longitude" id="longitude" type="text">
 			<label for="description">Description</label>
 			<textarea name="description" id="description" placeholder="A brief but detailed description of the project"></textarea>
-			<input type="submit" name="submit">		
+			<input type="submit" name="submit" class="button">		
 		</form>
 		<a href="/clear">Clear</a>
 	</div>
@@ -107,8 +124,5 @@
 </div>
 
 
-
-
-</body>
 
 {% endblock %}

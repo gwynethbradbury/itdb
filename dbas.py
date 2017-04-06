@@ -32,15 +32,15 @@ projects=[]
 
 
 
-@app.route("/")
+@app.route("/view")
 def home():
+	print("hi")
 	projects=[]
 	try:
 		data=DB.get_all_inputs()
-		print(data)
 		projects=DB.get_all_projects()
 		projects=json.dumps(projects)
-		print(str(projects.count))
+		#print(str(projects.count))
 	except Exception as e:
 		print e
 		data=None

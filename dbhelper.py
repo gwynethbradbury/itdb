@@ -71,12 +71,13 @@ class DBHelper:
 				named_project={
 					'latitude':project[0],
 					'longitude':project[1],
-					'startdate':datetime.datetime.strftime(project[2],'%Y-%m-%d'),
-					'enddate':datetime.datetime.strftime(project[3],'%Y-%m-%d'),
+					'startdate':datetime.strftime(project[2],'%Y-%m-%d'),
+					'enddate':datetime.strftime(project[3],'%Y-%m-%d'),
 					'category':project[4],
 					'description':project[5]
 				}
 				named_projects.append(named_project)
+				print(named_project)
 			return named_projects
 		except Exception as e:
 			print(e)

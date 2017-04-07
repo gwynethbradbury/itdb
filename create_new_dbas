@@ -1,0 +1,19 @@
+if [ $# -eq 0 ]
+then
+	echo "enter project name as argument"
+else
+	if [ ! -d "projects/$1" ]
+	then
+		if [ ! -f "core/templates/$1.html" ]
+		then
+			cp -r projects/map projects/$1
+			mv projects/$1/map.py projects/$1/$1.py 
+			cp core/templates/map.html core/templates/$1.html
+			echo "created new project $1"
+		else
+			echo "The project $1 doesnt exist but the page $1 already exists"
+		fi
+	else
+		echo "The project $1 already exists"
+	fi
+fi

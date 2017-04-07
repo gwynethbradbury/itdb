@@ -64,18 +64,16 @@
 
 
 {% block body2 %}
-<div class="page-header">
-    <h4>Projects map</h4>
-</div>
 
 	
 
 
-<!--div class="large-12 columns">
-		{% for project in data %}
-			<p>{{project}}</p>
-		{% endfor %}
-</div-->
+<div class="large-12 columns">
+	<h4>List of data</h4>
+	{% for project in data %}
+		<p>{{project}}</p>
+	{% endfor %}
+</div>
 
 
 <div class="row">
@@ -89,7 +87,10 @@
 </div>
 
 
+<div class="large-12 columns"><h4>Projects map</h4></div>
+
 <div class="row">
+
 	<div class="large-8 medium-8 columns">
 		<div class="primary callout">
 			<div id="map-canvas" ></div>

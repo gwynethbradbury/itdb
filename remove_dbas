@@ -1,0 +1,23 @@
+if [ $# -eq 0 ]
+then
+	echo "enter project name as argument"
+else
+	if [ "$1" = "map" ]
+	then 
+	    echo "Can't remove project $1" 
+	else
+		if [ ! -d "projects/$1" ]
+		then
+			echo "Project $1 doesn't exist"
+		else
+			if [ ! -f "core/templates/$1.html" ]
+			then
+				echo "Page $1 doesn't exist"
+			else
+				rm -r projects/$1
+				rm core/templates/$1.html
+				echo "Removed project $1"
+			fi
+		fi
+	fi
+fi

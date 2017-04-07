@@ -77,7 +77,7 @@ class DBHelper:
 					'description':project[5]
 				}
 				named_projects.append(named_project)
-				print(named_project)
+				#print(named_project)
 			return named_projects
 		except Exception as e:
 			print(e)

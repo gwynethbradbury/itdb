@@ -12,3 +12,16 @@ def show(page):
         return render_template('%s.html' % page)
     except TemplateNotFound:
         abort(404)
+
+@home.route('/dbas')
+def dbas():
+	print("hi")
+	instances=[]
+	try:
+		instances.append('map')
+		instances.append('another app')
+	except Exception as e:
+		print e
+	for inst in instances:
+		print(inst)
+	return render_template("index.html",instances=instances)

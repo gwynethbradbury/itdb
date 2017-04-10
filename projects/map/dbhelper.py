@@ -9,11 +9,15 @@ from numpy import genfromtxt
 
 
 class DBHelper:
-	def connect(self,database="map"):
+	def __init__(self):
+		self.mydatabase="map"
+
+
+	def connect(self,database=""):
 		return pymysql.connect(host='localhost',
 				user=dbconfig.db_user,
 				passwd=dbconfig.db_password,
-				db=database)
+				db=self.mydatabase)
 
 	def get_all_inputs(self):
 		connection=self.connect()

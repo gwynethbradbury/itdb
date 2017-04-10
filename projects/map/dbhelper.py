@@ -17,11 +17,18 @@ class DBHelper:
 
 	def get_all_inputs(self):
 		connection=self.connect()
+		named_projects=[]
 		try:
 			query="SELECT description FROM projects;"
 			with connection.cursor() as cursor:
 				cursor.execute(query)
-			return cursor.fetchall()
+			for project in cursor:
+				named_project= project[0]
+				named_projects.append(named_project)
+				print(named_project)
+			return named_projects
+		except Exception as e:
+			print(e)
 		finally:
 			connection.close()
 
@@ -62,11 +69,11 @@ class DBHelper:
 
 	def get_all_projects(self):
 		connection=self.connect()
+		named_projects=[]
 		try:
 			query="SELECT latitude,longitude,startdate,enddate,category,description FROM projects;"
 			with connection.cursor() as cursor:
 				cursor.execute(query)
-			named_projects=[]
 			for project in cursor:
 				named_project={
 					'latitude':project[0],
@@ -81,7 +88,16 @@ class DBHelper:
 			return named_projects
 		except Exception as e:
 			print(e)
-			return [{'latitude':51.758793,'longitude':-1.253667,'startdate':"200-01-01",'enddate':"200-01-01",'category':"research",'description':"test desc"}]
+			testp ={
+					'latitude':51.758793,
+					'longitude':-1.253667,
+					'startdate':"200-01-01",
+					'enddate':"200-01-01",
+					'category':"research",
+					'description':"test desc"
+				}
+			named_projects.append(testp)
+			return named_projects
 		finally:
 			connection.close()
 

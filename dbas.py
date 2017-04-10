@@ -29,24 +29,12 @@ app.register_blueprint(map_app)
 DB=DBHelper()
 
 
-instances=[]
 
 
 if __name__ =='__main__':
 	app.run(host="0.0.0.0", port=5000, debug=True)
 
-@app.route("/instances")
-def getInstances():
-	print("hi")
-	instances=[]
-	try:
-		instances.append('map')
-		instances.append('another app')
-	except Exception as e:
-		print e
-	for inst in instances:
-		print(inst)
-	return render_template("instances.html",instances=instances)
+
 
 
 

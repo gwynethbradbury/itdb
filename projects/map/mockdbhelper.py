@@ -2,7 +2,7 @@ class MockDBHelper:
 	def connect(self,database="map"):
 		pass
 	def get_all_inputs(self):
-		return []
+		return  [{'latitude':51.758793,'longitude':-1.253667,'startdate':"200-01-01",'enddate':"200-01-01",'category':"research",'description':"test desc"}]
 	def add_input(self,data):
 		pass
 	def clear_all(self):

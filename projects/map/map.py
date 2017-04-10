@@ -17,14 +17,9 @@ DB=DBHelper()
 
 
 
-#class map_app:
-#	def __init__(self):
-#		self.projects=[]
-#		self.data=[]
 
 @map_app.route("/map")
 def map():
-	print("success")
 	try:
 		data=DB.get_all_inputs()
 		projects=DB.get_all_projects()

@@ -15,6 +15,18 @@ else:
 	from projects.map.dbhelper import DBHelper
 DB=DBHelper()
 
+@map_app.route("/showpoints")
+def showpoints():
+	try:
+		data=DB.getallpoints()
+		print(data)
+		projects=DB.get_all_projects()
+		projects=json.dumps(projects)
+	except Exception as e:
+		print e
+		data=None
+	print(data)
+	return render_template("map.html",projects=projects,data=data)
 
 
 

@@ -1,0 +1,11 @@
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - 'which rsync || ( apt-get update -y && apt-get install rsync -y )'
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY_DEV")
+  - mkdir -p ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo "$SSH_HOSTKEYS" > ~/.ssh/known_hosts'
+
+dev:
+  script:
+    - rsync --exclude=.gitlab-ci.yml --exclude=.git -avx -e ssh `pwd`/ dbasdev@iaas.ouce.ox.ac.uk:/var/www/html/dbas_dev/ 

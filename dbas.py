@@ -5,40 +5,39 @@ from flask import render_template, redirect, url_for
 from flask import request
 import json
 
-from projects.map.map import map_app
+from projects.map import map_app
 from core.home import home
 from core import create_app, db
 from core.models import User, Role
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
+# from app import dbas_app
+from app.admin import admin
 
 import dbconfig
+
 if dbconfig.test:
-	from projects.map.mockdbhelper import MockDBHelper as DBHelper
+    from projects.map.mockdbhelper import MockDBHelper as DBHelper
 else:
-	from projects.map.dbhelper import DBHelper
+    from projects.map.dbhelper import DBHelper
 
-
-app = create_app(os.getenv('FLASK_CONFIG') or 'default')
-manager = Manager(app)
-migrate = Migrate(app, db)
+from app import app
+# app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+# manager = Manager(app)
+# migrate = Migrate(app, db)
 
 app.register_blueprint(home)
 app.register_blueprint(map_app)
-#app=Flask(__name__)
-DB=DBHelper()
+# app.register_blueprint(admin , url_prefix='/admin')
+
+
+# app=Flask(__name__)
+
+
+# DB=DBHelper()
 
 
 
-
-if __name__ =='__main__':
-	app.run(host="0.0.0.0", port=3000, debug=True)
-
-
-
-
-
-
-
-
-
+if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=2000, debug=True)
+    # dbas_app.run(host="0.0.0.0", port=3000, debug=True)

@@ -5,7 +5,9 @@ from flask import Flask
 from flask import render_template, redirect, url_for
 from flask import request
 import json
-sys.path.insert(0,"/var/www/html/dbas/")
+path=__file__[0:-9]
+sys.path.insert(0,path)
+
 
 from projects.map import map_app
 from core.home import home

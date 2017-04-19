@@ -17,7 +17,7 @@ db = SQLAlchemy(app)
 
 from admin import admin
 
-app.register_blueprint(admin, url_prefix='/admin')
+app.register_blueprint(admin, url_prefix='/admin', template_folder='templates')
 
 
 @app.route('/admin')

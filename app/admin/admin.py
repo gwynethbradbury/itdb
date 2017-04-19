@@ -10,7 +10,7 @@ from app import db
 
 from .models import Blog, Comment, services, groups, permitted_svc, svc_instances
 
-admin = Blueprint('admin', __name__ , template_folder='templates')
+admin = Blueprint('admin', __name__)
 
 
 class CRUDView(MethodView):

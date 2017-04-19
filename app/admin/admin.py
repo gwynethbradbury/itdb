@@ -111,6 +111,7 @@ blog_filters = {
 }
 
 
+
 # view = CRUDView.as_view('blog', Blog, endpoint='blog', filters=filters)
 # # view = CRUDView.as_view('blog', Blog, endpoint='blog', decorators=[dec])
 # admin.add_url_rule('/blog/', view_func=view, methods=['GET', 'POST'])

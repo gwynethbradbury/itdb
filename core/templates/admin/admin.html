@@ -2,27 +2,22 @@
 
 {% block styles %}
 
-<!--
-
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Admin</title>-->
-	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+{#	<title>Admin</title>#}
+{#	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">#}
 	<style>
-		.main {
-		  position: relative;
-		  width: 90%;
-		  margin: 0 auto;
-		  height: inherit;
-		 }
-		.main .menu ul {
-		  width: 90%;
-		}
-		.main .menu ul li:last-child {
-		  float: right;
-		  display: inline-block;
-        }
+{#		.main {#}
+{#		  position: relative;#}
+{#		  width: 90%;#}
+{#		  margin: 0 auto;#}
+{#		  height: inherit;#}
+{#		 }#}
+{#		.main .menu ul {#}
+{#		  width: 90%;#}
+{#		}#}
+{#		.main .menu ul li:last-child {#}
+{#		  float: right;#}
+{#		  display: inline-block;#}
+{#        }#}
 
 		.button {
 		  color: white;
@@ -47,10 +42,10 @@
         .listview .pure-u {
           overflow: hidden;
         }
-	  
+
   		.item-form .pure-form {
-		  width: 90%;
-		  margin: 40px auto;
+		  width: 500px;
+{#		  margin: 40px auto;#}
 		}
 		.item-form .pure-form legend {
 		  color: #6b6b6b;
@@ -99,22 +94,23 @@ table, th, td {
 
 					{% block body2 %}
 <!--<body>-->
-	<div class="main">
-        <div class="menu pure-menu pure-menu-open pure-menu-horizontal">
+{#	<div class="main">#}
+        <div>
 
-            <ul>
+            <ul class="menu vertical">
                 <li><a href="{{ url_for('admin.groups')}}">Groups</a></li>
                 <li><a href="{{ url_for('admin.permitted_svc')}}">Permitted Services</a></li>
                 <li><a href="{{ url_for('admin.services')}}">Services</a></li>
                 <li><a href="{{ url_for('admin.service_instances')}}">Service Instances</a></li>
-                <li><a class="pure-button" href="#not_implemented">Logout</a></li>
+{#                <li><a class="pure-button" href="#not_implemented">Logout</a></li>#}
 
             </ul>
         </div>
+                        <hr>
 
 					{% block content %}{% endblock %}
 
-	</div>
+{#	</div>#}
 		{% endblock %}
 <!--</body>
 

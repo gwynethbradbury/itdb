@@ -46,7 +46,7 @@ class svc_instances(db.Model):
         self.group_id=group_id
 
     def __repr__(self):
-        return '<td>{0}</td><td>{1}</td><td><a href="/{2}">{2}</a></td><td>{3}</td><td>{4}</td>'.format(self.id,
+        return '<td>{0}</td><td>{1}</td><td><a href="{2}">{2}</a></td><td>{3}</td><td>{4}</td>'.format(self.id,
                                                                                 self.project_display_name,
                                                                              self.instance_identifier,
                                                                              self.svc_type_id,

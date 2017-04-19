@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5216aa2-f126-4355-838a-43d271f57d12" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/__init__.py" afterPath="$PROJECT_DIR$/app/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/admin/admin.py" afterPath="$PROJECT_DIR$/app/admin/admin.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/admin/models.py" afterPath="$PROJECT_DIR$/app/admin/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/admin/admin.html" afterPath="$PROJECT_DIR$/core/templates/admin/admin.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/admin/listview.html" afterPath="$PROJECT_DIR$/core/templates/admin/listview.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/layout.html" afterPath="$PROJECT_DIR$/core/templates/layout.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/projects/map/Admin/admin.py" afterPath="$PROJECT_DIR$/projects/map/Admin/admin.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -54,14 +47,13 @@
           <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app/admin/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="569">
-                  <caret line="69" column="0" lean-forward="true" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+                <state relative-caret-position="450">
+                  <caret line="48" column="53" lean-forward="false" selection-start-line="48" selection-start-column="53" selection-end-line="48" selection-end-column="53" />
                   <folding>
                     <element signature="e#0#29#0" expanded="true" />
                     <element signature="e#145#443#0" expanded="false" />
                     <element signature="e#476#744#0" expanded="false" />
-                    <element signature="e#2007#2470#0" expanded="false" />
-                    <element signature="e#2503#3007#0" expanded="false" />
+                    <element signature="e#2502#3006#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -1037,14 +1029,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/admin/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="569">
-          <caret line="69" column="0" lean-forward="true" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+        <state relative-caret-position="450">
+          <caret line="48" column="53" lean-forward="false" selection-start-line="48" selection-start-column="53" selection-end-line="48" selection-end-column="53" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
             <element signature="e#145#443#0" expanded="false" />
             <element signature="e#476#744#0" expanded="false" />
-            <element signature="e#2007#2470#0" expanded="false" />
-            <element signature="e#2503#3007#0" expanded="false" />
+            <element signature="e#2502#3006#0" expanded="false" />
           </folding>
         </state>
       </provider>

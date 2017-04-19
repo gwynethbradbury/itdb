@@ -2,31 +2,63 @@
 
 {% block content %}
 
-	<div class="listview">
-	<a class="pure-button pure-button-primary" href="{{path + 'new'}}">Create new</a>
-		{% if filters %}
-			{% if not filter_name %}
-				<a class="pure-button button blue" href="{{path}}">Show all</a>
-			{% else %}
-				<a class="pure-button" href="{{path}}">Show all</a>
-			{% endif %}
-		{% endif %}
-		
-		{% for filter in filters %}
-			{% if filter == filter_name %}
-				<a class="pure-button button blue" href="{{path + 'filter/' + filter}}">{{filter.replace('_', ' ')}}</a>
-			{% else %}
-				<a class="pure-button" href="{{path + 'filter/' + filter}}">{{filter.replace('_', ' ')}}</a>
-			{% endif %}
-		{% endfor %}
+    <div class="listview">
+        <a class="pure-button pure-button-primary" href="{{ path + 'new' }}">Create new</a>
+        {% if filters %}
+            {% if not filter_name %}
+                <a class="pure-button button blue" href="{{ path }}">Show all</a>
+            {% else %}
+                <a class="pure-button" href="{{ path }}">Show all</a>
+            {% endif %}
+        {% endif %}
 
-		{% for item in obj %}
-			<div class="pure-g">
-				<div class="pure-u-2-24">
-				<a class="pure-button pure-button-primary button red" href="{{path +'delete/'+ item.id|string}}">delete</a></div>
-				<div class="pure-u"><a class="pure-button pure-button-primary button blue" href="{{path + item.id|string}}">{{item}}</a></div>
-			</div>
-		{% endfor %}
-	</div>
+        {% for filter in filters %}
+            {% if filter == filter_name %}
+                <a class="pure-button button blue"
+                   href="{{ path + 'filter/' + filter }}">{{ filter.replace('_', ' ') }}</a>
+            {% else %}
+                <a class="pure-button" href="{{ path + 'filter/' + filter }}">{{ filter.replace('_', ' ') }}</a>
+            {% endif %}
+        {% endfor %}
+
+        <br/>
+
+        {% if obj|length %}
+{#        <div style="overflow-x:auto;">#}
+            <table class=".scroll .stack" table-layout="fixed" >
+                <tr>
+                    {% for f in obj[0].fields %}
+                        <th width="100">{{ f }}</th>
+                    {% endfor %}
+                    <th width="10"></th>
+                    <th width="10"></th>
+                    <th></th>
+                </tr>
+
+                {% for item in obj %}
+                    <tr>
+    {#                <div class="pure-g">#}
+    {#                    <div class="pure-u">#}
+        {#                    {% for f in item|__repr__ %}#}
+        {#                        {{ f }}#}
+        {#                    {% endfor %}#}
+                            {{ item|safe }}
+    {#                    </div>#}
+    {#                </div>#}
+                        <td>
+                            <div class="pure-u-2-24">
+                                <a class="pure-button pure-button-primary button red" href="{{ path +'delete/'+ item.id|string }}">delete</a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="pure-u"><a class="pure-button pure-button-primary button blue"
+                                                   href="{{ path + item.id|string }}">edit</a></div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+{#        </div>#}
+        {% endif %}
+    </div>
 
 {% endblock %}

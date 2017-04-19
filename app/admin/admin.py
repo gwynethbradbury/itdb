@@ -147,10 +147,15 @@ comment_filters = {
     'visible': lambda model: model.query.filter_by(visible=True).all()
 }
 
+svc_instance_filters={
+    'dbas':lambda model:model.query.filter_by(group_id=1).all(),
+    'nextcloud':lambda model:model.query.filter_by(group_id=2).all()
+}
+
 register_crud(admin, '/blog', 'blog', Blog, filters=blog_filters)
 register_crud(admin, '/comments', 'comments', Comment, filters=comment_filters)
 
 register_crud(admin, '/groups', 'groups', groups)
 register_crud(admin, '/permitted_svc', 'permitted_svc', permitted_svc)
 register_crud(admin, '/services', 'services', services)
-register_crud(admin, '/service_instances', 'service_instances', svc_instances)
+register_crud(admin, '/service_instances', 'service_instances', svc_instances, filters=svc_instance_filters)

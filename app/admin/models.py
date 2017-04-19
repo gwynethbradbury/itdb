@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from .. import db
 
 
@@ -11,53 +10,61 @@ from .. import db
 class groups(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     ldap_name = db.Column(db.String(60), unique=True)
+    fields=['id','ldap_name']
 
     def __init__(self, ldap_name=""):
         self.ldap_name = ldap_name
 
     def __repr__(self):
-        return '<ldap_name - {}>'.format(self.ldap_name)
+        return '<td>{}</td><td>{}</td>'.format(self.id,self.ldap_name)
 
 
 class services(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), unique=True)
+    fields=['id','name']
 
     def __init__(self, name=""):
         self.name = name
 
     def __repr__(self):
-        return '<name - {}>'.format(self.name)
+        return '<td>{}</td><td>{}</td>'.format(self.id,self.name)
 
 
 class svc_instances(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(60), unique=True)
-    identifier = db.Column(db.String(60), unique=True)
+    project_display_name = db.Column(db.String(60), unique=True)
+    instance_identifier = db.Column(db.String(60), unique=True)
     svc_type_id = db.Column(db.Integer, db.ForeignKey('services.id'))
     group_id = db.Column(db.Integer, db.ForeignKey('groups.id'))
+    fields=['id','name','identifier','service type ID','group ID']
 
-    def __init__(self, name="", identifier="",svc_type_id=0,group_id=0):
-        self.name = name
-        self.identifier=identifier
+    def __init__(self, project_display_name="", instance_identifier="",svc_type_id=0,group_id=0):
+        self.project_display_name = project_display_name
+        self.instance_identifier=instance_identifier
         self.svc_type_id=svc_type_id
         self.group_id=group_id
 
     def __repr__(self):
-        return '<name - {}, description - {}, type - {}, group - {}>'.format(self.name,self.identifier,self.svc_type_id,self.group_id)
+        return '<td>{0}</td><td>{1}</td><td><a href="/{2}">{2}</a></td><td>{3}</td><td>{4}</td>'.format(self.id,
+                                                                                self.project_display_name,
+                                                                             self.instance_identifier,
+                                                                             self.svc_type_id,
+                                                                             self.group_id)
 
 
 class permitted_svc(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     svc_id = db.Column(db.Integer, db.ForeignKey('services.id'))
     group_id = db.Column(db.Integer, db.ForeignKey('groups.id'))
+    fields=['id','service ID','group ID']
 
     def __init__(self, name="", identifier="",svc_type_id=0,group_id=0):
         self.svc_id=svc_type_id
         self.group_id=group_id
 
     def __repr__(self):
-        return '<service - {}, group - {}>'.format(self.svc_id,self.group_id)
+        return '<td>{}</td><td>{}</td><td>{}</td>'.format(self.svc_id,self.group_id)
 
 
 

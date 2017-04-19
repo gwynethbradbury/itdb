@@ -6,7 +6,7 @@ from flask import Blueprint, request, g, redirect, url_for, abort, \
 from flask.views import MethodView
 from wtforms.ext.sqlalchemy.orm import model_form
 
-from .. import db
+from app.admin import db
 
 from .models import Blog, Comment
 

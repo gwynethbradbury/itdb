@@ -98,7 +98,22 @@ table, th, td {
         <div>
 
             <ul class="menu vertical">
-                <li><a href="{{ url_for('map.project')}}">Projects</a></li>
+                <li><a href="{{ url_for('map.project')}}">Projects</a> <a href="/projects/map/admin/download/">Download</a>
+{#                    <form action=""#}
+{#                          method="post"#}
+{#                          name="login">#}
+{#                    {{ form.hidden_tag() }}#}
+{#                    <p>#}
+{#                      Please enter table name:<br>#}
+{#                      {{ form.tablename(size=80) }}<br>#}
+{#                    </p>#}
+{#                    <p>{{ form.whole_table }} Whole Table?</p>#}
+{#                    <p><input type="submit" value="Download Table"></p>#}
+{#                    </form>#}
+
+{#                    <a class="button success" href="{{ path +'download/'+ item.id|string }}">Download table</a>#}
+
+                </li>
 {#                <li><a class="pure-button" href="#not_implemented">Logout</a></li>#}
 
             </ul>

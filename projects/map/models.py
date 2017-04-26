@@ -27,5 +27,3 @@ class project(db.Model):
         return '<td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td>'\
             .format(self.id,self.latitude,self.longitude,self.startdate,self.enddate,self.category,self.description,self.updated_at)
 
-
-

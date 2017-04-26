@@ -7,6 +7,9 @@ SQLALCHEMY_BINDS = {
     'iaas_db': 'mysql+pymysql://{}:{}@localhost/iaas'.format(dbconfig.db_user, dbconfig.db_password),
     'project_map_db': 'mysql+pymysql://{}:{}@localhost/map'.format(dbconfig.db_user, dbconfig.db_password)
 }
+WTF_CSRF_ENABLED = False
+SECRET_KEY = 'you-will-never-guess'
+
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'

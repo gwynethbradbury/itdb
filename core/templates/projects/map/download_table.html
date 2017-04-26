@@ -1,0 +1,19 @@
+{% extends "projects/map/mapadmin.html" %}
+
+{% block content %}
+    <h1>Download data</h1>
+    <form action="" method="post" name="login">
+        {{ form.hidden_tag() }}
+        <p>
+            Please enter name of tables:<br>
+            {{ form.tablename(size=80) }}<br>
+        </p>
+        <p>{{ form.whole_table }} Whole table?</p>
+
+        {% if form.whole_table %}whole table
+        {% else %}not whole table
+        {% endif %}
+
+        <p><input type="submit" value="Download"></p>
+    </form>
+{% endblock %}

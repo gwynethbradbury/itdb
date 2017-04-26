@@ -16,7 +16,7 @@ DB = DBHelper("map")
 
 @map.route("/projects/map/admin/")
 def showtables():
-    return render_template("/projects/map/admin.html")
+    return render_template("/projects/map/mapadmin.html")
 
 
 @map.route("/projects/map/showpoints")

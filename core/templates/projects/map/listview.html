@@ -1,0 +1,59 @@
+{% extends 'projects/map/mapadmin.html' %}
+
+{% block content %}
+
+    <div class="listview">
+
+        <a class="button success" href="{{ path + 'new' }}">Create new</a>
+
+        {% if filters %}
+            {% if not filter_name %}
+                <a class="button primary" href="{{ path }}">Show all</a>
+            {% else %}
+                <a class="button secondary" href="{{ path }}">Show all</a>
+            {% endif %}
+        {% endif %}
+
+        {% for filter in filters %}
+            {% if filter == filter_name %}
+                <a class="button primary"
+                   href="{{ path + 'filter/' + filter }}">{{ filter.replace('_', ' ') }}</a>
+            {% else %}
+                <a class="button secondary" href="{{ path + 'filter/' + filter }}">{{ filter.replace('_', ' ') }}</a>
+            {% endif %}
+        {% endfor %}
+
+        <br/>
+
+        {% if obj|length %}
+            <table class=".scroll .stack" table-layout="fixed" >
+                <tr>
+                    {% for f in obj[0].fields %}
+                        <th>{{ f }}</th>
+                    {% endfor %}
+                    <th width="10"></th>
+                    <th width="10"></th>
+                    <th></th>
+                </tr>
+
+                {% for item in obj %}
+                    <tr>
+                        {{ item|safe }}
+                        <td>
+                            <div class="pure-u-2-24">
+                                <a class="button alert" href="{{ path +'delete/'+ item.id|string }}">delete</a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="pure-u">
+                                <a class="button primary"
+                                                   href="{{ path + item.id|string }}">edit</a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+
+{% endblock %}

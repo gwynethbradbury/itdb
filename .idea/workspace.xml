@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5216aa2-f126-4355-838a-43d271f57d12" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/templates/projects/map/download_link.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/templates/projects/map/download_table.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/projects/map/forms.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.py" afterPath="$PROJECT_DIR$/config.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/projects/map/detailview.html" afterPath="$PROJECT_DIR$/core/templates/projects/map/detailview.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/projects/map/mapadmin.html" afterPath="$PROJECT_DIR$/core/templates/projects/map/mapadmin.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/projects/map/models.py" afterPath="$PROJECT_DIR$/projects/map/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/projects/map/views.py" afterPath="$PROJECT_DIR$/projects/map/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,13 +37,13 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/projects/map/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="504">
-                  <caret line="136" column="0" lean-forward="true" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
+                <state relative-caret-position="774">
+                  <caret line="200" column="0" lean-forward="true" selection-start-line="200" selection-start-column="0" selection-end-line="200" selection-end-column="0" />
                   <folding>
-                    <element signature="e#0#68#0" expanded="true" />
+                    <element signature="e#0#78#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -76,11 +69,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="download_link.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="download_link.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/core/templates/projects/map/download_link.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="60">
-                  <caret line="4" column="61" lean-forward="false" selection-start-line="4" selection-start-column="61" selection-end-line="4" selection-end-column="61" />
+                <state relative-caret-position="15">
+                  <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -99,8 +92,8 @@
           <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/core/__init__.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="405">
-                  <caret line="33" column="30" lean-forward="false" selection-start-line="29" selection-start-column="32" selection-end-line="33" selection-end-column="30" />
+                <state relative-caret-position="375">
+                  <caret line="31" column="5" lean-forward="true" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
                   <folding />
                 </state>
               </provider>
@@ -149,8 +142,8 @@
           <file leaf-file-name="listview.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/core/templates/projects/map/listview.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="660">
-                  <caret line="44" column="0" lean-forward="false" selection-start-line="43" selection-start-column="32" selection-end-line="44" selection-end-column="0" />
+                <state relative-caret-position="465">
+                  <caret line="31" column="40" lean-forward="true" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
                   <folding />
                 </state>
               </provider>
@@ -261,8 +254,8 @@
         <option value="$PROJECT_DIR$/projects/map/__init__.py" />
         <option value="$PROJECT_DIR$/projects/map/forms.py" />
         <option value="$PROJECT_DIR$/projects/map/models.py" />
-        <option value="$PROJECT_DIR$/projects/map/views.py" />
         <option value="$PROJECT_DIR$/core/templates/projects/map/download_link.html" />
+        <option value="$PROJECT_DIR$/projects/map/views.py" />
       </list>
     </option>
   </component>
@@ -832,22 +825,22 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/projects/map/views.py</url>
-          <line>179</line>
+          <line>188</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/projects/map/views.py</url>
-          <line>161</line>
+          <line>170</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/projects/map/views.py</url>
-          <line>166</line>
+          <line>175</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/projects/map/views.py</url>
-          <line>170</line>
+          <line>179</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -855,8 +848,13 @@
           <line>125</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/projects/map/views.py</url>
+          <line>98</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="12" />
+      <option name="time" value="13" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -1140,14 +1138,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="33" column="30" lean-forward="false" selection-start-line="29" selection-start-column="32" selection-end-line="33" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/access_helper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1168,24 +1158,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/projects/map/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="136" column="0" lean-forward="true" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#68#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/download_table.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/admin/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="555">
@@ -1200,10 +1172,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/listview.html">
+    <entry file="file://$PROJECT_DIR$/core/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="44" column="0" lean-forward="false" selection-start-line="43" selection-start-column="32" selection-end-line="44" selection-end-column="0" />
+        <state relative-caret-position="375">
+          <caret line="31" column="5" lean-forward="true" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/download_table.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1218,9 +1198,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/templates/projects/map/download_link.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="61" lean-forward="false" selection-start-line="4" selection-start-column="61" selection-end-line="4" selection-end-column="61" />
+        <state relative-caret-position="15">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/listview.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="31" column="40" lean-forward="true" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/map/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="774">
+          <caret line="200" column="0" lean-forward="true" selection-start-line="200" selection-start-column="0" selection-end-line="200" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#78#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

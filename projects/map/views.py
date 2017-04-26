@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, request, flash
+from flask import render_template, redirect, url_for, request, flash,send_file
 from . import map#, DB
 import json
 from jinja2 import TemplateNotFound
@@ -122,7 +122,7 @@ def download_table():
         result = db_connection.execute(select)
 
         projbasedir = os.path.abspath(os.path.dirname(__file__))
-        exportpath = projbasedir + '/data/export.csv'
+        exportpath = projbasedir + '/data/'+'export.csv'
         fh = open(exportpath, 'wb')
         outcsv = csv.writer(fh)
 
@@ -131,8 +131,17 @@ def download_table():
 
         fh.close()
 
-        return render_template('projects/map/download_link.html',
-                               title='Download Data')
+
+        try:
+            # return
+            return send_file(exportpath,
+                             attachment_filename='export.csv')
+        except Exception as e:
+            print( str(e))
+
+
+        # return render_template('projects/map/download_link.html',
+        #                        title='Download Data')
         # return redirect('/projects/map/data/export.csv')
 
 
@@ -184,7 +193,7 @@ def download_table():
         #
         #
         #
-        # return redirect('/projects/map/admin/')
+        return redirect('/projects/map/admin/')
     return render_template('projects/map/download_table.html',
                            title='Select Data',
                            form=form)

@@ -20,7 +20,7 @@ class DBHelper:
         connection = self.connect()
         named_projects = []
         try:
-            query = "SELECT latitude,longitude,startdate,enddate,category,description FROM projects;"
+            query = "SELECT latitude,longitude,startdate,enddate,category,description FROM project;"
             with connection.cursor() as cursor:
                 cursor.execute(query)
             for project in cursor:
@@ -54,7 +54,7 @@ class DBHelper:
         connection = self.connect()
         named_projects = []
         try:
-            query = "SELECT description FROM projects;"
+            query = "SELECT description FROM project;"
             with connection.cursor() as cursor:
                 cursor.execute(query)
             for project in cursor:
@@ -70,7 +70,7 @@ class DBHelper:
     def add_project(self, latitude, longitude, startdate, enddate, category, description):
         connection = self.connect()
         try:
-            query = "INSERT INTO projects (latitude,longitude,startdate,enddate,category,description) VALUES (%s,%s,%s,%s,%s,%s);"
+            query = "INSERT INTO project (latitude,longitude,startdate,enddate,category,description) VALUES (%s,%s,%s,%s,%s,%s);"
             with connection.cursor() as cursor:
                 cursor.execute(query, (latitude, longitude, startdate, enddate, category, description))
                 connection.commit()
@@ -94,7 +94,7 @@ class DBHelper:
                 category = i[4]
                 description = i[5]
 
-                query = "INSERT INTO projects (latitude,longitude,startdate,enddate,category,description) VALUES (%s,%s,%s,%s,%s,%s);"
+                query = "INSERT INTO project (latitude,longitude,startdate,enddate,category,description) VALUES (%s,%s,%s,%s,%s,%s);"
                 with connection.cursor() as cursor:
                     cursor.execute(query, (latitude, longitude, startdate, enddate, category, description))
                     connection.commit()
@@ -107,7 +107,7 @@ class DBHelper:
         connection = self.connect()
         named_projects = []
         try:
-            query = "SELECT latitude,longitude,startdate,enddate,category,description FROM projects;"
+            query = "SELECT latitude,longitude,startdate,enddate,category,description FROM project;"
             with connection.cursor() as cursor:
                 cursor.execute(query)
             for project in cursor:
@@ -140,7 +140,7 @@ class DBHelper:
     def clear_all(self):
         connection = self.connect()
         try:
-            query = "DELETE FROM projects;"
+            query = "DELETE FROM project;"
             with connection.cursor() as cursor:
                 cursor.execute(query)
                 connection.commit()

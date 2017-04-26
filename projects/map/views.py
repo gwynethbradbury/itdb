@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for, request
-from . import map_app#, DB
+from . import map#, DB
 import json
 from jinja2 import TemplateNotFound
 
@@ -14,7 +14,12 @@ projects = []
 
 DB = DBHelper("map")
 
-@map_app.route("/showpoints")
+@map.route("/projects/map/admin/")
+def showtables():
+    return render_template("/projects/map/admin.html")
+
+
+@map.route("/projects/map/showpoints")
 def showpoints():
     projects = []
     try:
@@ -26,24 +31,19 @@ def showpoints():
         print e
         data = []
     print(data)
-    return render_template("map.html", projects=projects, data=data)
+    return render_template("projects/map/map.html", projects=projects, data=data)
 
 
-@map_app.route("/map")
-def map():
-    projects = []
+@map.route("/projects/map/clear")
+def clear():
     try:
-        data = DB.get_all_inputs()
-        projects = DB.get_all_projects()
-        projects = json.dumps(projects)
+        DB.clear_all()
     except Exception as e:
         print e
-        data = []
-    print(data)
-    return render_template("map.html", projects=projects, data=data)
+    return redirect(url_for('map'))
 
 
-@map_app.route("/submitproject", methods=['GET', 'POST'])
+@map.route("/projects/map/submitproject", methods=['GET', 'POST'])
 def submit():
     try:
         category = request.form.get("category")
@@ -59,7 +59,7 @@ def submit():
     return redirect(url_for('map_app.map'))
 
 
-@map_app.route("/uploadxls", methods=['GET', 'POST'])
+@map.route("/projects/map/uploadxls", methods=['GET', 'POST'])
 def upload():
     try:
         filename = request.form.get("filename")
@@ -69,12 +69,17 @@ def upload():
     return redirect(url_for('map_app.map'))
 
 
-# return map()
-
-@map_app.route("/clear")
-def clear():
+@map.route("/projects/map/")
+def map():
+    projects = []
     try:
-        DB.clear_all()
+        data = DB.get_all_inputs()
+        projects = DB.get_all_projects()
+        projects = json.dumps(projects)
     except Exception as e:
         print e
-    return redirect(url_for('map'))
+        data = []
+    print(data)
+    return render_template("projects/map/map.html", projects=projects, data=data)
+
+

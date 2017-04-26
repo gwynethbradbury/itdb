@@ -138,6 +138,7 @@ def register_crud(app, url, endpoint, model, decorators=[], **kwargs):
                      methods=['GET'])
     app.add_url_rule('%s/<operation>/<filter_name>/' % url, view_func=view,
                      methods=['GET'])
+    print('registered crud at ' + url)
 
 
 

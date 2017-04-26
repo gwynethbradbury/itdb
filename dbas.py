@@ -6,6 +6,7 @@
 # from core.home import home
 
 from app import app
+from projects.map import map
 
 # app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 # manager = Manager(app)
@@ -13,4 +14,4 @@ from app import app
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=2000, debug=True)
+    app.run(host="0.0.0.0", port=2000)#, debug=True)

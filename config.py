@@ -1,6 +1,12 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
+import dbconfig
 
+# SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{}:{}@localhost/iaas'.format(dbconfig.db_user, dbconfig.db_password),
+SQLALCHEMY_BINDS = {
+    'iaas_db': 'mysql+pymysql://{}:{}@localhost/iaas'.format(dbconfig.db_user, dbconfig.db_password),
+    'project_map_db': 'mysql+pymysql://{}:{}@localhost/map'.format(dbconfig.db_user, dbconfig.db_password)
+}
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'

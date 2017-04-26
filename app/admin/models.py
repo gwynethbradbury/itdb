@@ -6,8 +6,21 @@ from .. import db
 # | services        |
 # | svc_instances  |
 
+# class map_point(db.Model):
+#     __bind_key__ = 'project_map_db'
+#
+#     id = db.Column(db.Integer, primary_key=True)
+#     latitude = db.Column(db.Integer)
+#     fields=['id','ldap_name']
+#
+#     def __init__(self, ldap_name=""):
+#         self.ldap_name = ldap_name
+#
+#     def __repr__(self):
+#         return '<td>{}</td><td>{}</td>'.format(self.id,self.ldap_name)
 
 class groups(db.Model):
+    __bind_key__ = 'iaas_db'
     id = db.Column(db.Integer, primary_key=True)
     ldap_name = db.Column(db.String(60), unique=True)
     fields=['id','ldap_name']
@@ -20,6 +33,7 @@ class groups(db.Model):
 
 
 class services(db.Model):
+    __bind_key__ = 'iaas_db'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), unique=True)
     fields=['id','name']
@@ -32,6 +46,7 @@ class services(db.Model):
 
 
 class svc_instances(db.Model):
+    __bind_key__ = 'iaas_db'
     id = db.Column(db.Integer, primary_key=True)
     project_display_name = db.Column(db.String(60), unique=True)
     instance_identifier = db.Column(db.String(60), unique=True)
@@ -54,6 +69,7 @@ class svc_instances(db.Model):
 
 
 class permitted_svc(db.Model):
+    __bind_key__ = 'iaas_db'
     id = db.Column(db.Integer, primary_key=True)
     svc_id = db.Column(db.Integer, db.ForeignKey('services.id'))
     group_id = db.Column(db.Integer, db.ForeignKey('groups.id'))
@@ -72,6 +88,7 @@ class permitted_svc(db.Model):
 
 
 class Blog(db.Model):
+    __bind_key__ = 'iaas_db'
     id = db.Column(db.Integer, primary_key=True)
 
     title = db.Column(db.String(100), unique=True)
@@ -90,6 +107,7 @@ class Blog(db.Model):
 
 
 class Comment(db.Model):
+    __bind_key__ = 'iaas_db'
     id = db.Column(db.Integer, primary_key=True)
     blog_id = db.Column(db.Integer, db.ForeignKey('blog.id'))
     blog = db.relationship('Blog', backref=db.backref('comments',

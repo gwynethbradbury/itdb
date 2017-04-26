@@ -9,7 +9,17 @@
   width: auto; }
   .event-date .event-month {
     margin: 0;
+    background: #999;
+    padding: 0.5rem 2rem;
+    text-align: center; }
+  .event-date .event-monthpast {
+    margin: 0;
     background: #eee;
+    padding: 0.5rem 2rem;
+    text-align: center; }
+  .event-date .event-monthtoday {
+    margin: 0;
+    background: #b9ff9b;
     padding: 0.5rem 2rem;
     text-align: center; }
   .event-date .event-day {

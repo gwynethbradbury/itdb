@@ -72,9 +72,11 @@
 
 <div class="large-12 columns">
 	<h4>List of data</h4>
+    {% if data|length>0 %}
 	{% for project in data %}
 		<p>{{project}}</p>
 	{% endfor %}
+    {% endif %}
 </div>
 
 

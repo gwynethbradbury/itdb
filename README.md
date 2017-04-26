@@ -13,11 +13,10 @@ The process for creating a new project should be roughly as follows:
 - avoid capitalising the first letter or a class name as this seems to lead to discrepancies between different sql versions and breaks the pages
 
 5. Start a python console:
-
-import dbconfig, config
-from app import db
-from projects.[new project name].models import *
-db.create_all(bind = ‘[db bind name]’)
+    - import dbconfig, config
+    - from app import db
+    - from projects.[new project name].models import *
+    - db.create_all(bind = ‘[db bind name]’)
 
 
 6. To add the admin pages for this project, add the following lines to the project's __init__.py file

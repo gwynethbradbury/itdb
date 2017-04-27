@@ -1,12 +1,10 @@
-from flask import render_template, redirect, url_for, request, flash,send_file
-from . import map#, DB
+from flask import render_template, redirect, url_for, request,send_file
+from . import map
 import json
-from jinja2 import TemplateNotFound
-from .forms import DownloadTableForm
-from app import db
 from models import project
-import StringIO
 import os
+import csv
+import sqlalchemy as sqAl
 
 
 import dbconfig
@@ -95,34 +93,68 @@ dbbb = 'mysql+pymysql://{}:{}@localhost/map'.format(dbconfig.db_user, dbconfig.d
 db2 = dataset.connect(dbbb, row_type=project)
 
 
-@map.route("/projects/map/admin/download/", methods=['GET', 'POST'])
-def download_table():
-    form = DownloadTableForm()
-    if form.validate_on_submit():
-        print('Download requested for table="%s", whole_table=%s' %
-              (form.tablename.data, str(form.whole_table.data)))
-        flash('Download requested for table="%s", whole_table=%s' %
-              (form.tablename.data, str(form.whole_table.data)))
+# @map.route("/projects/map/submitproject", methods=['GET', 'POST'])
+# def submit():
+#     try:
+#         category = request.form.get("category")
+#         startdate = request.form.get("startdate")
+#         enddate = request.form.get("enddate")
+#         latitude = float(request.form.get("latitude"))
+#         longitude = float(request.form.get("longitude"))
+#         description = request.form.get("description")
+#         DB.add_project(latitude, longitude, startdate, enddate, category, description)
+#     except Exception as e:
+#         print e
+#     # home()
+#     return redirect(url_for('map_app.map'))
+
+@map.route("/projects/map/admin/download")
+def download():
+    engine = sqAl.create_engine(dbbb)
+    tablenames=[]
+
+    from sqlalchemy import MetaData
+    m = MetaData()
+    m.reflect(engine)
+    for table in m.tables.values():
+        print(table.name)
+        tablenames.append(table.name)
+        # for column in table.c:
+        #     print(column.name)
+
+
+
+    return render_template('projects/map/download_table.html',
+                           tablenames=tablenames)
+    # return showtables()
+
+
+@map.route("/projects/map/admin/servedata", methods=['GET', 'POST'])
+def servedata():
+    # form = DownloadTableForm()
+    # if form.validate_on_submit():
+        print('Download requested for table="%s"' %
+              (request.form.get("tablename")))
 
         #DOWNLOAD WHOLE TABLE DATA HERE
 
-
-
-        import csv
-        import sqlalchemy as sqAl
-
+        if request.form.get("wholetable"):
+            print('yes')
+        else:
+            print('no')
         metadata = sqAl.MetaData()
         engine = sqAl.create_engine(dbbb)
         metadata.bind = engine
 
-        mytable = sqAl.Table('project', metadata, autoload=True)
+        mytable = sqAl.Table(request.form.get("tablename"), metadata, autoload=True)#.data, metadata, autoload=True)
+        # mytable = sqAl.Table('project', metadata, autoload=True)
         db_connection = engine.connect()
 
         select = sqAl.sql.select([mytable])
         result = db_connection.execute(select)
 
         projbasedir = os.path.abspath(os.path.dirname(__file__))
-        exportpath = projbasedir + '/data/'+'export.csv'
+        exportpath = projbasedir + '/data/export.csv'
         fh = open(exportpath, 'wb')
         outcsv = csv.writer(fh)
 
@@ -131,7 +163,6 @@ def download_table():
 
         fh.close()
 
-
         try:
             # return
             return send_file(exportpath,
@@ -139,64 +170,6 @@ def download_table():
         except Exception as e:
             print( str(e))
 
-
-        # return render_template('projects/map/download_link.html',
-        #                        title='Download Data')
-        # return redirect('/projects/map/data/export.csv')
-
-
-
-
-        # import csv
-        # outfile = open('/Users/cenv0594/Repositories/dbout.csv', 'wb')
-        # # outfile = open('mydump.csv', 'wb')
-        # outcsv = csv.writer(outfile)
-        # records = session.query(db).all()
-        # [outcsv.writerow([getattr(curr, column.name) for column in db.__mapper__.columns]) for curr in records]
-        # # or maybe use outcsv.writerows(records)
-        #
-        # outfile.close()
-
-
-        # def fake_close():
-        #     pass
-        #
-        # out_iostr = StringIO.StringIO()
-        # original_close = out_iostr.close
-        # alarms_table = db2['project']
-        #
-        # # Retrieve the db as a json StringIO without the close method
-        # out_iostr.close = fake_close
-        # dataset.freeze(alarms_table.all(), format='json', fileobj=out_iostr)
-        # out_str = out_iostr.getvalue()
-        # out_iostr.close = original_close
-        # out_iostr.close()
-        #
-        # # Get only the required data and format it
-        # alarms_dict = {'id': json.loads(out_str)['id']}
-        #
-        # # This commented out line would prettify the string
-        # # json.dumps(alarms_dict, indent=4, separators=(',', ': '))
-        # return json.dumps(alarms_dict)
-
-
-
-
-
-
-
-        # result = db2['project'].all()
-        # print(result)
-        #
-        # fh = open('/Users/cenv0594/Repositories/dbout.csv', 'wb')
-        # dataset.freeze(result, format='csv', fileobj=fh)
-        #
-        #
-        #
         return redirect('/projects/map/admin/')
-    return render_template('projects/map/download_table.html',
-                           title='Select Data',
-                           form=form)
-    # return showtables()
 
 

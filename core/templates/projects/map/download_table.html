@@ -2,18 +2,55 @@
 
 {% block content %}
     <h1>Download data</h1>
-    <form action="" method="post" name="login">
-        {{ form.hidden_tag() }}
-        <p>
-            Please enter name of tables:<br>
-            {{ form.tablename(size=80) }}<br>
-        </p>
-        <p>{{ form.whole_table }} Whole table?</p>
+    <form action="servedata" method="post" name="data">
+{#        {{ form.hidden_tag() }}#}
+{#        <p>#}
+{#            Please enter name of tables:<br>#}
+{#            {{ form.tablename(size=80) }}<br>#}
+{#        </p>#}
+{#        <p>{{ form.whole_table }} Whole table?</p>#}
 
-        {% if form.whole_table %}whole table
-        {% else %}not whole table
-        {% endif %}
+			<label for="tablename">Table</label>
+			<select name="tablename" id="tablename">
+                {% for t in tablenames %}
+				    <option value="{{ t }}">{{ t }}</option>
+                {% endfor %}
+			</select>
+            <input type="checkbox" name="wholetable" value="yes" checked="checked"> Download full table?<br>
+{#			<label for="whole_table">Whole table?</label>#}
+{#        <p>{{ form.whole_table }} Whole table?</p>#}
+{#			<input name="startdate" id="startdate" type="date">#}
+
+{#        {% if form.whole_table %}whole table#}
+{#        {% else %}not whole table#}
+{#        {% endif %}#}
 
         <p><input type="submit" value="Download"></p>
+{#        <input type="submit" name="submit" class="button">#}
+{##}
     </form>
+
+
+{#    	<div class="large-4 medium-4 columns primary callout">#}
+{#		<h2>Submit new project</h2>#}
+{#		<form action="/submitproject" method="POST">#}
+{#			<label for="category">Category</label>#}
+{#			<select name="category" id="category">#}
+{#				<option value="research">Research</option>#}
+{#				<option value="teaching">Teaching</option>#}
+{#				<option value="datacollection">Data Collection</option>#}
+{#			</select>#}
+{#			<label for="startdate">Start Date</label>#}
+{#			<input name="startdate" id="startdate" type="date">#}
+{#			<label for="enddate">End Date</label>#}
+{#			<input name="enddate" id="enddate" type="date">#}
+{#			<label for="enddate">Latitude</label>#}
+{#			<input name="latitude" id="latitude" type="text">#}
+{#			<label for="enddate">Longitude</label>#}
+{#			<input name="longitude" id="longitude" type="text">#}
+{#			<label for="description">Description</label>#}
+{#			<textarea name="description" id="description" placeholder="A brief but detailed description of the project"></textarea>#}
+{#			<input type="submit" name="submit" class="button">#}
+{#		</form>#}
+{#	</div>#}
 {% endblock %}

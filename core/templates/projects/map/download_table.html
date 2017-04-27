@@ -1,34 +1,71 @@
 {% extends "projects/map/mapadmin.html" %}
 
 {% block content %}
+        <style type="text/css">
+            #myData{visibility:hidden;}
+        </style>
+        <script language="JavaScript">
+
+            function toggleVisibility(eventsender, idOfObjectToToggle){
+                var myNewState = "hidden";
+                if (eventsender.checked === false){
+                    myNewState = "visible";
+                }
+
+                document.getElementById(idOfObjectToToggle).style.visibility = myNewState;
+            }
+            function toggleColumnHeaders(eventsender, idOfObjectToToggle){
+                var myNewState = "hidden";
+                if (eventsender.checked === true){
+                    myNewState = "visible";
+                }
+
+                document.getElementById(idOfObjectToToggle).style.visibility = myNewState;
+
+            }
+
+        </script>
+
+
+
+
     <h1>Download data</h1>
     <form action="servedata" method="post" name="data">
-{#        {{ form.hidden_tag() }}#}
-{#        <p>#}
-{#            Please enter name of tables:<br>#}
-{#            {{ form.tablename(size=80) }}<br>#}
-{#        </p>#}
-{#        <p>{{ form.whole_table }} Whole table?</p>#}
 
 			<label for="tablename">Table</label>
-			<select name="tablename" id="tablename">
+			<select name="tablename" id="tablename"/>
+				    <option value="other" id="other">
+                        other</option>
                 {% for t in tablenames %}
-				    <option value="{{ t }}">{{ t }}</option>
+				    <option value="{{ t }}" id="{{ t }}"
+                        onClick="JavaScript:toggleColumnHeaders(this,'project');">
+                        {{ t }}</option>
                 {% endfor %}
 			</select>
-            <input type="checkbox" name="wholetable" value="yes" checked="checked"> Download full table?<br>
-{#			<label for="whole_table">Whole table?</label>#}
-{#        <p>{{ form.whole_table }} Whole table?</p>#}
-{#			<input name="startdate" id="startdate" type="date">#}
+    <br/>
+			<label for="wholetable">Download full table? </label>
+            <input type="checkbox" checked="checked"
+                   value="yes" id="wholetable" name="wholetable"
+                   onClick = "JavaScript:toggleVisibility(this,'myData');"/>
+            <div name="myData" id="myData">
+                <h4>more fields...</h4>
+            <div name="project" id="project">project only</div>
+{#                <label for="wholetable">headername </label>#}
+    {#            <input type="checkbox" checked="checked"#}
+    {#                   value="yes" id="wholetable" name="wholetable"#}
+    {#                   onClick = "JavaScript:toggleVisibility(this,'myData');"/>#}
 
-{#        {% if form.whole_table %}whole table#}
-{#        {% else %}not whole table#}
-{#        {% endif %}#}
+            </div>
 
         <p><input type="submit" value="Download"></p>
-{#        <input type="submit" name="submit" class="button">#}
-{##}
     </form>
+
+{#    <html>#}
+{#    <head>#}
+{#    </head>#}
+{#    <body>#}
+{#        </body>#}
+{#</html>#}
 
 
 {#    	<div class="large-4 medium-4 columns primary callout">#}

@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5216aa2-f126-4355-838a-43d271f57d12" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/projects/map/download_table.html" afterPath="$PROJECT_DIR$/core/templates/projects/map/download_table.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/projects/map/mapadmin.html" afterPath="$PROJECT_DIR$/core/templates/projects/map/mapadmin.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/projects/map/views.py" afterPath="$PROJECT_DIR$/projects/map/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,7 +24,7 @@
     <splitter split-orientation="horizontal" split-proportion="0.47407407">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/projects/map/views.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="237">
@@ -39,11 +36,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="download_table.html" pinned="false" current-in-tab="false">
+          <file leaf-file-name="download_table.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/core/templates/projects/map/download_table.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="60">
-                  <caret line="4" column="53" lean-forward="false" selection-start-line="4" selection-start-column="53" selection-end-line="4" selection-end-column="53" />
+                <state relative-caret-position="480">
+                  <caret line="37" column="37" lean-forward="true" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
                   <folding />
                 </state>
               </provider>
@@ -130,8 +127,8 @@
           <file leaf-file-name="listview.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/core/templates/projects/map/listview.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="465">
-                  <caret line="31" column="40" lean-forward="true" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
+                <state relative-caret-position="495">
+                  <caret line="33" column="40" lean-forward="true" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
                   <folding />
                 </state>
               </provider>
@@ -244,8 +241,8 @@
         <option value="$PROJECT_DIR$/projects/map/models.py" />
         <option value="$PROJECT_DIR$/core/templates/projects/map/download_link.html" />
         <option value="$PROJECT_DIR$/core/templates/projects/map/mapadmin.html" />
-        <option value="$PROJECT_DIR$/core/templates/projects/map/download_table.html" />
         <option value="$PROJECT_DIR$/projects/map/views.py" />
+        <option value="$PROJECT_DIR$/core/templates/projects/map/download_table.html" />
       </list>
     </option>
   </component>
@@ -1167,14 +1164,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/download_table.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="53" lean-forward="false" selection-start-line="4" selection-start-column="53" selection-end-line="4" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/lib/python2.7/site-packages/flask/helpers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5985">
@@ -1195,8 +1184,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/templates/projects/map/listview.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="40" lean-forward="true" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
+        <state relative-caret-position="495">
+          <caret line="33" column="40" lean-forward="true" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/download_table.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="37" column="37" lean-forward="true" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
           <folding />
         </state>
       </provider>

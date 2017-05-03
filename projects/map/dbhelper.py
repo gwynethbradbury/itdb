@@ -103,6 +103,48 @@ class DBHelper:
         finally:
             connection.close()
 
+    def uploadcsv(self, filename):
+        connection = self.connect()
+        try:
+            data = genfromtxt(filename, delimiter=',', skip_header=1,
+                              converters={0: lambda s: str(s), 1: lambda s: str(s), 2: lambda s: str(s),
+                                          3: lambda s: str(s), 4: lambda s: str(s), 5: lambda s: str(s),
+                                          6: lambda s: str(s), 7: lambda s: str(s)})
+
+            print(data)
+            data = data.tolist()
+            print(data)
+            for i in data:
+                print(i)
+                latitude = i[1]
+                longitude = i[2]
+                startdate=datetime.utcnow()
+                enddate=datetime.utcnow()
+                updated_at=datetime.utcnow()
+                try:
+                    startdate = datetime.strptime(i[3], '%Y-%m-%d').date()
+                except Exception as e:
+                    pass
+                try:
+                    enddate = datetime.strptime(i[4], '%Y-%m-%d').date()
+                except Exception as e:
+                    pass
+                category = i[5]
+                description = i[6]
+                try:
+                    enddate = datetime.strptime(i[7], '%Y-%m-%d').date()
+                except Exception as e:
+                    pass
+
+                query = "INSERT INTO project (latitude,longitude,startdate,enddate,category,description,updated_at) VALUES (%s,%s,%s,%s,%s,%s,%s);"
+                with connection.cursor() as cursor:
+                    cursor.execute(query, (latitude, longitude, startdate, enddate, category, description,updated_at))
+                    connection.commit()
+        except Exception as e:
+            print(e)
+        finally:
+            connection.close()
+
     def get_all_projects(self):
         connection = self.connect()
         named_projects = []

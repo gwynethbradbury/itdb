@@ -1,0 +1,107 @@
+{% extends "projects/map/mapadmin.html" %}
+
+{% block content %}
+        <style type="text/css">
+            #myData{visibility:hidden;}
+        </style>
+        <script language="JavaScript">
+
+            function toggleVisibility(eventsender, idOfObjectToToggle){
+                var myNewState = "hidden";
+                if (eventsender.checked === false){
+                    myNewState = "visible";
+                }
+
+                document.getElementById(idOfObjectToToggle).style.visibility = myNewState;
+            }
+            function toggleColumnHeaders(eventsender, idOfObjectToToggle){
+                var myNewState = "hidden";
+                if (eventsender.checked === true){
+                    myNewState = "visible";
+                }
+
+                document.getElementById(idOfObjectToToggle).style.visibility = myNewState;
+
+            }
+
+        </script>
+
+
+
+
+    <h1>Upload data</h1>
+    <form action="genblankcsv" method="post" name="data">
+
+			<label for="tablename">Table</label>
+			<select name="tablename" id="tablename"/>
+				    <option value="other" id="other">
+                        other</option>
+                {% for t in tablenames %}
+				    <option value="{{ t }}" id="{{ t }}"
+                        onClick="JavaScript:toggleColumnHeaders(this,'project');">
+                        {{ t }}</option>
+                {% endfor %}
+			</select>
+    <br/>
+{#			<label for="wholetable">Download full table? </label>#}
+{#            <input type="checkbox" checked="checked"#}
+{#                   value="yes" id="wholetable" name="wholetable"#}
+{#                   onClick = "JavaScript:toggleVisibility(this,'myData');"/>#}
+{#            <div name="myData" id="myData">#}
+{#                <h4>more fields...</h4>#}
+{#            <div name="project" id="project">project only</div>#}
+{#                <label for="wholetable">headername </label>#}
+    {#            <input type="checkbox" checked="checked"#}
+    {#                   value="yes" id="wholetable" name="wholetable"#}
+    {#                   onClick = "JavaScript:toggleVisibility(this,'myData');"/>#}
+{##}
+{#            </div>#}
+
+        <p><input type="submit" value="Download Template"></p>
+
+
+    </form>
+
+{#    <form method=post enctype=multipart/form-data method="post">#}
+{#      <p><input type=file name=file>#}
+{#         <input type=submit value=uploadcsv>#}
+{#    </form>#}
+
+		<form action="uploadcsv" method="post" enctype=multipart/form-data>
+			<label for="filename">File Name</label>
+			<input type="file" name="file" size="40">
+			<input type="submit" name="submit" class="button">
+		</form>
+
+
+{#    <html>#}
+{#    <head>#}
+{#    </head>#}
+{#    <body>#}
+{#        </body>#}
+{#</html>#}
+
+
+{#    	<div class="large-4 medium-4 columns primary callout">#}
+{#		<h2>Submit new project</h2>#}
+{#		<form action="/submitproject" method="POST">#}
+{#			<label for="category">Category</label>#}
+{#			<select name="category" id="category">#}
+{#				<option value="research">Research</option>#}
+{#				<option value="teaching">Teaching</option>#}
+{#				<option value="datacollection">Data Collection</option>#}
+{#			</select>#}
+{#			<label for="startdate">Start Date</label>#}
+{#			<input name="startdate" id="startdate" type="date">#}
+{#			<label for="enddate">End Date</label>#}
+{#			<input name="enddate" id="enddate" type="date">#}
+{#			<label for="enddate">Latitude</label>#}
+{#			<input name="latitude" id="latitude" type="text">#}
+{#			<label for="enddate">Longitude</label>#}
+{#			<input name="longitude" id="longitude" type="text">#}
+{#			<label for="description">Description</label>#}
+{#			<textarea name="description" id="description" placeholder="A brief but detailed description of the project"></textarea>#}
+{#			<input type="submit" name="submit" class="button">#}
+{#		</form>#}
+{#	</div>#}
+{% endblock %}

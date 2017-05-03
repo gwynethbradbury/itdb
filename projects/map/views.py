@@ -63,7 +63,7 @@ def submit():
 
 
 @map.route("/projects/map/uploadxls", methods=['GET', 'POST'])
-def upload():
+def uploadxls():
     try:
         filename = request.form.get("filename")
         DB.uploadxls(filename)
@@ -172,4 +172,85 @@ def servedata():
 
         return redirect('/projects/map/admin/')
 
+@map.route("/projects/map/admin/genblankcsv", methods=['GET', 'POST'])
+def genBlankCSV():
+    # generates an empty file to upload data for the selected table
 
+    metadata = sqAl.MetaData()
+    engine = sqAl.create_engine(dbbb)
+    metadata.bind = engine
+
+    mytable = sqAl.Table(request.form.get("tablename"), metadata, autoload=True)#.data, metadata, autoload=True)
+    # mytable = sqAl.Table('project', metadata, autoload=True)
+    db_connection = engine.connect()
+
+    select = sqAl.sql.select([mytable])
+    result = db_connection.execute(select)
+
+    projbasedir = os.path.abspath(os.path.dirname(__file__))
+    exportpath = projbasedir + '/data/upload.csv'
+    fh = open(exportpath, 'wb')
+    outcsv = csv.writer(fh)
+
+    outcsv.writerow(result.keys())
+    # outcsv.writerows(result)
+
+    fh.close()
+
+    try:
+        # return
+        return send_file(exportpath,
+                         attachment_filename='export.csv')
+    except Exception as e:
+        print( str(e))
+
+    return redirect('/projects/map/admin/')
+
+@map.route("/projects/map/admin/upload")
+def upload():
+    engine = sqAl.create_engine(dbbb)
+    tablenames=[]
+
+    from sqlalchemy import MetaData
+    m = MetaData()
+    m.reflect(engine)
+    for table in m.tables.values():
+        print(table.name)
+        tablenames.append(table.name)
+        # for column in table.c:
+        #     print(column.name)
+
+
+
+    return render_template('projects/map/upload_table.html',
+                           tablenames=tablenames)
+    # return showtables()
+
+
+from werkzeug.utils import secure_filename
+from . import uploadfolder
+
+@map.route("/projects/map/admin/uploadcsv", methods=['GET', 'POST'])
+def uploadcsv():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            print('No file part')
+            # return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            print('No selected file')
+            # return redirect(request.url)
+        if file:# and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(uploadfolder, filename))
+            print(filename)
+            DB.uploadcsv(os.path.join(uploadfolder, filename))
+            # return redirect(url_for('uploaded_file',
+            #                         filename=filename))
+
+
+
+    return redirect('/projects/map/admin/')

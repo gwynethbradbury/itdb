@@ -229,6 +229,7 @@ def upload():
 
 from werkzeug.utils import secure_filename
 from . import uploadfolder
+from datetime import datetime
 
 @map.route("/projects/map/admin/uploadcsv", methods=['GET', 'POST'])
 def uploadcsv():
@@ -236,16 +237,17 @@ def uploadcsv():
         # check if the post request has the file part
         if 'file' not in request.files:
             print('No file part')
-            # return redirect(request.url)
+            return redirect(request.url)
         file = request.files['file']
         # if user does not select file, browser also
         # submit a empty part without filename
         if file.filename == '':
             print('No selected file')
-            # return redirect(request.url)
+            return redirect(request.url)
         if file:# and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(uploadfolder, filename))
+            dt = datetime.utcnow().strftime("%Y-%m-%d_%H:%M:%S")
+            file.save(os.path.join(uploadfolder, dt+'_'+filename))
             print(filename)
             DB.uploadcsv(os.path.join(uploadfolder, filename))
             # return redirect(url_for('uploaded_file',

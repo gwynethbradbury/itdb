@@ -7,7 +7,7 @@
         <script language="JavaScript">
 
             function toggleVisibility(eventsender, idOfObjectToToggle){
-                var myNewState = "hidden";
+                var myNewState = "collapse";
                 if (eventsender.checked === false){
                     myNewState = "visible";
                 }
@@ -32,7 +32,7 @@
                     idd = "_"+document.getElementById("tablename").options[i].text;
 
                     try {
-                        document.getElementById(idd).style.visibility = "hidden";
+                        document.getElementById(idd).style.visibility = "collapse";
                     }
                     catch(err) {
 {#                        document.getElementById("demo").innerHTML = err.message;#}
@@ -86,20 +86,21 @@
 
             {% for c in columnnames %}
 
-                <div id="_{{ tablenames[loop.index0] }}">
+                <div >
                     <br/>
 
+                    <table id="_{{ tablenames[i] }}">
                     {% set i=loop.index0 %}
                     {% for cc in c %}
-
-                    <label for="{{ cc }}"> {{ cc }} </label>
-                    <input type="checkbox" checked="checked"
-                           value="yes" id="{{ tablenames[i] }}_{{ cc }}"
-                           content="{{ cc }}"
-                           name="{{tablenames[i] }}_{{ cc }}"/>
-                        <br/>
-
+                        <tr>
+                            <td><label for="{{ cc }}"> {{ cc }} </label></td>
+                            <td><input type="checkbox" checked="checked"
+                               value="yes" id="{{ tablenames[i] }}_{{ cc }}"
+                               content="{{ cc }}"
+                               name="{{tablenames[i] }}_{{ cc }}"/></td>
+                        </tr>
                     {% endfor %}
+                    </table>
                 </div>
             {% endfor %}
 

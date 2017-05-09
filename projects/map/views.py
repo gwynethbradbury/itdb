@@ -6,6 +6,9 @@ import os
 import csv
 import sqlalchemy as sqAl
 
+from sqlalchemy import *
+# from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
 import dbconfig
 if dbconfig.test:
@@ -116,16 +119,21 @@ def download():
     from sqlalchemy import MetaData
     m = MetaData()
     m.reflect(engine)
+    columnnames=[]
     for table in m.tables.values():
         print(table.name)
         tablenames.append(table.name)
-        # for column in table.c:
-        #     print(column.name)
+        thesecolumnnames=[]
+        for column in table.c:
+            thesecolumnnames.append(column.name)
+        columnnames.append(thesecolumnnames)
 
+    print tablenames
+    print columnnames
 
 
     return render_template('projects/map/download_table.html',
-                           tablenames=tablenames)
+                           tablenames=tablenames,columnnames=columnnames)
     # return showtables()
 
 
@@ -136,22 +144,67 @@ def servedata():
         print('Download requested for table="%s"' %
               (request.form.get("tablename")))
 
-        #DOWNLOAD WHOLE TABLE DATA HERE
 
         if request.form.get("wholetable"):
             print('yes')
         else:
             print('no')
-        metadata = sqAl.MetaData()
-        engine = sqAl.create_engine(dbbb)
+    #
+        metadata = MetaData()
+        engine = create_engine(dbbb)
         metadata.bind = engine
+    #
+        tablename = request.form.get("tablename")
+        mytable = sqAl.Table(tablename, metadata, autoload=True)
+        # print("cols: ")
+        # print(mytable.c)
+        columnnames = []
 
-        mytable = sqAl.Table(request.form.get("tablename"), metadata, autoload=True)#.data, metadata, autoload=True)
-        # mytable = sqAl.Table('project', metadata, autoload=True)
-        db_connection = engine.connect()
+        for cc in mytable.c:
+            if request.form.get(tablename+"_"+cc.name):
+                columnnames.append(cc.name)
+                # print(cc.name)
+            # else:
+            #     print("not " + tablename+"_"+cc.name)
 
-        select = sqAl.sql.select([mytable])
-        result = db_connection.execute(select)
+        print("getting columns:" )
+        print(i for i in columnnames)
+
+    #     # r=sqAl.sql.select([mytable],getattr(project,"id"))
+    #     # print(r)
+    #
+    #     db_connection = engine.connect()
+    #
+    #     select = sqAl.sql.select([mytable])
+    #
+    #     result = db_connection.execute(select)
+    #
+
+        engine = create_engine(dbbb)
+        Session = sessionmaker(bind=engine)
+
+        engine.echo = False  # Try changing this to True and see what happens
+
+        session = Session()
+        print session
+        col_names_str = columnnames
+        columns = [column(col) for col in col_names_str]
+
+        q=select(from_obj=project, columns=columns)
+        result = session.execute(q)
+
+        KEYS = result.keys()
+        print(KEYS)
+        result_as_string=[]
+        for row in result:
+            rr = []
+            for i in row:
+                rr.append(str(i))
+            result_as_string.append(rr)
+            # print(rr)
+
+
+
 
         projbasedir = os.path.abspath(os.path.dirname(__file__))
         exportpath = projbasedir + '/data/export.csv'
@@ -159,7 +212,7 @@ def servedata():
         outcsv = csv.writer(fh)
 
         outcsv.writerow(result.keys())
-        outcsv.writerows(result)
+        outcsv.writerows(result_as_string)
 
         fh.close()
 

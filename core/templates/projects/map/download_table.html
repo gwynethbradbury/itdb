@@ -14,13 +14,38 @@
 
                 document.getElementById(idOfObjectToToggle).style.visibility = myNewState;
             }
-            function toggleColumnHeaders(eventsender, idOfObjectToToggle){
-                var myNewState = "hidden";
-                if (eventsender.checked === true){
-                    myNewState = "visible";
+{#            function toggleColumnHeaders(eventsender, idOfObjectToToggle){#}
+{#                var myNewState = "hidden";#}
+{#                if (eventsender.checked === true){#}
+{#                    myNewState = "visible";#}
+{#                }#}
+{#                col = document.getElementById("tablename").selectedIndex#}
+{#                tablename.innerHTML("hello")#}
+{##}
+{#                print( "hello")#}
+{#                document.getElementById(idOfObjectToToggle).style.visibility = myNewState;#}
+{##}
+{#            }#}
+            function toggleColumnHeaders(eventsender){
+
+                for(i=0;i<document.getElementById("tablename").options.length;i++){
+                    idd = "_"+document.getElementById("tablename").options[i].text;
+
+                    try {
+                        document.getElementById(idd).style.visibility = "hidden";
+                    }
+                    catch(err) {
+{#                        document.getElementById("demo").innerHTML = err.message;#}
+                    }
                 }
 
-                document.getElementById(idOfObjectToToggle).style.visibility = myNewState;
+
+                idOfObjectToToggle = "_"+document.getElementById("tablename").options[document.getElementById("tablename").selectedIndex].text;
+                document.getElementById(idOfObjectToToggle).style.visibility = "visible";
+
+
+
+                document.getElementById("selectedtablename").innerHTML = "Columns for table: "+document.getElementById("tablename").options[document.getElementById("tablename").selectedIndex].text
 
             }
 
@@ -29,65 +54,59 @@
 
 
 
-    <h1>Download data</h1>
+    <h2>Download data</h2>
     <form action="servedata" method="post" name="data">
+        <h4>Select table:</h4>
 
-			<label for="tablename">Table</label>
-			<select name="tablename" id="tablename"/>
-				    <option value="other" id="other">
-                        other</option>
-                {% for t in tablenames %}
-				    <option value="{{ t }}" id="{{ t }}"
-                        onClick="JavaScript:toggleColumnHeaders(this,'project');">
-                        {{ t }}</option>
-                {% endfor %}
-			</select>
+        <label for="tablename">Table</label>
+        <select name="tablename" id="tablename" onchange="toggleColumnHeaders(this)"/>
+
+
+            {% for t in tablenames %}
+                <option value="{{ t }}" id="{{ t }}">
+                    {{ t }}
+                </option>
+            {% endfor %}
+
+                <option value="other" id="other">
+                    other
+                </option>
+        </select>
     <br/>
-			<label for="wholetable">Download full table? </label>
-            <input type="checkbox" checked="checked"
-                   value="yes" id="wholetable" name="wholetable"
-                   onClick = "JavaScript:toggleVisibility(this,'myData');"/>
-            <div name="myData" id="myData">
-                <h4>more fields...</h4>
-            <div name="project" id="project">project only</div>
-{#                <label for="wholetable">headername </label>#}
-    {#            <input type="checkbox" checked="checked"#}
-    {#                   value="yes" id="wholetable" name="wholetable"#}
-    {#                   onClick = "JavaScript:toggleVisibility(this,'myData');"/>#}
+        <label for="wholetable">Download full table? </label>
+        <input type="checkbox" checked="checked"
+               value="yes" id="wholetable" name="wholetable"
+               onClick = "JavaScript:toggleVisibility(this,'myData');"/>
+        <div name="myData" id="myData">
+            <h4>Select fields...</h4>
 
-            </div>
+
+            <p id="selectedtablename"></p>
+            <br/>
+
+            {% for c in columnnames %}
+
+                <div id="_{{ tablenames[loop.index0] }}">
+                    <br/>
+
+                    {% set i=loop.index0 %}
+                    {% for cc in c %}
+
+                    <label for="{{ cc }}"> {{ cc }} </label>
+                    <input type="checkbox" checked="checked"
+                           value="yes" id="{{ tablenames[i] }}_{{ cc }}"
+                           content="{{ cc }}"
+                           name="{{tablenames[i] }}_{{ cc }}"/>
+                        <br/>
+
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+        </div>
 
         <p><input type="submit" value="Download"></p>
     </form>
 
-{#    <html>#}
-{#    <head>#}
-{#    </head>#}
-{#    <body>#}
-{#        </body>#}
-{#</html>#}
 
-
-{#    	<div class="large-4 medium-4 columns primary callout">#}
-{#		<h2>Submit new project</h2>#}
-{#		<form action="/submitproject" method="POST">#}
-{#			<label for="category">Category</label>#}
-{#			<select name="category" id="category">#}
-{#				<option value="research">Research</option>#}
-{#				<option value="teaching">Teaching</option>#}
-{#				<option value="datacollection">Data Collection</option>#}
-{#			</select>#}
-{#			<label for="startdate">Start Date</label>#}
-{#			<input name="startdate" id="startdate" type="date">#}
-{#			<label for="enddate">End Date</label>#}
-{#			<input name="enddate" id="enddate" type="date">#}
-{#			<label for="enddate">Latitude</label>#}
-{#			<input name="latitude" id="latitude" type="text">#}
-{#			<label for="enddate">Longitude</label>#}
-{#			<input name="longitude" id="longitude" type="text">#}
-{#			<label for="description">Description</label>#}
-{#			<textarea name="description" id="description" placeholder="A brief but detailed description of the project"></textarea>#}
-{#			<input type="submit" name="submit" class="button">#}
-{#		</form>#}
-{#	</div>#}
 {% endblock %}

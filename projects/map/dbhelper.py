@@ -179,6 +179,27 @@ class DBHelper:
         finally:
             connection.close()
 
+    def get_columns(self, columns=['*']):
+        connection = self.connect()
+        projects = []
+        try:
+            query = "SELECT "+columns+" FROM project;"
+            with connection.cursor() as cursor:
+                cursor.execute(query)
+            for project in cursor:
+                thisp=[]
+                for p in project:
+                    print(p)
+                    print(thisp)
+                    thisp.append(p)
+                projects.append(thisp)
+            return projects
+        except Exception as e:
+            print(e)
+            return projects
+        finally:
+            connection.close()
+
     def clear_all(self):
         connection = self.connect()
         try:

@@ -6,6 +6,7 @@ from app import db
 
 class project(db.Model):
     __bind_key__ = 'project_map_db'
+    __tablename__ = 'project'
 
     id = db.Column(db.Integer, primary_key=True)
 

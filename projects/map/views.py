@@ -114,12 +114,18 @@ db2 = dataset.connect(dbbb, row_type=project)
 @map.route("/projects/map/admin/download")
 def download():
     engine = sqAl.create_engine(dbbb)
+    columnnames=[]
     tablenames=[]
+
+    # tablenames.append('other')
+    # thesecolumnnames2 = []
+    # for i in range(3):
+    #     thesecolumnnames2.append(str(i))
+    # columnnames.append(thesecolumnnames2)
 
     from sqlalchemy import MetaData
     m = MetaData()
     m.reflect(engine)
-    columnnames=[]
     for table in m.tables.values():
         print(table.name)
         tablenames.append(table.name)

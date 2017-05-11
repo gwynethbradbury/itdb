@@ -7,8 +7,8 @@ import csv
 import sqlalchemy as sqAl
 
 from sqlalchemy import *
-# from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+
 
 import dbconfig
 if dbconfig.test:
@@ -20,9 +20,19 @@ projects = []
 
 DB = DBHelper("map")
 
+from core.dev import *
+
+import dataset
+
+dbbb = 'mysql+pymysql://{}:{}@localhost/map'.format(dbconfig.db_user, dbconfig.db_password)
+db2 = dataset.connect(dbbb, row_type=project)
+DBA = DatabaseAssistant(dbbb)
+
 @map.route("/projects/map/admin/")
 def showtables():
-    return render_template("/projects/map/mapadmin.html")
+    tablenames, columnnames = DBA.getTableAndColumnNames()
+
+    return render_template("/projects/map/mapadmin.html",tablenames=tablenames)
 
 
 @map.route("/projects/map/showpoints")
@@ -90,10 +100,6 @@ def maphome():
 
 
 
-import dataset
-
-dbbb = 'mysql+pymysql://{}:{}@localhost/map'.format(dbconfig.db_user, dbconfig.db_password)
-db2 = dataset.connect(dbbb, row_type=project)
 
 
 # @map.route("/projects/map/submitproject", methods=['GET', 'POST'])
@@ -111,9 +117,9 @@ db2 = dataset.connect(dbbb, row_type=project)
 #     # home()
 #     return redirect(url_for('map_app.map'))
 
-@map.route("/projects/map/admin/download")
-def download():
-    engine = sqAl.create_engine(dbbb)
+@map.route("/projects/map/admin/createtable")
+def createtable():
+    # engine = sqAl.create_engine(dbbb)
     columnnames=[]
     tablenames=[]
 
@@ -123,167 +129,76 @@ def download():
     #     thesecolumnnames2.append(str(i))
     # columnnames.append(thesecolumnnames2)
 
-    from sqlalchemy import MetaData
-    m = MetaData()
-    m.reflect(engine)
-    for table in m.tables.values():
-        print(table.name)
-        tablenames.append(table.name)
-        thesecolumnnames=[]
-        for column in table.c:
-            thesecolumnnames.append(column.name)
-        columnnames.append(thesecolumnnames)
+    # from sqlalchemy import MetaData
+    # m = MetaData()
+    # m.reflect(engine)
+    # for table in m.tables.values():
+    #     print(table.name)
+    #     tablenames.append(table.name)
+    #     thesecolumnnames=[]
+    #     for column in table.c:
+    #         thesecolumnnames.append(column.name)
+    #     columnnames.append(thesecolumnnames)
+    #
+    # print tablenames
+    # print columnnames
 
-    print tablenames
-    print columnnames
+    DBA.createEmptyTable("newtable")
 
+    return render_template('projects/map/create_table.html',
+                           tablenames=tablenames,columnnames=columnnames)
+    # return showtables()
+
+@map.route("/projects/map/admin/addcolumn")
+def addcolumn():
+
+    tablenames, columnnames = DBA.getTableAndColumnNames()
+
+    DBA.addColumn("newtable", "test2","Time stamp")
+
+    return render_template('projects/map/create_table.html',
+                           tablenames=tablenames,columnnames=columnnames)
+    # return showtables()
+
+@map.route("/projects/map/admin/download")
+def download():
+    tablenames, columnnames = DBA.getTableAndColumnNames()
 
     return render_template('projects/map/download_table.html',
                            tablenames=tablenames,columnnames=columnnames)
-    # return showtables()
 
 
 @map.route("/projects/map/admin/servedata", methods=['GET', 'POST'])
 def servedata():
-    # form = DownloadTableForm()
-    # if form.validate_on_submit():
-        print('Download requested for table="%s"' %
-              (request.form.get("tablename")))
-
-
-        if request.form.get("wholetable"):
-            print('yes')
-        else:
-            print('no')
-    #
-        metadata = MetaData()
-        engine = create_engine(dbbb)
-        metadata.bind = engine
-    #
-        tablename = request.form.get("tablename")
-        mytable = sqAl.Table(tablename, metadata, autoload=True)
-        # print("cols: ")
-        # print(mytable.c)
-        columnnames = []
-
-        for cc in mytable.c:
-            if request.form.get(tablename+"_"+cc.name):
-                columnnames.append(cc.name)
-                # print(cc.name)
-            # else:
-            #     print("not " + tablename+"_"+cc.name)
-
-        print("getting columns:" )
-        print(i for i in columnnames)
-
-    #     # r=sqAl.sql.select([mytable],getattr(project,"id"))
-    #     # print(r)
-    #
-    #     db_connection = engine.connect()
-    #
-    #     select = sqAl.sql.select([mytable])
-    #
-    #     result = db_connection.execute(select)
-    #
-
-        engine = create_engine(dbbb)
-        Session = sessionmaker(bind=engine)
-
-        engine.echo = False  # Try changing this to True and see what happens
-
-        session = Session()
-        print session
-        col_names_str = columnnames
-        columns = [column(col) for col in col_names_str]
-
-        q=select(from_obj=project, columns=columns)
-        result = session.execute(q)
-
-        KEYS = result.keys()
-        print(KEYS)
-        result_as_string=[]
-        for row in result:
-            rr = []
-            for i in row:
-                rr.append(str(i))
-            result_as_string.append(rr)
-            # print(rr)
-
-
-
-
-        projbasedir = os.path.abspath(os.path.dirname(__file__))
-        exportpath = projbasedir + '/data/export.csv'
-        fh = open(exportpath, 'wb')
-        outcsv = csv.writer(fh)
-
-        outcsv.writerow(result.keys())
-        outcsv.writerows(result_as_string)
-
-        fh.close()
-
-        try:
-            # return
-            return send_file(exportpath,
-                             attachment_filename='export.csv')
-        except Exception as e:
-            print( str(e))
-
-        return redirect('/projects/map/admin/')
-
-@map.route("/projects/map/admin/genblankcsv", methods=['GET', 'POST'])
-def genBlankCSV():
-    # generates an empty file to upload data for the selected table
-
-    metadata = sqAl.MetaData()
-    engine = sqAl.create_engine(dbbb)
-    metadata.bind = engine
-
-    mytable = sqAl.Table(request.form.get("tablename"), metadata, autoload=True)#.data, metadata, autoload=True)
-    # mytable = sqAl.Table('project', metadata, autoload=True)
-    db_connection = engine.connect()
-
-    select = sqAl.sql.select([mytable])
-    result = db_connection.execute(select)
-
-    projbasedir = os.path.abspath(os.path.dirname(__file__))
-    exportpath = projbasedir + '/data/upload.csv'
-    fh = open(exportpath, 'wb')
-    outcsv = csv.writer(fh)
-
-    outcsv.writerow(result.keys())
-    # outcsv.writerows(result)
-
-    fh.close()
 
     try:
-        # return
-        return send_file(exportpath,
-                         attachment_filename='export.csv')
+        return DBA.serveData(F=request.form,
+                  C=project,
+                  p=os.path.abspath(os.path.dirname(__file__)))
+    except Exception as e:
+        print( str(e))
+    return redirect('/projects/map/admin/')
+
+
+
+@map.route("/projects/map/admin/genblankcsv", methods=['GET', 'POST'])
+def genblankcsv():
+    try:
+        return DBA.genBlankCSV(request.form.get("tablename"),
+                               p=os.path.abspath(os.path.dirname(__file__)))
     except Exception as e:
         print( str(e))
 
     return redirect('/projects/map/admin/')
 
+
 @map.route("/projects/map/admin/upload")
 def upload():
-    engine = sqAl.create_engine(dbbb)
-    tablenames=[]
 
-    from sqlalchemy import MetaData
-    m = MetaData()
-    m.reflect(engine)
-    for table in m.tables.values():
-        print(table.name)
-        tablenames.append(table.name)
-        # for column in table.c:
-        #     print(column.name)
-
-
+    tablenames, columnnames = DBA.getTableAndColumnNames()
 
     return render_template('projects/map/upload_table.html',
                            tablenames=tablenames)
-    # return showtables()
 
 
 from werkzeug.utils import secure_filename

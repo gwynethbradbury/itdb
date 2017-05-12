@@ -117,37 +117,15 @@ def maphome():
 #     # home()
 #     return redirect(url_for('map_app.map'))
 
-@map.route("/projects/map/admin/createtable")
-def createtable():
-    # engine = sqAl.create_engine(dbbb)
+@map.route("/projects/map/admin/newtable")
+def newtable():
+
     columnnames=[]
     tablenames=[]
 
-    # tablenames.append('other')
-    # thesecolumnnames2 = []
-    # for i in range(3):
-    #     thesecolumnnames2.append(str(i))
-    # columnnames.append(thesecolumnnames2)
-
-    # from sqlalchemy import MetaData
-    # m = MetaData()
-    # m.reflect(engine)
-    # for table in m.tables.values():
-    #     print(table.name)
-    #     tablenames.append(table.name)
-    #     thesecolumnnames=[]
-    #     for column in table.c:
-    #         thesecolumnnames.append(column.name)
-    #     columnnames.append(thesecolumnnames)
-    #
-    # print tablenames
-    # print columnnames
-
-    DBA.createEmptyTable("newtable")
 
     return render_template('projects/map/create_table.html',
                            tablenames=tablenames,columnnames=columnnames)
-    # return showtables()
 
 @map.route("/projects/map/admin/addcolumn")
 def addcolumn():
@@ -170,6 +148,8 @@ def download():
 
 @map.route("/projects/map/admin/servedata", methods=['GET', 'POST'])
 def servedata():
+    #serves the requested data
+    # todo: problems with filename and extension
 
     try:
         return DBA.serveData(F=request.form,
@@ -177,6 +157,39 @@ def servedata():
                   p=os.path.abspath(os.path.dirname(__file__)))
     except Exception as e:
         print( str(e))
+    return redirect('/projects/map/admin/')
+
+
+@map.route("/projects/map/admin/createtable", methods=['GET', 'POST'])
+def createtable():
+    #create a new table either from scratch or from an existing csv
+    if request.form.get("source") == "emptytable":
+        DBA.createEmptyTable(request.form.get("newtablename"))
+    else:
+        print(request.form.get("file"))
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            print('No file part')
+            return redirect('/projects/map/admin/newtable')
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            print('No selected file')
+            return redirect('/projects/map/admin/newtable')
+        if file:  # and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            dt = datetime.utcnow().strftime("%Y-%m-%d_%H:%M:%S")
+            file.save(os.path.join(uploadfolder, dt + '_' + filename))
+            print(filename)
+            p = os.path.join(uploadfolder, filename)
+
+            print("about to upload")
+            # p="/Users/cenv0594/Repositories/dbas/projects/map/data/export.csv"
+            # p = request.form.get("file")
+            print(p)
+            DBA.createTableFromCSV(p,
+                                   request.form.get("newtablename"))
     return redirect('/projects/map/admin/')
 
 
@@ -196,6 +209,7 @@ def genblankcsv():
 def upload():
 
     tablenames, columnnames = DBA.getTableAndColumnNames()
+    # DBA.createTableFromCSV("/Users/cenv0594/Repositories/dbas/projects/map/data/export.csv", 'testtable2')
 
     return render_template('projects/map/upload_table.html',
                            tablenames=tablenames)

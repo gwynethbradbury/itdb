@@ -7,6 +7,81 @@ from sqlalchemy import *
 from sqlalchemy.orm import sessionmaker
 import pymysql
 import dbconfig
+import pandas as pd
+
+
+listOfColumnTypes = ["Integer",
+                   "String",
+                   "Characters",
+                   "Bool",
+                   "Time stamp",
+                   "Date",
+                   "Time",
+                   "Really long string",
+                   "Small integer",
+                   "Real",
+                   "Float",
+                   "Double",
+                   "Precision"]
+
+
+def desc2formattedtype(coltype,numchar):
+    data_type_formatted=""
+
+    if coltype == "Integer":
+        # INTEGER or INT
+        data_type_formatted = "INTEGER"
+
+    elif coltype == "String":
+        # VARCHAR(length)
+        data_type_formatted = "VARCHAR(" + str(numchar) + ")"
+
+    elif coltype == "Characters":
+        # CHARACTER[(length)] or CHAR[(length)]
+        data_type_formatted = "CHARACTER[(" + str(numchar) + ")]"
+
+    elif coltype == "Bool":
+        # BOOLEAN
+        data_type_formatted = "BOOLEAN"
+
+    elif coltype == "Time stamp":
+        # TIMESTAMP
+        data_type_formatted = "TIMESTAMP"
+
+    elif coltype == "Date":
+        # DATE
+        data_type_formatted = "DATE"
+
+    elif coltype == "Time":
+        # TIME
+        data_type_formatted = "TIME"
+
+    elif coltype == "Really long string":
+        # CLOB[(length)] or CHARACTER
+        data_type_formatted = "CLOB[(" + str(numchar) + ")]"
+
+    elif coltype=="Small integer":
+        # SMALLINT
+        data_type_formatted = "SMALLINT"
+
+    elif coltype=="Real":
+        # REAL
+        data_type_formatted="REAL"
+
+    elif coltype=="Float":
+        # FLOAT(p)
+        data_type_formatted="FLOAT("+str(numchar)+")"
+
+    elif coltype=="Double":
+        # DOUBLE
+        data_type_formatted="DOUBLE"
+
+    elif coltype=="Precision":
+        # PRECISION
+        data_type_formatted="PRECISION"
+
+    return data_type_formatted
+
 
 class DBEngine:
     E = SqlAl.null
@@ -18,9 +93,10 @@ class DBEngine:
         self.E = SqlAl.create_engine(db)
         self.metadata.bind = self.E
 
+
 class DatabaseAssistant:
-    db=""
-    DBE=SqlAl.null
+    db = ""
+    DBE = SqlAl.null
 
     def __init__(self,db=""):
         self.db = db
@@ -191,54 +267,7 @@ class DatabaseAssistant:
         connection = self.connect("map")
         cursor = connection.cursor()
 
-        if coltype == "Integer":
-            # INTEGER or INT
-            data_type_formatted = "INTEGER"
-
-        elif coltype == "String":
-            # VARCHAR(length)
-            data_type_formatted = "VARCHAR("+str(numchar)+")"
-
-        elif coltype == "Characters":
-            # CHARACTER[(length)] or CHAR[(length)]
-            data_type_formatted = "CHARACTER[("+str(numchar)+")]"
-
-        elif coltype=="Bool":
-            # BOOLEAN
-            data_type_formatted="BOOLEAN"
-
-        elif coltype=="Time stamp":
-            # TIMESTAMP
-            data_type_formatted="TIMESTAMP"
-
-        elif coltype=="Date":
-            # DATE
-            data_type_formatted="DATE"
-
-        elif coltype=="Time":
-            # TIME
-            data_type_formatted="TIME"
-
-        elif coltype=="Really long string":
-            # CLOB[(length)] or CHARACTER
-            data_type_formatted = "CLOB[("+str(numchar)+")]"
-
-
-
-            # SMALLINT
-            # DECIMAL[(p[, s])] or DEC[(p[, s])]
-            # NUMERIC[(p[, s])]
-            # REAL
-            # FLOAT(p)
-            # DOUBLE
-            # PRECISION
-            # LARGE
-            # OBJECT[(length)] or CHAR
-            # LARGE
-            # OBJECT[(length)]
-            # BLOB[(length)] or BINARY
-            # LARGE
-            # OBJECT[(length)]
+        data_type_formatted = desc2formattedtype(coltype,numchar)
 
         query = ("ALTER TABLE "+tablename+" ADD column "+colname+" "+data_type_formatted)
 
@@ -246,3 +275,15 @@ class DatabaseAssistant:
         connection.commit()
         connection.close()
 
+    def createTableFromCSV(self,filepath,tablename):
+
+
+        df = pd.read_csv(filepath,parse_dates=True)
+        try:
+            df.to_sql(tablename,
+                      self.DBE.E,
+                      if_exists='append',
+                      index=False,chunksize=50)
+        except Exception as e:
+            print(str(e))
+            print("something went wrong - maybe table exists and columns are mismatched?")

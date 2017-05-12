@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5216aa2-f126-4355-838a-43d271f57d12" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/dev/models.py" afterPath="$PROJECT_DIR$/core/dev/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/projects/map/create_table.html" afterPath="$PROJECT_DIR$/core/templates/projects/map/create_table.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/projects/map/mapadmin.html" afterPath="$PROJECT_DIR$/core/templates/projects/map/mapadmin.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/projects/map/views.py" afterPath="$PROJECT_DIR$/projects/map/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,11 +25,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.45090908">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/projects/map/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="439">
-                  <caret line="184" column="33" lean-forward="true" selection-start-line="184" selection-start-column="33" selection-end-line="184" selection-end-column="33" />
+                <state relative-caret-position="435">
+                  <caret line="190" column="51" lean-forward="true" selection-start-line="190" selection-start-column="51" selection-end-line="190" selection-end-column="51" />
                   <folding>
                     <element signature="e#0#71#0" expanded="true" />
                     <element signature="e#901#1216#0" expanded="false" />
@@ -40,16 +37,16 @@
                     <element signature="e#1464#1965#0" expanded="false" />
                     <element signature="e#3493#3762#0" expanded="false" />
                     <element signature="e#4112#4429#0" expanded="false" />
-                    <element signature="e#5964#6202#0" expanded="false" />
+                    <element signature="e#6936#7174#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="upload_table.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="upload_table.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/core/templates/projects/map/upload_table.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="126">
+                <state relative-caret-position="681">
                   <caret line="64" column="67" lean-forward="false" selection-start-line="64" selection-start-column="67" selection-end-line="64" selection-end-column="67" />
                   <folding />
                 </state>
@@ -118,11 +115,13 @@
           <file leaf-file-name="create_table.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/core/templates/projects/map/create_table.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="111">
-                  <caret line="53" column="84" lean-forward="false" selection-start-line="53" selection-start-column="84" selection-end-line="53" selection-end-column="84" />
+                <state relative-caret-position="426">
+                  <caret line="74" column="31" lean-forward="true" selection-start-line="74" selection-start-column="31" selection-end-line="74" selection-end-column="31" />
                   <folding>
-                    <marker date="1494596767000" expanded="false" signature="3347:3360" ph="..." />
-                    <marker date="1494596767000" expanded="false" signature="3598:3611" ph="..." />
+                    <element signature="e#2126#2148#0#HTML" expanded="true" />
+                    <element signature="e#2182#2204#0#HTML" expanded="true" />
+                    <marker date="1494597641000" expanded="false" signature="3480:3493" ph="..." />
+                    <marker date="1494597641000" expanded="false" signature="3731:3744" ph="..." />
                   </folding>
                 </state>
               </provider>
@@ -1245,10 +1244,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/upload_table.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="681">
+          <caret line="64" column="67" lean-forward="false" selection-start-line="64" selection-start-column="67" selection-end-line="64" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/create_table.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="426">
+          <caret line="74" column="31" lean-forward="true" selection-start-line="74" selection-start-column="31" selection-end-line="74" selection-end-column="31" />
+          <folding>
+            <element signature="e#2126#2148#0#HTML" expanded="true" />
+            <element signature="e#2182#2204#0#HTML" expanded="true" />
+            <marker date="1494597641000" expanded="false" signature="3480:3493" ph="..." />
+            <marker date="1494597641000" expanded="false" signature="3731:3744" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/projects/map/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="439">
-          <caret line="184" column="33" lean-forward="true" selection-start-line="184" selection-start-column="33" selection-end-line="184" selection-end-column="33" />
+        <state relative-caret-position="435">
+          <caret line="190" column="51" lean-forward="true" selection-start-line="190" selection-start-column="51" selection-end-line="190" selection-end-column="51" />
           <folding>
             <element signature="e#0#71#0" expanded="true" />
             <element signature="e#901#1216#0" expanded="false" />
@@ -1256,27 +1276,8 @@
             <element signature="e#1464#1965#0" expanded="false" />
             <element signature="e#3493#3762#0" expanded="false" />
             <element signature="e#4112#4429#0" expanded="false" />
-            <element signature="e#5964#6202#0" expanded="false" />
+            <element signature="e#6936#7174#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/create_table.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="53" column="84" lean-forward="false" selection-start-line="53" selection-start-column="84" selection-end-line="53" selection-end-column="84" />
-          <folding>
-            <marker date="1494596767000" expanded="false" signature="3347:3360" ph="..." />
-            <marker date="1494596767000" expanded="false" signature="3598:3611" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/upload_table.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="64" column="67" lean-forward="false" selection-start-line="64" selection-start-column="67" selection-end-line="64" selection-end-column="67" />
-          <folding />
         </state>
       </provider>
     </entry>

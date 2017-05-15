@@ -26,7 +26,7 @@ import dataset
 
 dbbb = 'mysql+pymysql://{}:{}@localhost/map'.format(dbconfig.db_user, dbconfig.db_password)
 db2 = dataset.connect(dbbb, row_type=project)
-DBA = DatabaseAssistant(dbbb)
+DBA = DatabaseAssistant(dbbb,'project_map_db')
 
 @map.route("/projects/map/admin/")
 def showtables():
@@ -100,23 +100,6 @@ def maphome():
 
 
 
-
-
-# @map.route("/projects/map/submitproject", methods=['GET', 'POST'])
-# def submit():
-#     try:
-#         category = request.form.get("category")
-#         startdate = request.form.get("startdate")
-#         enddate = request.form.get("enddate")
-#         latitude = float(request.form.get("latitude"))
-#         longitude = float(request.form.get("longitude"))
-#         description = request.form.get("description")
-#         DB.add_project(latitude, longitude, startdate, enddate, category, description)
-#     except Exception as e:
-#         print e
-#     # home()
-#     return redirect(url_for('map_app.map'))
-
 @map.route("/projects/map/admin/newtable")
 def newtable():
 
@@ -151,12 +134,14 @@ def servedata():
     #serves the requested data
     # todo: problems with filename and extension
 
+
     try:
         return DBA.serveData(F=request.form,
-                  C=project,
-                  p=os.path.abspath(os.path.dirname(__file__)))
+                             ClassName=str(request.form.get("tablename")),
+                             p=os.path.abspath(os.path.dirname(__file__)))
     except Exception as e:
         print( str(e))
+
     return redirect('/projects/map/admin/')
 
 

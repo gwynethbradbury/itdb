@@ -96,16 +96,17 @@ class DBEngine:
 
 class DatabaseAssistant:
     db = ""
+    dbkey=""
     DBE = SqlAl.null
 
-    def __init__(self,db=""):
+    def __init__(self,db="",dbkey=""):
         self.db = db
         self.DBE = DBEngine(db)
+        self.dbkey=dbkey
 
     def resetDB(self,db):
         self.db = db
         self.DBE = DBEngine(db)
-
 
     def connect(self, database=""):
         return pymysql.connect(host='localhost',
@@ -168,7 +169,46 @@ class DatabaseAssistant:
 
         return
 
-    def serveData(self,F,C,p):
+    def retrieveDataFromDatabase(self, classname, columnnames):
+
+        mydict = {'__tablename__': classname,
+                  '__table_args__': {'autoload': True},
+                  '__bind_key__': self.dbkey, }
+
+        from sqlalchemy.ext.declarative import declarative_base
+        Base = declarative_base(self.DBE.E)
+        C = type(classname, (Base,), mydict)
+
+
+        # retrieves the selected columns
+
+        Session = sessionmaker(bind=self.DBE.E)
+
+        self.DBE.E.echo = False  # Try changing this to True and see what happens
+
+        session = Session()
+
+        col_names_str = columnnames
+        columns = [column(col) for col in col_names_str]
+
+        print(C)
+
+        q = select(from_obj=C, columns=columns)
+        result = session.execute(q)
+
+        KEYS = result.keys()
+        print(KEYS)
+        result_as_string = []
+        for row in result:
+            rr = []
+            for i in row:
+                rr.append(str(i))
+            result_as_string.append(rr)
+
+
+        return result, result_as_string
+
+    def serveData(self,F,ClassName,p):
         # serves the data from the database given the corresponding class C
 
         t = F.get("tablename")
@@ -193,26 +233,8 @@ class DatabaseAssistant:
             elif F.get(t + "_" + cc.name):
                 columnnames.append(cc.name)
 
-        Session = sessionmaker(bind=self.DBE.E)
+        result, result_as_string = self.retrieveDataFromDatabase(ClassName, columnnames)
 
-        self.DBE.E.echo = False  # Try changing this to True and see what happens
-
-        session = Session()
-
-        col_names_str = columnnames
-        columns = [column(col) for col in col_names_str]
-
-        q = select(from_obj=C, columns=columns)
-        result = session.execute(q)
-
-        KEYS = result.keys()
-        print(KEYS)
-        result_as_string = []
-        for row in result:
-            rr = []
-            for i in row:
-                rr.append(str(i))
-            result_as_string.append(rr)
 
         exportpath = p + '/data/export.csv'
         fh = open(exportpath, 'wb')
@@ -287,3 +309,12 @@ class DatabaseAssistant:
         except Exception as e:
             print(str(e))
             print("something went wrong - maybe table exists and columns are mismatched?")
+
+
+
+
+
+
+
+
+

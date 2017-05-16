@@ -51,7 +51,6 @@ class CRUDView(MethodView):
             obj = self.model.query.get(obj_id)
             db.session.delete(obj)
             db.session.commit()
-            return redirect(self.path)
 
         # list view with filter
         if operation == 'filter':

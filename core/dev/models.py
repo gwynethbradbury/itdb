@@ -9,7 +9,6 @@ import pymysql
 import dbconfig
 import pandas as pd
 
-
 listOfColumnTypes = ["Integer",
                    "String",
                    "Characters",
@@ -98,23 +97,26 @@ class DatabaseAssistant:
     db = ""
     dbkey=""
     DBE = SqlAl.null
+    mydatabasename=""
 
-    def __init__(self,db="",dbkey=""):
+    def __init__(self,db="",dbkey="",dbname=""):
         self.db = db
         self.DBE = DBEngine(db)
         self.dbkey=dbkey
+        self.mydatabasename = dbname
 
     def resetDB(self,db):
         self.db = db
         self.DBE = DBEngine(db)
 
-    def connect(self, database=""):
+
+    def connect(self):
         return pymysql.connect(host='localhost',
                                user=dbconfig.db_user,
                                passwd=dbconfig.db_password,
-                               db=database)
+                               db=self.mydatabasename)
 
-    def getTableAndColumnNames(self):
+    def getTableAndColumnNames(self, tablename=""):
         # gets the table and column names given a db link
 
         columnnames = []
@@ -128,12 +130,15 @@ class DatabaseAssistant:
 
         self.DBE.metadata.reflect(self.DBE.E)
         for table in self.DBE.metadata.tables.values():
-            print(table.name)
-            tablenames.append(table.name)
-            thesecolumnnames = []
-            for column in table.c:
-                thesecolumnnames.append(column.name)
-            columnnames.append(thesecolumnnames)
+            if table.name==tablename or tablename=="":
+                print(table.name)
+                tablenames.append(table.name)
+                thesecolumnnames = []
+                for column in table.c:
+                    thesecolumnnames.append(column.name)
+                columnnames.append(thesecolumnnames)
+            if table.name==tablename:
+                return tablenames,columnnames
 
         print tablenames
         print columnnames
@@ -171,14 +176,7 @@ class DatabaseAssistant:
 
     def retrieveDataFromDatabase(self, classname, columnnames):
 
-        mydict = {'__tablename__': classname,
-                  '__table_args__': {'autoload': True},
-                  '__bind_key__': self.dbkey, }
-
-        from sqlalchemy.ext.declarative import declarative_base
-        Base = declarative_base(self.DBE.E)
-        C = type(classname, (Base,), mydict)
-
+        C = self.classFromTableName(classname, columnnames)
 
         # retrieves the selected columns
 
@@ -190,8 +188,6 @@ class DatabaseAssistant:
 
         col_names_str = columnnames
         columns = [column(col) for col in col_names_str]
-
-        print(C)
 
         q = select(from_obj=C, columns=columns)
         result = session.execute(q)
@@ -263,7 +259,9 @@ class DatabaseAssistant:
         new_table = Table(tn, self.DBE.metadata,
                           Column('id', Integer, primary_key=True))
 
-        self.DBE.metadata.create_all()
+        self.DBE.metadata.create_all(bind=self.DBE.E, tables=[new_table])
+
+
 
     def addColumn(self,tablename,colname="test",coltype="Integer",numchar=100):
         print("attempting to add column "+colname+" ("+coltype+") to table "+tablename+"...")
@@ -297,24 +295,173 @@ class DatabaseAssistant:
         connection.commit()
         connection.close()
 
-    def createTableFromCSV(self,filepath,tablename):
+    def addIdColumn(self, table_name, column_name="id"):
+        self.DBE.E.execute('ALTER TABLE %s ADD %s INT PRIMARY KEY AUTO_INCREMENT' %(table_name, column_name))
+
+    def changeColumnName(self, tablename, fromcolumn, tocolumn):
+        self.DBE.E.execute('ALTER TABLE %s CHANGE %s %s INTEGER' %(tablename, fromcolumn, tocolumn))
+
+    def createTableFromCSV(self, filepath, tablename):
 
 
         df = pd.read_csv(filepath,parse_dates=True)
+
         try:
             df.to_sql(tablename,
                       self.DBE.E,
                       if_exists='append',
                       index=False,chunksize=50)
+
+            # column = Column('new column', Integer, primary_key=True)
+            t,c = self.getTableAndColumnNames(tablename=tablename)
+            column_name='id'
+            print "found columns:"
+            print(c)
+            for cc in c[0]:
+                if cc=='id':
+                    self.changeColumnName(tablename,'id','imported_id')
+
+            self.addIdColumn(tablename, column_name)
+
         except Exception as e:
             print(str(e))
             print("something went wrong - maybe table exists and columns are mismatched?")
 
+    def classFromTableName(self, classname, fields):
+        mydict = {'__tablename__': classname,
+                  '__table_args__': {'autoload': True},
+                  '__bind_key__': self.dbkey,}
+
+        from sqlalchemy.ext.declarative import declarative_base
+
+        Base = declarative_base(self.DBE.E)
+        C = type(classname, (Base,), mydict)
+        C.fields=fields
+        return C
 
 
 
 
+from flask import Blueprint, request, g, redirect, url_for, abort, \
+    render_template
+from flask.views import MethodView
+from wtforms.ext.sqlalchemy.orm import model_form
+
+class CRUDView2(MethodView):
+    list_template = 'admin/listview.html'
+    detail_template = 'admin/detailview.html'
+    DBA = SqlAl.null
+    sesh = SqlAl.null
+
+    def __init__(self, model, endpoint, appname, dbbindkey, list_template=None,
+                 detail_template=None, exclude=None, filters=None):
+        self.model = model
+        self.endpoint = endpoint
+
+        self.DBA = DatabaseAssistant('mysql+pymysql://{}:{}@localhost/{}'.format(dbconfig.db_user, dbconfig.db_password,appname),
+                                     dbbindkey,
+                                     appname)
+        # so we can generate a url relevant to this
+        # endpoint, for example if we utilize this CRUD object
+        # to enpoint comments the path generated will be
+        # /admin/comments/
+        self.path = url_for('.%s' % self.endpoint)
+        if list_template:
+            self.list_template = list_template
+        if detail_template:
+            self.detail_template = detail_template
+        self.filters = filters or {}
+        sesh = sessionmaker(bind=self.DBA.DBE.E)
+        self.sesh = sesh()
+        self.ObjForm = model_form(self.model, self.sesh, exclude=exclude)
+
+    def render_detail(self, **kwargs):
+        return render_template(self.detail_template, path=self.path, **kwargs)
+
+    def render_list(self, fields, **kwargs):
+        return render_template(self.list_template, path=self.path,
+                               fields=fields,
+                               filters=self.filters, **kwargs)
+
+    def get(self, obj_id='', operation='', filter_name=''):
+        if operation == 'new':
+            #  we just want an empty form
+            form = self.ObjForm()
+            action = self.path
+            return self.render_detail(form=form, action=action)
+
+        if operation == 'delete':
+            # works, given id from form but that bit is incorrect
+            obj = self.sesh.query(self.model).filter_by(id=obj_id).first()
+            self.sesh.delete(obj)
+            self.sesh.commit()
+
+        # list view with filter
+        if operation == 'filter':
+            func = self.filters.get(filter_name)
+            obj = func(self.model)
+            return self.render_list(obj=obj, fields=obj.fields, filter_name=filter_name)
+
+        if obj_id:
+            # this creates the form fields base on the model
+            # so we don't have to do them one by one
+            ObjForm = model_form(self.model, self.sesh)
+
+            obj = self.sesh.query(self.model).filter_by(id=obj_id).first()
+            # populate the form with our blog data
+            form = self.ObjForm(obj=obj)
+            # action is the url that we will later use
+            # to do post, the same url with obj_id in this case
+            action = request.path
+            return self.render_detail(form=form, action=action)
+
+        q = select(from_obj=self.model, columns=['*'])
+        result = self.sesh.execute(q)
+
+        KEYS = result.keys()
+        obj=[]
+        for r in result:
+            obj.append(r)
+        return self.render_list(obj=obj,fields=KEYS)
+
+    def post(self, obj_id=''):
+        # either load and object to update if obj_id is given
+        # else initiate a new object, this will be helpfull
+        # when we want to create a new object instead of just
+        # editing existing one
+        if obj_id:
+            obj = self.sesh.query(self.model).filter_by(id=obj_id).first()
+        else:
+            obj = self.model()
+
+        ObjForm = model_form(self.model, self.sesh)
+        # populate the form with the request data
+        form = self.ObjForm(request.form)
+        # this actually populates the obj (the blog post)
+        # from the form, that we have populated from the request post
+        form.populate_obj(obj)
+
+        # db.session.add(obj)
+        self.sesh.add(obj)
+        self.sesh.commit()
+
+        return redirect(self.path)
+        # pass
 
 
 
+def register_crud2(app, url, endpoint, model, dbbindkey, appname, decorators=[], **kwargs):
+    view = CRUDView2.as_view(endpoint,dbbindkey, appname, endpoint=endpoint,
+                            model=model, **kwargs)
 
+    for decorator in decorators:
+        view = decorator(view)
+
+    app.add_url_rule('%s/' % url, view_func=view, methods=['GET', 'POST'])
+    app.add_url_rule('%s/<int:obj_id>/' % url, view_func=view)
+    app.add_url_rule('%s/<operation>/' % url, view_func=view, methods=['GET'])
+    app.add_url_rule('%s/<operation>/<int:obj_id>/' % url, view_func=view,
+                     methods=['GET'])
+    app.add_url_rule('%s/<operation>/<filter_name>/' % url, view_func=view,
+                     methods=['GET'])
+    print('registered crud at ' + url)

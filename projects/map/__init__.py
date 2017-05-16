@@ -12,8 +12,7 @@ import views
 from app.admin import register_crud
 
 from .models import project
+from .views import register_tables
 
-#register the admin CRUD for each table
-register_crud(map, '/projects/map/admin/projects', 'project', project,
-              list_template='projects/map/listview.html',detail_template='projects/map/detailview.html')
-# register_crud(admin, '/projects/map/test1', 'comments', Comment, filters=comment_filters)
+
+register_tables()

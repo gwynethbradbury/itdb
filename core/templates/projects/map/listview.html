@@ -29,7 +29,7 @@
         {% if obj|length %}
             <table class=".scroll .stack" table-layout="fixed" >
                 <tr>
-                    {% for f in obj[0].fields %}
+                    {% for f in fields %}
                         <th>{{ f }}</th>
                     {% endfor %}
                     <th width="10"></th>
@@ -39,7 +39,10 @@
 
                 {% for item in obj %}
                     <tr>
-                        {{ item|safe }}
+                        {% for f in fields %}
+                            <td>{{ (item|attr(f))|safe }}</td>
+                        {% endfor %}
+
                         <td>
                             <div class="pure-u-2-24">
                                 <a class="button alert" href="{{ path +'delete/'+ item.id|string }}">delete</a>

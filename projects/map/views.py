@@ -26,12 +26,31 @@ import dataset
 
 dbbb = 'mysql+pymysql://{}:{}@localhost/map'.format(dbconfig.db_user, dbconfig.db_password)
 db2 = dataset.connect(dbbb, row_type=project)
-DBA = DatabaseAssistant(dbbb,'project_map_db')
+dbbindkey="project_map_db"
+appname="map"
+DBA = DatabaseAssistant(dbbb,dbbindkey,appname)
+
+
+
+# @map.route('/projects/map/admin/', defaults={'page': 'index'})
+# @map.route('/projects/map/admin/<page>')
+# def show(page):
+#     try:
+#         return render_template('%s.html' % page)
+#     except Exception as E:#TemplateNotFound:
+#         abort(404)
+
+
+
+
 
 @map.route("/projects/map/admin/")
 def showtables():
     tablenames, columnnames = DBA.getTableAndColumnNames()
 
+    print("tablenames are:")
+    print(tablenames)
+    print("end")
     return render_template("/projects/map/mapadmin.html",tablenames=tablenames)
 
 
@@ -150,17 +169,19 @@ def createtable():
     #create a new table either from scratch or from an existing csv
     tablenames, columnnames = DBA.getTableAndColumnNames()
 
+    #check for no table name
     if request.form.get("newtablename")=="":
         return render_template('projects/map/create_table.html',
                                tablenames=tablenames,columnnames=columnnames,
                                error="Enter table name")
+    #check for existing table with this name
     for t in tablenames:
         if request.form.get("newtablename")==t:
             return render_template('projects/map/create_table.html',
                                    tablenames=tablenames,columnnames=columnnames,
                                    error="Table "+t+" already exists, try a new name")
 
-
+    #check whether this should be an empty table or from existing data
     if request.form.get("source") == "emptytable":
         DBA.createEmptyTable(request.form.get("newtablename"))
     else:
@@ -188,10 +209,38 @@ def createtable():
             DBA.createTableFromCSV(os.path.join(uploadfolder, filename),
                                    request.form.get("newtablename"))
 
+    #success:
+    # todo: move this bit to somewhere else
+    # todo: map shouldnt be referenced here
+
+
+
+    register_tables()
+
+
     return render_template('projects/map/create_table.html',
                            tablenames=tablenames,columnnames=columnnames,
                            message="Table "+request.form.get("newtablename")+" created successfully!")
     return redirect('/projects/map/admin/')
+
+
+
+def register_tables():
+    tablenames, columnnames = DBA.getTableAndColumnNames()
+    i=0
+    for tn in tablenames:
+        t=str(tn)
+
+        C = DBA.classFromTableName(t,columnnames[i])
+        i+=1
+        print("registering "+t+" with columns: ")
+        c1 = C()
+        print(c1.fields)
+
+        register_crud2(map, '/projects/map/admin/'+t, t, C,
+                       list_template='projects/map/listview.html',
+                       detail_template='projects/map/detailview.html',
+                       dbbindkey=dbbindkey, appname=appname,)
 
 
 

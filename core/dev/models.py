@@ -1,10 +1,12 @@
 # general database functions which can be used by any database
 
-import sqlalchemy as SqlAl
 import csv
-from flask import send_file
+from flask import send_file, request, redirect, url_for, render_template
+from flask.views import MethodView
+import sqlalchemy as SqlAl
 from sqlalchemy import *
 from sqlalchemy.orm import sessionmaker
+from wtforms.ext.sqlalchemy.orm import model_form
 import pymysql
 import dbconfig
 import pandas as pd
@@ -108,7 +110,6 @@ class DatabaseAssistant:
     def resetDB(self,db):
         self.db = db
         self.DBE = DBEngine(db)
-
 
     def connect(self):
         return pymysql.connect(host='localhost',
@@ -261,8 +262,6 @@ class DatabaseAssistant:
 
         self.DBE.metadata.create_all(bind=self.DBE.E, tables=[new_table])
 
-
-
     def addColumn(self,tablename,colname="test",coltype="Integer",numchar=100):
         print("attempting to add column "+colname+" ("+coltype+") to table "+tablename+"...")
         try:
@@ -296,13 +295,12 @@ class DatabaseAssistant:
         connection.close()
 
     def addIdColumn(self, table_name, column_name="id"):
-        self.DBE.E.execute('ALTER TABLE %s ADD %s INT PRIMARY KEY AUTO_INCREMENT' %(table_name, column_name))
+        self.DBE.E.execute('ALTER TABLE %s ADD %s INT PRIMARY KEY AUTO_INCREMENT;' %(table_name, column_name))
 
     def changeColumnName(self, tablename, fromcolumn, tocolumn):
-        self.DBE.E.execute('ALTER TABLE %s CHANGE %s %s INTEGER' %(tablename, fromcolumn, tocolumn))
+        self.DBE.E.execute('ALTER TABLE %s CHANGE %s %s INTEGER;' %(tablename, fromcolumn, tocolumn))
 
     def createTableFromCSV(self, filepath, tablename):
-
 
         df = pd.read_csv(filepath,parse_dates=True)
 
@@ -339,15 +337,14 @@ class DatabaseAssistant:
         C.fields=fields
         return C
 
+    def deleteTable(self,tablename):
+        self.DBE.E.execute('DROP TABLE %s;' %(tablename))
+
+    def clearTable(self,tablename):
+        self.DBE.E.execute("DELETE FROM %s;" % (tablename))
 
 
-
-from flask import Blueprint, request, g, redirect, url_for, abort, \
-    render_template
-from flask.views import MethodView
-from wtforms.ext.sqlalchemy.orm import model_form
-
-class CRUDView2(MethodView):
+class DynamicCRUDView(MethodView):
     list_template = 'admin/listview.html'
     detail_template = 'admin/detailview.html'
     DBA = SqlAl.null
@@ -376,12 +373,19 @@ class CRUDView2(MethodView):
         self.ObjForm = model_form(self.model, self.sesh, exclude=exclude)
 
     def render_detail(self, **kwargs):
-        return render_template(self.detail_template, path=self.path, **kwargs)
+        t,c=self.DBA.getTableAndColumnNames()
+        return render_template(self.detail_template, path=self.path,
+                               tablenames=t,
+                               **kwargs)
 
     def render_list(self, fields, **kwargs):
+        t,c=self.DBA.getTableAndColumnNames()
         return render_template(self.list_template, path=self.path,
                                fields=fields,
-                               filters=self.filters, **kwargs)
+                               tablenames=t,
+                               tablename=self.endpoint,
+                               filters=self.filters,
+                               **kwargs)
 
     def get(self, obj_id='', operation='', filter_name=''):
         if operation == 'new':
@@ -448,10 +452,8 @@ class CRUDView2(MethodView):
         return redirect(self.path)
         # pass
 
-
-
-def register_crud2(app, url, endpoint, model, dbbindkey, appname, decorators=[], **kwargs):
-    view = CRUDView2.as_view(endpoint,dbbindkey, appname, endpoint=endpoint,
+def registerCRUDforUnknownTable(app, url, endpoint, model, dbbindkey, appname, decorators=[], **kwargs):
+    view = DynamicCRUDView.as_view(endpoint,dbbindkey=dbbindkey, appname=appname, endpoint=endpoint,
                             model=model, **kwargs)
 
     for decorator in decorators:

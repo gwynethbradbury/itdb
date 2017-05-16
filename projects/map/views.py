@@ -36,7 +36,8 @@ DBA = DatabaseAssistant(dbbb,dbbindkey,appname)
 # @map.route('/projects/map/admin/<page>')
 # def show(page):
 #     try:
-#         return render_template('%s.html' % page)
+#         tablenames, columnnames = DBA.getTableAndColumnNames()
+#         return render_template("/projects/map/mapadmin.html",tablenames=tablenames)
 #     except Exception as E:#TemplateNotFound:
 #         abort(404)
 
@@ -53,7 +54,6 @@ def showtables():
     print("end")
     return render_template("/projects/map/mapadmin.html",tablenames=tablenames)
 
-
 @map.route("/projects/map/showpoints")
 def showpoints():
     projects = []
@@ -67,15 +67,6 @@ def showpoints():
         data = []
     print(data)
     return render_template("projects/map/map.html", projects=projects, data=data)
-
-
-@map.route("/projects/map/clear")
-def clear():
-    try:
-        DB.clear_all()
-    except Exception as e:
-        print e
-    return redirect(url_for('map'))
 
 
 @map.route("/projects/map/submitproject", methods=['GET', 'POST'])
@@ -93,7 +84,6 @@ def submit():
     # home()
     return redirect(url_for('map_app.map'))
 
-
 @map.route("/projects/map/uploadxls", methods=['GET', 'POST'])
 def uploadxls():
     try:
@@ -102,7 +92,6 @@ def uploadxls():
     except Exception as e:
         print e
     return redirect(url_for('map_app.map'))
-
 
 @map.route("/projects/map/")
 def maphome():
@@ -116,8 +105,6 @@ def maphome():
         data = []
     print(data)
     return render_template("projects/map/map.html", projects=projects, data=data)
-
-
 
 @map.route("/projects/map/admin/newtable")
 def newtable():
@@ -139,6 +126,16 @@ def addcolumn():
     return render_template('projects/map/create_table.html',
                            tablenames=tablenames,columnnames=columnnames)
     # return showtables()
+
+@map.route("/projects/map/admin/deletetable/<page>")
+def deletetable(page):
+    DBA.deleteTable(page)
+    return redirect('/projects/map/admin/')
+
+@map.route("/projects/map/admin/cleartable/<page>")
+def cleartable(page):
+    DBA.clearTable(page)
+    return redirect('/projects/map/admin/')
 
 @map.route("/projects/map/admin/download")
 def download():
@@ -237,10 +234,10 @@ def register_tables():
         c1 = C()
         print(c1.fields)
 
-        register_crud2(map, '/projects/map/admin/'+t, t, C,
-                       list_template='projects/map/listview.html',
-                       detail_template='projects/map/detailview.html',
-                       dbbindkey=dbbindkey, appname=appname,)
+        registerCRUDforUnknownTable(map, '/projects/map/admin/'+t, t, C,
+                                     list_template='projects/map/listview.html',
+                                     detail_template='projects/map/detailview.html',
+                                     dbbindkey=dbbindkey, appname=appname)
 
 
 

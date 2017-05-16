@@ -2,17 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5216aa2-f126-4355-838a-43d271f57d12" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/projects/map/data/2017-05-03 11:59:30.260266genblankcsv.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/projects/map/data/2017-05-03_12:08:38_genblankcsv.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/projects/map/data/2017-05-11_15:49:03_genblankcsv.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/projects/map/data/2017-05-11_15:50:19_genblankcsv.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/projects/map/data/2017-05-12_13:46:28_export.csv" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/admin/admin.py" afterPath="$PROJECT_DIR$/app/admin/admin.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/dev/models.py" afterPath="$PROJECT_DIR$/core/dev/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/projects/map/listview.html" afterPath="$PROJECT_DIR$/core/templates/projects/map/listview.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/projects/map/mapadmin.html" afterPath="$PROJECT_DIR$/core/templates/projects/map/mapadmin.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/projects/map/__init__.py" afterPath="$PROJECT_DIR$/projects/map/__init__.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/projects/map/views.py" afterPath="$PROJECT_DIR$/projects/map/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,7 +16,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/dbas$dbas.coverage" NAME="dbas Coverage Results" MODIFIED="1494933930061" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/dbas$dbas.coverage" NAME="dbas Coverage Results" MODIFIED="1494939181310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/dbas$dbconfig.coverage" NAME="dbconfig Coverage Results" MODIFIED="1492001454678" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/dbas$db_setup.coverage" NAME="db_setup Coverage Results" MODIFIED="1492001463719" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/projects/map" />
   </component>
@@ -38,21 +31,57 @@
           <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/projects/map/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="188">
-                  <caret line="40" column="13" lean-forward="false" selection-start-line="34" selection-start-column="9" selection-end-line="40" selection-end-column="13" />
+                <state relative-caret-position="23">
+                  <caret line="20" column="1" lean-forward="false" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
                   <folding>
                     <element signature="e#0#71#0" expanded="true" />
-                    <element signature="e#1291#1606#0" expanded="false" />
-                    <element signature="e#1660#1766#0" expanded="false" />
-                    <element signature="e#1854#2355#0" expanded="false" />
-                    <element signature="e#2442#2612#0" expanded="false" />
-                    <element signature="e#2663#2960#0" expanded="false" />
-                    <element signature="e#3265#3534#0" expanded="false" />
-                    <element signature="e#3884#4260#0" expanded="false" />
-                    <element signature="e#7597#7835#0" expanded="false" />
-                    <element signature="e#7898#8173#0" expanded="false" />
-                    <element signature="e#8367#9300#0" expanded="false" />
+                    <element signature="e#1124#1327#0" expanded="false" />
+                    <element signature="e#1390#1705#0" expanded="false" />
+                    <element signature="e#1793#2294#0" expanded="false" />
+                    <element signature="e#2380#2550#0" expanded="false" />
+                    <element signature="e#2600#2897#0" expanded="false" />
+                    <element signature="e#2963#3132#0" expanded="false" />
+                    <element signature="e#3200#3469#0" expanded="false" />
+                    <element signature="e#3825#4017#0" expanded="false" />
+                    <element signature="e#4110#4486#0" expanded="false" />
+                    <element signature="e#4583#7168#0" expanded="false" />
+                    <element signature="e#7877#8115#0" expanded="false" />
+                    <element signature="e#8647#9580#0" expanded="false" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="dbhelper.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/projects/map/dbhelper.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="645">
+                  <caret line="202" column="24" lean-forward="true" selection-start-line="202" selection-start-column="24" selection-end-line="210" selection-end-column="30" />
+                  <folding>
+                    <element signature="e#0#14#0" expanded="true" />
+                    <element signature="e#252#457#0" expanded="false" />
+                    <element signature="e#1807#2318#0" expanded="false" />
+                    <element signature="e#2419#2877#0" expanded="false" />
+                    <element signature="e#2922#4010#0" expanded="false" />
+                    <marker date="1493983903000" expanded="true" signature="585:662" ph="SELECT latit... project" />
+                    <marker date="1493983903000" expanded="true" signature="1897:1928" ph="SELECT descr... project" />
+                    <marker date="1493983903000" expanded="true" signature="2481:2587" ph="INSERT INTO project... " />
+                    <marker date="1493983903000" expanded="true" signature="3602:3708" ph="INSERT INTO project... " />
+                    <marker date="1493983903000" expanded="true" signature="5360:5480" ph="INSERT INTO project... " />
+                    <marker date="1493983903000" expanded="true" signature="5925:6002" ph="SELECT latit... project" />
+                    <marker date="1493983903000" expanded="true" signature="7219:7250" ph="SELECT latit... project" />
+                    <marker date="1493983903000" expanded="true" signature="7822:7841" ph="DELETE FROM " />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="mockdbhelper.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/projects/map/mockdbhelper.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="465">
+                  <caret line="31" column="8" lean-forward="false" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="8" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -72,7 +101,7 @@
           <file leaf-file-name="admin.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/admin/admin.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="75">
+                <state relative-caret-position="-495">
                   <caret line="5" column="34" lean-forward="true" selection-start-line="5" selection-start-column="34" selection-end-line="6" selection-end-column="49" />
                   <folding>
                     <element signature="e#3485#3498#0" expanded="false" />
@@ -90,8 +119,18 @@
           <file leaf-file-name="mapadmin.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/core/templates/projects/map/mapadmin.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="486">
-                  <caret line="103" column="84" lean-forward="false" selection-start-line="103" selection-start-column="84" selection-end-line="103" selection-end-column="84" />
+                <state relative-caret-position="546">
+                  <caret line="106" column="49" lean-forward="false" selection-start-line="106" selection-start-column="28" selection-end-line="106" selection-end-column="49" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="listview.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/core/templates/projects/map/listview.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="120">
+                  <caret line="8" column="30" lean-forward="false" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
                   <folding />
                 </state>
               </provider>
@@ -122,28 +161,38 @@
           <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/core/dev/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="648">
-                  <caret line="459" column="20" lean-forward="false" selection-start-line="459" selection-start-column="8" selection-end-line="459" selection-end-column="20" />
+                <state relative-caret-position="915">
+                  <caret line="344" column="0" lean-forward="true" selection-start-line="344" selection-start-column="0" selection-end-line="344" selection-end-column="0" />
                   <folding>
-                    <element signature="e#64#90#0" expanded="true" />
-                    <element signature="e#267#647#0" expanded="false" />
-                    <element signature="e#695#2049#0" expanded="false" />
-                    <element signature="e#2072#2282#0" expanded="false" />
-                    <element signature="e#3878#4648#0" expanded="false" />
-                    <element signature="e#4723#5425#0" expanded="false" />
-                    <element signature="e#5474#6525#0" expanded="false" />
-                    <element signature="e#7091#8091#0" expanded="false" />
-                    <marker date="1494933847000" expanded="true" signature="7934:8004" ph="ALTER TABLE " />
-                    <marker date="1494933847000" expanded="true" signature="8178:8192" ph="ALTER TABLE " />
-                    <marker date="1494933847000" expanded="true" signature="8178:8196" ph="ALTER TABLE " />
-                    <marker date="1494933847000" expanded="true" signature="8178:8197" ph="ALTER TABLE " />
-                    <marker date="1494933847000" expanded="true" signature="8178:8203" ph="ALTER TABLE " />
-                    <marker date="1494933847000" expanded="true" signature="8178:8211" ph="ALTER TABLE " />
-                    <marker date="1494933847000" expanded="true" signature="8178:8230" ph="ALTER TABLE " />
-                    <marker date="1494933847000" expanded="true" signature="8354:8378" ph="ALTER TABLE missing_value... " />
-                    <marker date="1494933847000" expanded="true" signature="8354:8379" ph="ALTER TABLE missing_value... " />
-                    <marker date="1494933847000" expanded="true" signature="8354:8389" ph="ALTER TABLE missing_value... " />
-                    <marker date="1494933847000" expanded="true" signature="8354:8425" ph="ALTER TABLE " />
+                    <element signature="e#64#74#0" expanded="true" />
+                    <element signature="e#397#777#0" expanded="false" />
+                    <element signature="e#825#2179#0" expanded="false" />
+                    <element signature="e#2202#2412#0" expanded="false" />
+                    <element signature="e#2566#2672#0" expanded="false" />
+                    <element signature="e#2708#2752#0" expanded="false" />
+                    <element signature="e#2785#2994#0" expanded="false" />
+                    <element signature="e#3056#3950#0" expanded="false" />
+                    <element signature="e#4007#4777#0" expanded="false" />
+                    <element signature="e#4852#5554#0" expanded="false" />
+                    <element signature="e#5603#6654#0" expanded="false" />
+                    <element signature="e#6699#7128#0" expanded="false" />
+                    <element signature="e#7218#8218#0" expanded="false" />
+                    <element signature="e#8621#9391#0" expanded="false" />
+                    <element signature="e#9454#9790#0" expanded="false" />
+                    <element signature="e#9463#9594#0" expanded="false" />
+                    <marker date="1494939316000" expanded="true" signature="8061:8131" ph="ALTER TABLE " />
+                    <marker date="1494939316000" expanded="true" signature="8305:8319" ph="ALTER TABLE " />
+                    <marker date="1494939316000" expanded="true" signature="8305:8323" ph="ALTER TABLE " />
+                    <marker date="1494939316000" expanded="true" signature="8305:8324" ph="ALTER TABLE " />
+                    <marker date="1494939316000" expanded="true" signature="8305:8330" ph="ALTER TABLE " />
+                    <marker date="1494939316000" expanded="true" signature="8305:8338" ph="ALTER TABLE " />
+                    <marker date="1494939316000" expanded="true" signature="8305:8357" ph="ALTER TABLE " />
+                    <marker date="1494939316000" expanded="true" signature="8482:8506" ph="ALTER TABLE missing_value... " />
+                    <marker date="1494939316000" expanded="true" signature="8482:8507" ph="ALTER TABLE missing_value... " />
+                    <marker date="1494939316000" expanded="true" signature="8482:8517" ph="ALTER TABLE missing_value... " />
+                    <marker date="1494939316000" expanded="true" signature="8482:8554" ph="ALTER TABLE " />
+                    <marker date="1494939316000" expanded="true" signature="9857:9868" ph="DROP TABLE m... " />
+                    <marker date="1494939316000" expanded="true" signature="9952:9964" ph="DELETE FROM " />
                   </folding>
                 </state>
               </provider>
@@ -230,7 +279,9 @@
       <find>create_</find>
       <find>classFromTableName</find>
       <find>create_engine</find>
+      <find>admin/'</find>
       <find>bind=</find>
+      <find>commit</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -276,10 +327,10 @@
         <option value="$PROJECT_DIR$/projects/map/models.py" />
         <option value="$PROJECT_DIR$/core/templates/projects/map/create_table.html" />
         <option value="$PROJECT_DIR$/app/admin/admin.py" />
-        <option value="$PROJECT_DIR$/core/templates/projects/map/listview.html" />
         <option value="$PROJECT_DIR$/projects/map/__init__.py" />
-        <option value="$PROJECT_DIR$/core/dev/models.py" />
         <option value="$PROJECT_DIR$/core/templates/projects/map/mapadmin.html" />
+        <option value="$PROJECT_DIR$/core/templates/projects/map/listview.html" />
+        <option value="$PROJECT_DIR$/core/dev/models.py" />
         <option value="$PROJECT_DIR$/projects/map/views.py" />
       </list>
     </option>
@@ -320,6 +371,38 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="projects" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="projects" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="map" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -861,12 +944,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/core/dev/models.py</url>
-          <line>265</line>
+          <line>264</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/core/dev/models.py</url>
-          <line>424</line>
+          <line>428</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
@@ -892,13 +975,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/local/lib/python2.7/site-packages/flask/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="1050" column="0" lean-forward="false" selection-start-line="1050" selection-start-column="0" selection-end-line="1050" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/projects/map/map.py" />
     <entry file="file://$PROJECT_DIR$/app/admin/models.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -1108,40 +1184,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/projects/map/dbhelper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="18" column="27" lean-forward="true" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-            <element signature="e#252#457#0" expanded="false" />
-            <element signature="e#1807#2318#0" expanded="false" />
-            <element signature="e#2419#2877#0" expanded="false" />
-            <element signature="e#2922#4010#0" expanded="false" />
-            <marker date="1493983903000" expanded="true" signature="585:662" ph="SELECT latit... project" />
-            <marker date="1493983903000" expanded="true" signature="1897:1928" ph="SELECT descr... project" />
-            <marker date="1493983903000" expanded="true" signature="2481:2587" ph="INSERT INTO project... " />
-            <marker date="1493983903000" expanded="true" signature="3602:3708" ph="INSERT INTO project... " />
-            <marker date="1493983903000" expanded="true" signature="5360:5480" ph="INSERT INTO project... " />
-            <marker date="1493983903000" expanded="true" signature="5925:6002" ph="SELECT latit... project" />
-            <marker date="1493983903000" expanded="true" signature="7219:7250" ph="SELECT latit... project" />
-            <marker date="1493983903000" expanded="true" signature="7822:7841" ph="DELETE FROM " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/templates/projects/map/map.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
           <caret line="83" column="34" lean-forward="true" selection-start-line="83" selection-start-column="34" selection-end-line="88" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/listview.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="507">
-          <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1167,7 +1213,7 @@
         <state relative-caret-position="105">
           <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding>
-            <element signature="e#91#110#0" expanded="true" />
+            <element signature="e#91#110#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1225,29 +1271,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/projects/map/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/admin/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="34" lean-forward="true" selection-start-line="5" selection-start-column="34" selection-end-line="6" selection-end-column="49" />
-          <folding>
-            <element signature="e#3485#3498#0" expanded="false" />
-            <element signature="e#3898#3971#0" expanded="false" />
-            <element signature="e#5450#5587#0" expanded="false" />
+            <element signature="e#0#23#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1280,58 +1304,130 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/admin/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-495">
+          <caret line="5" column="34" lean-forward="true" selection-start-line="5" selection-start-column="34" selection-end-line="6" selection-end-column="49" />
+          <folding>
+            <element signature="e#3485#3498#0" expanded="false" />
+            <element signature="e#3898#3971#0" expanded="false" />
+            <element signature="e#5450#5587#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/map/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/templates/projects/map/mapadmin.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="103" column="84" lean-forward="false" selection-start-line="103" selection-start-column="84" selection-end-line="103" selection-end-column="84" />
+        <state relative-caret-position="546">
+          <caret line="106" column="49" lean-forward="false" selection-start-line="106" selection-start-column="28" selection-end-line="106" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/map/mockdbhelper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="31" column="8" lean-forward="false" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/map/dbhelper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="202" column="24" lean-forward="true" selection-start-line="202" selection-start-column="24" selection-end-line="210" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#252#457#0" expanded="false" />
+            <element signature="e#1807#2318#0" expanded="false" />
+            <element signature="e#2419#2877#0" expanded="false" />
+            <element signature="e#2922#4010#0" expanded="false" />
+            <marker date="1493983903000" expanded="true" signature="585:662" ph="SELECT latit... project" />
+            <marker date="1493983903000" expanded="true" signature="1897:1928" ph="SELECT descr... project" />
+            <marker date="1493983903000" expanded="true" signature="2481:2587" ph="INSERT INTO project... " />
+            <marker date="1493983903000" expanded="true" signature="3602:3708" ph="INSERT INTO project... " />
+            <marker date="1493983903000" expanded="true" signature="5360:5480" ph="INSERT INTO project... " />
+            <marker date="1493983903000" expanded="true" signature="5925:6002" ph="SELECT latit... project" />
+            <marker date="1493983903000" expanded="true" signature="7219:7250" ph="SELECT latit... project" />
+            <marker date="1493983903000" expanded="true" signature="7822:7841" ph="DELETE FROM " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/listview.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="30" lean-forward="false" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/dev/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="459" column="20" lean-forward="false" selection-start-line="459" selection-start-column="8" selection-end-line="459" selection-end-column="20" />
+        <state relative-caret-position="915">
+          <caret line="344" column="0" lean-forward="true" selection-start-line="344" selection-start-column="0" selection-end-line="344" selection-end-column="0" />
           <folding>
-            <element signature="e#64#90#0" expanded="true" />
-            <element signature="e#267#647#0" expanded="false" />
-            <element signature="e#695#2049#0" expanded="false" />
-            <element signature="e#2072#2282#0" expanded="false" />
-            <element signature="e#3878#4648#0" expanded="false" />
-            <element signature="e#4723#5425#0" expanded="false" />
-            <element signature="e#5474#6525#0" expanded="false" />
-            <element signature="e#7091#8091#0" expanded="false" />
-            <marker date="1494933847000" expanded="true" signature="7934:8004" ph="ALTER TABLE " />
-            <marker date="1494933847000" expanded="true" signature="8178:8192" ph="ALTER TABLE " />
-            <marker date="1494933847000" expanded="true" signature="8178:8196" ph="ALTER TABLE " />
-            <marker date="1494933847000" expanded="true" signature="8178:8197" ph="ALTER TABLE " />
-            <marker date="1494933847000" expanded="true" signature="8178:8203" ph="ALTER TABLE " />
-            <marker date="1494933847000" expanded="true" signature="8178:8211" ph="ALTER TABLE " />
-            <marker date="1494933847000" expanded="true" signature="8178:8230" ph="ALTER TABLE " />
-            <marker date="1494933847000" expanded="true" signature="8354:8378" ph="ALTER TABLE missing_value... " />
-            <marker date="1494933847000" expanded="true" signature="8354:8379" ph="ALTER TABLE missing_value... " />
-            <marker date="1494933847000" expanded="true" signature="8354:8389" ph="ALTER TABLE missing_value... " />
-            <marker date="1494933847000" expanded="true" signature="8354:8425" ph="ALTER TABLE " />
+            <element signature="e#64#74#0" expanded="true" />
+            <element signature="e#397#777#0" expanded="false" />
+            <element signature="e#825#2179#0" expanded="false" />
+            <element signature="e#2202#2412#0" expanded="false" />
+            <element signature="e#2566#2672#0" expanded="false" />
+            <element signature="e#2708#2752#0" expanded="false" />
+            <element signature="e#2785#2994#0" expanded="false" />
+            <element signature="e#3056#3950#0" expanded="false" />
+            <element signature="e#4007#4777#0" expanded="false" />
+            <element signature="e#4852#5554#0" expanded="false" />
+            <element signature="e#5603#6654#0" expanded="false" />
+            <element signature="e#6699#7128#0" expanded="false" />
+            <element signature="e#7218#8218#0" expanded="false" />
+            <element signature="e#8621#9391#0" expanded="false" />
+            <element signature="e#9454#9790#0" expanded="false" />
+            <element signature="e#9463#9594#0" expanded="false" />
+            <marker date="1494939316000" expanded="true" signature="8061:8131" ph="ALTER TABLE " />
+            <marker date="1494939316000" expanded="true" signature="8305:8319" ph="ALTER TABLE " />
+            <marker date="1494939316000" expanded="true" signature="8305:8323" ph="ALTER TABLE " />
+            <marker date="1494939316000" expanded="true" signature="8305:8324" ph="ALTER TABLE " />
+            <marker date="1494939316000" expanded="true" signature="8305:8330" ph="ALTER TABLE " />
+            <marker date="1494939316000" expanded="true" signature="8305:8338" ph="ALTER TABLE " />
+            <marker date="1494939316000" expanded="true" signature="8305:8357" ph="ALTER TABLE " />
+            <marker date="1494939316000" expanded="true" signature="8482:8506" ph="ALTER TABLE missing_value... " />
+            <marker date="1494939316000" expanded="true" signature="8482:8507" ph="ALTER TABLE missing_value... " />
+            <marker date="1494939316000" expanded="true" signature="8482:8517" ph="ALTER TABLE missing_value... " />
+            <marker date="1494939316000" expanded="true" signature="8482:8554" ph="ALTER TABLE " />
+            <marker date="1494939316000" expanded="true" signature="9857:9868" ph="DROP TABLE m... " />
+            <marker date="1494939316000" expanded="true" signature="9952:9964" ph="DELETE FROM " />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/projects/map/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="40" column="13" lean-forward="false" selection-start-line="34" selection-start-column="9" selection-end-line="40" selection-end-column="13" />
+        <state relative-caret-position="23">
+          <caret line="20" column="1" lean-forward="false" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
           <folding>
             <element signature="e#0#71#0" expanded="true" />
-            <element signature="e#1291#1606#0" expanded="false" />
-            <element signature="e#1660#1766#0" expanded="false" />
-            <element signature="e#1854#2355#0" expanded="false" />
-            <element signature="e#2442#2612#0" expanded="false" />
-            <element signature="e#2663#2960#0" expanded="false" />
-            <element signature="e#3265#3534#0" expanded="false" />
-            <element signature="e#3884#4260#0" expanded="false" />
-            <element signature="e#7597#7835#0" expanded="false" />
-            <element signature="e#7898#8173#0" expanded="false" />
-            <element signature="e#8367#9300#0" expanded="false" />
+            <element signature="e#1124#1327#0" expanded="false" />
+            <element signature="e#1390#1705#0" expanded="false" />
+            <element signature="e#1793#2294#0" expanded="false" />
+            <element signature="e#2380#2550#0" expanded="false" />
+            <element signature="e#2600#2897#0" expanded="false" />
+            <element signature="e#2963#3132#0" expanded="false" />
+            <element signature="e#3200#3469#0" expanded="false" />
+            <element signature="e#3825#4017#0" expanded="false" />
+            <element signature="e#4110#4486#0" expanded="false" />
+            <element signature="e#4583#7168#0" expanded="false" />
+            <element signature="e#7877#8115#0" expanded="false" />
+            <element signature="e#8647#9580#0" expanded="false" />
           </folding>
         </state>
       </provider>

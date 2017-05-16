@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5216aa2-f126-4355-838a-43d271f57d12" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/dev/models.py" afterPath="$PROJECT_DIR$/core/dev/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/projects/map/listview.html" afterPath="$PROJECT_DIR$/core/templates/projects/map/listview.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/projects/map/mapadmin.html" afterPath="$PROJECT_DIR$/core/templates/projects/map/mapadmin.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/projects/map/detailview.html" afterPath="$PROJECT_DIR$/core/templates/projects/map/detailview.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/projects/map/views.py" afterPath="$PROJECT_DIR$/projects/map/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,8 +29,8 @@
           <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/projects/map/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="23">
-                  <caret line="20" column="1" lean-forward="false" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+                <state relative-caret-position="341">
+                  <caret line="113" column="0" lean-forward="true" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#71#0" expanded="true" />
                     <element signature="e#1124#1327#0" expanded="false" />
@@ -40,13 +38,12 @@
                     <element signature="e#1793#2294#0" expanded="false" />
                     <element signature="e#2380#2550#0" expanded="false" />
                     <element signature="e#2600#2897#0" expanded="false" />
-                    <element signature="e#2963#3132#0" expanded="false" />
                     <element signature="e#3200#3469#0" expanded="false" />
                     <element signature="e#3825#4017#0" expanded="false" />
                     <element signature="e#4110#4486#0" expanded="false" />
-                    <element signature="e#4583#7168#0" expanded="false" />
-                    <element signature="e#7877#8115#0" expanded="false" />
-                    <element signature="e#8647#9580#0" expanded="false" />
+                    <element signature="e#4583#6815#0" expanded="false" />
+                    <element signature="e#7523#7761#0" expanded="false" />
+                    <element signature="e#8293#9226#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -136,6 +133,16 @@
               </provider>
             </entry>
           </file>
+          <file leaf-file-name="detailview.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/core/templates/projects/map/detailview.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="390">
+                  <caret line="26" column="22" lean-forward="true" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
           <file leaf-file-name="home.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/core/home.py">
               <provider selected="true" editor-type-id="text-editor">
@@ -158,11 +165,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/core/dev/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="915">
-                  <caret line="344" column="0" lean-forward="true" selection-start-line="344" selection-start-column="0" selection-end-line="344" selection-end-column="0" />
+                <state relative-caret-position="543">
+                  <caret line="466" column="0" lean-forward="false" selection-start-line="466" selection-start-column="0" selection-end-line="466" selection-end-column="0" />
                   <folding>
                     <element signature="e#64#74#0" expanded="true" />
                     <element signature="e#397#777#0" expanded="false" />
@@ -171,28 +178,31 @@
                     <element signature="e#2566#2672#0" expanded="false" />
                     <element signature="e#2708#2752#0" expanded="false" />
                     <element signature="e#2785#2994#0" expanded="false" />
-                    <element signature="e#3056#3950#0" expanded="false" />
-                    <element signature="e#4007#4777#0" expanded="false" />
-                    <element signature="e#4852#5554#0" expanded="false" />
-                    <element signature="e#5603#6654#0" expanded="false" />
-                    <element signature="e#6699#7128#0" expanded="false" />
-                    <element signature="e#7218#8218#0" expanded="false" />
-                    <element signature="e#8621#9391#0" expanded="false" />
-                    <element signature="e#9454#9790#0" expanded="false" />
-                    <element signature="e#9463#9594#0" expanded="false" />
-                    <marker date="1494939316000" expanded="true" signature="8061:8131" ph="ALTER TABLE " />
-                    <marker date="1494939316000" expanded="true" signature="8305:8319" ph="ALTER TABLE " />
-                    <marker date="1494939316000" expanded="true" signature="8305:8323" ph="ALTER TABLE " />
-                    <marker date="1494939316000" expanded="true" signature="8305:8324" ph="ALTER TABLE " />
-                    <marker date="1494939316000" expanded="true" signature="8305:8330" ph="ALTER TABLE " />
-                    <marker date="1494939316000" expanded="true" signature="8305:8338" ph="ALTER TABLE " />
-                    <marker date="1494939316000" expanded="true" signature="8305:8357" ph="ALTER TABLE " />
-                    <marker date="1494939316000" expanded="true" signature="8482:8506" ph="ALTER TABLE missing_value... " />
-                    <marker date="1494939316000" expanded="true" signature="8482:8507" ph="ALTER TABLE missing_value... " />
-                    <marker date="1494939316000" expanded="true" signature="8482:8517" ph="ALTER TABLE missing_value... " />
-                    <marker date="1494939316000" expanded="true" signature="8482:8554" ph="ALTER TABLE " />
-                    <marker date="1494939316000" expanded="true" signature="9857:9868" ph="DROP TABLE m... " />
-                    <marker date="1494939316000" expanded="true" signature="9952:9964" ph="DELETE FROM " />
+                    <element signature="e#3056#4049#0" expanded="false" />
+                    <element signature="e#4106#4876#0" expanded="false" />
+                    <element signature="e#4951#5653#0" expanded="false" />
+                    <element signature="e#5702#6753#0" expanded="false" />
+                    <element signature="e#6798#7304#0" expanded="false" />
+                    <element signature="e#7394#8394#0" expanded="false" />
+                    <element signature="e#9845#10181#0" expanded="false" />
+                    <element signature="e#9854#9985#0" expanded="false" />
+                    <element signature="e#10611#14789#0" expanded="false" />
+                    <marker date="1494949369000" expanded="true" signature="8237:8307" ph="ALTER TABLE " />
+                    <marker date="1494949369000" expanded="true" signature="8481:8495" ph="ALTER TABLE " />
+                    <marker date="1494949369000" expanded="true" signature="8481:8499" ph="ALTER TABLE " />
+                    <marker date="1494949369000" expanded="true" signature="8481:8500" ph="ALTER TABLE " />
+                    <marker date="1494949369000" expanded="true" signature="8481:8506" ph="ALTER TABLE " />
+                    <marker date="1494949369000" expanded="true" signature="8481:8514" ph="ALTER TABLE " />
+                    <marker date="1494949369000" expanded="true" signature="8481:8533" ph="ALTER TABLE " />
+                    <marker date="1494949369000" expanded="true" signature="8658:8682" ph="ALTER TABLE missing_value... " />
+                    <marker date="1494949369000" expanded="true" signature="8658:8683" ph="ALTER TABLE missing_value... " />
+                    <marker date="1494949369000" expanded="true" signature="8658:8693" ph="ALTER TABLE missing_value... " />
+                    <marker date="1494949369000" expanded="true" signature="8658:8730" ph="ALTER TABLE " />
+                    <marker date="1494949369000" expanded="true" signature="10248:10259" ph="DROP TABLE m... " />
+                    <marker date="1494949369000" expanded="true" signature="10345:10357" ph="DELETE FROM " />
+                    <marker date="1494949369000" expanded="true" signature="10510:10522" ph="ALTER TABLE table_name... " />
+                    <marker date="1494949369000" expanded="true" signature="10510:10535" ph="ALTER TABLE missing_value... " />
+                    <marker date="1494949369000" expanded="true" signature="10510:10537" ph="ALTER TABLE " />
                   </folding>
                 </state>
               </provider>
@@ -282,6 +292,8 @@
       <find>admin/'</find>
       <find>bind=</find>
       <find>commit</find>
+      <find>newtable</find>
+      <find>newtable(</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -316,7 +328,6 @@
         <option value="$PROJECT_DIR$/core/templates/projects/admin.html" />
         <option value="$PROJECT_DIR$/core/templates/projects/map/admin.html" />
         <option value="$PROJECT_DIR$/dbconfig.py" />
-        <option value="$PROJECT_DIR$/core/templates/projects/map/detailview.html" />
         <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/projects/map/forms.py" />
         <option value="$PROJECT_DIR$/core/templates/projects/map/download_link.html" />
@@ -332,6 +343,7 @@
         <option value="$PROJECT_DIR$/core/templates/projects/map/listview.html" />
         <option value="$PROJECT_DIR$/core/dev/models.py" />
         <option value="$PROJECT_DIR$/projects/map/views.py" />
+        <option value="$PROJECT_DIR$/core/templates/projects/map/detailview.html" />
       </list>
     </option>
   </component>
@@ -944,12 +956,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/core/dev/models.py</url>
-          <line>264</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/core/dev/models.py</url>
-          <line>428</line>
+          <line>440</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
@@ -960,7 +967,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="19" />
+      <option name="time" value="20" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -1126,14 +1133,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1365">
           <caret line="91" column="31" lean-forward="false" selection-start-line="91" selection-start-column="31" selection-end-line="91" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/detailview.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1326,14 +1325,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/mapadmin.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="106" column="49" lean-forward="false" selection-start-line="106" selection-start-column="28" selection-end-line="106" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/projects/map/mockdbhelper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
@@ -1364,18 +1355,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/listview.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="30" lean-forward="false" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/dev/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="915">
-          <caret line="344" column="0" lean-forward="true" selection-start-line="344" selection-start-column="0" selection-end-line="344" selection-end-column="0" />
+        <state relative-caret-position="543">
+          <caret line="466" column="0" lean-forward="false" selection-start-line="466" selection-start-column="0" selection-end-line="466" selection-end-column="0" />
           <folding>
             <element signature="e#64#74#0" expanded="true" />
             <element signature="e#397#777#0" expanded="false" />
@@ -1384,36 +1367,47 @@
             <element signature="e#2566#2672#0" expanded="false" />
             <element signature="e#2708#2752#0" expanded="false" />
             <element signature="e#2785#2994#0" expanded="false" />
-            <element signature="e#3056#3950#0" expanded="false" />
-            <element signature="e#4007#4777#0" expanded="false" />
-            <element signature="e#4852#5554#0" expanded="false" />
-            <element signature="e#5603#6654#0" expanded="false" />
-            <element signature="e#6699#7128#0" expanded="false" />
-            <element signature="e#7218#8218#0" expanded="false" />
-            <element signature="e#8621#9391#0" expanded="false" />
-            <element signature="e#9454#9790#0" expanded="false" />
-            <element signature="e#9463#9594#0" expanded="false" />
-            <marker date="1494939316000" expanded="true" signature="8061:8131" ph="ALTER TABLE " />
-            <marker date="1494939316000" expanded="true" signature="8305:8319" ph="ALTER TABLE " />
-            <marker date="1494939316000" expanded="true" signature="8305:8323" ph="ALTER TABLE " />
-            <marker date="1494939316000" expanded="true" signature="8305:8324" ph="ALTER TABLE " />
-            <marker date="1494939316000" expanded="true" signature="8305:8330" ph="ALTER TABLE " />
-            <marker date="1494939316000" expanded="true" signature="8305:8338" ph="ALTER TABLE " />
-            <marker date="1494939316000" expanded="true" signature="8305:8357" ph="ALTER TABLE " />
-            <marker date="1494939316000" expanded="true" signature="8482:8506" ph="ALTER TABLE missing_value... " />
-            <marker date="1494939316000" expanded="true" signature="8482:8507" ph="ALTER TABLE missing_value... " />
-            <marker date="1494939316000" expanded="true" signature="8482:8517" ph="ALTER TABLE missing_value... " />
-            <marker date="1494939316000" expanded="true" signature="8482:8554" ph="ALTER TABLE " />
-            <marker date="1494939316000" expanded="true" signature="9857:9868" ph="DROP TABLE m... " />
-            <marker date="1494939316000" expanded="true" signature="9952:9964" ph="DELETE FROM " />
+            <element signature="e#3056#4049#0" expanded="false" />
+            <element signature="e#4106#4876#0" expanded="false" />
+            <element signature="e#4951#5653#0" expanded="false" />
+            <element signature="e#5702#6753#0" expanded="false" />
+            <element signature="e#6798#7304#0" expanded="false" />
+            <element signature="e#7394#8394#0" expanded="false" />
+            <element signature="e#9845#10181#0" expanded="false" />
+            <element signature="e#9854#9985#0" expanded="false" />
+            <element signature="e#10611#14789#0" expanded="false" />
+            <marker date="1494949369000" expanded="true" signature="8237:8307" ph="ALTER TABLE " />
+            <marker date="1494949369000" expanded="true" signature="8481:8495" ph="ALTER TABLE " />
+            <marker date="1494949369000" expanded="true" signature="8481:8499" ph="ALTER TABLE " />
+            <marker date="1494949369000" expanded="true" signature="8481:8500" ph="ALTER TABLE " />
+            <marker date="1494949369000" expanded="true" signature="8481:8506" ph="ALTER TABLE " />
+            <marker date="1494949369000" expanded="true" signature="8481:8514" ph="ALTER TABLE " />
+            <marker date="1494949369000" expanded="true" signature="8481:8533" ph="ALTER TABLE " />
+            <marker date="1494949369000" expanded="true" signature="8658:8682" ph="ALTER TABLE missing_value... " />
+            <marker date="1494949369000" expanded="true" signature="8658:8683" ph="ALTER TABLE missing_value... " />
+            <marker date="1494949369000" expanded="true" signature="8658:8693" ph="ALTER TABLE missing_value... " />
+            <marker date="1494949369000" expanded="true" signature="8658:8730" ph="ALTER TABLE " />
+            <marker date="1494949369000" expanded="true" signature="10248:10259" ph="DROP TABLE m... " />
+            <marker date="1494949369000" expanded="true" signature="10345:10357" ph="DELETE FROM " />
+            <marker date="1494949369000" expanded="true" signature="10510:10522" ph="ALTER TABLE table_name... " />
+            <marker date="1494949369000" expanded="true" signature="10510:10535" ph="ALTER TABLE missing_value... " />
+            <marker date="1494949369000" expanded="true" signature="10510:10537" ph="ALTER TABLE " />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/listview.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="30" lean-forward="false" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/projects/map/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="20" column="1" lean-forward="false" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+        <state relative-caret-position="341">
+          <caret line="113" column="0" lean-forward="true" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
           <folding>
             <element signature="e#0#71#0" expanded="true" />
             <element signature="e#1124#1327#0" expanded="false" />
@@ -1421,14 +1415,29 @@
             <element signature="e#1793#2294#0" expanded="false" />
             <element signature="e#2380#2550#0" expanded="false" />
             <element signature="e#2600#2897#0" expanded="false" />
-            <element signature="e#2963#3132#0" expanded="false" />
             <element signature="e#3200#3469#0" expanded="false" />
             <element signature="e#3825#4017#0" expanded="false" />
             <element signature="e#4110#4486#0" expanded="false" />
-            <element signature="e#4583#7168#0" expanded="false" />
-            <element signature="e#7877#8115#0" expanded="false" />
-            <element signature="e#8647#9580#0" expanded="false" />
+            <element signature="e#4583#6815#0" expanded="false" />
+            <element signature="e#7523#7761#0" expanded="false" />
+            <element signature="e#8293#9226#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/mapadmin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="106" column="49" lean-forward="false" selection-start-line="106" selection-start-column="28" selection-end-line="106" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/detailview.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="22" lean-forward="true" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>

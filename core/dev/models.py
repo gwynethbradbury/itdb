@@ -131,15 +131,16 @@ class DatabaseAssistant:
 
         self.DBE.metadata.reflect(self.DBE.E)
         for table in self.DBE.metadata.tables.values():
-            if table.name==tablename or tablename=="":
-                print(table.name)
-                tablenames.append(table.name)
-                thesecolumnnames = []
-                for column in table.c:
-                    thesecolumnnames.append(column.name)
-                columnnames.append(thesecolumnnames)
-            if table.name==tablename:
-                return tablenames,columnnames
+            if not(table.name[0]=='x' and table.name[1]=='_'):
+                if table.name==tablename or tablename=="":
+                    print(table.name)
+                    tablenames.append(table.name)
+                    thesecolumnnames = []
+                    for column in table.c:
+                        thesecolumnnames.append(column.name)
+                    columnnames.append(thesecolumnnames)
+                if table.name==tablename:
+                    return tablenames,columnnames
 
         print tablenames
         print columnnames
@@ -249,18 +250,21 @@ class DatabaseAssistant:
             print(str(e))
 
     def createEmptyTable(self,tn):
+        if tn[0]=='x' and tn[1]=='_':
+            return 0,"invalid tablename"
         tablenames, columnnames = self.getTableAndColumnNames()
         if tablenames.__len__()>0:
             for t in tablenames:
                 if t==tn:
-                    print(tn + " already exists, stopping")
-                    return
+                    return 0,(tn + " already exists, stopping")
+
 
 
         new_table = Table(tn, self.DBE.metadata,
                           Column('id', Integer, primary_key=True))
 
         self.DBE.metadata.create_all(bind=self.DBE.E, tables=[new_table])
+        return 1,""
 
     def addColumn(self,tablename,colname="test",coltype="Integer",numchar=100):
         print("attempting to add column "+colname+" ("+coltype+") to table "+tablename+"...")
@@ -309,7 +313,7 @@ class DatabaseAssistant:
                       self.DBE.E,
                       if_exists='append',
                       index=False,chunksize=50)
-
+            msg=""
             # column = Column('new column', Integer, primary_key=True)
             t,c = self.getTableAndColumnNames(tablename=tablename)
             column_name='id'
@@ -318,12 +322,16 @@ class DatabaseAssistant:
             for cc in c[0]:
                 if cc=='id':
                     self.changeColumnName(tablename,'id','imported_id')
+                    msg="Warning: integer id column found. Primary key column has been created and id" \
+                        "column has changed to 'imported_id'"
 
             self.addIdColumn(tablename, column_name)
 
+            return 1,msg
+
         except Exception as e:
             print(str(e))
-            print("something went wrong - maybe table exists and columns are mismatched?")
+            return 0,("something went wrong - maybe table exists and columns are mismatched?")
 
     def classFromTableName(self, classname, fields):
         mydict = {'__tablename__': classname,
@@ -341,7 +349,11 @@ class DatabaseAssistant:
         self.DBE.E.execute('DROP TABLE %s;' %(tablename))
 
     def clearTable(self,tablename):
-        self.DBE.E.execute("DELETE FROM %s;" % (tablename))
+        # self.DBE.E.execute("DELETE FROM %s;" % (tablename))
+        self.renameTable(tablename,'x_'+tablename)
+
+    def renameTable(self,fromtablename,totablename):
+        self.DBE.E.execute('ALTER TABLE %s RENAME TO %s;' %(fromtablename,totablename))
 
 
 class DynamicCRUDView(MethodView):

@@ -17,9 +17,14 @@
 
 		        {% endfor %}
 
-		        <button type="submit" class="button success">Submit</button>
-
-				<a class="button alert" href="{{ path +'delete/'+ action.split('/')[-2]}}">delete</a>
+		        <div class="row">
+                    <div class="column">
+                        <button type="submit" class="button success">Submit</button>
+                    </div>
+                    <div class="column">
+                        <a class="button alert" href="{{ path +'delete/'+ action.split('/')[-2]}}">delete</a>
+                    </div>
+                </div>
 		    </fieldset>
 
 		</form>

@@ -14,5 +14,15 @@ from app.admin import register_crud
 from .models import project
 from .views import register_tables
 
+from core.dev import *
 
-register_tables()
+import dbconfig
+dbbb = 'mysql+pymysql://{}:{}@localhost/{}'.format(dbconfig.db_user,
+                                                   dbconfig.db_password,
+                                                   map.name)
+dbbindkey="project_"+map.name+"_db"
+appname=map.name
+
+DBA = DatabaseAssistant(dbbb,dbbindkey,appname)
+
+register_tables(map)

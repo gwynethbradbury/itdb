@@ -479,3 +479,10 @@ def registerCRUDforUnknownTable(app, url, endpoint, model, dbbindkey, appname, d
     app.add_url_rule('%s/<operation>/<filter_name>/' % url, view_func=view,
                      methods=['GET'])
     print('registered crud at ' + url)
+
+
+
+
+
+
+

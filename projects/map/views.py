@@ -106,20 +106,56 @@ def assignadminroutes(application):
     adminroute = "/projects/"+application.name+"/admin/"
     approute = "/projects/"+application.name+"/"
 
-    @application.route("/projects/"+application.name+"/admin/<tablename>/<id>/delete/")
-    # @application.route("/projects/map/admin/pro/5/delete/")
+    list_template = 'projects/' + application.name + '/listview.html',
+    detail_template = 'projects/' + application.name + '/detailview.html',
+
+    filters={}
+
+    def render_detail(tablename,**kwargs):
+        t,c=DBA.getTableAndColumnNames()
+        path = "%s%s/" %(adminroute,tablename)#url_for('.%s' % tablename)
+        return render_template(detail_template, path=path,
+                               tablenames=t,
+                               **kwargs)
+
+    def render_list(tablename,fields, **kwargs):
+        t,c=DBA.getTableAndColumnNames()
+        path = "%s%s/" %(adminroute,tablename)#url_for('.%s' % tablename)
+        return render_template(list_template, path=path,
+                               fields=fields,
+                               tablenames=t,
+                               tablename=tablename,
+                               filters=filters,
+                               **kwargs)
+
+    @application.route("/projects/"+application.name+"/admin/<tablename>/")
+    def showTable(tablename):
+        tns,cns = DBA.getTableAndColumnNames(tablename=tablename)
+        model = DBA.classFromTableName(classname=str(tablename),fields=cns[0])
+
+        sesh = sessionmaker(bind=DBA.DBE.E)
+        sesh = sesh()
+        # ObjForm = model_form(model, sesh, exclude=None)
+
+        q = select(from_obj=model, columns=['*'])
+        result = sesh.execute(q)
+
+        KEYS = result.keys()
+        obj=[]
+        for r in result:
+            obj.append(r)
+
+        return render_list(tablename=tablename,obj=obj,fields=KEYS)
+
+    @application.route("/projects/"+application.name+"/admin/<tablename>/delete/<id>/")
     def deleteObject(tablename,id):
         tns,cns = DBA.getTableAndColumnNames(tablename=tablename)
         model = DBA.classFromTableName(classname=str(tablename),fields=cns[0])
 
         sesh = sessionmaker(bind=DBA.DBE.E)
         sesh = sesh()
-        ObjForm = model_form(model, sesh, exclude=None)
+        # ObjForm = model_form(model, sesh, exclude=None)
 
-
-
-
-        # works, given id from form but that bit is incorrect
         obj = sesh.query(model).filter_by(id=id).first()
         sesh.delete(obj)
         sesh.commit()
@@ -127,7 +163,109 @@ def assignadminroutes(application):
         q = select(from_obj=model, columns=['*'])
         result = sesh.execute(q)
 
-        return redirect(adminroute+"tablename/")
+        KEYS = result.keys()
+        obj=[]
+        for r in result:
+            obj.append(r)
+
+        return render_list(tablename=tablename,obj=obj,fields=KEYS)
+
+    #todo: test
+    @application.route("/projects/" + application.name + "/admin/<tablename>/filter/<filter_name>")
+    def filterObjects(tablename, filter_name):
+        tns,cns = DBA.getTableAndColumnNames(tablename=tablename)
+        model = DBA.classFromTableName(classname=str(tablename),fields=cns[0])
+
+        func = filters.get(filter_name)
+        obj = func(model)
+
+        return render_list(tablename=tablename, obj=obj, fields=obj.fields, filter_name=filter_name)
+        pass
+
+
+    @application.route("/projects/"+application.name+"/admin/<tablename>/<obj_id>")
+    def displayObject(tablename,obj_id):
+
+        if obj_id:
+            tns,cns = DBA.getTableAndColumnNames(tablename=tablename)
+            model = DBA.classFromTableName(classname=str(tablename), fields=cns[0])
+            sesh = sessionmaker(bind=DBA.DBE.E)
+            sesh = sesh()
+
+            # this creates the form fields base on the model
+            # so we don't have to do them one by one
+            ObjForm = model_form(model, sesh)
+
+            obj = sesh.query(model).filter_by(id=obj_id).first()
+            # populate the form with our blog data
+            form = ObjForm(obj=obj)
+            # action is the url that we will later use
+            # to do post, the same url with obj_id in this case
+            action = request.path
+            return render_detail(tablename=tablename,form=form, action=action)
+
+        tns, cns = DBA.getTableAndColumnNames(tablename=tablename)
+        model = DBA.classFromTableName(classname=str(tablename), fields=cns[0])
+        sesh = sessionmaker(bind=DBA.DBE.E)
+        sesh = sesh()
+
+        # this creates the form fields base on the model
+        # so we don't have to do them one by one
+        ObjForm = model_form(model, sesh)
+
+        obj = sesh.query(model).filter_by(id=obj_id).first()
+        # populate the form with our blog data
+        form = ObjForm(obj=obj)
+        # action is the url that we will later use
+        # to do post, the same url with obj_id in this case
+        action = request.path
+        return render_detail(form=form, action=action)
+
+
+    @application.route("/projects/" + application.name + "/admin/<tablename>/new")
+    def newObjectForm(tablename):
+        tns, cns = DBA.getTableAndColumnNames(tablename=tablename)
+        model = DBA.classFromTableName(classname=str(tablename), fields=cns[0])
+        sesh = sessionmaker(bind=DBA.DBE.E)
+        sesh = sesh()
+
+        path = "%s%s/" %(adminroute,tablename)#url_for('.%s' % tablename)
+        ObjForm = model_form(model, sesh, exclude=None)
+        #  we just want an empty form
+        form = ObjForm()
+        action = "%s" %("createnew")
+        return render_detail(tablename=tablename, form=form, action=action)
+
+
+    @application.route("/projects/" + application.name + "/admin/<tablename>/createnew",
+                       methods=['GET', 'POST'])
+    def createnew(tablename, obj_id=''):
+        tns, cns = DBA.getTableAndColumnNames(tablename=tablename)
+        model = DBA.classFromTableName(classname=str(tablename), fields=cns[0])
+        sesh = sessionmaker(bind=DBA.DBE.E)
+        sesh = sesh()
+        # either load and object to update if obj_id is given
+        # else initiate a new object, this will be helpfull
+        # when we want to create a new object instead of just
+        # editing existing one
+        if obj_id:
+            obj = sesh.query(model).filter_by(id=obj_id).first()
+        else:
+            obj = model()
+
+        ObjForm = model_form(model, sesh)
+        # populate the form with the request data
+        form = ObjForm(request.form)
+        # this actually populates the obj (the blog post)
+        # from the form, that we have populated from the request post
+        form.populate_obj(obj)
+
+        # db.session.add(obj)
+        sesh.add(obj)
+        sesh.commit()
+
+        path = "%s%s/" %(adminroute,tablename)#url_for('.%s' % tablename)
+        return redirect(path)
 
 
 
@@ -315,22 +453,22 @@ def assignadminroutes(application):
 
 
 def register_tables(application):
-    tablenames, columnnames = DBA.getTableAndColumnNames()
-    i=0
-    for tn in tablenames:
-        t=str(tn)
-
-        C = DBA.classFromTableName(t,columnnames[i])
-        i+=1
-        print("registering "+t+" with columns: ")
-        c1 = C()
-        print(c1.fields)
-
-        registerCRUDforUnknownTable(map, '/projects/'+application.name+'/admin/'+t, t, C,
-                                     list_template='projects/'+application.name+'/listview.html',
-                                     detail_template='projects/'+application.name+'/detailview.html',
-                                     dbbindkey=dbbindkey, appname=appname)
-    
+    # tablenames, columnnames = DBA.getTableAndColumnNames()
+    # i=0
+    # for tn in tablenames:
+    #     t=str(tn)
+    #
+    #     C = DBA.classFromTableName(t,columnnames[i])
+    #     i+=1
+    #     print("registering "+t+" with columns: ")
+    #     c1 = C()
+    #     print(c1.fields)
+    #
+    #     registerCRUDforUnknownTable(map, '/projects/'+application.name+'/admin/'+t, t, C,
+    #                                  list_template='projects/'+application.name+'/listview.html',
+    #                                  detail_template='projects/'+application.name+'/detailview.html',
+    #                                  dbbindkey=dbbindkey, appname=appname)
+    pass
 
 
 assignroutes(map)

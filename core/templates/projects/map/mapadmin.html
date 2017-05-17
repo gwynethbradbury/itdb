@@ -100,9 +100,11 @@ table, th, td {
             <ul class="menu vertical">
 {#                <li><a href="{{ url_for('map.project')}}">Projects</a></li>#}
                 {% for t in tablenames %}
-                    <li><a href="{{ url_for('map.'+t)}}">{{ t }}</a></li>
+                    <li><a href="{{ ("/projects/map/admin/"+t)}}">{{ t }}</a></li>
+{#                    <li><a href="{{ url_for('map.'+t)}}">{{ t }}</a></li>#}
 {#                    <li><a href="{{ url_for('map.show', page=t) }}">{{ t }}</a></li>#}
                 {% endfor %}
+
 
                 <li><a href="/projects/map/admin/download">Download</a></li>
                 <li><a href="/projects/map/admin/upload">Upload</a></li>

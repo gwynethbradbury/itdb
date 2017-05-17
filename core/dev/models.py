@@ -414,10 +414,10 @@ class DynamicCRUDView(MethodView):
         #     obj_id=''#clear obj_id otherwise we end up in an if statement that we shouldnt
 
         # list view with filter
-        if operation == 'filter':
-            func = self.filters.get(filter_name)
-            obj = func(self.model)
-            return self.render_list(obj=obj, fields=obj.fields, filter_name=filter_name)
+        # if operation == 'filter':
+        #     func = self.filters.get(filter_name)
+        #     obj = func(self.model)
+        #     return self.render_list(obj=obj, fields=obj.fields, filter_name=filter_name)
 
         if obj_id:
             # this creates the form fields base on the model

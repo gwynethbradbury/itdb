@@ -106,6 +106,34 @@ def assignadminroutes(application):
     adminroute = "/projects/"+application.name+"/admin/"
     approute = "/projects/"+application.name+"/"
 
+    @application.route("/projects/"+application.name+"/admin/<tablename>/<id>/delete/")
+    # @application.route("/projects/map/admin/pro/5/delete/")
+    def deleteObject(tablename,id):
+        tns,cns = DBA.getTableAndColumnNames(tablename=tablename)
+        model = DBA.classFromTableName(classname=str(tablename),fields=cns[0])
+
+        sesh = sessionmaker(bind=DBA.DBE.E)
+        sesh = sesh()
+        ObjForm = model_form(model, sesh, exclude=None)
+
+
+
+
+        # works, given id from form but that bit is incorrect
+        obj = sesh.query(model).filter_by(id=id).first()
+        sesh.delete(obj)
+        sesh.commit()
+
+        q = select(from_obj=model, columns=['*'])
+        result = sesh.execute(q)
+
+        return redirect(adminroute+"tablename/")
+
+
+
+##################
+
+
     @application.route("/projects/"+application.name+"/admin/")
     def showtables():
         tablenames, columnnames = DBA.getTableAndColumnNames()
@@ -217,7 +245,11 @@ def assignadminroutes(application):
 
         if success==1:
             # todo: this does not work on the fly
-            register_tables(application)
+
+            from subprocess import call
+            # print["touch " + os.path.dirname(__file__) + "/tmp.py"]
+            # call(["touch " + os.path.dirname(__file__) + "/tmp.py"])
+            # register_tables(application)
             return render_template(approute+"create_table.html",
                                    tablenames=tablenames, columnnames=columnnames,
                                    message="Table " +
@@ -298,7 +330,7 @@ def register_tables(application):
                                      list_template='projects/'+application.name+'/listview.html',
                                      detail_template='projects/'+application.name+'/detailview.html',
                                      dbbindkey=dbbindkey, appname=appname)
-
+    
 
 
 assignroutes(map)

@@ -346,11 +346,11 @@ class DatabaseAssistant:
         return C
 
     def deleteTable(self,tablename):
-        self.DBE.E.execute('DROP TABLE %s;' %(tablename))
+        self.renameTable(tablename,'x_'+tablename)
+        # self.DBE.E.execute('DROP TABLE %s;' %(tablename))
 
     def clearTable(self,tablename):
-        # self.DBE.E.execute("DELETE FROM %s;" % (tablename))
-        self.renameTable(tablename,'x_'+tablename)
+        self.DBE.E.execute("DELETE FROM %s;" % (tablename))
 
     def renameTable(self,fromtablename,totablename):
         self.DBE.E.execute('ALTER TABLE %s RENAME TO %s;' %(fromtablename,totablename))
@@ -406,11 +406,12 @@ class DynamicCRUDView(MethodView):
             action = self.path
             return self.render_detail(form=form, action=action)
 
-        if operation == 'delete':
-            # works, given id from form but that bit is incorrect
-            obj = self.sesh.query(self.model).filter_by(id=obj_id).first()
-            self.sesh.delete(obj)
-            self.sesh.commit()
+        # if operation == 'delete':
+        #     # works, given id from form but that bit is incorrect
+        #     obj = self.sesh.query(self.model).filter_by(id=obj_id).first()
+        #     self.sesh.delete(obj)
+        #     self.sesh.commit()
+        #     obj_id=''#clear obj_id otherwise we end up in an if statement that we shouldnt
 
         # list view with filter
         if operation == 'filter':

@@ -1,1 +1,1 @@
-id,latitude,longitude,startdate,enddate,category,description,updated_at
+imported_id,latitude,longitude,startdate,enddate,category,description,updated_at,id

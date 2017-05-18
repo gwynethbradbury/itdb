@@ -1,40 +1,36 @@
-from flask import render_template, redirect, url_for, request,send_file
-from . import map
+# from flask import render_template, redirect, url_for, request,send_file
 import json
-from models import project
-import os
-import csv
-import sqlalchemy as sqAl
+# from models import project
+# import os
+# import csv
+# import sqlalchemy as sqAl
+#
+# from sqlalchemy import *
+# from sqlalchemy.orm import sessionmaker
+#
+# from werkzeug.utils import secure_filename
+# # from . import uploadfolder
+# from datetime import datetime
 
-from sqlalchemy import *
-from sqlalchemy.orm import sessionmaker
-
-from werkzeug.utils import secure_filename
-from . import uploadfolder
-from datetime import datetime
-
+#todo: remove dependence on DB, this functionality should be all in the DBA
 import dbconfig
 if dbconfig.test:
     from projects.map.mockdbhelper import MockDBHelper as DBHelper
 else:
     from projects.map.dbhelper import DBHelper
 
-projects = []
+from projects.map import project_app
+DB = DBHelper(project_app.name)
 
-DB = DBHelper(map.name)
+
 
 from core.dev import *
 
-import dataset
+# import dataset
 
-dbbb = 'mysql+pymysql://{}:{}@localhost/{}'.format(dbconfig.db_user,
-                                                   dbconfig.db_password,
-                                                   map.name)
-db2 = dataset.connect(dbbb, row_type=project)
-dbbindkey="project_"+map.name+"_db"
-appname=map.name
-DBA = DatabaseAssistant(dbbb,dbbindkey,appname)
 
+
+# projects = []
 
 
 # @map.route('/projects/map/admin/', defaults={'page': 'index'})
@@ -102,374 +98,13 @@ def assignroutes(application):
         return render_template(approute+application.name+".html",
                                projects=projects, data=data)
 
-def assignadminroutes(application):
-    adminroute = "/projects/"+application.name+"/admin/"
-    approute = "/projects/"+application.name+"/"
 
-    list_template = 'projects/' + application.name + '/listview.html',
-    detail_template = 'projects/' + application.name + '/detailview.html',
 
-    filters={}
 
-    def render_detail(tablename,**kwargs):
-        t,c=DBA.getTableAndColumnNames()
-        path = "%s%s/" %(adminroute,tablename)#url_for('.%s' % tablename)
-        return render_template(detail_template, path=path,
-                               tablenames=t,
-                               **kwargs)
 
-    def render_list(tablename,fields, **kwargs):
-        t,c=DBA.getTableAndColumnNames()
-        path = "%s%s/" %(adminroute,tablename)#url_for('.%s' % tablename)
-        return render_template(list_template, path=path,
-                               fields=fields,
-                               tablenames=t,
-                               tablename=tablename,
-                               filters=filters,
-                               **kwargs)
 
-    @application.route("/projects/"+application.name+"/admin/<tablename>/")
-    def showTable(tablename):
-        tns,cns = DBA.getTableAndColumnNames(tablename=tablename)
-        model = DBA.classFromTableName(classname=str(tablename),fields=cns[0])
-
-        sesh = sessionmaker(bind=DBA.DBE.E)
-        sesh = sesh()
-        # ObjForm = model_form(model, sesh, exclude=None)
-
-        q = select(from_obj=model, columns=['*'])
-        result = sesh.execute(q)
-
-        KEYS = result.keys()
-        obj=[]
-        for r in result:
-            obj.append(r)
-
-        return render_list(tablename=tablename,obj=obj,fields=KEYS)
-
-    @application.route("/projects/"+application.name+"/admin/<tablename>/delete/<id>/")
-    def deleteObject(tablename,id):
-        tns,cns = DBA.getTableAndColumnNames(tablename=tablename)
-        model = DBA.classFromTableName(classname=str(tablename),fields=cns[0])
-
-        sesh = sessionmaker(bind=DBA.DBE.E)
-        sesh = sesh()
-        # ObjForm = model_form(model, sesh, exclude=None)
-
-        obj = sesh.query(model).filter_by(id=id).first()
-        sesh.delete(obj)
-        sesh.commit()
-
-        q = select(from_obj=model, columns=['*'])
-        result = sesh.execute(q)
-
-        KEYS = result.keys()
-        obj=[]
-        for r in result:
-            obj.append(r)
-
-        return render_list(tablename=tablename,obj=obj,fields=KEYS)
-
-    #todo: test
-    @application.route("/projects/" + application.name + "/admin/<tablename>/filter/<filter_name>")
-    def filterObjects(tablename, filter_name):
-        tns,cns = DBA.getTableAndColumnNames(tablename=tablename)
-        model = DBA.classFromTableName(classname=str(tablename),fields=cns[0])
-
-        func = filters.get(filter_name)
-        obj = func(model)
-
-        return render_list(tablename=tablename, obj=obj, fields=obj.fields, filter_name=filter_name)
-        pass
-
-
-    @application.route("/projects/"+application.name+"/admin/<tablename>/<obj_id>")
-    def displayObject(tablename,obj_id):
-
-        if obj_id:
-            tns,cns = DBA.getTableAndColumnNames(tablename=tablename)
-            model = DBA.classFromTableName(classname=str(tablename), fields=cns[0])
-            sesh = sessionmaker(bind=DBA.DBE.E)
-            sesh = sesh()
-
-            # this creates the form fields base on the model
-            # so we don't have to do them one by one
-            ObjForm = model_form(model, sesh)
-
-            obj = sesh.query(model).filter_by(id=obj_id).first()
-            # populate the form with our blog data
-            form = ObjForm(obj=obj)
-            # action is the url that we will later use
-            # to do post, the same url with obj_id in this case
-            action = request.path
-            return render_detail(tablename=tablename,form=form, action=action)
-
-        tns, cns = DBA.getTableAndColumnNames(tablename=tablename)
-        model = DBA.classFromTableName(classname=str(tablename), fields=cns[0])
-        sesh = sessionmaker(bind=DBA.DBE.E)
-        sesh = sesh()
-
-        # this creates the form fields base on the model
-        # so we don't have to do them one by one
-        ObjForm = model_form(model, sesh)
-
-        obj = sesh.query(model).filter_by(id=obj_id).first()
-        # populate the form with our blog data
-        form = ObjForm(obj=obj)
-        # action is the url that we will later use
-        # to do post, the same url with obj_id in this case
-        action = request.path
-        return render_detail(form=form, action=action)
-
-
-    @application.route("/projects/" + application.name + "/admin/<tablename>/new")
-    def newObjectForm(tablename):
-        tns, cns = DBA.getTableAndColumnNames(tablename=tablename)
-        model = DBA.classFromTableName(classname=str(tablename), fields=cns[0])
-        sesh = sessionmaker(bind=DBA.DBE.E)
-        sesh = sesh()
-
-        path = "%s%s/" %(adminroute,tablename)#url_for('.%s' % tablename)
-        ObjForm = model_form(model, sesh, exclude=None)
-        #  we just want an empty form
-        form = ObjForm()
-        action = "%s" %("createnew")
-        return render_detail(tablename=tablename, form=form, action=action)
-
-
-    @application.route("/projects/" + application.name + "/admin/<tablename>/createnew",
-                       methods=['GET', 'POST'])
-    def createnew(tablename, obj_id=''):
-        tns, cns = DBA.getTableAndColumnNames(tablename=tablename)
-        model = DBA.classFromTableName(classname=str(tablename), fields=cns[0])
-        sesh = sessionmaker(bind=DBA.DBE.E)
-        sesh = sesh()
-        # either load and object to update if obj_id is given
-        # else initiate a new object, this will be helpfull
-        # when we want to create a new object instead of just
-        # editing existing one
-        if obj_id:
-            obj = sesh.query(model).filter_by(id=obj_id).first()
-        else:
-            obj = model()
-
-        ObjForm = model_form(model, sesh)
-        # populate the form with the request data
-        form = ObjForm(request.form)
-        # this actually populates the obj (the blog post)
-        # from the form, that we have populated from the request post
-        form.populate_obj(obj)
-
-        # db.session.add(obj)
-        sesh.add(obj)
-        sesh.commit()
-
-        path = "%s%s/" %(adminroute,tablename)#url_for('.%s' % tablename)
-        return redirect(path)
-
-
-
-##################
-
-
-    @application.route("/projects/"+application.name+"/admin/")
-    def showtables():
-        tablenames, columnnames = DBA.getTableAndColumnNames()
-
-        print("tablenames are:")
-        print(tablenames)
-        print("end")
-        return render_template(approute+"mapadmin.html",tablenames=tablenames)
-
-
-
-
-    @application.route(adminroute+"newtable")
-    def newtable():
-
-        columnnames=[]
-        tablenames=[]
-
-
-        return render_template(approute+"create_table.html",
-                               tablenames=tablenames,columnnames=columnnames)
-
-    @application.route(adminroute+"addcolumn")
-    def addcolumn():
-
-        tablenames, columnnames = DBA.getTableAndColumnNames()
-
-        DBA.addColumn("newtable", "test2","Time stamp")
-
-        return render_template(approute+"create_table.html",
-                               tablenames=tablenames,columnnames=columnnames)
-        # return showtables()
-
-    @application.route(adminroute+"deletetable/<page>")
-    def deletetable(page):
-        DBA.deleteTable(page)
-        return redirect(adminroute)
-
-    @application.route(adminroute+"cleartable/<page>")
-    def cleartable(page):
-        DBA.clearTable(page)
-        return redirect(adminroute)
-
-    @application.route(adminroute+"download")
-    def download():
-        tablenames, columnnames = DBA.getTableAndColumnNames()
-
-        return render_template(approute+"download_table.html",
-                               tablenames=tablenames,columnnames=columnnames)
-
-
-    @application.route(adminroute+"servedata", methods=['GET', 'POST'])
-    def servedata():
-        #serves the requested data
-        # todo: problems with filename and extension
-
-
-        try:
-            return DBA.serveData(F=request.form,
-                                 ClassName=str(request.form.get("tablename")),
-                                 p=os.path.abspath(os.path.dirname(__file__)))
-        except Exception as e:
-            print( str(e))
-
-        return redirect(adminroute)
-
-
-    @application.route(adminroute+"createtable", methods=['GET', 'POST'])
-    def createtable():
-        #create a new table either from scratch or from an existing csv
-        tablenames, columnnames = DBA.getTableAndColumnNames()
-        success=0
-        ret=""
-
-        #check for no table name
-        if request.form.get("newtablename")=="":
-            success=0
-            ret="Enter table name"
-
-        #check for existing table with this name
-        elif request.form.get("newtablename") in tablenames:
-            success=0
-            ret="Table "+request.form.get("newtablename")+" already exists, try a new name"
-
-        #check whether this should be an empty table or from existing data
-        elif request.form.get("source") == "emptytable":
-            success, ret = DBA.createEmptyTable(request.form.get("newtablename"))
-
-        elif 'file' not in request.files:
-            # check if the post request has the file part
-            print('No file found')
-            success=0
-            ret="No file part, contact admin"
-
-        else:
-            file = request.files['file']
-            # if user does not select file, browser also
-            # submit a empty part without filename
-            if file.filename == '':
-                success=0
-                ret = 'No selected file.'
-
-            elif file:  # and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                dt = datetime.utcnow().strftime("%Y-%m-%d_%H:%M:%S")
-                file.save(os.path.join(uploadfolder, dt + '_' + filename))
-                success, ret = DBA.createTableFromCSV(os.path.join(uploadfolder, filename),
-                                                      request.form.get("newtablename"))
-
-        if success==1:
-            # todo: this does not work on the fly
-
-            from subprocess import call
-            # print["touch " + os.path.dirname(__file__) + "/tmp.py"]
-            # call(["touch " + os.path.dirname(__file__) + "/tmp.py"])
-            # register_tables(application)
-            return render_template(approute+"create_table.html",
-                                   tablenames=tablenames, columnnames=columnnames,
-                                   message="Table " +
-                                           request.form.get("newtablename") + " created successfully!\n" + ret)
-        else:
-            return render_template(approute+"create_table.html",
-                                   tablenames=tablenames, columnnames=columnnames,
-                                   error="Creation of table " + request.form.get("newtablename") +
-                                           " failed!/nError: "+ret)
-
-
-
-
-
-    @application.route(adminroute+"genblankcsv", methods=['GET', 'POST'])
-    def genblankcsv():
-        try:
-            return DBA.genBlankCSV(request.form.get("tablename"),
-                                   p=os.path.abspath(os.path.dirname(__file__)))
-        except Exception as e:
-            print( str(e))
-
-        return redirect(adminroute)
-
-
-    @application.route(adminroute+"upload")
-    def upload():
-
-        tablenames, columnnames = DBA.getTableAndColumnNames()
-        # DBA.createTableFromCSV("/Users/cenv0594/Repositories/dbas/projects/map/data/export.csv", 'testtable2')
-
-        return render_template(approute+"upload_table.html",
-                               tablenames=tablenames)
-
-
-
-    @application.route(adminroute+"uploadcsv", methods=['GET', 'POST'])
-    def uploadcsv():
-        if request.method == 'POST':
-            # check if the post request has the file part
-            if 'file' not in request.files:
-                print('No file part')
-                return redirect(request.url)
-            file = request.files['file']
-            # if user does not select file, browser also
-            # submit a empty part without filename
-            if file.filename == '':
-                print('No selected file')
-                return redirect(request.url)
-            if file:# and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                dt = datetime.utcnow().strftime("%Y-%m-%d_%H:%M:%S")
-                file.save(os.path.join(uploadfolder, dt+'_'+filename))
-                print(filename)
-                DB.uploadcsv(os.path.join(uploadfolder, filename))
-                # return redirect(url_for('uploaded_file',
-                #                         filename=filename))
-
-
-
-        return redirect(adminroute)
-
-
-
-def register_tables(application):
-    # tablenames, columnnames = DBA.getTableAndColumnNames()
-    # i=0
-    # for tn in tablenames:
-    #     t=str(tn)
-    #
-    #     C = DBA.classFromTableName(t,columnnames[i])
-    #     i+=1
-    #     print("registering "+t+" with columns: ")
-    #     c1 = C()
-    #     print(c1.fields)
-    #
-    #     registerCRUDforUnknownTable(map, '/projects/'+application.name+'/admin/'+t, t, C,
-    #                                  list_template='projects/'+application.name+'/listview.html',
-    #                                  detail_template='projects/'+application.name+'/detailview.html',
-    #                                  dbbindkey=dbbindkey, appname=appname)
-    pass
-
-
-assignroutes(map)
-assignadminroutes(map)
+#
+#
+# assignroutes(map)
+# assignAdminRoutesForDatabase(map,DBA,upload_folder=uploadfolder)
+# assignadminroutes(map,DBA)

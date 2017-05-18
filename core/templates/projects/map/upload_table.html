@@ -29,13 +29,11 @@
 
 
 
-    <h1>Upload data</h1>
+    <h3>Upload data</h3>
     <form action="genblankcsv" method="post" name="data">
 
-			<label for="tablename">Table</label>
+			<label for="tablename">Select table</label>
 			<select name="tablename" id="tablename"/>
-				    <option value="other" id="other">
-                        other</option>
                 {% for t in tablenames %}
 				    <option value="{{ t }}" id="{{ t }}"
                         onClick="JavaScript:toggleColumnHeaders(this,'project');">
@@ -57,7 +55,7 @@
 {##}
 {#            </div>#}
 
-        <p><input type="submit" value="Download Template"></p>
+        <p><input type="submit" class="button" value="Download Template"></p>
 
 
     </form>

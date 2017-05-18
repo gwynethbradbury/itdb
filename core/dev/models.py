@@ -84,22 +84,34 @@ def desc2formattedtype(coltype,numchar):
     return data_type_formatted
 
 
+
 class DBEngine:
     E = SqlAl.null
     metadata = SqlAl.MetaData()
+    db=""
 
     def __init__(self,db):
         self.metadata = SqlAl.MetaData()
-        print(db)
+        self.db=db
         self.E = SqlAl.create_engine(db)
         self.metadata.bind = self.E
-
 
 class DatabaseAssistant:
     db = ""
     dbkey=""
     DBE = SqlAl.null
     mydatabasename=""
+    adminroute = ""
+    approute = ""
+
+    list_template = ""
+    detail_template = ""
+
+    filters={}
+
+
+
+
 
     def __init__(self,db="",dbkey="",dbname=""):
         self.db = db
@@ -107,16 +119,24 @@ class DatabaseAssistant:
         self.dbkey=dbkey
         self.mydatabasename = dbname
 
+        self.adminroute = "/projects/" + dbname + "/admin/"
+        self.approute = "/projects/" + dbname + "/"
+
+        self.list_template = 'projects/' + dbname + '/listview.html',
+        self.detail_template = 'projects/' + dbname + '/detailview.html',
+
     def resetDB(self,db):
         self.db = db
         self.DBE = DBEngine(db)
 
+    # Gets the database connection
     def connect(self):
         return pymysql.connect(host='localhost',
                                user=dbconfig.db_user,
                                passwd=dbconfig.db_password,
                                db=self.mydatabasename)
 
+    # gets the table and respective column names from the database
     def getTableAndColumnNames(self, tablename=""):
         # gets the table and column names given a db link
 
@@ -147,6 +167,7 @@ class DatabaseAssistant:
 
         return tablenames,columnnames
 
+    # generates a template csv fro uploading data to an existing table
     def genBlankCSV(self, tablename="", p=""):
         # generates an empty file to upload data for the selected table
 
@@ -158,7 +179,7 @@ class DatabaseAssistant:
         print("2")
         result = db_connection.execute(select)
 
-        exportpath = p + '/data/upload.csv'
+        exportpath = p + 'upload.csv'
         fh = open(exportpath, 'wb')
         outcsv = csv.writer(fh)
 
@@ -176,6 +197,7 @@ class DatabaseAssistant:
 
         return
 
+    # gets data from the table given a list of desired fields
     def retrieveDataFromDatabase(self, classname, columnnames):
 
         C = self.classFromTableName(classname, columnnames)
@@ -206,6 +228,7 @@ class DatabaseAssistant:
 
         return result, result_as_string
 
+    # serves the data to the client
     def serveData(self,F,ClassName,p):
         # serves the data from the database given the corresponding class C
 
@@ -234,7 +257,7 @@ class DatabaseAssistant:
         result, result_as_string = self.retrieveDataFromDatabase(ClassName, columnnames)
 
 
-        exportpath = p + '/data/export.csv'
+        exportpath = p + '/export.csv'
         fh = open(exportpath, 'wb')
         outcsv = csv.writer(fh)
 
@@ -249,6 +272,7 @@ class DatabaseAssistant:
         except Exception as e:
             print(str(e))
 
+    # creates a new empty table
     def createEmptyTable(self,tn):
         if tn[0]=='x' and tn[1]=='_':
             return 0,"invalid tablename"
@@ -266,6 +290,8 @@ class DatabaseAssistant:
         self.DBE.metadata.create_all(bind=self.DBE.E, tables=[new_table])
         return 1,""
 
+    # adds a column to the database
+    # todo: test
     def addColumn(self,tablename,colname="test",coltype="Integer",numchar=100):
         print("attempting to add column "+colname+" ("+coltype+") to table "+tablename+"...")
         try:
@@ -298,12 +324,15 @@ class DatabaseAssistant:
         connection.commit()
         connection.close()
 
+    # adds a primary key column for integer ids to the table
     def addIdColumn(self, table_name, column_name="id"):
         self.DBE.E.execute('ALTER TABLE %s ADD %s INT PRIMARY KEY AUTO_INCREMENT;' %(table_name, column_name))
 
+    # changes the name of a column
     def changeColumnName(self, tablename, fromcolumn, tocolumn):
         self.DBE.E.execute('ALTER TABLE %s CHANGE %s %s INTEGER;' %(tablename, fromcolumn, tocolumn))
 
+    # creates a new table from a csv file
     def createTableFromCSV(self, filepath, tablename):
 
         df = pd.read_csv(filepath,parse_dates=True)
@@ -333,6 +362,7 @@ class DatabaseAssistant:
             print(str(e))
             return 0,("something went wrong - maybe table exists and columns are mismatched?")
 
+    # creates a class from a table
     def classFromTableName(self, classname, fields):
         mydict = {'__tablename__': classname,
                   '__table_args__': {'autoload': True},
@@ -345,13 +375,23 @@ class DatabaseAssistant:
         C.fields=fields
         return C
 
+    # deletes specidied table
     def deleteTable(self,tablename):
-        self.renameTable(tablename,'x_'+tablename)
-        # self.DBE.E.execute('DROP TABLE %s;' %(tablename))
+        # self.renameTable(tablename,'x_'+tablename)
+        self.DBE.E.execute('DROP TABLE %s;' %(tablename))
 
+        # tn,cn=self.getTableAndColumnNames(tablename)
+        # C = self.classFromTableName(str(tablename),cn[0])
+        # for table in self.DBE.metadata.tables.values():
+        #     if tablename==table.name:
+        #         C.__table__.drop(self.DBE.E)
+        #         return
+
+    # clears all entries from a table without deleting it
     def clearTable(self,tablename):
         self.DBE.E.execute("DELETE FROM %s;" % (tablename))
 
+    # renames a table
     def renameTable(self,fromtablename,totablename):
         self.DBE.E.execute('ALTER TABLE %s RENAME TO %s;' %(fromtablename,totablename))
 

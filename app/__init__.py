@@ -26,11 +26,12 @@ app.config.update(
 app.config.from_object('config')
 
 db = SQLAlchemy(app)
+# bind the static database for iaas service admin - this is a static database
 db.create_all(bind='iaas_db')
-db.create_all(bind='project_map_db')
+# db.create_all(bind='project_map_db')
 
 
-from projects.map import map
+from projects.map import project_app as map
 from core.home import home
 from admin import admin
 
@@ -39,6 +40,10 @@ from admin import admin
 app.register_blueprint(home)
 app.register_blueprint(admin, url_prefix='/admin',
                        template_folder='templates')
+
+# do this for each project:
+#todo: use database to do this dynamically
+from projects.map import project_app as map
 app.register_blueprint(map)
 
 

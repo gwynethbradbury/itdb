@@ -6,7 +6,6 @@
 # from core.home import home
 
 from app import app
-from projects.map import map
 
 # app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 # manager = Manager(app)

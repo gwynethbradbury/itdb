@@ -3,25 +3,31 @@ from app import app
 from app.admin import *
 import os
 
-map = Blueprint('map', __name__,template_folder='templates')#,static_folder='static')
+import dbconfig
+
+# set the project name and get the relative path for uploads/downloads
+project_name = 'map'
 uploadfolder = dir_path = os.path.dirname(os.path.realpath(__file__))+'/data/'
+
+# create the rpoject app (generic name)
+project_app = Blueprint(project_name, __name__,template_folder='templates')#,static_folder='static')
+
+
+# set the database entry point for this project
+# database and project names should be the same
+db = 'mysql+pymysql://{}:{}@localhost/{}'.format(dbconfig.db_user,
+                                                 dbconfig.db_password,
+                                                 project_app.name)
+
+dbbindkey="project_"+project_name+"_db"
+
 
 import views
 
-from app.admin import register_crud
+# create the database assistant instance
+DBA = views.DatabaseAssistant(db,dbbindkey,project_name)
 
-from .models import project
-from .views import register_tables
+views.assignroutes(project_app)
+views.assignAdminRoutesForDatabase(project_app,DBA,upload_folder=uploadfolder)
 
-from core.dev import *
 
-import dbconfig
-dbbb = 'mysql+pymysql://{}:{}@localhost/{}'.format(dbconfig.db_user,
-                                                   dbconfig.db_password,
-                                                   map.name)
-dbbindkey="project_"+map.name+"_db"
-appname=map.name
-
-DBA = DatabaseAssistant(dbbb,dbbindkey,appname)
-
-register_tables(map)

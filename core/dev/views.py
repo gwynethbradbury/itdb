@@ -377,7 +377,7 @@ def assignAdminRoutesForDatabase(application, DBA, upload_folder):
             return render_template(approute+"create_table.html",
                                    tablenames=tablenames, columnnames=columnnames,
                                    error="Creation of table " + request.form.get("newtablename") +
-                                           " failed!/nError: "+ret)
+                                           " failed!<br/>Error: "+ret)
 
 
 

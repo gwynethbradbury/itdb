@@ -2,20 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5216aa2-f126-4355-838a-43d271f57d12" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/__init__.py" afterPath="$PROJECT_DIR$/app/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/dev/__init__.py" afterPath="$PROJECT_DIR$/core/dev/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/dev/models.py" afterPath="$PROJECT_DIR$/core/dev/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/dev/views.py" afterPath="$PROJECT_DIR$/core/dev/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/projects/map/create_table.html" afterPath="$PROJECT_DIR$/core/templates/projects/map/create_table.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/projects/map/detailview.html" afterPath="$PROJECT_DIR$/core/templates/projects/map/detailview.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/projects/map/download_table.html" afterPath="$PROJECT_DIR$/core/templates/projects/map/download_table.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/projects/map/upload_table.html" afterPath="$PROJECT_DIR$/core/templates/projects/map/upload_table.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dbas.py" afterPath="$PROJECT_DIR$/dbas.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/projects/map/__init__.py" afterPath="$PROJECT_DIR$/projects/map/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/projects/map/data/export.csv" afterPath="$PROJECT_DIR$/projects/map/data/export.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/projects/map/data/upload.csv" afterPath="$PROJECT_DIR$/projects/map/data/upload.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/projects/map/views.py" afterPath="$PROJECT_DIR$/projects/map/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -76,8 +63,8 @@
           <file leaf-file-name="download_table.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/core/templates/projects/map/download_table.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="512">
-                  <caret line="56" column="83" lean-forward="false" selection-start-line="56" selection-start-column="83" selection-end-line="56" selection-end-column="83" />
+                <state relative-caret-position="542">
+                  <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -171,11 +158,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/core/dev/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="309">
-                  <caret line="353" column="35" lean-forward="true" selection-start-line="353" selection-start-column="35" selection-end-line="353" selection-end-column="35" />
+                <state relative-caret-position="647">
+                  <caret line="379" column="57" lean-forward="false" selection-start-line="379" selection-start-column="57" selection-end-line="379" selection-end-column="57" />
                   <folding>
                     <element signature="e#1415#1675#0" expanded="false" />
                     <element signature="e#1847#2363#0" expanded="false" />
@@ -192,18 +179,18 @@
                     <element signature="e#8623#8833#0" expanded="false" />
                     <element signature="e#8936#9219#0" expanded="false" />
                     <element signature="e#9395#12660#0" expanded="false" />
-                    <element signature="e#17561#17757#0" expanded="false" />
-                    <element signature="e#17924#18334#0" expanded="false" />
-                    <marker date="1495117881000" expanded="true" signature="12060:12180" ph="INSERT INTO project... " />
+                    <element signature="e#17564#17760#0" expanded="false" />
+                    <element signature="e#17927#18337#0" expanded="false" />
+                    <marker date="1495118453000" expanded="true" signature="12060:12180" ph="INSERT INTO project... " />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="upload_table.html" pinned="false" current-in-tab="false">
+          <file leaf-file-name="upload_table.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/core/templates/projects/map/upload_table.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="371">
+                <state relative-caret-position="855">
                   <caret line="57" column="47" lean-forward="false" selection-start-line="57" selection-start-column="47" selection-end-line="57" selection-end-column="47" />
                   <folding />
                 </state>
@@ -259,7 +246,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>obj</find>
       <find>projects</find>
       <find>list</find>
       <find>downl</find>
@@ -289,6 +275,7 @@
       <find>project_app</find>
       <find>newt</find>
       <find>create_tabl</find>
+      <find>enter</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -1397,14 +1384,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/download_table.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="56" column="83" lean-forward="false" selection-start-line="56" selection-start-column="83" selection-end-line="56" selection-end-column="83" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/templates/projects/map/create_table.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="511">
@@ -1413,18 +1392,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/upload_table.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="371">
-          <caret line="57" column="47" lean-forward="false" selection-start-line="57" selection-start-column="47" selection-end-line="57" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/dev/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="353" column="35" lean-forward="true" selection-start-line="353" selection-start-column="35" selection-end-line="353" selection-end-column="35" />
+        <state relative-caret-position="647">
+          <caret line="379" column="57" lean-forward="false" selection-start-line="379" selection-start-column="57" selection-end-line="379" selection-end-column="57" />
           <folding>
             <element signature="e#1415#1675#0" expanded="false" />
             <element signature="e#1847#2363#0" expanded="false" />
@@ -1441,10 +1412,26 @@
             <element signature="e#8623#8833#0" expanded="false" />
             <element signature="e#8936#9219#0" expanded="false" />
             <element signature="e#9395#12660#0" expanded="false" />
-            <element signature="e#17561#17757#0" expanded="false" />
-            <element signature="e#17924#18334#0" expanded="false" />
-            <marker date="1495117881000" expanded="true" signature="12060:12180" ph="INSERT INTO project... " />
+            <element signature="e#17564#17760#0" expanded="false" />
+            <element signature="e#17927#18337#0" expanded="false" />
+            <marker date="1495118453000" expanded="true" signature="12060:12180" ph="INSERT INTO project... " />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/download_table.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="542">
+          <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/templates/projects/map/upload_table.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="855">
+          <caret line="57" column="47" lean-forward="false" selection-start-line="57" selection-start-column="47" selection-end-line="57" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>

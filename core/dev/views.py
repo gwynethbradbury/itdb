@@ -253,8 +253,8 @@ def assignAdminRoutesForDatabase(application, DBA, upload_folder):
                                error=err)
 
     # adds the data from the CSV to an existing table
-    @application.route(adminroute+"uploadcsv", methods=['GET', 'POST'])
-    def uploadcsv():
+    @application.route(adminroute+"uploaddatafrom", methods=['GET', 'POST'])
+    def uploaddatafrom():
         if request.method == 'POST':
             # check if the post request has the file part
             if 'file' not in request.files:
@@ -271,8 +271,8 @@ def assignAdminRoutesForDatabase(application, DBA, upload_folder):
                     file.save(os.path.join(uploadfolder, dt+'_'+filename))
                     tablename = str(request.form.get("tablename"))
 
-                    success, ret = DBA.createTableFromCSV(os.path.join(uploadfolder, dt+'_'+filename),
-                                                          request.form.get("tablename"))
+                    success, ret = DBA.createTableFrom(os.path.join(uploadfolder, dt+'_'+filename),
+                                                       tablename)
                     if success:
                         ret = "Success, data added to table: %s%s%s" %(tablename,"<br/>",ret)
                         return uploaddata(msg=ret)
@@ -328,11 +328,6 @@ def assignAdminRoutesForDatabase(application, DBA, upload_folder):
 
         if success==1:
             # todo: this does not work on the fly
-
-            from subprocess import call
-            # print["touch " + os.path.dirname(__file__) + "/tmp.py"]
-            # call(["touch " + os.path.dirname(__file__) + "/tmp.py"])
-            # register_tables(application)
             return render_template(approute+"create_table.html",
                                    tablenames=tablenames, columnnames=columnnames,
                                    message="Table " +
@@ -343,57 +338,6 @@ def assignAdminRoutesForDatabase(application, DBA, upload_folder):
                                    error="Creation of table " + request.form.get("newtablename") +
                                            " failed!<br/>Error: "+ret)
 
-
-
-
-    #
-    # @application.route(adminroute+"genblankcsv", methods=['GET', 'POST'])
-    # def genblankcsv():
-    #     try:
-    #         return DBA.genBlankCSV(request.form.get("tablename"),
-    #                                p=os.path.abspath(os.path.dirname(__file__)))
-    #     except Exception as e:
-    #         print( str(e))
-    #
-    #     return redirect(adminroute)
-    #
-    #
-    # @application.route(adminroute+"upload")
-    # def upload():
-    #
-    #     tablenames, columnnames = DBA.getTableAndColumnNames()
-    #     # DBA.createTableFromCSV("/Users/cenv0594/Repositories/dbas/projects/map/data/export.csv", 'testtable2')
-    #
-    #     return render_template(approute+"upload_table.html",
-    #                            tablenames=tablenames)
-    #
-    #
-    #
-    # @application.route(adminroute+"uploadcsv", methods=['GET', 'POST'])
-    # def uploadcsv():
-    #     if request.method == 'POST':
-    #         # check if the post request has the file part
-    #         if 'file' not in request.files:
-    #             print('No file part')
-    #             return redirect(request.url)
-    #         file = request.files['file']
-    #         # if user does not select file, browser also
-    #         # submit a empty part without filename
-    #         if file.filename == '':
-    #             print('No selected file')
-    #             return redirect(request.url)
-    #         if file:# and allowed_file(file.filename):
-    #             filename = secure_filename(file.filename)
-    #             dt = datetime.utcnow().strftime("%Y-%m-%d_%H:%M:%S")
-    #             file.save(os.path.join(uploadfolder, dt+'_'+filename))
-    #             print(filename)
-    #             DB.uploadcsv(os.path.join(uploadfolder, filename))
-    #             # return redirect(url_for('uploaded_file',
-    #             #                         filename=filename))
-    #
-    #
-    #
-    #     return redirect(adminroute)
 
     # renders the download form
     @application.route(adminroute+"download")

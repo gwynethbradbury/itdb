@@ -10,6 +10,7 @@ from wtforms.ext.sqlalchemy.orm import model_form
 import pymysql
 import dbconfig
 import pandas as pd
+import os
 
 listOfColumnTypes = ["Integer",
                    "String",
@@ -329,10 +330,61 @@ class DatabaseAssistant:
     # region UPLOADING TABLES, APPENDING TO TABLES, CREATING NEW TABLES
     #
 
+    def createTableFrom(self, filepath, tablename):
+        filename, file_extension = os.path.splitext(filepath)
+
+        if file_extension.lower()=='.csv':
+            success, msg = self.createTableFromCSV(filepath,tablename)
+        elif file_extension.lower()=='.xls' or file_extension.lower()=='.xlsx':
+            success, msg = self.createTableFromXLS(filepath,tablename)
+
+        return success, msg
+
     # creates a new table from a csv file
     def createTableFromCSV(self, filepath, tablename):
 
         df = pd.read_csv(filepath,parse_dates=True)
+
+        try:
+            msg=""
+
+            cnames = df.columns.values.tolist()
+            if 'id' in cnames:
+                df = df.rename(columns={'id': 'imported_id'})
+                msg="Warning: integer id column found. Primary key column has been created and id" \
+                    "column has changed to 'imported_id'"
+
+            df.to_sql(tablename,
+                      self.DBE.E,
+                      if_exists='append',
+                      index=False,chunksize=50)
+
+
+            t,c = self.getTableAndColumnNames(tablename=tablename)
+
+            print "found columns:"
+            print(c)
+            if not('id' in c[0]):
+                self.addIdColumn(tablename, 'id')
+            # for cc in c[0]:
+            #     if cc=='id':
+            #         self.changeColumnName(tablename,'id','imported_id')
+            #         msg="Warning: integer id column found. Primary key column has been created and id" \
+            #             "column has changed to 'imported_id'"
+
+
+            return 1,msg
+
+        except Exception as e:
+            print(str(e))
+            return 0,("something went wrong - maybe table exists and columns are mismatched?")
+
+    # creates a new table from a xls file
+    def createTableFromXLS(self, filepath, tablename):
+
+        df = pd.read_excel(filepath,
+                           sheetname=tablename,
+                           parse_dates=True)
 
         try:
             msg=""

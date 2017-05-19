@@ -19,30 +19,30 @@ class AccessHelper:
                                passwd=dbconfig.db_password,
                                db=database)
 
-    def get_projects(self, svc_type):
-        instances = []
-        connection = self.connect()
-        try:
-            print("about to query...")
-            query = "SELECT instance_identifier,project_display_name " \
-                    "FROM svc_instances " \
-                    "WHERE svc_type_id=" + str(svc_type) + \
-                    " AND group_id=" + str(usergroup_ID) + ";"
-            with connection.cursor() as cursor:
-                cursor.execute(query)
-            for inst in cursor:
-                instance = [inst[0], inst[1]]
-                instances.append(instance)
-            return instances
-        except Exception as e:
-            print(e)
-            instance = ['brokenlink', 'broken']
-            instances.append(instance)
-            for inst in instances:
-                print(inst)
-            return instances
-        finally:
-            connection.close()
+    # def get_projects(self, svc_type):
+    #     instances = []
+    #     connection = self.connect()
+    #     try:
+    #         print("about to query...")
+    #         query = "SELECT instance_identifier,project_display_name " \
+    #                 "FROM svc_instances " \
+    #                 "WHERE svc_type_id=" + str(svc_type) + \
+    #                 " AND group_id=" + str(usergroup_ID) + ";"
+    #         with connection.cursor() as cursor:
+    #             cursor.execute(query)
+    #         for inst in cursor:
+    #             instance = [inst[0], inst[1]]
+    #             instances.append(instance)
+    #         return instances
+    #     except Exception as e:
+    #         print(e)
+    #         instance = ['brokenlink', 'broken']
+    #         instances.append(instance)
+    #         for inst in instances:
+    #             print(inst)
+    #         return instances
+    #     finally:
+    #         connection.close()
 
     def get_events(self):
         pastevents = []

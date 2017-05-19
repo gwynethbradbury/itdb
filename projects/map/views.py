@@ -75,15 +75,6 @@ def assignroutes(application):
         # home()
         return redirect(url_for(application.name+"_app."+application.name))
 
-    @application.route(approute+"uploadxls", methods=['GET', 'POST'])
-    def uploadxls():
-        try:
-            filename = request.form.get("filename")
-            DB.uploadxls(filename)
-        except Exception as e:
-            print e
-        return redirect(url_for('map_app.map'))
-
     @application.route(approute+"")
     def applicationhome():
         projects = []

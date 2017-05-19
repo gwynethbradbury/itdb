@@ -102,9 +102,3 @@ def assignroutes(application):
 
 
 
-
-#
-#
-# assignroutes(map)
-# assignAdminRoutesForDatabase(map,DBA,upload_folder=uploadfolder)
-# assignadminroutes(map,DBA)

@@ -96,6 +96,7 @@ class DBEngine:
         self.E = SqlAl.create_engine(db)
         self.metadata.bind = self.E
 
+
 class DatabaseAssistant:
     db = ""
     dbkey=""
@@ -108,10 +109,6 @@ class DatabaseAssistant:
     detail_template = ""
 
     filters={}
-
-
-
-
 
     def __init__(self,db="",dbkey="",dbname=""):
         self.db = db
@@ -135,6 +132,23 @@ class DatabaseAssistant:
                                user=dbconfig.db_user,
                                passwd=dbconfig.db_password,
                                db=self.mydatabasename)
+
+    # creates a class from a table
+    def classFromTableName(self, classname, fields):
+        mydict = {'__tablename__': classname,
+                  '__table_args__': {'autoload': True},
+                  '__bind_key__': self.dbkey,}
+
+        from sqlalchemy.ext.declarative import declarative_base
+
+        Base = declarative_base(self.DBE.E)
+        C = type(classname, (Base,), mydict)
+        C.fields=fields
+        return C
+
+
+    # region RETRIEVE DATA FROM/ABOUT THE DATABASE
+    #
 
     # gets the table and respective column names from the database
     def getTableAndColumnNames(self, tablename=""):
@@ -166,36 +180,6 @@ class DatabaseAssistant:
         print columnnames
 
         return tablenames,columnnames
-
-    # generates a template csv fro uploading data to an existing table
-    def genBlankCSV(self, tablename="", p=""):
-        # generates an empty file to upload data for the selected table
-
-        mytable = SqlAl.Table(tablename, self.DBE.metadata, autoload=True)  # .data, metadata, autoload=True)
-
-        db_connection = self.DBE.E.connect()
-        print("1")
-        select = SqlAl.sql.select([mytable])
-        print("2")
-        result = db_connection.execute(select)
-
-        exportpath = p + 'upload.csv'
-        fh = open(exportpath, 'wb')
-        outcsv = csv.writer(fh)
-
-        outcsv.writerow(result.keys())
-        # outcsv.writerows(result)
-
-        fh.close()
-
-        try:
-            # return
-            return send_file(exportpath,
-                             attachment_filename='export.csv')
-        except Exception as e:
-            print(str(e))
-
-        return
 
     # gets data from the table given a list of desired fields
     def retrieveDataFromDatabase(self, classname, columnnames):
@@ -272,23 +256,11 @@ class DatabaseAssistant:
         except Exception as e:
             print(str(e))
 
-    # creates a new empty table
-    def createEmptyTable(self,tn):
-        if tn[0]=='x' and tn[1]=='_':
-            return 0,"invalid tablename"
-        tablenames, columnnames = self.getTableAndColumnNames()
-        if tablenames.__len__()>0:
-            for t in tablenames:
-                if t==tn:
-                    return 0,(tn + " already exists, stopping")
+    # endregion
 
 
-
-        new_table = Table(tn, self.DBE.metadata,
-                          Column('id', Integer, primary_key=True))
-
-        self.DBE.metadata.create_all(bind=self.DBE.E, tables=[new_table])
-        return 1,""
+    # region EDIT THE EXISTING DATA/TABLES
+    #
 
     # adds a column to the database
     # todo: test
@@ -332,48 +304,13 @@ class DatabaseAssistant:
     def changeColumnName(self, tablename, fromcolumn, tocolumn):
         self.DBE.E.execute('ALTER TABLE %s CHANGE %s %s INTEGER;' %(tablename, fromcolumn, tocolumn))
 
-    # creates a new table from a csv file
-    def createTableFromCSV(self, filepath, tablename):
+    # renames a table
+    def renameTable(self, fromtablename, totablename):
+        self.DBE.E.execute('ALTER TABLE %s RENAME TO %s;' % (fromtablename, totablename))
 
-        df = pd.read_csv(filepath,parse_dates=True)
-
-        try:
-            df.to_sql(tablename,
-                      self.DBE.E,
-                      if_exists='append',
-                      index=False,chunksize=50)
-            msg=""
-            # column = Column('new column', Integer, primary_key=True)
-            t,c = self.getTableAndColumnNames(tablename=tablename)
-            column_name='id'
-            print "found columns:"
-            print(c)
-            for cc in c[0]:
-                if cc=='id':
-                    self.changeColumnName(tablename,'id','imported_id')
-                    msg="Warning: integer id column found. Primary key column has been created and id" \
-                        "column has changed to 'imported_id'"
-
-            self.addIdColumn(tablename, column_name)
-
-            return 1,msg
-
-        except Exception as e:
-            print(str(e))
-            return 0,("something went wrong - maybe table exists and columns are mismatched?")
-
-    # creates a class from a table
-    def classFromTableName(self, classname, fields):
-        mydict = {'__tablename__': classname,
-                  '__table_args__': {'autoload': True},
-                  '__bind_key__': self.dbkey,}
-
-        from sqlalchemy.ext.declarative import declarative_base
-
-        Base = declarative_base(self.DBE.E)
-        C = type(classname, (Base,), mydict)
-        C.fields=fields
-        return C
+    # clears all entries from a table without deleting it
+    def clearTable(self,tablename):
+        self.DBE.E.execute("DELETE FROM %s;" % (tablename))
 
     # deletes specidied table
     def deleteTable(self,tablename):
@@ -387,140 +324,99 @@ class DatabaseAssistant:
         #         C.__table__.drop(self.DBE.E)
         #         return
 
-    # clears all entries from a table without deleting it
-    def clearTable(self,tablename):
-        self.DBE.E.execute("DELETE FROM %s;" % (tablename))
+    # endregion
 
-    # renames a table
-    def renameTable(self,fromtablename,totablename):
-        self.DBE.E.execute('ALTER TABLE %s RENAME TO %s;' %(fromtablename,totablename))
+    # region UPLOADING TABLES, APPENDING TO TABLES, CREATING NEW TABLES
+    #
+
+    # creates a new table from a csv file
+    def createTableFromCSV(self, filepath, tablename):
+
+        df = pd.read_csv(filepath,parse_dates=True)
+
+        try:
+            msg=""
+
+            cnames = df.columns.values.tolist()
+            if 'id' in cnames:
+                df = df.rename(columns={'id': 'imported_id'})
+                msg="Warning: integer id column found. Primary key column has been created and id" \
+                    "column has changed to 'imported_id'"
+
+            df.to_sql(tablename,
+                      self.DBE.E,
+                      if_exists='append',
+                      index=False,chunksize=50)
 
 
-class DynamicCRUDView(MethodView):
-    list_template = 'admin/listview.html'
-    detail_template = 'admin/detailview.html'
-    DBA = SqlAl.null
-    sesh = SqlAl.null
+            t,c = self.getTableAndColumnNames(tablename=tablename)
 
-    def __init__(self, model, endpoint, appname, dbbindkey, list_template=None,
-                 detail_template=None, exclude=None, filters=None):
-        self.model = model
-        self.endpoint = endpoint
+            print "found columns:"
+            print(c)
+            if not('id' in c[0]):
+                self.addIdColumn(tablename, 'id')
+            # for cc in c[0]:
+            #     if cc=='id':
+            #         self.changeColumnName(tablename,'id','imported_id')
+            #         msg="Warning: integer id column found. Primary key column has been created and id" \
+            #             "column has changed to 'imported_id'"
 
-        self.DBA = DatabaseAssistant('mysql+pymysql://{}:{}@localhost/{}'.format(dbconfig.db_user, dbconfig.db_password,appname),
-                                     dbbindkey,
-                                     appname)
-        # so we can generate a url relevant to this
-        # endpoint, for example if we utilize this CRUD object
-        # to enpoint comments the path generated will be
-        # /admin/comments/
-        self.path = url_for('.%s' % self.endpoint)
-        if list_template:
-            self.list_template = list_template
-        if detail_template:
-            self.detail_template = detail_template
-        self.filters = filters or {}
-        sesh = sessionmaker(bind=self.DBA.DBE.E)
-        self.sesh = sesh()
-        self.ObjForm = model_form(self.model, self.sesh, exclude=exclude)
 
-    def render_detail(self, **kwargs):
-        t,c=self.DBA.getTableAndColumnNames()
-        return render_template(self.detail_template, path=self.path,
-                               tablenames=t,
-                               **kwargs)
+            return 1,msg
 
-    def render_list(self, fields, **kwargs):
-        t,c=self.DBA.getTableAndColumnNames()
-        return render_template(self.list_template, path=self.path,
-                               fields=fields,
-                               tablenames=t,
-                               tablename=self.endpoint,
-                               filters=self.filters,
-                               **kwargs)
+        except Exception as e:
+            print(str(e))
+            return 0,("something went wrong - maybe table exists and columns are mismatched?")
 
-    def get(self, obj_id='', operation='', filter_name=''):
-        if operation == 'new':
-            #  we just want an empty form
-            form = self.ObjForm()
-            action = self.path
-            return self.render_detail(form=form, action=action)
+    # generates a template csv for uploading data to an existing table
+    def genBlankCSV(self, tablename="", p=""):
+        # generates an empty file to upload data for the selected table
 
-        # if operation == 'delete':
-        #     # works, given id from form but that bit is incorrect
-        #     obj = self.sesh.query(self.model).filter_by(id=obj_id).first()
-        #     self.sesh.delete(obj)
-        #     self.sesh.commit()
-        #     obj_id=''#clear obj_id otherwise we end up in an if statement that we shouldnt
+        mytable = SqlAl.Table(tablename, self.DBE.metadata, autoload=True)  # .data, metadata, autoload=True)
 
-        # list view with filter
-        # if operation == 'filter':
-        #     func = self.filters.get(filter_name)
-        #     obj = func(self.model)
-        #     return self.render_list(obj=obj, fields=obj.fields, filter_name=filter_name)
+        db_connection = self.DBE.E.connect()
+        print("1")
+        select = SqlAl.sql.select([mytable])
+        print("2")
+        result = db_connection.execute(select)
 
-        if obj_id:
-            # this creates the form fields base on the model
-            # so we don't have to do them one by one
-            ObjForm = model_form(self.model, self.sesh)
+        exportpath = p + 'upload.csv'
+        fh = open(exportpath, 'wb')
+        outcsv = csv.writer(fh)
 
-            obj = self.sesh.query(self.model).filter_by(id=obj_id).first()
-            # populate the form with our blog data
-            form = self.ObjForm(obj=obj)
-            # action is the url that we will later use
-            # to do post, the same url with obj_id in this case
-            action = request.path
-            return self.render_detail(form=form, action=action)
+        outcsv.writerow(result.keys())
+        # outcsv.writerows(result)
 
-        q = select(from_obj=self.model, columns=['*'])
-        result = self.sesh.execute(q)
+        fh.close()
 
-        KEYS = result.keys()
-        obj=[]
-        for r in result:
-            obj.append(r)
-        return self.render_list(obj=obj,fields=KEYS)
+        try:
+            # return
+            return send_file(exportpath,
+                             attachment_filename='export.csv')
+        except Exception as e:
+            print(str(e))
 
-    def post(self, obj_id=''):
-        # either load and object to update if obj_id is given
-        # else initiate a new object, this will be helpfull
-        # when we want to create a new object instead of just
-        # editing existing one
-        if obj_id:
-            obj = self.sesh.query(self.model).filter_by(id=obj_id).first()
-        else:
-            obj = self.model()
+        return
 
-        ObjForm = model_form(self.model, self.sesh)
-        # populate the form with the request data
-        form = self.ObjForm(request.form)
-        # this actually populates the obj (the blog post)
-        # from the form, that we have populated from the request post
-        form.populate_obj(obj)
+    # creates a new empty table
+    def createEmptyTable(self,tn):
+        if tn[0]=='x' and tn[1]=='_':
+            return 0,"invalid tablename"
+        tablenames, columnnames = self.getTableAndColumnNames()
+        if tablenames.__len__()>0:
+            for t in tablenames:
+                if t==tn:
+                    return 0,(tn + " already exists, stopping")
 
-        # db.session.add(obj)
-        self.sesh.add(obj)
-        self.sesh.commit()
 
-        return redirect(self.path)
-        # pass
 
-def registerCRUDforUnknownTable(app, url, endpoint, model, dbbindkey, appname, decorators=[], **kwargs):
-    view = DynamicCRUDView.as_view(endpoint,dbbindkey=dbbindkey, appname=appname, endpoint=endpoint,
-                            model=model, **kwargs)
+        new_table = Table(tn, self.DBE.metadata,
+                          Column('id', Integer, primary_key=True))
 
-    for decorator in decorators:
-        view = decorator(view)
+        self.DBE.metadata.create_all(bind=self.DBE.E, tables=[new_table])
+        return 1,""
 
-    app.add_url_rule('%s/' % url, view_func=view, methods=['GET', 'POST'])
-    app.add_url_rule('%s/<int:obj_id>/' % url, view_func=view)
-    app.add_url_rule('%s/<operation>/' % url, view_func=view, methods=['GET'])
-    app.add_url_rule('%s/<operation>/<int:obj_id>/' % url, view_func=view,
-                     methods=['GET'])
-    app.add_url_rule('%s/<operation>/<filter_name>/' % url, view_func=view,
-                     methods=['GET'])
-    print('registered crud at ' + url)
-
+    # endregion
 
 
 

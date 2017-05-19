@@ -46,21 +46,26 @@ def assignAdminRoutesForDatabase(application, DBA, upload_folder):
     @application.route("/projects/" + application.name + "/admin/<tablename>/")
     def showTable(tablename):
         tns, cns = DBA.getTableAndColumnNames(tablename=tablename)
-        model = DBA.classFromTableName(classname=str(tablename), fields=cns[0])
+        try:
+            model = DBA.classFromTableName(classname=str(tablename), fields=cns[0])
 
-        sesh = sessionmaker(bind=DBA.DBE.E)
-        sesh = sesh()
-        # ObjForm = model_form(model, sesh, exclude=None)
+            sesh = sessionmaker(bind=DBA.DBE.E)
+            sesh = sesh()
+            # ObjForm = model_form(model, sesh, exclude=None)
 
-        q = select(from_obj=model, columns=['*'])
-        result = sesh.execute(q)
+            q = select(from_obj=model, columns=['*'])
+            result = sesh.execute(q)
 
-        KEYS = result.keys()
-        obj = []
-        for r in result:
-            obj.append(r)
+            KEYS = result.keys()
+            obj = []
+            for r in result:
+                obj.append(r)
 
-        return render_list(tablename=tablename, obj=obj, fields=KEYS)
+            return render_list(tablename=tablename, obj=obj, fields=KEYS)
+        except Exception as e:
+            print(e)
+
+        return redirect(adminroute)
 
     # Show the detail view for a given entry in a given table
     @application.route("/projects/"+application.name+"/admin/<tablename>/<obj_id>")
@@ -239,83 +244,42 @@ def assignAdminRoutesForDatabase(application, DBA, upload_folder):
         return redirect(adminroute)
 
     # renders the upload form
-    @application.route(adminroute+"upload")
-    def upload():
-
+    @application.route(adminroute+"uploaddata")
+    def uploaddata(msg="", err=""):
         tablenames, columnnames = DBA.getTableAndColumnNames()
-        # DBA.createTableFromCSV("/Users/cenv0594/Repositories/dbas/projects/map/data/export.csv", 'testtable2')
-
         return render_template(approute+"upload_table.html",
-                               tablenames=tablenames)
+                               tablenames=tablenames,
+                               message=msg,
+                               error=err)
 
-    # adds the data from the CSV
-    # todo: upload data to add to table
+    # adds the data from the CSV to an existing table
     @application.route(adminroute+"uploadcsv", methods=['GET', 'POST'])
     def uploadcsv():
-        # if request.method == 'POST':
-        #     # check if the post request has the file part
-        #     if 'file' not in request.files:
-        #         print('No file part')
-        #         return redirect(request.url)
-        #     file = request.files['file']
-        #     # if user does not select file, browser also
-        #     # submit a empty part without filename
-        #     if file.filename == '':
-        #         print('No selected file')
-        #         return redirect(request.url)
-        #     if file:# and allowed_file(file.filename):
-        #         filename = secure_filename(file.filename)
-        #         dt = datetime.utcnow().strftime("%Y-%m-%d_%H:%M:%S")
-        #         file.save(os.path.join(uploadfolder, dt+'_'+filename))
-        #         print(filename)
-        #
-        #
-        #         # DB.uploadcsv(os.path.join(uploadfolder, filename))
-        #         # return redirect(url_for('uploaded_file',
-        #         #                         filename=filename))
-        #         connection = DBA.connect()
-        #         try:
-        #             data = genfromtxt(filename, delimiter=',', skip_header=1,
-        #                               converters={0: lambda s: str(s), 1: lambda s: str(s), 2: lambda s: str(s),
-        #                                           3: lambda s: str(s), 4: lambda s: str(s), 5: lambda s: str(s),
-        #                                           6: lambda s: str(s), 7: lambda s: str(s)})
-        #
-        #             print(data)
-        #             data = data.tolist()
-        #             print(data)
-        #             for i in data:
-        #                 print(i)
-        #                 latitude = i[1]
-        #                 longitude = i[2]
-        #                 startdate = datetime.utcnow()
-        #                 enddate = datetime.utcnow()
-        #                 updated_at = datetime.utcnow()
-        #                 try:
-        #                     startdate = datetime.strptime(i[3], '%Y-%m-%d').date()
-        #                 except Exception as e:
-        #                     pass
-        #                 try:
-        #                     enddate = datetime.strptime(i[4], '%Y-%m-%d').date()
-        #                 except Exception as e:
-        #                     pass
-        #                 category = i[5]
-        #                 description = i[6]
-        #                 try:
-        #                     enddate = datetime.strptime(i[7], '%Y-%m-%d').date()
-        #                 except Exception as e:
-        #                     pass
-        #
-        #                 query = "INSERT INTO project (latitude,longitude,startdate,enddate,category,description,updated_at) VALUES (%s,%s,%s,%s,%s,%s,%s);"
-        #                 with connection.cursor() as cursor:
-        #                     cursor.execute(query,
-        #                                    (latitude, longitude, startdate, enddate, category, description, updated_at))
-        #                     connection.commit()
-        #         except Exception as e:
-        #             print(e)
-        #         finally:
-        #             connection.close()
-        # return redirect(adminroute)
-        pass
+        if request.method == 'POST':
+            # check if the post request has the file part
+            if 'file' not in request.files:
+                return uploaddata( err="No file part")
+            else:
+                file = request.files['file']
+                # if user does not select file, browser also
+                # submit a empty part without filename
+                if file.filename == '':
+                    return uploaddata( err="No selected file")
+                if file:# and allowed_file(file.filename):
+                    filename = secure_filename(file.filename)
+                    dt = datetime.utcnow().strftime("%Y-%m-%d_%H:%M:%S")
+                    file.save(os.path.join(uploadfolder, dt+'_'+filename))
+                    tablename = str(request.form.get("tablename"))
+
+                    success, ret = DBA.createTableFromCSV(os.path.join(uploadfolder, dt+'_'+filename),
+                                                          request.form.get("tablename"))
+                    if success:
+                        ret = "Success, data added to table: %s%s%s" %(tablename,"<br/>",ret)
+                        return uploaddata(msg=ret)
+                    else:
+                        return uploaddata(err=ret)
+
+        return redirect(adminroute)
 
     # creates a new table taking name from form
     # if table exists, supplements it with the new data

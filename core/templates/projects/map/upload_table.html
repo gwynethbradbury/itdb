@@ -30,6 +30,12 @@
 
 
     <h3>Upload data</h3>
+
+    <h4>
+        <span style="color: crimson">{{ error|safe }}</span>
+        <span style="color: #22bb5b">{{ message|safe }}</span>
+    </h4>
+
     <form action="genblankcsv" method="post" name="data">
 
 			<label for="tablename">Select table</label>
@@ -40,20 +46,6 @@
                         {{ t }}</option>
                 {% endfor %}
 			</select>
-    <br/>
-{#			<label for="wholetable">Download full table? </label>#}
-{#            <input type="checkbox" checked="checked"#}
-{#                   value="yes" id="wholetable" name="wholetable"#}
-{#                   onClick = "JavaScript:toggleVisibility(this,'myData');"/>#}
-{#            <div name="myData" id="myData">#}
-{#                <h4>more fields...</h4>#}
-{#            <div name="project" id="project">project only</div>#}
-{#                <label for="wholetable">headername </label>#}
-    {#            <input type="checkbox" checked="checked"#}
-    {#                   value="yes" id="wholetable" name="wholetable"#}
-    {#                   onClick = "JavaScript:toggleVisibility(this,'myData');"/>#}
-{##}
-{#            </div>#}
 
         <p><input type="submit" class="button" value="Download Template"></p>
 
@@ -64,8 +56,18 @@
 {#      <p><input type=file name=file>#}
 {#         <input type=submit value=uploadcsv>#}
 {#    </form>#}
+        <hr>
 
 		<form action="uploadcsv" method="post" enctype=multipart/form-data>
+
+			<label for="tablename">Select table</label>
+			<select name="tablename" id="tablename"/>
+                {% for t in tablenames %}
+				    <option value="{{ t }}" id="{{ t }}"
+                        onClick="JavaScript:toggleColumnHeaders(this,'project');">
+                        {{ t }}</option>
+                {% endfor %}
+			</select>
 			<label for="filename">File Name</label>
 			<input type="file" name="file" size="40">
 			<input type="submit" name="submit" class="button">

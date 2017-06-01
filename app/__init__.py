@@ -35,16 +35,20 @@ app.register_blueprint(admin, url_prefix='/admin',
 import dev, os
 
 # create the database assistant instance
-db = 'mysql+pymysql://{}:{}@localhost/{}'.format(dbconfig.db_user,
-                                                 dbconfig.db_password,
-                                                 "iaas")
+db = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                          dbconfig.db_password,
+                                          "localhost",
+                                          "iaas")
 dba = dev.views.DatabaseAssistant(db,"iaas","iaas")
 result, resultasstring = dba.retrieveDataFromDatabase("svc_instances",["project_display_name","instance_identifier","svc_type_id","group_id"])
 print("registering DBAS services availableand adding to dictionary:")
 for r in resultasstring:
     if r[2] == '1':#then this is a database project
         print("registering project: " + r[1])
-        dev.register_project(s=r[1])
+        try:
+            dev.register_project(s=r[1])
+        except Exception as e:
+            print(e)
 
         if r[1]=='map':
             try:

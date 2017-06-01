@@ -117,9 +117,11 @@ table, th, td {
 
             </ul>
         </div>
-                        <hr>
+        <hr>
 
-					{% block content %}{% endblock %}
+        {% block content %}
+            Admin-specific features: list previous queries, sql console,
+        {% endblock %}
 
 {#	</div>#}
 		{% endblock %}

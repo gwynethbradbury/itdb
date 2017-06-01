@@ -1,12 +1,10 @@
 # general database functions which can be used by any database
 
 import csv
-from flask import send_file, request, redirect, url_for, render_template
-from flask.views import MethodView
+from flask import send_file
 import sqlalchemy as SqlAl
 from sqlalchemy import *
 from sqlalchemy.orm import sessionmaker
-from wtforms.ext.sqlalchemy.orm import model_form
 import pymysql
 import dbconfig
 import pandas as pd
@@ -105,13 +103,13 @@ class DatabaseAssistant:
     mydatabasename=""
     adminroute = ""
     approute = ""
-
+    uploadfolder=""
     list_template = ""
     detail_template = ""
 
     filters={}
 
-    def __init__(self,db="",dbkey="",dbname=""):
+    def __init__(self,db="",dbkey="",dbname="", upload_folder=""):
         self.db = db
         self.DBE = DBEngine(db)
         self.dbkey=dbkey
@@ -120,8 +118,9 @@ class DatabaseAssistant:
         self.adminroute = "/projects/" + dbname + "/admin/"
         self.approute = "/projects/" + dbname + "/"
 
-        self.list_template = 'projects/' + dbname + '/listview.html',
-        self.detail_template = 'projects/' + dbname + '/detailview.html',
+        self.list_template = 'projects/listview.html',
+        self.detail_template = 'projects/detailview.html',
+        self.upload_folder=upload_folder
 
     def resetDB(self,db):
         self.db = db
@@ -242,7 +241,7 @@ class DatabaseAssistant:
         result, result_as_string = self.retrieveDataFromDatabase(ClassName, columnnames)
 
 
-        exportpath = p + '/export.csv'
+        exportpath = self.upload_folder + '/export.csv'
         fh = open(exportpath, 'wb')
         outcsv = csv.writer(fh)
 
@@ -421,7 +420,7 @@ class DatabaseAssistant:
             return 0,("something went wrong - maybe table exists and columns are mismatched?")
 
     # generates a template csv for uploading data to an existing table
-    def genBlankCSV(self, tablename="", p=""):
+    def genBlankCSV(self, tablename=""):
         # generates an empty file to upload data for the selected table
 
         mytable = SqlAl.Table(tablename, self.DBE.metadata, autoload=True)  # .data, metadata, autoload=True)
@@ -432,7 +431,7 @@ class DatabaseAssistant:
         print("2")
         result = db_connection.execute(select)
 
-        exportpath = p + 'upload.csv'
+        exportpath = self.uploadfolder + 'upload.csv'
         fh = open(exportpath, 'wb')
         outcsv = csv.writer(fh)
 
@@ -472,6 +471,10 @@ class DatabaseAssistant:
 
 
 
+    # executes a custom query
+    #todo: complete this. not safe
+    def customQuery(self, querystring):
+        self.DBE.E.execute(querystring)
 
 
 

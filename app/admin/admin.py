@@ -7,10 +7,14 @@ from flask.views import MethodView
 from wtforms.ext.sqlalchemy.orm import model_form
 
 from app import db
+from app.dev import register_project
 
 from .models import Blog, Comment, services, groups, permitted_svc, svc_instances
 
+import dbconfig, pymysql
+
 admin = Blueprint('admin', __name__)
+
 
 
 class CRUDView(MethodView):
@@ -31,7 +35,7 @@ class CRUDView(MethodView):
         if detail_template:
             self.detail_template = detail_template
         self.filters = filters or {}
-        self.ObjForm = model_form(self.model, db.session, exclude=exclude)
+        self.ObjForm = model_form(self.model, db.session, exclude_fk=False)#, exclude=exclude)
 
     def render_detail(self, **kwargs):
         return render_template(self.detail_template, path=self.path, **kwargs)
@@ -61,7 +65,7 @@ class CRUDView(MethodView):
         if obj_id:
             # this creates the form fields base on the model
             # so we don't have to do them one by one
-            ObjForm = model_form(self.model, db.session)
+            ObjForm = model_form(self.model, db.session, exclude_fk=False)#)
 
             obj = self.model.query.get(obj_id)
             # populate the form with our blog data
@@ -84,12 +88,25 @@ class CRUDView(MethodView):
         else:
             obj = self.model()
 
-        ObjForm = model_form(self.model, db.session)
+        ObjForm = model_form(self.model, db.session, exclude_fk=False)#)
         # populate the form with the request data
         form = self.ObjForm(request.form)
         # this actually populates the obj (the blog post)
         # from the form, that we have populated from the request post
         form.populate_obj(obj)
+
+        if type(self.model)==type(svc_instances):
+            print(obj.svc_type_id)
+            db1 = pymysql.connect(host="localhost",
+                               user=dbconfig.db_user,
+                               passwd=dbconfig.db_password)
+            cursor = db1.cursor()
+            sql = 'CREATE DATABASE {}'.format(obj.instance_identifier)
+            cursor.execute(sql)
+            # register project name
+            register_project(obj.instance_identifier)
+            # dictionary_of_databases[obj.instance_identifier] =
+
 
         db.session.add(obj)
         db.session.commit()

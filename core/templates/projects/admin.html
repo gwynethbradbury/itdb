@@ -87,31 +87,33 @@ table, th, td {
 <!--</head>-->
 
 
-					{% block title %}
-            <a href="/projects/map/admin" class="pure-menu-heading">Admin</a>
-					{% endblock %}
+        {% block title %}
+            <a href="{{ "/projects/"+ pname + "/admin" }}" class="pure-menu-heading">{{ pname }}</a>
+        {% endblock %}
 
 
-					{% block body2 %}
+        {% block body2 %}
 <!--<body>-->
 {#	<div class="main">#}
         <div>
+            <h3>Tables</h3>
 
             <ul class="menu vertical">
-{#                <li><a href="{{ url_for('map.project')}}">Projects</a></li>#}
+
                 {% for t in tablenames %}
-                    <li><a href="{{ ("/projects/map/admin/"+t)}}">{{ t }}</a></li>
-{#                    <li><a href="{{ url_for('map.'+t)}}">{{ t }}</a></li>#}
-{#                    <li><a href="{{ url_for('map.show', page=t) }}">{{ t }}</a></li>#}
+                    <li><a href="{{ ("/projects/"+ pname + "/admin/"+t)}}">{{ t }}</a></li>
                 {% endfor %}
 
+            </ul>
 
-                <li><a href="/projects/map/admin/download">Download</a></li>
-                <li><a href="/projects/map/admin/uploaddata">Upload</a></li>
-                <li><a href="/projects/map/admin/newtable">Add Table</a></li>
-                <li><a href="/projects/map/admin/addcolumn">Add Column(temp)</a></li>
+            <h3>Import/Export Data</h3>
+            <ul cless="menu horizontal">
 
-                </li>
+                <li><a href={{ "/projects/"+ pname + "/admin/download" }}>Download</a></li>
+                <li><a href={{ "/projects/"+ pname + "/admin/uploaddata" }}>Upload</a></li>
+                <li><a href={{ "/projects/"+ pname + "/admin/newtable" }}>Add Table</a></li>
+                <li><a href={{ "/projects/"+ pname + "/admin/addcolumn" }}>Add Column(temp)</a></li>
+
 
             </ul>
         </div>

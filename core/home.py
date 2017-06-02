@@ -3,6 +3,7 @@ from jinja2 import TemplateNotFound
 
 import dbconfig
 from flask import request, session, flash, redirect, url_for, render_template
+from .email import send_email_simple as send_email
 
 
 if dbconfig.test:
@@ -23,6 +24,10 @@ def show(page):
     except TemplateNotFound:
         abort(404)
 
+@home.route('/sendenquiry', methods=['GET', 'POST'])
+def sendenquiry():
+    send_email('gwyneth.bradbury@ouce.ox.ac.uk', 'IAAS Enquiry', request.form['messagebody'])
+    return redirect('/')
 
 # @home.route('/dbas')
 # def dbas():

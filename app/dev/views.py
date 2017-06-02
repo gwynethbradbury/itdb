@@ -159,7 +159,9 @@ def newtable(application_name):
     tablenames,columnnames=DBA.getTableAndColumnNames()
 
     return render_template(templateroute+"create_table.html",
-                           tablenames=tablenames,columnnames=columnnames)
+                           tablenames=tablenames,
+                           columnnames=columnnames,
+                           pname=application_name)
 
 # adding a column to an existing table
 # todo: unfinished
@@ -172,7 +174,9 @@ def addcolumn(application_name):
     DBA.addColumn("newtable", "test2","Time stamp")
 
     return render_template(templateroute+"create_table.html",
-                           tablenames=tablenames,columnnames=columnnames)
+                           tablenames=tablenames,
+                           columnnames=columnnames,
+                           pname=application_name)
 
     # delete a whole table
 
@@ -293,7 +297,8 @@ def uploaddata(application_name,msg="", err=""):
     return render_template(templateroute + "upload_table.html",
                            tablenames=tablenames,
                            message=msg,
-                           error=err)
+                           error=err,
+                           pname=application_name)
 
 # adds the data from the CSV to an existing table
 @application.route("/projects/<application_name>/admin/uploaddatafrom", methods=['GET', 'POST'])
@@ -376,12 +381,14 @@ def createtable(application_name):
         return render_template(templateroute + "create_table.html",
                                tablenames=tablenames, columnnames=columnnames,
                                message="Table " +
-                                       request.form.get("newtablename") + " created successfully!\n" + ret)
+                                       request.form.get("newtablename") + " created successfully!\n" + ret,
+                               pname=application_name)
     else:
         return render_template(templateroute + "create_table.html",
                                tablenames=tablenames, columnnames=columnnames,
                                error="Creation of table " + request.form.get("newtablename") +
-                                     " failed!<br/>Error: " + ret)
+                                     " failed!<br/>Error: " + ret,
+                               pname=application_name)
 
 # renders the download form
 @application.route("/projects/<application_name>/admin/download")
@@ -390,7 +397,8 @@ def download(application_name):
     tablenames, columnnames = DBA.getTableAndColumnNames()
 
     return render_template(templateroute + "download_table.html",
-                           tablenames=tablenames, columnnames=columnnames)
+                           tablenames=tablenames, columnnames=columnnames,
+                           pname=application_name)
 
 # serves the data given the response from the download form
 @application.route("/projects/<application_name>/admin/servedata", methods=['GET', 'POST'])

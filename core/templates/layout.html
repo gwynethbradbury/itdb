@@ -96,11 +96,13 @@
 						<label>Email
 						<input type="text" placeholder="Email">
 						</label>-->
-						<label>
-						Message
-						<textarea placeholder="Enter your question here"></textarea>
-						</label>
-						<input type="submit" class="button expanded" value="Submit">
+                        <form action="sendenquiry" method="post" name="enquiry">
+                            <label for="messagebody">
+                            Message
+                            <textarea name="messagebody" placeholder="Enter your question here"></textarea>
+                            </label>
+                            <input type="submit" class="button expanded" value="Submit">
+                        </form>
 					</div>
 				</div>
 			</div>

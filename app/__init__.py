@@ -12,6 +12,25 @@ app.config.update(
 
 app.config.from_object('config')
 
+
+
+print('setting up email settings')
+import dbconfig
+app.secret_key = dbconfig.mail_secret_key
+app.config["MAIL_SERVER"] = dbconfig.mail_server
+app.config["MAIL_PORT"] = dbconfig.mail_port
+app.config["MAIL_USE_SSL"] = dbconfig.mail_use_ssl
+app.config["MAIL_USERNAME"] = dbconfig.mail_username
+if not dbconfig.is_server_version:#personal machine
+    app.config["AAAS_MAIL_SENDER"] = dbconfig.mail_username
+    app.config["MAIL_PASSWORD"] = dbconfig.mail_password
+else:#server
+    app.config["AAAS_MAIL_SENDER"] = dbconfig.mail_sender
+    app.config["MAIL_DEFAULT_SENDER"] = dbconfig.mail_sender
+
+db = SQLAlchemy(app)
+
+
 db = SQLAlchemy(app)
 # bind the static database for iaas service admin - this is a static database
 db.create_all(bind='iaas_db')
@@ -41,7 +60,7 @@ db = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
                                           "iaas")
 dba = dev.views.DatabaseAssistant(db,"iaas","iaas")
 result, resultasstring = dba.retrieveDataFromDatabase("svc_instances",["project_display_name","instance_identifier","svc_type_id","group_id"])
-print("registering DBAS services availableand adding to dictionary:")
+print("registering DBAS services available and adding to dictionary:")
 for r in resultasstring:
     if r[2] == '1':#then this is a database project
         print("registering project: " + r[1])
@@ -57,9 +76,6 @@ for r in resultasstring:
                 my_module.views.assignroutes(app,nm='map')
             except Exception as e:
                 print e
-
-
-
 
 
 

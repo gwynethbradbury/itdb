@@ -1,9 +1,16 @@
 # project/__init__.py
 
-from flask import Flask, render_template, request, session, Blueprint
+from flask import Flask, render_template, redirect, request, session
 from flask_sqlalchemy import SQLAlchemy
+
+from core.email import send_email_simple as send_email
+from core.home import AH
+
 import dbconfig
 import importlib
+
+
+from config import config
 
 app = Flask('dbas_app')
 app.config.update(
@@ -31,21 +38,52 @@ else:#server
 db = SQLAlchemy(app)
 
 
-db = SQLAlchemy(app)
-# bind the static database for iaas service admin - this is a static database
-db.create_all(bind='iaas_db')
-# db.create_all(bind='project_map_db')
+import core.iaasldap as iaasldap
 
-
-# from projects.map import project_app as map
 from core.home import home
-from app.admin import admin
-
-
+from admin import admin
+from flask import abort
 
 app.register_blueprint(home)
 app.register_blueprint(admin, url_prefix='/admin',
                        template_folder='templates')
+
+
+@app.route('/admin')
+def admin():
+    usersgroups = iaasldap.get_groups(iaasldap.uid_trim())
+    if "superusers" in usersgroups:
+        return render_template("admin/admin.html",
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
+    else:
+        return abort(401)
+
+@app.route('/admin/emailsubscribers')
+def emailsubscribers():
+    return render_template("admin/email_subscribers.html",
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
+
+@app.route('/admin/send_email_subscribers', methods=['GET', 'POST'])
+def send_email_subscribers():
+    s = AH.get_mailing_list()
+    send_email(s, 'IAAS Enquiry', request.form['messagebody'])
+    return redirect("/admin")
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html',
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname()), 404
+@app.errorhandler(500)
+def page_not_found(e):
+    return render_template('500.html',
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname()), 500
+@app.errorhandler(401)
+def page_not_found(e):
+    return render_template('401.html',
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname()), 401
+
+
 
 
 
@@ -80,8 +118,3 @@ for r in resultasstring:
 
 
 
-
-
-@app.route('/admin')
-def home():
-    return render_template("admin/admin.html")

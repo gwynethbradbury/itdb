@@ -102,13 +102,24 @@ table, th, td {
                 <li><a href="{{ url_for('admin.permitted_svc')}}">Permitted Services</a></li>
                 <li><a href="{{ url_for('admin.services')}}">Services</a></li>
                 <li><a href="{{ url_for('admin.service_instances')}}">Service Instances</a></li>
+                <li><a href="{{ url_for('admin.news')}}">News articles</a></li>
+                <li><a href="{{ url_for('admin.comment')}}">Comments</a></li>
+                <li><a href="{{ url_for('admin.iaas_events')}}">Events</a></li>
+                <li><a href="{{ url_for('admin.subscribers')}}">Subscribers</a></li>
 {#                <li><a class="pure-button" href="#not_implemented">Logout</a></li>#}
 
             </ul>
+            <hr>
+            <ul class="menu horizontal">
+                <li><a href="{{ url_for('emailsubscribers') }}">Email mailing list</a></li>
+            </ul>
         </div>
-                        <hr>
 
-					{% block content %}{% endblock %}
+
+
+        {% block content %}
+
+        {% endblock %}
 
 {#	</div>#}
 		{% endblock %}

@@ -7,14 +7,11 @@ from flask.views import MethodView
 from wtforms.ext.sqlalchemy.orm import model_form
 
 from app import db
-from app.dev import register_project
 
-from .models import Blog, Comment, services, groups, permitted_svc, svc_instances
-
-import dbconfig, pymysql
+from .models import news, iaas_events, subscribers, comment, services, groups, permitted_svc, svc_instances
+from datetime import datetime
 
 admin = Blueprint('admin', __name__)
-
 
 
 class CRUDView(MethodView):
@@ -35,7 +32,7 @@ class CRUDView(MethodView):
         if detail_template:
             self.detail_template = detail_template
         self.filters = filters or {}
-        self.ObjForm = model_form(self.model, db.session, exclude_fk=False)#, exclude=exclude)
+        self.ObjForm = model_form(self.model, db.session, exclude=exclude)
 
     def render_detail(self, **kwargs):
         return render_template(self.detail_template, path=self.path, **kwargs)
@@ -55,6 +52,7 @@ class CRUDView(MethodView):
             obj = self.model.query.get(obj_id)
             db.session.delete(obj)
             db.session.commit()
+            return redirect(self.path)
 
         # list view with filter
         if operation == 'filter':
@@ -65,7 +63,7 @@ class CRUDView(MethodView):
         if obj_id:
             # this creates the form fields base on the model
             # so we don't have to do them one by one
-            ObjForm = model_form(self.model, db.session, exclude_fk=False)#)
+            ObjForm = model_form(self.model, db.session)
 
             obj = self.model.query.get(obj_id)
             # populate the form with our blog data
@@ -88,25 +86,12 @@ class CRUDView(MethodView):
         else:
             obj = self.model()
 
-        ObjForm = model_form(self.model, db.session, exclude_fk=False)#)
+        ObjForm = model_form(self.model, db.session)
         # populate the form with the request data
         form = self.ObjForm(request.form)
         # this actually populates the obj (the blog post)
         # from the form, that we have populated from the request post
         form.populate_obj(obj)
-
-        if type(self.model)==type(svc_instances):
-            print(obj.svc_type_id)
-            db1 = pymysql.connect(host="localhost",
-                               user=dbconfig.db_user,
-                               passwd=dbconfig.db_password)
-            cursor = db1.cursor()
-            sql = 'CREATE DATABASE {}'.format(obj.instance_identifier)
-            cursor.execute(sql)
-            # register project name
-            register_project(obj.instance_identifier)
-            # dictionary_of_databases[obj.instance_identifier] =
-
 
         db.session.add(obj)
         db.session.commit()
@@ -120,24 +105,8 @@ class CRUDView(MethodView):
 #         return f(*args, **kwargs)
 #     return decorated
 
-blog_filters = {
-    'created_asc': lambda model: model.query.order_by(model.created_on.asc()),
-    'updated_desc': lambda model: model.query.order_by(model.updated_on.desc()),
-    'last_3': lambda model: model.query.order_by(model.created_on.desc()).limit(3)
-}
 
 
-
-# view = CRUDView.as_view('blog', Blog, endpoint='blog', filters=filters)
-# # view = CRUDView.as_view('blog', Blog, endpoint='blog', decorators=[dec])
-# admin.add_url_rule('/blog/', view_func=view, methods=['GET', 'POST'])
-# admin.add_url_rule('/blog/<operation>/', view_func=view, methods=['GET'])
-# admin.add_url_rule('/blog/<operation>/<int:obj_id>/', view_func=view,
-#                    methods=['GET'])
-# admin.add_url_rule('/blog/<int:obj_id>/', view_func=view,
-#                    methods=['GET', 'POST'])
-# admin.add_url_rule('/blog/<operation>/<filter_name>/', view_func=view,
-#                     methods=['GET'])
 
 
 def register_crud(app, url, endpoint, model, decorators=[], **kwargs):
@@ -154,26 +123,45 @@ def register_crud(app, url, endpoint, model, decorators=[], **kwargs):
                      methods=['GET'])
     app.add_url_rule('%s/<operation>/<filter_name>/' % url, view_func=view,
                      methods=['GET'])
-    print('registered crud at ' + url)
 
 
 
 
 
+news_filters = {
+    'Created_asc': lambda model: model.query.order_by(model.created_on.asc()).all(),
+    'Updated_desc': lambda model: model.query.order_by(model.updated_on.desc()).all(),
+    'Last_3': lambda model: model.query.order_by(model.created_on.desc()).all()[:3]
+}
+iaas_events_filters = {
+    'Event_date': lambda model: model.query.order_by(model.eventdate.asc()).all(),
+    # 'Past_Events': lambda model:model.query.filter_by(model.eventdate<datetime.utcnow().date()).all(),
+    # 'Future_Events': lambda model:model.query.filter_by(eventdate>time).all(),
+    'Title': lambda model: model.query.order_by(model.title.asc()).all(),
+    # 'Next_3': lambda model: model.query.order_by(model.eventdate.asc()).all()[:1]
+}
 comment_filters = {
-    'invisible': lambda model: model.query.filter_by(visible=False).all(),
-    'visible': lambda model: model.query.filter_by(visible=True).all()
+    'Invisible': lambda model: model.query.filter_by(visible=False).all(),
+    'Visible': lambda model: model.query.filter_by(visible=True).all()
+}
+
+subscriber_filters = {
+    'Name': lambda model: model.query.order_by(model.name.asc()).all(),
+    'email': lambda model: model.query.order_by(model.email.asc()).all()
 }
 
 svc_instance_filters={
-    'dbas':lambda model:model.query.filter_by(group_id=1).all(),
-    'nextcloud':lambda model:model.query.filter_by(group_id=2).all()
+    'DBAS':lambda model:model.query.filter_by(svc_type_id=1).all(),
+    'Nextcloud':lambda model:model.query.filter_by(svc_type_id=2).all(),
+    'IAM':lambda model:model.query.filter_by(svc_type_id=3).all()
 }
 
-register_crud(admin, '/blog', 'blog', Blog, filters=blog_filters)
-register_crud(admin, '/comments', 'comments', Comment, filters=comment_filters)
+register_crud(admin, '/news', 'news', news, filters=news_filters)
+register_crud(admin, '/iaas_events', 'iaas_events', iaas_events, filters=iaas_events_filters)
+register_crud(admin, '/subscribers', 'subscribers', subscribers, filters=subscriber_filters)
+register_crud(admin, '/comments', 'comment', comment, filters=comment_filters)
+register_crud(admin, '/service_instances', 'service_instances', svc_instances, filters=svc_instance_filters)
 
 register_crud(admin, '/groups', 'groups', groups)
 register_crud(admin, '/permitted_svc', 'permitted_svc', permitted_svc)
 register_crud(admin, '/services', 'services', services)
-register_crud(admin, '/service_instances', 'service_instances', svc_instances, filters=svc_instance_filters)

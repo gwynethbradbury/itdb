@@ -1,0 +1,17 @@
+{% extends "admin/admin.html" %}
+
+
+
+
+        {% block content %}
+            <hr>
+            <form action="send_email_subscribers" method="post" name="send_email_subscribers">
+                <label for="messagebody">
+                    Message
+                    <textarea name="messagebody" placeholder="Message body"></textarea>
+                </label>
+                <input type="submit" class="button expanded" value="Submit">
+            </form>
+
+        {% endblock %}
+

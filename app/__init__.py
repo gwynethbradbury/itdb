@@ -53,13 +53,15 @@ app.register_blueprint(admin, url_prefix='/admin',
 def admin():
     usersgroups = iaasldap.get_groups(iaasldap.uid_trim())
     if "superusers" in usersgroups:
-        return render_template("admin/admin.html")
+        return render_template("admin/admin.html",
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
     else:
         return abort(401)
 
 @app.route('/admin/emailsubscribers')
 def emailsubscribers():
-    return render_template("admin/email_subscribers.html")
+    return render_template("admin/email_subscribers.html",
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
 
 @app.route('/admin/send_email_subscribers', methods=['GET', 'POST'])
 def send_email_subscribers():
@@ -70,13 +72,16 @@ def send_email_subscribers():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'), 404
+    return render_template('404.html',
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname()), 404
 @app.errorhandler(500)
 def page_not_found(e):
-    return render_template('500.html'), 500
+    return render_template('500.html',
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname()), 500
 @app.errorhandler(401)
 def page_not_found(e):
-    return render_template('401.html'), 401
+    return render_template('401.html',
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname()), 401
 
 
 

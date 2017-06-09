@@ -18,6 +18,7 @@ def render_detail(tablename, DBA, **kwargs):
     return render_template(DBA.detail_template, path=path,
                            tablenames=t,
                            pname=DBA.mydatabasename,
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
                            **kwargs)
 
 def render_list(tablename, fields, DBA, **kwargs):
@@ -29,6 +30,7 @@ def render_list(tablename, fields, DBA, **kwargs):
                            tablename=tablename,
                            filters=DBA.filters,
                            pname=DBA.mydatabasename,
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
                            **kwargs)
 
 
@@ -64,7 +66,8 @@ def showhome(application_name):
     print("end")
     return render_template(templateroute + "home.html",
                            tablenames=tablenames,
-                           pname=application_name)
+                           pname=application_name,
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
 
 # region VIEWING DATA
 
@@ -83,7 +86,8 @@ def showtables(application_name):
     print("end")
     return render_template(templateroute + "admin.html",
                            tablenames=tablenames,
-                           pname=application_name)
+                           pname=application_name,
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
 
 
 # show the list vew for a given table in the DB
@@ -191,7 +195,8 @@ def newtable(application_name):
     return render_template(templateroute+"create_table.html",
                            tablenames=tablenames,
                            columnnames=columnnames,
-                           pname=application_name)
+                           pname=application_name,
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
 
 # adding a column to an existing table
 # todo: unfinished
@@ -208,7 +213,8 @@ def addcolumn(application_name):
     return render_template(templateroute+"create_table.html",
                            tablenames=tablenames,
                            columnnames=columnnames,
-                           pname=application_name)
+                           pname=application_name,
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
 
     # delete a whole table
 
@@ -344,7 +350,8 @@ def uploaddata(application_name,msg="", err=""):
                            tablenames=tablenames,
                            message=msg,
                            error=err,
-                           pname=application_name)
+                           pname=application_name,
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
 
 # adds the data from the CSV to an existing table
 @application.route("/projects/<application_name>/admin/uploaddatafrom", methods=['GET', 'POST'])
@@ -432,13 +439,15 @@ def createtable(application_name):
                                tablenames=tablenames, columnnames=columnnames,
                                message="Table " +
                                        request.form.get("newtablename") + " created successfully!\n" + ret,
-                               pname=application_name)
+                               pname=application_name,
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
     else:
         return render_template(templateroute + "create_table.html",
                                tablenames=tablenames, columnnames=columnnames,
                                error="Creation of table " + request.form.get("newtablename") +
                                      " failed!<br/>Error: " + ret,
-                               pname=application_name)
+                               pname=application_name,
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
 
 # renders the download form
 @application.route("/projects/<application_name>/admin/download")
@@ -450,7 +459,8 @@ def download(application_name):
 
     return render_template(templateroute + "download_table.html",
                            tablenames=tablenames, columnnames=columnnames,
-                           pname=application_name)
+                           pname=application_name,
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
 
 # serves the data given the response from the download form
 @application.route("/projects/<application_name>/admin/servedata", methods=['GET', 'POST'])

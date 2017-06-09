@@ -2,18 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5216aa2-f126-4355-838a-43d271f57d12" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/iaasldap.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/templates/401.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/templates/admin/email_subscribers.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ldapconfig.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/__init__.py" afterPath="$PROJECT_DIR$/app/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/admin/admin.py" afterPath="$PROJECT_DIR$/app/admin/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/admin/models.py" afterPath="$PROJECT_DIR$/app/admin/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/dev/views.py" afterPath="$PROJECT_DIR$/app/dev/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/admin/admin.html" afterPath="$PROJECT_DIR$/core/templates/admin/admin.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/admin/detailview.html" afterPath="$PROJECT_DIR$/core/templates/admin/detailview.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -45,7 +35,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="iaasldap.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="admin.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/admin/admin.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="452">
+              <caret line="166" column="55" lean-forward="false" selection-start-line="166" selection-start-column="55" selection-end-line="166" selection-end-column="55" />
+              <folding>
+                <element signature="e#418#3580#0" expanded="false" />
+                <element signature="e#639#1204#0" expanded="false" />
+                <element signature="e#1561#2821#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/admin/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="19" lean-forward="true" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="iaasldap.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/iaasldap.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="65">
@@ -80,23 +94,20 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/dev/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-63">
-              <caret line="457" column="84" lean-forward="false" selection-start-line="457" selection-start-column="84" selection-end-line="457" selection-end-column="84" />
+            <state relative-caret-position="147">
+              <caret line="481" column="0" lean-forward="true" selection-start-line="481" selection-start-column="0" selection-end-line="481" selection-end-column="0" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
-                <element signature="e#433#737#0" expanded="false" />
-                <element signature="e#794#1234#0" expanded="false" />
-                <element signature="e#1898#2331#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="72" column="0" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
+            <state relative-caret-position="-187">
+              <caret line="83" column="89" lean-forward="false" selection-start-line="83" selection-start-column="89" selection-end-line="83" selection-end-column="89" />
               <folding>
                 <element signature="e#23#91#0" expanded="true" />
               </folding>
@@ -151,11 +162,11 @@
       <find>admin.htm</find>
       <find>secure_filename</find>
       <find>admin</find>
-      <find>render_template</find>
       <find>serveda</find>
       <find>import</find>
       <find>admin=true</find>
       <find>is_admin_only_page=True</find>
+      <find>render_template</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -213,9 +224,9 @@
         <option value="$PROJECT_DIR$/core/templates/admin/admin.html" />
         <option value="$PROJECT_DIR$/core/templates/admin/detailview.html" />
         <option value="$PROJECT_DIR$/app/admin/models.py" />
-        <option value="$PROJECT_DIR$/app/__init__.py" />
-        <option value="$PROJECT_DIR$/app/dev/views.py" />
         <option value="$PROJECT_DIR$/core/iaasldap.py" />
+        <option value="$PROJECT_DIR$/app/dev/views.py" />
+        <option value="$PROJECT_DIR$/app/__init__.py" />
       </list>
     </option>
   </component>
@@ -857,14 +868,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dbas.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/projects/map/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1105,27 +1108,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/admin/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="19" lean-forward="true" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/admin/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1260">
-          <caret line="166" column="55" lean-forward="false" selection-start-line="166" selection-start-column="55" selection-end-line="166" selection-end-column="55" />
-          <folding>
-            <element signature="e#12#100#0" expanded="false" />
-            <element signature="e#418#3580#0" expanded="false" />
-            <element signature="e#639#1204#0" expanded="false" />
-            <element signature="e#1561#2821#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/templates/401.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1200,13 +1182,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/__init__.py">
+    <entry file="file://$PROJECT_DIR$/core/iaasldap.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="72" column="0" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
-          <folding>
-            <element signature="e#23#91#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="65">
+          <caret line="87" column="9" lean-forward="true" selection-start-line="87" selection-start-column="9" selection-end-line="87" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1220,24 +1200,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/dev/views.py">
+    <entry file="file://$PROJECT_DIR$/app/admin/admin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-63">
-          <caret line="457" column="84" lean-forward="false" selection-start-line="457" selection-start-column="84" selection-end-line="457" selection-end-column="84" />
+        <state relative-caret-position="452">
+          <caret line="166" column="55" lean-forward="false" selection-start-line="166" selection-start-column="55" selection-end-line="166" selection-end-column="55" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
-            <element signature="e#433#737#0" expanded="false" />
-            <element signature="e#794#1234#0" expanded="false" />
-            <element signature="e#1898#2331#0" expanded="false" />
+            <element signature="e#418#3580#0" expanded="false" />
+            <element signature="e#639#1204#0" expanded="false" />
+            <element signature="e#1561#2821#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/iaasldap.py">
+    <entry file="file://$PROJECT_DIR$/app/admin/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="65">
-          <caret line="87" column="9" lean-forward="true" selection-start-line="87" selection-start-column="9" selection-end-line="87" selection-end-column="9" />
+        <state relative-caret-position="0">
+          <caret line="0" column="19" lean-forward="true" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dbas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/dev/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="481" column="0" lean-forward="true" selection-start-line="481" selection-start-column="0" selection-end-line="481" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-187">
+          <caret line="83" column="89" lean-forward="false" selection-start-line="83" selection-start-column="89" selection-end-line="83" selection-end-column="89" />
+          <folding>
+            <element signature="e#23#91#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

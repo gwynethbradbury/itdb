@@ -1,3 +1,4 @@
 dbconfig.py
+ldapconfig.py
 *.pyc
 static/

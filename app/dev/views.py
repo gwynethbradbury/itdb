@@ -32,12 +32,30 @@ def render_list(tablename, fields, DBA, **kwargs):
                            **kwargs)
 
 
+'''
+Determines whether a user is authorised to view this project
+caveat: if this is an admin-only page, _admin is added to the group name
+'''
+def user_authorised(application_name,is_admin_only_page=False):
+    if is_admin_only_page:
+        application_name = application_name +"_admin"
+    usersgroups = iaasldap.get_groups(iaasldap.uid_trim())
+    if application_name in usersgroups:
+        return True
+    if "superusers" in usersgroups:
+        return True
+    return False
 ##########PATHS###########
 
+
+import core.iaasldap as iaasldap
+from flask import abort
 
 # home
 @application.route("/projects/<application_name>/")
 def showhome(application_name):
+    if not user_authorised(application_name=application_name,admin=false):
+        return abort(401)
     DBA = dictionary_of_databases[application_name]
     tablenames, columnnames = DBA.getTableAndColumnNames()
 
@@ -50,9 +68,13 @@ def showhome(application_name):
 
 # region VIEWING DATA
 
+
 # list the tables
 @application.route("/projects/<application_name>/admin/")
 def showtables(application_name):
+    if not user_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
+
     DBA = dictionary_of_databases[application_name]
     tablenames, columnnames = DBA.getTableAndColumnNames()
 
@@ -67,6 +89,8 @@ def showtables(application_name):
 # show the list vew for a given table in the DB
 @application.route("/projects/<application_name>/admin/<tablename>/")
 def showTable(application_name,tablename):
+    if not user_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
     DBA = dictionary_of_databases[application_name]
     tns, cns = DBA.getTableAndColumnNames(tablename=tablename)
     try:
@@ -95,6 +119,8 @@ def showTable(application_name,tablename):
 # Show the detail view for a given entry in a given table
 @application.route("/projects/<application_name>/admin/<tablename>/<obj_id>")
 def displayObject(application_name,tablename,obj_id):
+    if not user_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
     DBA = dictionary_of_databases[application_name]
 
     if obj_id:
@@ -137,6 +163,8 @@ def displayObject(application_name,tablename,obj_id):
 #todo: test filters
 @application.route("/projects/<application_name>/admin/<tablename>/filter/<filter_name>")
 def filterObjects(application_name,tablename, filter_name):
+    if not user_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
     DBA = dictionary_of_databases[application_name]
     tns,cns = DBA.getTableAndColumnNames(tablename=tablename)
     model = DBA.classFromTableName(classname=str(tablename),fields=cns[0])
@@ -154,6 +182,8 @@ def filterObjects(application_name,tablename, filter_name):
 # creating a new table
 @application.route("/projects/<application_name>/admin/newtable")
 def newtable(application_name):
+    if not user_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
     DBA = dictionary_of_databases[application_name]
 
     tablenames,columnnames=DBA.getTableAndColumnNames()
@@ -167,6 +197,8 @@ def newtable(application_name):
 # todo: unfinished
 @application.route("/projects/<application_name>/admin/addcolumn")
 def addcolumn(application_name):
+    if not user_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
     DBA = dictionary_of_databases[application_name]
 
     tablenames, columnnames = DBA.getTableAndColumnNames()
@@ -182,6 +214,8 @@ def addcolumn(application_name):
 
 @application.route("/projects/<application_name>/admin/deletetable/<page>")
 def deletetable(application_name,page):
+    if not user_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
     DBA = dictionary_of_databases[application_name]
     DBA.deleteTable(page)
     # DBA.DBE.refresh()
@@ -190,6 +224,8 @@ def deletetable(application_name,page):
 # clear all entries from a table
 @application.route("/projects/<application_name>/admin/cleartable/<page>")
 def cleartable(application_name,page):
+    if not user_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
     DBA = dictionary_of_databases[application_name]
 
     DBA.clearTable(page)
@@ -202,6 +238,8 @@ def cleartable(application_name,page):
 # Generate the form for creating a new item
 @application.route("/projects/<application_name>/admin/<tablename>/new")
 def newObjectForm(application_name,tablename):
+    if not user_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
     DBA = dictionary_of_databases[application_name]
 
     tns, cns = DBA.getTableAndColumnNames(tablename=tablename)
@@ -220,6 +258,8 @@ def newObjectForm(application_name,tablename):
 @application.route("/projects/<application_name>/admin/<tablename>/createnew",
                    methods=['GET', 'POST'])
 def createnew(application_name,tablename, obj_id=''):
+    if not user_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
     DBA = dictionary_of_databases[application_name]
     tns, cns = DBA.getTableAndColumnNames(tablename=tablename)
     model = DBA.classFromTableName(classname=str(tablename), fields=cns[0])
@@ -251,6 +291,8 @@ def createnew(application_name,tablename, obj_id=''):
 # delete an item
 @application.route("/projects/<application_name>/admin/<tablename>/delete/<id>/")
 def deleteObject(application_name,tablename, id):
+    if not user_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
     DBA = dictionary_of_databases[application_name]
     tns, cns = DBA.getTableAndColumnNames(tablename=tablename)
     model = DBA.classFromTableName(classname=str(tablename), fields=cns[0])
@@ -281,6 +323,8 @@ def deleteObject(application_name,tablename, id):
 # generate a blank cv given an existing table
 @application.route("/projects/<application_name>/admin/genblankcsv", methods=['GET', 'POST'])
 def genblankcsv(application_name):
+    if not user_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
     DBA = dictionary_of_databases[application_name]
     try:
         return DBA.genBlankCSV(request.form.get("tablename"))
@@ -292,6 +336,8 @@ def genblankcsv(application_name):
 # renders the upload form
 @application.route("/projects/<application_name>/admin/uploaddata")
 def uploaddata(application_name,msg="", err=""):
+    if not user_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
     DBA = dictionary_of_databases[application_name]
     tablenames, columnnames = DBA.getTableAndColumnNames()
     return render_template(templateroute + "upload_table.html",
@@ -303,6 +349,8 @@ def uploaddata(application_name,msg="", err=""):
 # adds the data from the CSV to an existing table
 @application.route("/projects/<application_name>/admin/uploaddatafrom", methods=['GET', 'POST'])
 def uploaddatafrom(application_name):
+    if not user_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
     DBA = dictionary_of_databases[application_name]
     if request.method == 'POST':
         # check if the post request has the file part
@@ -335,6 +383,8 @@ def uploaddatafrom(application_name):
 # todo: check for column missmatch
 @application.route("/projects/<application_name>/admin/createtable", methods=['GET', 'POST'])
 def createtable(application_name):
+    if not user_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
     DBA = dictionary_of_databases[application_name]
     # create a new table either from scratch or from an existing csv
     tablenames, columnnames = DBA.getTableAndColumnNames()
@@ -393,6 +443,8 @@ def createtable(application_name):
 # renders the download form
 @application.route("/projects/<application_name>/admin/download")
 def download(application_name):
+    if not user_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
     DBA = dictionary_of_databases[application_name]
     tablenames, columnnames = DBA.getTableAndColumnNames()
 
@@ -403,6 +455,8 @@ def download(application_name):
 # serves the data given the response from the download form
 @application.route("/projects/<application_name>/admin/servedata", methods=['GET', 'POST'])
 def servedata(application_name):
+    if not user_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
     DBA = dictionary_of_databases[application_name]
     # serves the requested data
     # todo: problems with filename and extension

@@ -56,7 +56,7 @@ from flask import abort
 # home
 @application.route("/projects/<application_name>/")
 def showhome(application_name):
-    if not user_authorised(application_name=application_name,admin=false):
+    if not user_authorised(application_name=application_name,is_admin_only_page=False):
         return abort(401)
     DBA = dictionary_of_databases[application_name]
     tablenames, columnnames = DBA.getTableAndColumnNames()

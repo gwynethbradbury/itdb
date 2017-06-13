@@ -5,6 +5,7 @@ import dbconfig
 from flask import request, session, flash, redirect, url_for, render_template
 from .email import send_email_simple as send_email
 
+import iaasldap
 
 if dbconfig.test:
     from mock_access_helper import MockAccessHelper as AccessHelper
@@ -16,11 +17,19 @@ home = Blueprint('home', __name__,template_folder='templates')#,
                  # static_folder='core/static')
 
 
+dbas = 1
+nc = 2
+iam = 3
+
 @home.route('/', defaults={'page': 'index'})
 @home.route('/<page>')
 def show(page):
     try:
-        return render_template('%s.html' % page)
+        instances = AH.get_projects(dbas)
+        return render_template("index.html",
+                               username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                               servicelist=iaasldap.get_groups(iaasldap.uid_trim()),
+                               instances=instances)
     except TemplateNotFound:
         abort(404)
 

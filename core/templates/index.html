@@ -22,14 +22,21 @@
 {% block body2 %}
 
 
-Thie section should contain a list of my databases
-<br/>
-temporary: <a href="{{ url_for('home.show', page='map') }}">map application</a href>
+    {% if instances|length>0 %}
 
-<ul>
-	{% for instance in instances %}
-		<li><a href="{{instance}}">{{instance}}</a></li>
-	{% endfor %}
-</ul>
+        <ul>
+            {% for instance in instances %}
+                <li><a href="/projects/{{instance[0]}}">{{instance[1]}}</a></li>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+
+        No databases are currently available to you.
+
+        <br/>
+        <a href="{{ url_for('home.show', page='projects/map') }}">Example map application</a>
+
+    {% endif %}
 
 {% endblock %}

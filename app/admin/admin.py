@@ -9,10 +9,9 @@ from wtforms.ext.sqlalchemy.orm import model_form
 from app import db
 
 from .models import news, iaas_events, subscribers, comment, services, groups, permitted_svc, svc_instances
-from datetime import datetime
+from .. import iaasldap
 
 admin = Blueprint('admin', __name__)
-
 
 class CRUDView(MethodView):
     list_template = 'admin/listview.html'
@@ -35,11 +34,25 @@ class CRUDView(MethodView):
         self.ObjForm = model_form(self.model, db.session, exclude=exclude)
 
     def render_detail(self, **kwargs):
-        return render_template(self.detail_template, path=self.path, **kwargs)
+        usersgroups = iaasldap.get_groups(iaasldap.uid_trim())
+        if "superusers" in usersgroups:
+            return render_template(self.detail_template, path=self.path,
+                                   username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                                   servicelist=iaasldap.get_groups(iaasldap.uid_trim()),
+                                   **kwargs)
+        else:
+            return abort(401)
 
     def render_list(self, **kwargs):
-        return render_template(self.list_template, path=self.path,
-                               filters=self.filters, **kwargs)
+        usersgroups = iaasldap.get_groups(iaasldap.uid_trim())
+        if "superusers" in usersgroups:
+            return render_template(self.list_template, path=self.path,
+                                   filters=self.filters,
+                                   username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                                   servicelist=iaasldap.get_groups(iaasldap.uid_trim()),
+                                   **kwargs)
+        else:
+            return abort(401)
 
     def get(self, obj_id='', operation='', filter_name=''):
         if operation == 'new':
@@ -107,7 +120,7 @@ class CRUDView(MethodView):
 
 
 
-
+import core.iaasldap as iaasldap
 
 def register_crud(app, url, endpoint, model, decorators=[], **kwargs):
     view = CRUDView.as_view(endpoint, endpoint=endpoint,
@@ -123,6 +136,8 @@ def register_crud(app, url, endpoint, model, decorators=[], **kwargs):
                      methods=['GET'])
     app.add_url_rule('%s/<operation>/<filter_name>/' % url, view_func=view,
                      methods=['GET'])
+
+
 
 
 

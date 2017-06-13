@@ -33,6 +33,15 @@ def show(page):
     except TemplateNotFound:
         abort(404)
 
+
+@home.route('/group/<group>')
+def projects_by_group(group):
+    instances = AH.get_projects_for_group(group)
+    return render_template("groupprojects.html",
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                           servicelist=iaasldap.get_groups(iaasldap.uid_trim()),
+                           instances=instances, group=group)
+
 @home.route('/sendenquiry', methods=['GET', 'POST'])
 def sendenquiry():
     send_email('gwyneth.bradbury@ouce.ox.ac.uk', 'IAAS Enquiry', request.form['messagebody'])

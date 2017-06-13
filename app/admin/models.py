@@ -46,18 +46,11 @@ class svc_instances(db.Model):
         self.group_id=group_id
 
     def __repr__(self):
-        url=""
-        if self.svc_type_id==dict['dbas']:
-            url = "https://db.ouce.ox.ac.uk/projects/"+self.instance_identifier
-        else:
-            url=self.instance_identifier
-        return '<td>{0}</td><td>{1}</td><td><a href="{3}">{2}</a></td><td>{4}</td><td>{5}</td>'\
-            .format(self.id,
-                    self.project_display_name,
-                    self.instance_identifier,
-                    url,
-                    self.svc_type_id,
-                    self.group_id)
+        return '<td>{0}</td><td>{1}</td><td><a href="{2}">{2}</a></td><td>{3}</td><td>{4}</td>'.format(self.id,
+                                                                                self.project_display_name,
+                                                                             self.instance_identifier,
+                                                                             self.svc_type_id,
+                                                                             self.group_id)
 
 
 class permitted_svc(db.Model):

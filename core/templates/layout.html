@@ -37,8 +37,11 @@
                             {% for x in servicelist %}
                                 <li><a href="/group/{{ x }}">{{ x }}</a></li>
                             {% endfor %}
-
                         </ul>
+                        <hr>
+                        {% if 'superusers' in servicelist %}
+                            <h4><a href="{{ url_for('home.show', page='admin') }}" title="Admin">Admin</a></h4>
+                        {% endif %}
 					</div>
 				</div>
 			</div>

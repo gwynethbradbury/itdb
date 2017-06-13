@@ -54,14 +54,16 @@ def admin():
     usersgroups = iaasldap.get_groups(iaasldap.uid_trim())
     if "superusers" in usersgroups:
         return render_template("admin/admin.html",
-                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                           servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
     else:
         return abort(401)
 
 @app.route('/admin/emailsubscribers')
 def emailsubscribers():
     return render_template("admin/email_subscribers.html",
-                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                           servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
 
 @app.route('/admin/send_email_subscribers', methods=['GET', 'POST'])
 def send_email_subscribers():
@@ -73,15 +75,18 @@ def send_email_subscribers():
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html',
-                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname()), 404
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                           servicelist=iaasldap.get_groups(iaasldap.uid_trim())), 404
 @app.errorhandler(500)
 def page_not_found(e):
     return render_template('500.html',
-                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname()), 500
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                           servicelist=iaasldap.get_groups(iaasldap.uid_trim())), 500
 @app.errorhandler(401)
 def page_not_found(e):
     return render_template('401.html',
-                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname()), 401
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                           servicelist=iaasldap.get_groups(iaasldap.uid_trim())), 401
 
 
 

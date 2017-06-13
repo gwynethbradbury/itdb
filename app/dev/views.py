@@ -64,7 +64,7 @@ def showhome(application_name):
     print("tablenames are:")
     print(tablenames)
     print("end")
-    return render_template(templateroute + "home.html",
+    return render_template(templateroute + "project_home.html",
                            tablenames=tablenames,
                            pname=application_name,
                            username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
@@ -84,7 +84,7 @@ def showtables(application_name):
     print("tablenames are:")
     print(tablenames)
     print("end")
-    return render_template(templateroute + "admin.html",
+    return render_template(templateroute + "project_admin.html",
                            tablenames=tablenames,
                            pname=application_name,
                            username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())

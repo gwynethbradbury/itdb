@@ -1,0 +1,9 @@
+{% extends "projects/map/mapadmin.html" %}
+
+{% block content %}
+    <h1>Download link</h1>
+    <a href="{{ url_for('static', filename='data/export.csv') }}">try this one</a>
+    <a class="button success" href="/static/data/export.csv" download>
+    Download
+    </a>
+{% endblock %}

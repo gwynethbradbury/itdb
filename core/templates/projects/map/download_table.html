@@ -1,0 +1,104 @@
+{% extends "projects/map/mapadmin.html" %}
+
+{% block content %}
+        <style type="text/css">
+            #myData{visibility:hidden;}
+        </style>
+        <script language="JavaScript">
+            var showwholetable = false;
+            function toggleVisibility(eventsender, idOfObjectToToggle){
+                var myNewState = "collapse";
+                showwholetable = false;
+                displ="none"
+                if (eventsender.checked === false){
+                    myNewState = "visible";
+                    showwholetable=true;
+                    displ="inline"
+                }
+
+                document.getElementById(idOfObjectToToggle).style.visibility = myNewState;
+                document.getElementById(idOfObjectToToggle).style.display = displ;
+                toggleColumnHeaders(eventsender,myNewState)
+            }
+
+            function toggleColumnHeaders(eventsender){
+
+                for(i=0;i<document.getElementById("tablename").options.length;i++){
+                    idd = "_"+document.getElementById("tablename").options[i].text;
+
+                    try {
+                        document.getElementById(idd).style.visibility = "hidden";
+
+                         document.getElementById(idd).style.display="none";
+                    }
+                    catch(err) {
+{#                        document.getElementById("demo").innerHTML = err.message;#}
+                    }
+                }
+
+                if(showwholetable){
+                    idOfObjectToToggle = "_"+document.getElementById("tablename").options[document.getElementById("tablename").selectedIndex].text;
+                    document.getElementById(idOfObjectToToggle).style.visibility = "visible";
+                    document.getElementById(idOfObjectToToggle).style.display="inline";
+                }
+
+
+                document.getElementById("selectedtablename").innerHTML = "Columns for table: "+document.getElementById("tablename").options[document.getElementById("tablename").selectedIndex].text
+
+            }
+
+        </script>
+
+
+    <h3>Download data</h3>
+    <form action="servedata" method="post" name="data">
+
+        <label for="tablename">Select table</label>
+        <select name="tablename" id="tablename" onchange="toggleColumnHeaders(this)"/>
+
+
+            {% for t in tablenames %}
+                <option value="{{ t }}" id="{{ t }}">
+                    {{ t }}
+                </option>
+            {% endfor %}
+
+{#                <option value="other" id="other">#}
+{#                    other#}
+{#                </option>#}
+        </select>
+    <br/>
+        <label for="wholetable">Download full table? </label>
+        <input type="checkbox" checked="checked"
+               value="yes" id="wholetable" name="wholetable"
+               onClick = "JavaScript:toggleVisibility(this,'myData');"/>
+
+
+
+        <div name="myData" id="myData" style="display: none">
+            <h4>Select fields...</h4>
+            <p id="selectedtablename"></p>
+            {% for c in columnnames %}
+                {% set i=loop.index0 %}
+                <div  id="_{{ tablenames[i] }}" style="display: none">
+                    <table>
+                    {% for cc in c %}
+                        <tr>
+                            <td><input type="checkbox" checked="checked"
+                               value="yes" id="{{ tablenames[i] }}_{{ cc }}"
+                               content="{{ cc }}"
+                               name="{{tablenames[i] }}_{{ cc }}"/></td>
+                            <td><label for="{{ cc }}"> {{ cc }} </label></td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                </div>
+            {% endfor %}
+
+        </div>
+
+        <p><input type="submit" value="Download"></p>
+    </form>
+
+
+{% endblock %}

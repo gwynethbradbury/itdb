@@ -13,33 +13,32 @@
 
 
 
-	{% block styles %}{% endblock %}
 	{% block scripts %}{% endblock %}
 
 
 	</head>
 
 <body {% block bodycalls %}{% endblock %}>
-    
+
 	<div class="off-canvas-wrapper">
 		<div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
 
 			<div class="off-canvas position-left reveal-for-large" id="my-info" data-off-canvas data-position="left">
 				<div class="row column">
 					<br>
-					<a href="https://geog.ox.ac.uk"><img class="thumbnail" src="/static/img/geog-intranet-brand-pos.png"></a>
+					<a href="http://www.geog.ox.ac.uk"><img class="thumbnail" src="/static/img/geog-intranet-brand-pos.png"></a>
 					<br>
-					<a href="https://iaas.ouce.ox.ac.uk"><img class="thumbnail" src="/static/img/fruitbowl.jpg"></a>
+					<a href="{{ url_for('home.show', page='') }}"><img class="thumbnail" src="/static/img/fruitbowl.jpg"></a>
 					<h4>{{ username }}</h4>
-					<p>List of my current services</p>
+                    <hr>
+					<p>List of my groups:</p>
 					<div>
-						<p>
-						{% if not session.logged_in %}
-						<a href="{{ url_for('home.show', page='login') }}">log in</a>
-						{% else %}
-						<a href="{{ url_for('home.show', page='logout') }}">log out</a>
-						{% endif %}
-						</p>
+                        <ul>
+                            {% for x in servicelist %}
+                                <li><a href="/group/{{ x }}">{{ x }}</a></li>
+                            {% endfor %}
+
+                        </ul>
 					</div>
 				</div>
 			</div>
@@ -51,14 +50,14 @@
 						<span class="title-bar-title">{{ username }}</span>
 					</div>
 				</div>
-		  
+
 
 
 				<div class="page">
 					<!--<h1>This is blueprint example</h1>
 					<p>
 					A simple page blueprint is registered under / and /pages
-					you can access it using this URLs: 
+					you can access it using this URLs:
 					<ul>
 					<li><a href="{{ url_for('home.show', page='service') }}">/service</a>
 					<li><a href="{{ url_for('home.show', page='iaas') }}">/iaas</a>
@@ -74,7 +73,7 @@
 				</div>
 
 
-		  
+
 
 				<hr>
 
@@ -84,6 +83,7 @@
 						<p>Use this area to request more information on using one of our services for your project.</p>
 						<ul class="menu">
 							<li><a href="http://intranet.ouce.ox.ac.uk">School Intranet</a></li>
+							<li><a href="/subscribe">Subscribe</a></li>
 							<!--<li><a href="#">Facebook</a></li>
 							<li><a href="#">Yo</a></li>-->
 						</ul>
@@ -108,12 +108,12 @@
 			</div>
 		</div>
 	</div>
-    
+
 	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="/static/js/vendor/foundation.js"></script>
-	<!--script/>
+	<script>
 		$(document).foundation();
-	</script-->
+	</script>
   </body>
 
 

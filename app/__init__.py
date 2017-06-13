@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from core.email import send_email_simple as send_email
 from core.home import AH
+import core.iaasldap as iaasldap
 
 import dbconfig
 import importlib
@@ -17,12 +18,12 @@ app.config.update(
         DEBUG=True
     )
 
-app.config.from_object('config')
+# app.config.from_object('config')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://{}:{}@localhost/iaas'.format(dbconfig.db_user, dbconfig.db_password)
 
 
 
 print('setting up email settings')
-import dbconfig
 app.secret_key = dbconfig.mail_secret_key
 app.config["MAIL_SERVER"] = dbconfig.mail_server
 app.config["MAIL_PORT"] = dbconfig.mail_port
@@ -38,7 +39,6 @@ else:#server
 db = SQLAlchemy(app)
 
 
-import core.iaasldap as iaasldap
 
 from core.home import home
 from admin import admin

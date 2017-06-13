@@ -21,15 +21,24 @@ dbas = 1
 nc = 2
 iam = 3
 
-@home.route('/', defaults={'page': 'index'})
-@home.route('/<page>')
-def show(page):
+@home.route('/')#, defaults={'page': 'index'})
+def get_all_dbas_projects():
     try:
         instances = AH.get_projects(dbas)
         return render_template("index.html",
                                username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
                                servicelist=iaasldap.get_groups(iaasldap.uid_trim()),
                                instances=instances)
+    except TemplateNotFound:
+        abort(404)
+
+@home.route('/<page>')
+def show(page):
+    try:
+        instances = AH.get_projects(dbas)
+        return render_template("%s.html" % page,
+                               username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                               servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
     except TemplateNotFound:
         abort(404)
 

@@ -49,6 +49,12 @@ app.register_blueprint(admin, url_prefix='/admin',
                        template_folder='templates')
 
 
+@home.context_processor
+def inject_url():
+    iaas_url=dbconfig.iaas_route
+    dbas_url=dbconfig.dbas_route
+    return dict(iaas_url=iaas_url,dbas_url=dbas_url)
+
 @app.route('/admin')
 def admin():
     usersgroups = iaasldap.get_groups(iaasldap.uid_trim())

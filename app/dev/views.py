@@ -19,6 +19,7 @@ def render_detail(tablename, DBA, **kwargs):
                            tablenames=t,
                            pname=DBA.mydatabasename,
                            username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                           servicelist=iaasldap.get_groups(iaasldap.uid_trim()),
                            **kwargs)
 
 def render_list(tablename, fields, DBA, **kwargs):
@@ -31,6 +32,7 @@ def render_list(tablename, fields, DBA, **kwargs):
                            filters=DBA.filters,
                            pname=DBA.mydatabasename,
                            username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                           servicelist=iaasldap.get_groups(iaasldap.uid_trim()),
                            **kwargs)
 
 
@@ -67,7 +69,8 @@ def showhome(application_name):
     return render_template(templateroute + "project_home.html",
                            tablenames=tablenames,
                            pname=application_name,
-                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                           servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
 
 # region VIEWING DATA
 
@@ -87,7 +90,8 @@ def showtables(application_name):
     return render_template(templateroute + "project_admin.html",
                            tablenames=tablenames,
                            pname=application_name,
-                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                           servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
 
 
 # show the list vew for a given table in the DB
@@ -196,7 +200,8 @@ def newtable(application_name):
                            tablenames=tablenames,
                            columnnames=columnnames,
                            pname=application_name,
-                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                           servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
 
 # adding a column to an existing table
 # todo: unfinished
@@ -214,7 +219,8 @@ def addcolumn(application_name):
                            tablenames=tablenames,
                            columnnames=columnnames,
                            pname=application_name,
-                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                           servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
 
     # delete a whole table
 
@@ -351,7 +357,8 @@ def uploaddata(application_name,msg="", err=""):
                            message=msg,
                            error=err,
                            pname=application_name,
-                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                           servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
 
 # adds the data from the CSV to an existing table
 @application.route("/projects/<application_name>/admin/uploaddatafrom", methods=['GET', 'POST'])
@@ -440,14 +447,16 @@ def createtable(application_name):
                                message="Table " +
                                        request.form.get("newtablename") + " created successfully!\n" + ret,
                                pname=application_name,
-                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
+                               username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                               servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
     else:
         return render_template(templateroute + "create_table.html",
                                tablenames=tablenames, columnnames=columnnames,
                                error="Creation of table " + request.form.get("newtablename") +
                                      " failed!<br/>Error: " + ret,
                                pname=application_name,
-                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
+                               username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                               servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
 
 # renders the download form
 @application.route("/projects/<application_name>/admin/download")
@@ -460,7 +469,8 @@ def download(application_name):
     return render_template(templateroute + "download_table.html",
                            tablenames=tablenames, columnnames=columnnames,
                            pname=application_name,
-                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname())
+                           username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                           servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
 
 # serves the data given the response from the download form
 @application.route("/projects/<application_name>/admin/servedata", methods=['GET', 'POST'])

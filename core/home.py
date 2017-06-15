@@ -21,6 +21,12 @@ dbas = 1
 nc = 2
 iam = 3
 
+@home.context_processor
+def inject_url():
+    iaas_url=dbconfig.iaas_route
+    dbas_url=dbconfig.dbas_route
+    return dict(iaas_url=iaas_url,dbas_url=dbas_url)
+
 @home.route('/')#, defaults={'page': 'index'})
 def get_all_dbas_projects():
     try:
@@ -41,6 +47,12 @@ def show(page):
                                servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
     except TemplateNotFound:
         abort(404)
+
+# def iaas_url():
+#     try:
+#         return dbconfig.iaas_route
+#     except TemplateNotFound:
+#         abort(404)
 
 
 @home.route('/group/<group>')

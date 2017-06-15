@@ -11,7 +11,7 @@ from numpy import genfromtxt
 #     usergroup_ID = 1
 
 import iaasldap
-from . import dict, dict2
+from . import dict2
 
 class AccessHelper:
     def connect(self, database="iaas"):

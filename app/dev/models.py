@@ -118,8 +118,8 @@ class DatabaseAssistant:
         self.adminroute = "/projects/" + dbname + "/admin/"
         self.approute = "/projects/" + dbname + "/"
 
-        self.list_template = 'projects/listview.html',
-        self.detail_template = 'projects/detailview.html',
+        self.list_template = 'projects/project_listview.html',
+        self.detail_template = 'projects/project_detailview.html',
         self.upload_folder=upload_folder
 
     def resetDB(self,db):

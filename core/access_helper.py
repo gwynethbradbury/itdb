@@ -14,7 +14,7 @@ import iaasldap
 from . import dict2
 
 class AccessHelper:
-    def connect(self, database="iaas"):
+    def connect(self, database=dbconfig.db_name):
         return pymysql.connect(host='localhost',
                                user=dbconfig.db_user,
                                passwd=dbconfig.db_password,

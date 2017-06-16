@@ -1,9 +1,9 @@
-The process for creating a new project should be roughly as follows:
+The process for creating a new WAAS project should be roughly as follows:
 
 
 1. Clone the basic project (currently 'map') files in projects/[basic project] and templates/projects/[basic project]
 
-2. Mysql: create the empty database and grant permissions to the iaas user (this username might change in future)
+2. iaas admin: create the empty database and grant permissions to the iaas user (this username might change in future)
 
 3. add the new project database to the list of binds in the dbconfig.py file
 

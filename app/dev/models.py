@@ -10,75 +10,41 @@ import dbconfig
 import pandas as pd
 import os
 
-listOfColumnTypes = ["Integer",
-                   "String",
-                   "Characters",
-                   "Bool",
-                   "Time stamp",
-                   "Date",
-                   "Time",
-                   "Really long string",
-                   "Small integer",
-                   "Real",
-                   "Float",
-                   "Double",
-                   "Precision"]
-
+listOfColumnTypesByName = {"Integer":"INTEGER",
+                           "String":"VARCHAR",
+                           "Characters":"CHARACTER",
+                           "Bool":"BOOLEAN",
+                           "Time stamp":"TIMESTAMP",
+                           "Date":"DATE",
+                           "Time":"TIME",
+                           "Really long string":"CLOB",
+                           "Small integer":"SMALLINT",
+                           "Real":"REAL",
+                           "Float":"FLOAT",
+                           "Double":"DOUBLE",
+                           "Precision":"PRECISION",
+                           "Text block":"TEXT"}
+DataTypeNeedsN= {"INTEGER":False,
+                 "VARCHAR":True,
+                 "CHARACTER":True,
+                 "BOOLEAN":False,
+                 "TIMESTAMP":False,
+                 "DATE":False,
+                 "TIME":False,
+                 "CLOB":True,
+                 "SMALLINT":False,
+                 "REAL":False,
+                 "FLOAT":True,
+                 "DOUBLE":False,
+                 "PRECISION":False,
+                 "TEXT":False}
+listOfColumnTypesByDescriptor = dict(reversed(item) for item in listOfColumnTypesByName.items())
 
 def desc2formattedtype(coltype,numchar):
-    data_type_formatted=""
 
-    if coltype == "Integer":
-        # INTEGER or INT
-        data_type_formatted = "INTEGER"
-
-    elif coltype == "String":
-        # VARCHAR(length)
-        data_type_formatted = "VARCHAR(" + str(numchar) + ")"
-
-    elif coltype == "Characters":
-        # CHARACTER[(length)] or CHAR[(length)]
-        data_type_formatted = "CHARACTER[(" + str(numchar) + ")]"
-
-    elif coltype == "Bool":
-        # BOOLEAN
-        data_type_formatted = "BOOLEAN"
-
-    elif coltype == "Time stamp":
-        # TIMESTAMP
-        data_type_formatted = "TIMESTAMP"
-
-    elif coltype == "Date":
-        # DATE
-        data_type_formatted = "DATE"
-
-    elif coltype == "Time":
-        # TIME
-        data_type_formatted = "TIME"
-
-    elif coltype == "Really long string":
-        # CLOB[(length)] or CHARACTER
-        data_type_formatted = "CLOB[(" + str(numchar) + ")]"
-
-    elif coltype=="Small integer":
-        # SMALLINT
-        data_type_formatted = "SMALLINT"
-
-    elif coltype=="Real":
-        # REAL
-        data_type_formatted="REAL"
-
-    elif coltype=="Float":
-        # FLOAT(p)
-        data_type_formatted="FLOAT("+str(numchar)+")"
-
-    elif coltype=="Double":
-        # DOUBLE
-        data_type_formatted="DOUBLE"
-
-    elif coltype=="Precision":
-        # PRECISION
-        data_type_formatted="PRECISION"
+    data_type_formatted = listOfColumnTypesByName[coltype]
+    if DataTypeNeedsN[listOfColumnTypesByName[coltype]]:
+        data_type_formatted = "{}({})".format(data_type_formatted,str(numchar))
 
     return data_type_formatted
 
@@ -263,14 +229,14 @@ class DatabaseAssistant:
     #
 
     # adds a column to the database
-    # todo: test
     def addColumn(self,tablename,colname="test",coltype="Integer",numchar=100):
+        msg=""
         print("attempting to add column "+colname+" ("+coltype+") to table "+tablename+"...")
         try:
             mytable = SqlAl.Table(tablename, self.DBE.metadata, autoload=True)  # .data, metadata, autoload=True)
         except Exception as e:
             print(str(e))
-            print("couldn't get table "+tablename+", stopping")
+            msg = ("couldn't get table "+tablename+", stopping")
 
 
 
@@ -280,21 +246,16 @@ class DatabaseAssistant:
             if t==tablename:
                 for cc in columnnames[i]:
                     if cc==colname:
-                        print(colname +" already exists in table, stopping.")
-                        return
+                        msg=(colname +" already exists in table.")
+                        print(msg)
+                        return msg, 0
             i += 1
-
-
-        connection = self.connect("map")
-        cursor = connection.cursor()
 
         data_type_formatted = desc2formattedtype(coltype,numchar)
 
-        query = ("ALTER TABLE "+tablename+" ADD column "+colname+" "+data_type_formatted)
+        self.DBE.E.execute("ALTER TABLE "+tablename+" ADD column "+colname+" "+data_type_formatted+";")
 
-        cursor.execute(query)
-        connection.commit()
-        connection.close()
+        return msg, 1
 
     # adds a primary key column for integer ids to the table
     def addIdColumn(self, table_name, column_name="id"):

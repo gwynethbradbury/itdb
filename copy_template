@@ -1,0 +1,39 @@
+
+cp -r core/static/* ../iam-frontend/app/static/
+cp core/templates/layout.html ../iam-frontend/app/templates/
+cp core/templates/service.html ../iam-frontend/app/templates/
+cp core/templates/login.html ../iam-frontend/app/templates/
+cp core/templates/404.html ../iam-frontend/app/templates/
+cp core/templates/500.html ../iam-frontend/app/templates/
+cp core/templates/info.html ../iam-frontend/app/templates/
+#cp core/home.py ../iam-frontend/app/home.py
+cp core/access_helper.py ../dbas/core/
+cp core/mock_access_helper.py ../dbas/core/
+
+
+cp -r core/static/* ../dbas/core/static/
+cp core/templates/layout.html ../dbas/core/templates/
+cp core/templates/service.html ../dbas/core/templates/
+cp core/templates/login.html ../dbas/core/templates/
+cp core/templates/404.html ../dbas/core/templates/
+cp core/templates/500.html ../dbas/core/templates/
+cp core/home.py ../dbas/core/home.py
+cp core/views.py ../dbas/core/views.py
+cp core/access_helper.py ../dbas/core/
+cp core/mock_access_helper.py ../dbas/core/
+
+
+
+cp ../iam-frontend/app/email.py core/
+cp ../iam-frontend/app/models.py core/
+cp ../iam-frontend/app/__init__.py core/
+cp ../iam-frontend/config.py .
+cp -r ../iam-frontend/app/auth/* core/auth/
+cp -r ../iam-frontend/app/main/* core/main/
+
+cp ../iam-frontend/app/email.py ../dbas/core/
+cp ../iam-frontend/app/models.py ../dbas/core/
+cp ../iam-frontend/app/__init__.py ../dbas/core/
+cp ../iam-frontend/config.py ../dbas/
+cp -r ../iam-frontend/app/auth/* ../dbas/core/auth/
+cp -r ../iam-frontend/app/main/* ../dbas/core/main/

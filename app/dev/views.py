@@ -123,25 +123,42 @@ def showTable(application_name,tablename):
     adminroute = "/projects/" + application_name + "/admin/"
     return redirect(adminroute)
 
-
+#todo:add set post to this method
 # Show the detail view for a given entry in a given table
-@application.route("/projects/<application_name>/admin/<tablename>/<obj_id>")
+@application.route("/projects/<application_name>/admin/<tablename>/<obj_id>", methods=['GET', 'POST'])
 def displayObject(application_name,tablename,obj_id):
     if not user_authorised(application_name=application_name,is_admin_only_page=True):
         return abort(401)
+
     DBA = dictionary_of_databases[application_name]
 
-    if obj_id:
-        tns,cns = DBA.getTableAndColumnNames(tablename=tablename)
-        model = DBA.classFromTableName(classname=str(tablename), fields=cns[0])
-        sesh = sessionmaker(bind=DBA.DBE.E)
-        sesh = sesh()
+    tns,cns = DBA.getTableAndColumnNames(tablename=tablename)
+    model = DBA.classFromTableName(classname=str(tablename), fields=cns[0])
+    sesh = sessionmaker(bind=DBA.DBE.E)
+    sesh = sesh()
+
+    # gets this object from the database
+    obj = sesh.query(model).filter_by(id=obj_id).first()
+
+    if request.method == 'POST':
+
+        # update the object using the field names from the model and checking each field to see if it's returned on the form
+        # (id will be ignored)
+        for f in model.fields:
+            if request.form.get(f):
+                setattr(obj,f,request.form.get(f))
+
+        # commit the session to the database neatly
+        sesh.commit()
+
+        return showTable(application_name,tablename)
+        pass
+    else:
 
         # this creates the form fields base on the model
         # so we don't have to do them one by one
         ObjForm = model_form(model, sesh)
 
-        obj = sesh.query(model).filter_by(id=obj_id).first()
         # populate the form with our blog data
         form = ObjForm(obj=obj)
         # action is the url that we will later use
@@ -149,22 +166,6 @@ def displayObject(application_name,tablename,obj_id):
         action = request.path
         return render_detail(tablename=tablename,form=form, action=action, DBA=DBA)
 
-    tns, cns = DBA.getTableAndColumnNames(tablename=tablename)
-    model = DBA.classFromTableName(classname=str(tablename), fields=cns[0])
-    sesh = sessionmaker(bind=DBA.DBE.E)
-    sesh = sesh()
-
-    # this creates the form fields base on the model
-    # so we don't have to do them one by one
-    ObjForm = model_form(model, sesh)
-
-    obj = sesh.query(model).filter_by(id=obj_id).first()
-    # populate the form with our blog data
-    form = ObjForm(obj=obj)
-    # action is the url that we will later use
-    # to do post, the same url with obj_id in this case
-    action = request.path
-    return render_detail(form=form, action=action, DBA=DBA)
 
 
 # apply a filter to the list view for a table
@@ -205,25 +206,73 @@ def newtable(application_name):
 
 # adding a column to an existing table
 # todo: unfinished
-@application.route("/projects/<application_name>/admin/addcolumn")
-def addcolumn(application_name):
+@application.route("/projects/<application_name>/admin/<tablename>/addcolumn")
+def addcolumn(application_name,tablename):
     if not user_authorised(application_name=application_name,is_admin_only_page=True):
         return abort(401)
     DBA = dictionary_of_databases[application_name]
 
     tablenames, columnnames = DBA.getTableAndColumnNames()
 
-    DBA.addColumn("newtable", "test2","Time stamp")
+    lstofdatatypes = listOfColumnTypesByName
 
-    return render_template(templateroute+"create_table.html",
+    return render_template(templateroute+"add_column.html",
+                           tablename=tablename,appname=application_name,
                            tablenames=tablenames,
+                           listofdatatypes = lstofdatatypes,
                            columnnames=columnnames,
                            pname=application_name,
                            username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
                            servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
 
-    # delete a whole table
+@application.route("/projects/<application_name>/admin/<tablename>/createcolumn", methods=['GET', 'POST'])
+def createcolumn(application_name,tablename):
+    if not user_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
+    DBA = dictionary_of_databases[application_name]
+    # create a new table either from scratch or from an existing csv
+    tablenames, columnnames = DBA.getTableAndColumnNames(tablename)
+    success = 0
+    ret = ""
 
+
+
+    # check for no column name
+    if request.form.get("newcolumnname") == "":
+        success = 0
+        ret = "Enter column name"
+
+    # check for existing table with this name
+    elif request.form.get("newcolumnname") in columnnames[0]:
+        success = 0
+        ret = "Column " + request.form.get("newcolumnname") + " already exists, try a new name"
+
+
+    # todo: get argument n which islength of string etc, default is curretly 10
+    ret, success = DBA.addColumn(tablename, request.form.get("newcolumnname"), request.form.get("datatypes"))
+
+    # redirects to the same page
+    if success == 1:
+        return render_template(templateroute + "add_column.html",
+                               tablenames=tablenames, columnnames=columnnames,
+                               message="Column " +
+                                       request.form.get("newcolumnname") + " created successfully!\n" + ret,
+                               pname=application_name,
+                               username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                               servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
+
+    else:
+        return render_template(templateroute + "add_column.html",
+                               tablenames=tablenames, columnnames=columnnames,
+                               error="Creation of column " + request.form.get("newcolumnname") +
+                                     " failed!<br/>Error: " + ret,
+                               pname=application_name,
+                               username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                               servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
+
+
+
+# delete a whole table
 @application.route("/projects/<application_name>/admin/deletetable/<page>")
 def deletetable(application_name,page):
     if not user_authorised(application_name=application_name,is_admin_only_page=True):

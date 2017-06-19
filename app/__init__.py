@@ -111,7 +111,7 @@ dba = dev.views.DatabaseAssistant(db,"iaas","iaas")
 result, resultasstring = dba.retrieveDataFromDatabase("svc_instances",["project_display_name","instance_identifier","svc_type_id","group_id"])
 print("registering DBAS services available and adding to dictionary:")
 for r in resultasstring:
-    if r[2] == '1':#then this is a database project
+    if r[2] == '1' or r[2] == '4':#then this is a database project
         print("registering project: " + r[1])
         try:
             dev.register_project(s=r[1])

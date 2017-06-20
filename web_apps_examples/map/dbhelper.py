@@ -27,8 +27,8 @@ class DBHelper:
                 named_project = {
                     'latitude': project[0],
                     'longitude': project[1],
-                    'startdate': datetime.strftime(project[2], '%Y-%m-%d'),
-                    'enddate': datetime.strftime(project[3], '%Y-%m-%d'),
+                    'startdate': project[2],#datetime.strftime(project[2], '%Y-%m-%d'),
+                    'enddate': project[3],#datetime.strftime(project[3], '%Y-%m-%d'),
                     'category': project[4],
                     'description': project[5]
                 }
@@ -89,8 +89,8 @@ class DBHelper:
             for i in data:
                 latitude = i[0]
                 longitude = i[1]
-                startdate = datetime.strptime(i[2], '%Y-%m-%d').date()
-                enddate = datetime.strptime(i[3], '%Y-%m-%d').date()
+                startdate = i[2]#datetime.strptime(i[2], '%Y-%m-%d').date()
+                enddate = i[3]#datetime.strptime(i[3], '%Y-%m-%d').date()
                 category = i[4]
                 description = i[5]
 
@@ -156,8 +156,8 @@ class DBHelper:
                 named_project = {
                     'latitude': project[0],
                     'longitude': project[1],
-                    'startdate': datetime.strftime(project[2], '%Y-%m-%d'),
-                    'enddate': datetime.strftime(project[3], '%Y-%m-%d'),
+                    'startdate': project[2],#datetime.strftime(project[2], '%Y-%m-%d'),
+                    'enddate': project[3],#datetime.strftime(project[3], '%Y-%m-%d'),
                     'category': project[4],
                     'description': project[5]
                 }

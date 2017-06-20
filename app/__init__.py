@@ -118,11 +118,21 @@ for r in resultasstring:
         except Exception as e:
             print(e)
 
+
+
+
         if r[1]=='map':
             try:
-                # THE FOLLOWING ARE MAP-SPECIFIC - SHOULD BE MOVED TO MAP WEB APP
-                my_module = importlib.import_module('projects.'+r[1])
-                my_module.views.assignroutes(app,nm='map')
+
+                db = SQLAlchemy(app)
+                import web_apps_examples
+                # from web_apps_examples import map as maps
+
+                # maps.assignroutes(app)#,nm='map')
+
+                # # THE FOLLOWING ARE MAP-SPECIFIC - SHOULD BE MOVED TO MAP WEB APP
+                # my_module = importlib.import_module('web_apps_examples.'+r[1])
+                # my_module.views.assignroutes(app,nm='map')
             except Exception as e:
                 print e
 

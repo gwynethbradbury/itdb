@@ -1,5 +1,10 @@
 from datetime import datetime
+import dbconfig
+
+
 from app import db
+
+from flask_sqlalchemy import SQLAlchemy
 
 
 

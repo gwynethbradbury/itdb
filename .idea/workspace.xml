@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fea06bd9-e89c-4ffd-a449-36dcea70bd18" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/__init__.py" afterPath="$PROJECT_DIR$/app/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/projects/map/map.html" afterPath="$PROJECT_DIR$/core/templates/projects/map/map.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web_apps_examples/__init__.py" afterPath="$PROJECT_DIR$/web_apps_examples/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web_apps_examples/map/__init__.py" afterPath="$PROJECT_DIR$/web_apps_examples/map/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web_apps_examples/map/dbhelper.py" afterPath="$PROJECT_DIR$/web_apps_examples/map/dbhelper.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web_apps_examples/map/models.py" afterPath="$PROJECT_DIR$/web_apps_examples/map/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web_apps_examples/map/views.py" afterPath="$PROJECT_DIR$/web_apps_examples/map/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/projects/project_listview.html" afterPath="$PROJECT_DIR$/core/templates/projects/project_listview.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -62,23 +55,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web_apps_examples/map/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#27#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web_apps_examples/map/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="634">
-              <caret line="108" column="58" lean-forward="true" selection-start-line="108" selection-start-column="58" selection-end-line="108" selection-end-column="58" />
+              <caret line="108" column="58" lean-forward="false" selection-start-line="108" selection-start-column="58" selection-end-line="108" selection-end-column="58" />
               <folding>
                 <element signature="e#0#71#0" expanded="true" />
               </folding>
@@ -96,11 +77,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dbhelper.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="dbhelper.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web_apps_examples/map/dbhelper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-39">
-              <caret line="159" column="43" lean-forward="false" selection-start-line="159" selection-start-column="43" selection-end-line="159" selection-end-column="43" />
+            <state relative-caret-position="277">
+              <caret line="36" column="19" lean-forward="false" selection-start-line="36" selection-start-column="19" selection-end-line="36" selection-end-column="19" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
                 <marker date="1497954653000" expanded="true" signature="585:662" ph="SELECT latit... project" />
@@ -111,6 +92,26 @@
                 <marker date="1497954653000" expanded="true" signature="5959:6036" ph="SELECT latit... project" />
                 <marker date="1497954653000" expanded="true" signature="7880:7899" ph="DELETE FROM " />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="what-input.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/static/js/vendor/what-input.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="133" column="11" lean-forward="false" selection-start-line="133" selection-start-column="11" selection-end-line="133" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="project_listview.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/templates/projects/project_listview.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="51" lean-forward="false" selection-start-line="7" selection-start-column="51" selection-end-line="7" selection-end-column="51" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -129,31 +130,8 @@
         <entry file="file:///usr/local/lib/python2.7/site-packages/flask/templating.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="115" column="33" lean-forward="true" selection-start-line="115" selection-start-column="33" selection-end-line="115" selection-end-column="33" />
+              <caret line="115" column="33" lean-forward="false" selection-start-line="115" selection-start-column="33" selection-end-line="115" selection-end-column="33" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/dev/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="77" column="8" lean-forward="false" selection-start-line="77" selection-start-column="8" selection-end-line="77" selection-end-column="8" />
-              <folding>
-                <element signature="e#2724#2768#0" expanded="false" />
-                <element signature="e#2836#3045#0" expanded="false" />
-                <element signature="e#3667#4660#0" expanded="false" />
-                <element signature="e#4797#5499#0" expanded="false" />
-                <element signature="e#5584#6653#0" expanded="false" />
-                <element signature="e#13752#13777#0" expanded="false" />
-                <element signature="e#13861#13892#0" expanded="false" />
-                <marker date="1497887171000" expanded="true" signature="7907:7959" ph="ALTER TABLE missing_value... " />
-                <marker date="1497887171000" expanded="true" signature="8119:8154" ph="ALTER TABLE missing_value... " />
-                <marker date="1497887171000" expanded="true" signature="8299:8324" ph="ALTER TABLE missing_value... " />
-                <marker date="1497887171000" expanded="true" signature="8484:8496" ph="DELETE FROM " />
-                <marker date="1497887171000" expanded="true" signature="8665:8676" ph="DROP TABLE m... " />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -190,6 +168,9 @@
       <find>bluepri</find>
       <find>blueprint</find>
       <find>submitproject</find>
+      <find>json</find>
+      <find>add</find>
+      <find>add column</find>
     </findStrings>
     <replaceStrings>
       <replace>dbas_url</replace>
@@ -240,6 +221,7 @@
         <option value="$PROJECT_DIR$/core/templates/projects/map/map.html" />
         <option value="$PROJECT_DIR$/web_apps_examples/map/views.py" />
         <option value="$PROJECT_DIR$/web_apps_examples/map/dbhelper.py" />
+        <option value="$PROJECT_DIR$/core/templates/projects/project_listview.html" />
       </list>
     </option>
   </component>
@@ -806,20 +788,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ldapconfig.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/404.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/templates/500.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1163,7 +1131,7 @@
     <entry file="file:///usr/local/lib/python2.7/site-packages/flask/templating.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="115" column="33" lean-forward="true" selection-start-line="115" selection-start-column="33" selection-end-line="115" selection-end-column="33" />
+          <caret line="115" column="33" lean-forward="false" selection-start-line="115" selection-start-column="33" selection-end-line="115" selection-end-column="33" />
           <folding />
         </state>
       </provider>
@@ -1197,7 +1165,7 @@
     <entry file="file://$PROJECT_DIR$/web_apps_examples/map/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="634">
-          <caret line="108" column="58" lean-forward="true" selection-start-line="108" selection-start-column="58" selection-end-line="108" selection-end-column="58" />
+          <caret line="108" column="58" lean-forward="false" selection-start-line="108" selection-start-column="58" selection-end-line="108" selection-end-column="58" />
           <folding>
             <element signature="e#0#71#0" expanded="true" />
           </folding>
@@ -1206,8 +1174,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web_apps_examples/map/dbhelper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-39">
-          <caret line="159" column="43" lean-forward="false" selection-start-line="159" selection-start-column="43" selection-end-line="159" selection-end-column="43" />
+        <state relative-caret-position="277">
+          <caret line="36" column="19" lean-forward="false" selection-start-line="36" selection-start-column="19" selection-end-line="36" selection-end-column="19" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
             <marker date="1497954653000" expanded="true" signature="585:662" ph="SELECT latit... project" />
@@ -1218,6 +1186,22 @@
             <marker date="1497954653000" expanded="true" signature="5959:6036" ph="SELECT latit... project" />
             <marker date="1497954653000" expanded="true" signature="7880:7899" ph="DELETE FROM " />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/static/js/vendor/what-input.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="133" column="11" lean-forward="false" selection-start-line="133" selection-start-column="11" selection-end-line="133" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/templates/projects/project_listview.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="51" lean-forward="false" selection-start-line="7" selection-start-column="51" selection-end-line="7" selection-end-column="51" />
+          <folding />
         </state>
       </provider>
     </entry>

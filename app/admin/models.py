@@ -1,6 +1,8 @@
 from datetime import datetime
 from .. import db
 
+from core import dict1
+import dbconfig
 
 # | groups          |
 # | services        |
@@ -47,8 +49,10 @@ class svc_instances(db.Model):
 
     def __repr__(self):
         url=""
-        if self.svc_type_id==dict['dbas']:
-            url = "https://db.ouce.ox.ac.uk/projects/"+self.instance_identifier
+        if self.svc_type_id==dict1['dbas']:
+            url = dbconfig.dbas_route + "/projects/" + self.instance_identifier
+        elif self.svc_type_id==dict1['waas']:
+            url = dbconfig.dbas_route + "/projects/" + self.instance_identifier
         else:
             url=self.instance_identifier
         return '<td>{0}</td><td>{1}</td><td><a href="{3}">{2}</a></td><td>{4}</td><td>{5}</td>'\

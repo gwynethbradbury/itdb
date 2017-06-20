@@ -27,8 +27,8 @@ class DBHelper:
                 named_project = {
                     'latitude': project[0],
                     'longitude': project[1],
-                    'startdate': datetime.strftime(project[2], '%Y-%m-%d'),
-                    'enddate': datetime.strftime(project[3], '%Y-%m-%d'),
+                    'startdate': project[2],#datetime.strftime(project[2], '%Y-%m-%d'),
+                    'enddate': project[3],#datetime.strftime(project[3], '%Y-%m-%d'),
                     'category': project[4],
                     'description': project[5]
                 }
@@ -79,7 +79,29 @@ class DBHelper:
         finally:
             connection.close()
 
+    def uploadxls(self, filename):
+        connection = self.connect()
+        try:
+            data = genfromtxt(filename, delimiter=',', skip_header=1,
+                              converters={0: lambda s: str(s), 1: lambda s: str(s), 2: lambda s: str(s),
+                                          3: lambda s: str(s), 4: lambda s: str(s), 5: lambda s: str(s)})
+            data = data.tolist()
+            for i in data:
+                latitude = i[0]
+                longitude = i[1]
+                startdate = i[2]#datetime.strptime(i[2], '%Y-%m-%d').date()
+                enddate = i[3]#datetime.strptime(i[3], '%Y-%m-%d').date()
+                category = i[4]
+                description = i[5]
 
+                query = "INSERT INTO project (latitude,longitude,startdate,enddate,category,description) VALUES (%s,%s,%s,%s,%s,%s);"
+                with connection.cursor() as cursor:
+                    cursor.execute(query, (latitude, longitude, startdate, enddate, category, description))
+                    connection.commit()
+        except Exception as e:
+            print(e)
+        finally:
+            connection.close()
 
     def uploadcsv(self, filename):
         connection = self.connect()
@@ -134,8 +156,8 @@ class DBHelper:
                 named_project = {
                     'latitude': project[0],
                     'longitude': project[1],
-                    'startdate': datetime.strftime(project[2], '%Y-%m-%d'),
-                    'enddate': datetime.strftime(project[3], '%Y-%m-%d'),
+                    'startdate': project[2],#datetime.strftime(project[2], '%Y-%m-%d'),
+                    'enddate': project[3],#datetime.strftime(project[3], '%Y-%m-%d'),
                     'category': project[4],
                     'description': project[5]
                 }

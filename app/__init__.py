@@ -111,18 +111,28 @@ dba = dev.views.DatabaseAssistant(db,"iaas","iaas")
 result, resultasstring = dba.retrieveDataFromDatabase("svc_instances",["project_display_name","instance_identifier","svc_type_id","group_id"])
 print("registering DBAS services available and adding to dictionary:")
 for r in resultasstring:
-    if r[2] == '1':#then this is a database project
+    if r[2] == '1' or r[2] == '4':#then this is a database project
         print("registering project: " + r[1])
         try:
             dev.register_project(s=r[1])
         except Exception as e:
             print(e)
 
+
+
+
         if r[1]=='map':
             try:
-                # THE FOLLOWING ARE MAP-SPECIFIC - SHOULD BE MOVED TO MAP WEB APP
-                my_module = importlib.import_module('projects.'+r[1])
-                my_module.views.assignroutes(app,nm='map')
+
+                db = SQLAlchemy(app)
+                import web_apps_examples
+                # from web_apps_examples import map as maps
+
+                # maps.assignroutes(app)#,nm='map')
+
+                # # THE FOLLOWING ARE MAP-SPECIFIC - SHOULD BE MOVED TO MAP WEB APP
+                # my_module = importlib.import_module('web_apps_examples.'+r[1])
+                # my_module.views.assignroutes(app,nm='map')
             except Exception as e:
                 print e
 

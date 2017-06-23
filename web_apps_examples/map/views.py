@@ -65,7 +65,9 @@ def assignroutes(application):
             data = []
         print(data)
         return render_template(templateroute+"map"+".html",
-                               projects=projects, data=data)
+                               projects=projects, data=data,
+                               username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                               servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
 
     @application.route(approute+"submitproject", methods=['GET', 'POST'])
     def submit():
@@ -103,7 +105,9 @@ def assignroutes(application):
             data = []
         print(data)
         return render_template(templateroute+"map"+".html",
-                               projects=projects, data=data)
+                               projects=projects, data=data,
+                               username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                               servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
 
 # def assignadminroutes(application):
 #     adminroute = "/projects/"+application.name+"/admin/"

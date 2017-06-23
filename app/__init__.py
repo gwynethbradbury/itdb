@@ -4,7 +4,7 @@ from flask import Flask, render_template, redirect, request, session
 from flask_sqlalchemy import SQLAlchemy
 
 from core.email import send_email_simple as send_email
-from core.home import AH
+from core.views import AH
 import core.iaasldap as iaasldap
 
 import dbconfig
@@ -40,7 +40,7 @@ db = SQLAlchemy(app)
 
 
 
-from core.home import home
+from core.home import app as home
 from admin import admin
 from flask import abort
 
@@ -121,20 +121,20 @@ for r in resultasstring:
 
 
 
-        if r[1]=='map':
-            try:
+# if r[1]=='map':
+try:
 
-                db = SQLAlchemy(app)
-                import web_apps_examples
-                # from web_apps_examples import map as maps
+    db = SQLAlchemy(app)
+    import web_apps_examples
+    # from web_apps_examples import map as maps
 
-                # maps.assignroutes(app)#,nm='map')
+    # maps.assignroutes(app)#,nm='map')
 
-                # # THE FOLLOWING ARE MAP-SPECIFIC - SHOULD BE MOVED TO MAP WEB APP
-                # my_module = importlib.import_module('web_apps_examples.'+r[1])
-                # my_module.views.assignroutes(app,nm='map')
-            except Exception as e:
-                print e
+    # # THE FOLLOWING ARE MAP-SPECIFIC - SHOULD BE MOVED TO MAP WEB APP
+    # my_module = importlib.import_module('web_apps_examples.'+r[1])
+    # my_module.views.assignroutes(app,nm='map')
+except Exception as e:
+    print e
 
 
 

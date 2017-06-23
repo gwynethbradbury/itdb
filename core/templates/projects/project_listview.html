@@ -5,7 +5,7 @@
     <div class="listview">
         <h3>{{ tablename }}</h3>
         <a class="button success" href="{{ path + 'new' }}">Create new entry</a>
-        <a class="button success" href="{{ path + 'addcolumn' }}">Add column</a>
+        <a class="button success" href="{{ path + '../' + tablename + '/addcolumn' }}">Add column</a>
         <a class="button alert" href="{{ path + '../cleartable/' + tablename }}">Clear table</a>
         <a class="button alert" href="{{ path + '../deletetable/' + tablename }}">Delete table</a>
 

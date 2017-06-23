@@ -36,12 +36,98 @@ class DBHelper:
         finally:
             connection.close()
 
+    def getLog(self,id):
+        items=[]
+        try:
+            connection = self.connect()
+            print("about to query...")
+            query = "SELECT item, id, date_out, returned, borrower, signed_out_by, comment FROM log WHERE id={};".format(id)
+
+            with connection.cursor() as cursor:
+                cursor.execute(query)
+            for i in cursor:
+                itemname=i[0]
+                # itemname="None"
+                # query2 = "SELECT name FROM items WHERE id={};".format(i[0])
+                #
+                # with connection.cursor() as cursor2:
+                #     cursor2.execute(query2)
+                # for c in cursor2:
+                #     itemname=c[0]
+
+                item = [i[1], itemname, "{}-{}-{}".format(i[2].year,'%02d' % i[2].month,'%02d' % i[2].day), i[3]==1, i[4], i[5], i[6]]
+                items.append(item)
+
+            return items
+        except Exception as e:
+            print(e)
+            return items
+        finally:
+            connection.close()
+
+    def getItem(self,id):
+        items=[]
+        try:
+            connection = self.connect()
+            print("about to query...")
+            query = "SELECT id,name,comment FROM items WHERE id={};".format(id)
+
+            with connection.cursor() as cursor:
+                cursor.execute(query)
+            for i in cursor:
+
+                item = [i[0],i[1],i[2]]
+                items.append(item)
+
+            return items
+        except Exception as e:
+            print(e)
+            return items
+        finally:
+            connection.close()
+
+    def alterLog(self,id,item, date_out, returned, borrower, signed_out_by, comment):
+        items=[]
+        try:
+            connection = self.connect()
+
+            query = "UPDATE log " \
+                    "SET item=%s, date_out=%s, returned={}, borrower=%s, signed_out_by=%s, comment=%s " \
+                    "WHERE id={};".format(returned,id)
+
+            with connection.cursor() as cursor:
+                cursor.execute(query,(item, date_out, borrower, signed_out_by, comment))
+            connection.commit()
+        except Exception as e:
+            print(e)
+            return items
+        finally:
+            connection.close()
+
+    def alterItem(self,id,name,comment):
+        items=[]
+        try:
+            connection = self.connect()
+
+            query = "UPDATE items " \
+                    "SET name=%s, comment=%s" \
+                    "WHERE id={};".format(id)
+
+            with connection.cursor() as cursor:
+                cursor.execute(query,(name,comment))
+            connection.commit()
+        except Exception as e:
+            print(e)
+            return items
+        finally:
+            connection.close()
+
     def getAllLogs(self):
         items=[]
         try:
             connection = self.connect()
             print("about to query...")
-            query = "SELECT item, date_out, returned, borrower, signed_out_by, comment FROM log;"
+            query = "SELECT item, id, date_out, returned, borrower, signed_out_by, comment FROM log;"
 
             with connection.cursor() as cursor:
                 cursor.execute(query)
@@ -54,7 +140,7 @@ class DBHelper:
                 for c in cursor2:
                     itemname=c[0]
 
-                item = [itemname, i[1], i[2], i[3], i[4], i[5]]
+                item = [i[1],itemname, i[2], i[3]==1, i[4], i[5], i[6]]
                 items.append(item)
 
             return items
@@ -72,7 +158,7 @@ class DBHelper:
             query = "INSERT INTO log (item, date_out, returned, borrower, signed_out_by, comment) VALUES (%s,%s,%s,%s,%s,%s);"
             with connection.cursor() as cursor:
                 cursor.execute(query, (item, date_out, returned, borrower, signed_out_by, comment))
-                connection.commit()
+            connection.commit()
         except Exception as e:
             print(e)
         finally:
@@ -84,6 +170,30 @@ class DBHelper:
             query = "INSERT INTO items (name, comment) VALUES (%s,%s);"
             with connection.cursor() as cursor:
                 cursor.execute(query, (name, comment))
+                connection.commit()
+        except Exception as e:
+            print(e)
+        finally:
+            connection.close()
+
+    def removeItem(self,table,id):
+        connection = self.connect()
+        try:
+            query = "DELETE FROM {} WHERE id={};".format(table,id)
+            with connection.cursor() as cursor:
+                cursor.execute(query)
+                connection.commit()
+        except Exception as e:
+            print(e)
+        finally:
+            connection.close()
+
+    def returnItem(self,id):
+        connection = self.connect()
+        try:
+            query = "UPDATE log SET returned=TRUE WHERE id={};".format(id)
+            with connection.cursor() as cursor:
+                cursor.execute(query)
                 connection.commit()
         except Exception as e:
             print(e)

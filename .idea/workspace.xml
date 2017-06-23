@@ -1,62 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fea06bd9-e89c-4ffd-a449-36dcea70bd18" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/css/.Rhistory" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/css/app.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/css/foundation.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/css/foundation.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/css/style.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/Dragon-Fruit.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/Limes.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/calendar.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/calendar.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/coconut.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/fruitbowl.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/geog-intranet-brand-pos.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/ico/Flat Fruit Icons_Foxdesign.ai" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/ico/Flat Fruit Icons_Foxdesign.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/ico/Flat Fruit Icons_preview.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/ico/coconut.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/ico/coconut_64.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/ico/dragonfruit.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/ico/dragonfruit_64.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/ico/lime.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/ico/lime_64.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/ico/passionfruit.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/ico/passionfruit_64.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/ico/pineapple.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/ico/pineapple_64.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/ox-brand.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/passionfruit.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/img/pineapple.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/js/app.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/js/vendor/foundation.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/js/vendor/foundation.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/js/vendor/jquery.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/static/js/vendor/what-input.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/__init__.py" afterPath="$PROJECT_DIR$/app/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/admin/models.py" afterPath="$PROJECT_DIR$/app/admin/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/access_helper.py" afterPath="$PROJECT_DIR$/core/access_helper.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/home.py" afterPath="$PROJECT_DIR$/core/home.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/admin/admin.html" afterPath="$PROJECT_DIR$/core/templates/admin/admin.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/projects/map/map.html" afterPath="$PROJECT_DIR$/core/templates/projects/map/map.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/projects/project_detailview.html" afterPath="$PROJECT_DIR$/core/templates/projects/project_detailview.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/projects/project_layout.html" afterPath="$PROJECT_DIR$/core/templates/projects/project_layout.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/projects/project_listview.html" afterPath="$PROJECT_DIR$/core/templates/projects/project_listview.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/views.py" afterPath="$PROJECT_DIR$/core/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/app.css" afterPath="$PROJECT_DIR$/static/css/app.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/foundation.css" afterPath="$PROJECT_DIR$/static/css/foundation.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/foundation.min.css" afterPath="$PROJECT_DIR$/static/css/foundation.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/app.js" afterPath="$PROJECT_DIR$/static/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/vendor/foundation.js" afterPath="$PROJECT_DIR$/static/js/vendor/foundation.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/vendor/foundation.min.js" afterPath="$PROJECT_DIR$/static/js/vendor/foundation.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/vendor/jquery.js" afterPath="$PROJECT_DIR$/static/js/vendor/jquery.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/vendor/what-input.js" afterPath="$PROJECT_DIR$/static/js/vendor/what-input.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web_apps_examples/__init__.py" afterPath="$PROJECT_DIR$/web_apps_examples/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web_apps_examples/map/views.py" afterPath="$PROJECT_DIR$/web_apps_examples/map/views.py" />
-    </list>
+    <list default="true" id="fea06bd9-e89c-4ffd-a449-36dcea70bd18" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

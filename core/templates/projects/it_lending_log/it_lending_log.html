@@ -1,0 +1,147 @@
+{% extends "service.html" %}
+
+{% block title %}It Lending Log{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+
+
+
+
+
+{% block bodycalls %}
+{% endblock %}
+
+
+
+
+
+
+{% block body2 %}
+
+	
+
+
+
+
+
+{#<div class="row">#}
+{#	<div class="large-12 columns">#}
+{#		<form action="/uploadxls" method="POST">#}
+{#			<label for="filename">File Name</label>#}
+{#			<input type="file" name="filename" size="40">	#}
+{#			<input type="submit" name="submit" class="button">	#}
+{#		</form>#}
+{#	</div>#}
+{#</div>#}
+
+
+{#<div class="large-12 columns"><h4>Add Entry</h4></div>#}
+
+<div class="row">
+
+
+
+
+
+	<div class="large-4 medium-4 large-push-1 medium-push-1 columns callout primary" >
+		<h4>Log Item...</h4>
+		<form action="/it_lending_log/submitentry" method="POST">
+{#            'id','item','date_out','returned','borrower','signed_out_by','comment'#}
+			<label for="item">Item</label>
+			<select name="item" id="item">
+                {% for i in itemlist %}
+				<option value="{{ i[1] }}">{{ i[0] }}</option>
+                {% endfor %}
+			</select>
+			<label for="date_out">Date Out</label>
+			<input name="date_out" id="date_out" type="date">
+
+			<label for="returned">Returned?</label>
+			<input name="returned" id="returned" type="checkbox" ><br/>
+
+			<label for="borrower">Borrower</label>
+			<input name="borrower" id="borrower" type="text">
+
+			<label for="signed_out_by">Signed Out By</label>
+			<input name="signed_out_by" id="signed_out_by" type="text">
+
+			<label for="comment">Comment</label>
+			<textarea name="comment" id="comment" placeholder="Any comments on state of item, etc."></textarea>
+
+			<input type="submit" name="submit" class="button">
+		</form>
+	</div>
+
+
+	<div class="large-4 medium-4 large-pull-2 medium-pull-2 columns callout primary" >
+		<h4>Add Item...</h4>
+		<form action="/it_lending_log/submititem" method="POST">
+
+			<label for="name">Name</label>
+			<input name="name" id="name" type="text">
+
+			<label for="comment">Comment</label>
+			<textarea name="comment" id="comment" placeholder="Any comments on state of item, etc."></textarea>
+
+			<input type="submit" name="submit" class="button">
+		</form>
+	</div>
+
+
+
+</div>
+<hr>
+
+<div class="row">
+
+    <div class="large-6 medium-6 columns">
+        <h4>Items</h4>
+        {% if itemlist|length>0 %}
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td>Comment</td>
+                </tr>
+
+                {% for i in itemlist %}
+                    <tr>
+                        <td>{{i[0]}}</td>
+                        <td>{{i[2]}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+</div>
+<hr>
+
+<div class="row">
+
+    <div class="large-12 medium-6 columns">
+        <h4>Log</h4>
+        {% if log|length>0 %}
+            <table>
+                <tr>
+                    {% for f in fields %}
+                        <td>{{ f }}</td>
+                    {% endfor %}
+                </tr>
+
+                {% for l in log %}
+                    <tr>
+                        {% for i in l %}
+                            <td>{{i}}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+
+</div>
+
+
+
+{% endblock %}

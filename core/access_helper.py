@@ -11,7 +11,7 @@ from numpy import genfromtxt
 #     usergroup_ID = 1
 
 import iaasldap
-from . import dict2
+from . import dict1, dict2
 
 class AccessHelper:
     def connect(self, database=dbconfig.db_name):
@@ -56,6 +56,7 @@ class AccessHelper:
     def get_projects(self, svc_type):
         instances = []
         connection = self.connect()
+        svc_type = dict1[svc_type]
         try:
             print("about to query...")
             usersgroups = iaasldap.get_groups(iaasldap.uid_trim())

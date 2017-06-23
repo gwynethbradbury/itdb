@@ -1,9 +1,8 @@
 from datetime import datetime
 from .. import db
-
-from core import dict1
 import dbconfig
 
+from core import dict1
 # | groups          |
 # | services        |
 # | svc_instances  |

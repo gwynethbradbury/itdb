@@ -47,7 +47,7 @@ def assignroutes(application):
     def it_lending_log():
         items = []
         log=[]
-        fields = ['item', 'date_out', 'returned', 'borrower', 'signed_out_by', 'comment']
+        fields = ['id','item', 'date_out', 'returned', 'borrower', 'signed_out_by', 'comment']
 
         try:
             items = DB.getAllItems()
@@ -103,6 +103,82 @@ def assignroutes(application):
             print e
         # home()
         return redirect(approute)#url_for("map"+"_app."+"map"))
+
+    @application.route(approute+"deleteitem/<table>/<id>")
+    def it_lending_log_delete_item(table,id):
+        try:
+            DB.removeItem(table,id)
+        except Exception as e:
+            print e
+
+        return redirect(approute)
+
+    @application.route(approute+"markreturned/<id>")
+    def it_lending_log_return_item(id):
+        try:
+            DB.returnItem(id)
+        except Exception as e:
+            print e
+
+        return redirect(approute)
+
+    @application.route(approute+"alter/<id>", methods=['GET','POST'])
+    def it_lending_log_alter_log(id):
+
+        if request.method == 'POST':
+            try:
+                # fields = ['id', 'item', 'date_out', 'returned', 'borrower', 'signed_out_by', 'comment']
+
+                item = request.form.get("item")
+                date_out = request.form.get("date_out")
+                returned = (request.form.get("returned") == 'on')
+                borrower = request.form.get("borrower")
+                signed_out_by = request.form.get("signed_out_by")
+                comment = request.form.get("comment")
+                DB.alterLog(id, item, date_out, returned, borrower, signed_out_by, comment)
+            except Exception as e:
+                print e
+        else:
+            try:
+                items = DB.getAllItems()
+                logitem = DB.getLog(id)
+                logitem=logitem[0]
+                return render_template(templateroute+"alterlog"+".html",
+                                       itemlist=items,
+                                       logitem=logitem,
+                                       username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                                       servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
+            except Exception as e:
+                print e
+
+        return redirect(approute)
+
+    @application.route(approute+"alter/item/<id>", methods=['GET','POST'])
+    def it_lending_log_alter_item(id):
+
+        if request.method == 'POST':
+            try:
+
+                name = request.form.get("name")
+                comment = request.form.get("comment")
+                DB.alterItem(id, name, comment)
+
+            except Exception as e:
+                print e
+        else:
+            try:
+                items = DB.getAllItems()
+                thisitem = DB.getItem(id)
+                thisitem=thisitem[0]
+                return render_template(templateroute+"alteritem"+".html",
+                                       itemlist=items,
+                                       thisitem=thisitem,
+                                       username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                                       servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
+            except Exception as e:
+                print e
+
+        return redirect(approute)
 
     # @application.route(approute+"showpoints")
     # def showpoints():

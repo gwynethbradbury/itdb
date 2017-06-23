@@ -101,12 +101,15 @@
         {% if itemlist|length>0 %}
             <table>
                 <tr>
+                    <td></td>
                     <td>Name</td>
                     <td>Comment</td>
                 </tr>
 
                 {% for i in itemlist %}
                     <tr>
+                        <td>
+                            <a href="/it_lending_log/alter/item/{{ i[1] }}" class="button tag-colour15">EDIT</a></td>
                         <td>{{i[0]}}</td>
                         <td>{{i[2]}}</td>
                     </tr>
@@ -124,6 +127,7 @@
         {% if log|length>0 %}
             <table>
                 <tr>
+                    <td></td>
                     {% for f in fields %}
                         <td>{{ f }}</td>
                     {% endfor %}
@@ -131,6 +135,10 @@
 
                 {% for l in log %}
                     <tr>
+                        <td>
+                            <a href="/it_lending_log/markreturned/{{ l[0] }}" class="button tag-colour6">RETURN</a>
+                            <a href="/it_lending_log/alter/{{ l[0] }}" class="button tag-colour15">EDIT</a>
+                        </td>
                         {% for i in l %}
                             <td>{{i}}</td>
                         {% endfor %}

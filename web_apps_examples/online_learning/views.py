@@ -66,7 +66,12 @@ def assignroutes(application):
     @application.route(approute + "topics")
     def list_topics():
         topics = DB.getTopics()
-        return topics
+
+        return render_template(templateroute+"topic.html",
+                               topics=topics,
+                               instances=projects,
+                               username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                               servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
 
     @application.route(approute + "topics/<topic>")
     def list_pages_in_this_topic(topic):
@@ -96,12 +101,19 @@ def assignroutes(application):
 
     @application.route(approute + "tags")
     def list_tags():
-        return "list of all tags"
+        tags = DB.getTags()
+
+        return render_template(templateroute+"tag.html",
+                               tags=tags,
+                               instances=projects,
+                               username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+                               servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
 
     @application.route(approute + "tags/<tag>")
     def list_pages_with_this_tag(tag):
         pages, tags, videos, topics = DB.getTagResources(tag)
 
+        tag = [DB.getTagName(tag),tag]
 
         return render_template(templateroute+"tag.html",
                                tag=tag,

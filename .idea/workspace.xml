@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fea06bd9-e89c-4ffd-a449-36dcea70bd18" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/online_learning/article.html" afterPath="$PROJECT_DIR$/core/templates/online_learning/article.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/online_learning/index.html" afterPath="$PROJECT_DIR$/core/templates/online_learning/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/online_learning/learning_page.html" afterPath="$PROJECT_DIR$/core/templates/online_learning/learning_page.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/online_learning/tag.html" afterPath="$PROJECT_DIR$/core/templates/online_learning/tag.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/online_learning/topic.html" afterPath="$PROJECT_DIR$/core/templates/online_learning/topic.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web_apps_examples/online_learning/dbhelper.py" afterPath="$PROJECT_DIR$/web_apps_examples/online_learning/dbhelper.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web_apps_examples/online_learning/views.py" afterPath="$PROJECT_DIR$/web_apps_examples/online_learning/views.py" />
-    </list>
+    <list default="true" id="fea06bd9-e89c-4ffd-a449-36dcea70bd18" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

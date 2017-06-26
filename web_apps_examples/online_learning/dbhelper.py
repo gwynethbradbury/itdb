@@ -90,7 +90,7 @@ class DBHelper:
                 with connection.cursor() as cursor:
                     cursor.execute(query)
                 for c in cursor:
-                    tags.append(c[0])
+                    tags.append([c[0],t])
 
             return topic,tags
 
@@ -129,7 +129,30 @@ class DBHelper:
 
         return pages, tags, videos
 
-    def getTagResources(self,tag):
+    def getTagName(self,tag_id):
+        tag="Undefined tag"
+
+        try:
+
+
+            connection = self.connect()
+            query = "SELECT tag FROM tags WHERE id='{}';".format(tag_id)
+            with connection.cursor() as cursor:
+                cursor.execute(query)
+            for c in cursor:
+                tag = c[0]
+
+            return tag
+
+
+
+        except Exception as e:
+            print(e)
+        finally:
+            connection.close()
+
+        return tag
+    def getTagResources(self,tag_id):
         videos=[]
         pages=[]
         tags=[]
@@ -138,12 +161,12 @@ class DBHelper:
         try:
 
 
-            connection = self.connect()
-            query = "SELECT id FROM tags WHERE tag='{}';".format(tag)
-            with connection.cursor() as cursor:
-                cursor.execute(query)
-            for c in cursor:
-                tag_id = c[0]
+            # connection = self.connect()
+            # query = "SELECT id FROM tags WHERE tag='{}';".format(tag)
+            # with connection.cursor() as cursor:
+            #     cursor.execute(query)
+            # for c in cursor:
+            #     tag_id = c[0]
             page_ids = self.getAllPagesByTag(tag_id)
 
             for p in page_ids:
@@ -161,10 +184,10 @@ class DBHelper:
 
         except Exception as e:
             print(e)
-        finally:
-            connection.close()
+        # finally:
+        #     connection.close()
 
-        return pages, tags, videos, topic
+        return pages, tags, videos, topics
 
     def getVideosForTopic(self,topic_id):
         videos=[]
@@ -280,7 +303,7 @@ class DBHelper:
         try:
             connection = self.connect()
             print("about to query...")
-            query = "SELECT id,tag FROM tag;"
+            query = "SELECT id,tag FROM tags;"
             with connection.cursor() as cursor:
                 cursor.execute(query)
             for tag in cursor:

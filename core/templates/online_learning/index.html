@@ -1,7 +1,8 @@
 {% extends "online_learning/learning_page.html" %}
 
-{% block title %}Online Learning pages{% endblock %}
-
+{#{% block title %}Online Learning pages{% endblock %}#}
+{#{% block subtitle %} - <a href="/online_learning/topics">Topics</a> - <a href="/online_learning/tags">Tags</a>#}
+{#{% endblock %}#}
 {% block scripts %}
 <!--define scripts for home here-->
 {% endblock %}
@@ -29,7 +30,7 @@
                 <li><a class="button tag-colour{{ (4 * loop.index0 + 3) % 20 + 1 }}" href="/online_learning/topics/{{ topics[loop.index0] }}">{{ topics[loop.index0] }}</a> - <a href="/online_learning/article/{{instance[2]}}">{{instance[0]}}</a>
                     <p>{{instance[1]}}</p>
                     {% for tag in tags[loop.index0] %}
-                        <a class="button tag-colour{{ (4 * loop.index0 + 1) % 20 + 1 }}" href="/online_learning/tags/{{ tag }}">{{ tag }}</a>
+                        <a class="button tag-colour{{ (4 * loop.index0 + 1) % 20 + 1 }}" href="/online_learning/tags/{{ tag[1] }}">{{ tag[0] }}</a>
                     {% endfor %}</li>
             {% endfor %}
         </ul>

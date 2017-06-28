@@ -64,8 +64,8 @@ def get_fullname(uid=""):
         import ldap
         if uid=="":
             uid=uid_trim()
-            uid_suffix=uid_suffix()
-        if (uid_suffix=="ox.ac.uk"):
+        suffix=uid_suffix()
+        if (suffix=="ox.ac.uk"):
            searchFilter = "(&(objectClass=user)(sAMAccountName=%s))" % uid
            searchAttribute = ["displayName"]
            searchScope = ldap.SCOPE_SUBTREE
@@ -77,7 +77,7 @@ def get_fullname(uid=""):
            except Exception, error:
                print error
            try:
-               ldap_result_id = l.search(ldapconfig.basedn, searchScope, searchFilter, searchAttribute)
+               ldap_result_id = l.search(ldapconfig.basedn_ad, searchScope, searchFilter, searchAttribute)
                result_type, result_data = l.result(ldap_result_id, 0)
                try:
                    return result_data[0][1]['displayName'][0]
@@ -85,7 +85,7 @@ def get_fullname(uid=""):
                    print(e)
                    return "Firstname Surname"
            except ldap.LDAPError, e:
-               return 'An Error Occurred'
+               return 'An Error Occurred (AD)'
            l.unbind_s()
    
 

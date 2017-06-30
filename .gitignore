@@ -5,3 +5,5 @@ ldapconfig.py
 *.swp
 *.DS_Store
 .idea*
+
+app/classes/*.*

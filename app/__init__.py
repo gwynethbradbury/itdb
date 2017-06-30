@@ -157,13 +157,14 @@ for r in resultasstring:
         tns,cns = tempdba.getTableAndColumnNames()
 
         os.system("sqlacodegen mysql://{}:{}@{}/{} "
-                  "--outfile app/classes/{}.py "
+                  "--outfile {}/classes/{}.py "
                   "--noinflect "
                   "--tables {}"
                   .format(dbconfig.db_user,
                           dbconfig.db_password,
                           "localhost",
                           r[1],
+                          os.path.dirname(__file__) ,
                           r[1],
                           ','.join(tns)))
         file.write("import {} as db_{}\n".format(r[1],r[1]))

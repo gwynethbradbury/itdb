@@ -114,10 +114,10 @@ def get_fullname(uid=""):
            l.unbind_s()
    
 
-# For testing
-superusers_usernames=["cenv0594",
-                      "cenv0252",
-                      "hert1424"]
+# # For testing
+# superusers_usernames=["cenv0594",
+#                       "cenv0252",
+#                       "hert1424"]
 
 '''gets a list of the groups for which this user is a member'''
 def get_groups(uid):

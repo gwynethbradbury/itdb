@@ -202,27 +202,31 @@ for file in os.listdir(os.path.dirname(__file__)+"/classes/"):
             for i in range(len(tns)):
                 tns[i]=tns[i].lower()
                 tns[i] = tns[i].replace('_','')
+            print(tns)
 
-            for i in range(len(data)):
-                s = data[i]
-                if s.startswith("class "):
-                    ss = s.split(' ')
-                    ss=ss[1].split('(')
-                    ss=ss[0].lower()
-                    j = tns.index(ss)
-                    # cns = cns[j]
-                    field = cns[j]
-                    if len(field)>1:
-                        field = field[1]
-                    else:
-                        field=field[0]
+            try:
+                for i in range(len(data)):
+                    s = data[i]
+                    if s.startswith("class "):
+                        ss = s.split(' ')
+                        ss=ss[1].split('(')
+                        ss=ss[0].lower()
+                        j = tns.index(ss)
+                        # cns = cns[j]
+                        field = cns[j]
+                        if len(field)>1:
+                            field = field[1]
+                        else:
+                            field=field[0]
 
-                    print(s + " " + field)
-                    data.insert(i+1,
-                                "    def __str__(self):\n" \
-                                "        return self.{}\n".format(field)
-                                )
-                    i+=1
+                        print(s + " " + field)
+                        data.insert(i+1,
+                                    "    def __str__(self):\n" \
+                                    "        return self.{}\n".format(field)
+                                    )
+                        i+=1
+            except Exception as e:
+                print(e)
 
             # for s in data:
             #     print(s)

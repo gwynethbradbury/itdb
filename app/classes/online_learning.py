@@ -3,14 +3,11 @@ from sqlalchemy import Column, Integer, String, Text
 from sqlalchemy.ext.declarative import declarative_base
 
 
-from . import database as db
-Base = db.Model
+Base = declarative_base()
 metadata = Base.metadata
 
 
 class Pages(Base):
-    def __str__(self):
-        return self.text
     __tablename__ = 'pages'
 
     id = Column(Integer, primary_key=True)
@@ -20,8 +17,6 @@ class Pages(Base):
 
 
 class PagesTags(Base):
-    def __str__(self):
-        return self.page_id
     __tablename__ = 'pages_tags'
 
     id = Column(Integer, primary_key=True)
@@ -30,8 +25,6 @@ class PagesTags(Base):
 
 
 class PagesVideos(Base):
-    def __str__(self):
-        return self.video_id
     __tablename__ = 'pages_videos'
 
     id = Column(Integer, primary_key=True)
@@ -40,8 +33,6 @@ class PagesVideos(Base):
 
 
 class Tags(Base):
-    def __str__(self):
-        return self.tag
     __tablename__ = 'tags'
 
     id = Column(Integer, primary_key=True)
@@ -49,8 +40,6 @@ class Tags(Base):
 
 
 class Topic(Base):
-    def __str__(self):
-        return self.topic
     __tablename__ = 'topic'
 
     id = Column(Integer, primary_key=True)

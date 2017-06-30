@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from flask_sqlalchemy import SQLAlchemy
 from .. import app
 database = SQLAlchemy(app)
@@ -17,3 +18,5 @@ classesdict={
     'cls_online_learning_pages_videos': db_online_learning.PagesVideos,
     'cls_online_learning_pages': db_online_learning.Pages,
     }
+=======
+>>>>>>> 2d614dccacf231122a58729add0d11b86d8910ee

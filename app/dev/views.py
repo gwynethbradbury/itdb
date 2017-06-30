@@ -160,11 +160,11 @@ def displayObject(application_name,tablename,obj_id):
         ObjForm = model_form(model, sesh)
 
         # populate the form with our blog data
-        form = ObjForm(obj=obj)
+        # form = ObjForm(obj=obj)
         # action is the url that we will later use
         # to do post, the same url with obj_id in this case
         action = request.path
-        return render_detail(tablename=tablename,form=form, action=action, DBA=DBA)
+        return render_detail(tablename=tablename,form=ObjForm(obj=obj), action=action, DBA=DBA)
 
 
 
@@ -309,7 +309,7 @@ def newObjectForm(application_name,tablename):
     sesh = sesh()
 
     path = "%s%s/" %("/projects/"+application_name+"/admin/",tablename)
-    ObjForm = model_form(model, sesh, exclude=None)
+    ObjForm = model_form(model, sesh, exclude=None)#, exclude_fk = False)
     #  we just want an empty form
     form = ObjForm()
     action = "%s" %("createnew")

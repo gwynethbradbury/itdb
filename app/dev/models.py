@@ -10,6 +10,7 @@ import dbconfig
 import pandas as pd
 import os
 
+
 listOfColumnTypesByName = {"Integer":"INTEGER",
                            "String":"VARCHAR",
                            "Characters":"CHARACTER",
@@ -100,16 +101,45 @@ class DatabaseAssistant:
                                db=self.mydatabasename)
 
     # creates a class from a table
-    def classFromTableName(self, classname, fields):
-        mydict = {'__tablename__': classname,
-                  '__table_args__': {'autoload': True},
-                  '__bind_key__': self.dbkey,}
+    def classFromTableName(self, classname, fields, classes_loaded=True):
+        if classes_loaded:
+            from ..classes import classesdict as CD
+            if 'cls_{}_{}'.format(self.mydatabasename,classname) in CD and classes_loaded:
+                C= CD['cls_{}_{}'.format(self.mydatabasename,classname)]
+        else:
 
-        from sqlalchemy.ext.declarative import declarative_base
+            import importlib
 
-        Base = declarative_base(self.DBE.E)
-        C = type(classname, (Base,), mydict)
+            # my_module = importlib.import_module('app.classes.'+classname)
+            # from app.classes import classdict
+            # C = classdict["cls{}{}".format(tablename,classname)]
+
+
+            from sqlalchemy.ext.declarative import declarative_base
+
+            mydict = {'__tablename__': classname,
+                      '__table_args__': ({'autoload': True},),
+                      '__bind_key__': self.dbkey,}
+
+            Base = declarative_base(self.DBE.E)
+            C = type(classname, (Base,), mydict)
+
+            # if classname=="comment":
+            #     from flask_sqlalchemy import SQLAlchemy
+            #     from .. import db
+            #     # db = SQLAlchemy(app)
+            #     fields2=['Article','user','comment']
+            #     news = self.classFromTableName('news',fields2)
+            #     from app.admin.models import news as news
+            #     try:
+            #         C.news = db.relationship('news', backref=db.backref('comments',
+            #                                                           lazy='dynamic'))
+            #     except Exception as e:
+            #         print(e)
+
+        C.metadata = C.__table__.metadata
         C.fields=fields
+        C.__str__ = "hi"
         return C
 
 
@@ -148,9 +178,9 @@ class DatabaseAssistant:
         return tablenames,columnnames
 
     # gets data from the table given a list of desired fields
-    def retrieveDataFromDatabase(self, classname, columnnames):
+    def retrieveDataFromDatabase(self, classname, columnnames,classes_loaded= True):
 
-        C = self.classFromTableName(classname, columnnames)
+        C = self.classFromTableName(classname, columnnames, classes_loaded=classes_loaded)
 
         # retrieves the selected columns
 
@@ -164,6 +194,7 @@ class DatabaseAssistant:
         columns = [column(col) for col in col_names_str]
 
         q = select(from_obj=C, columns=columns)
+
         result = session.execute(q)
 
         KEYS = result.keys()
@@ -253,7 +284,20 @@ class DatabaseAssistant:
 
         data_type_formatted = desc2formattedtype(coltype,numchar)
 
-        self.DBE.E.execute("ALTER TABLE "+tablename+" ADD column "+colname+" "+data_type_formatted+";")
+
+        # self.DBE.E.execute("ALTER TABLE "+tablename+" ADD column "+colname+" "+data_type_formatted+";")
+
+        try:
+            connection = self.connect()
+            query = "ALTER TABLE {} ADD COLUMN {} {};".format(tablename,colname,data_type_formatted)
+            with connection.cursor() as cursor:
+                cursor.execute(query)
+            for c in cursor:
+                topic = c[0]
+        except Exception as e:
+            print(e)
+        finally:
+            connection.close
 
         return msg, 1
 

@@ -14,6 +14,19 @@ def uid_trim():
         uid_stripped = string.split(uid, '@')[0]
         print uid_stripped
         return uid_stripped
+'''
+Gets the users username credential
+'''
+def uid_suffix():
+    if ldapconfig.test:
+        return "development_suffix"
+    else:
+        import string
+        uid = request.remote_user
+        uid_stripped = string.split(uid, '@')[1]
+        print uid_stripped
+        return uid_stripped
+
 
 
 # def get_dn(uid):
@@ -51,31 +64,57 @@ def get_fullname(uid=""):
         import ldap
         if uid=="":
             uid=uid_trim()
-        searchFilter = "(&(uid=%s)(objectClass=posixAccount))" % uid
-        searchAttribute = ["cn"]
-        searchScope = ldap.SCOPE_SUBTREE
-        l = ldap.initialize(ldapconfig.ldaphost)
-        try:
-            l.protocol_version = ldap.VERSION3
-            l.simple_bind_s(ldapconfig.username, ldapconfig.password)
-            valid = True
-        except Exception, error:
-            print error
-        try:
-            ldap_result_id = l.search(ldapconfig.basedn, searchScope, searchFilter, searchAttribute)
-            result_set = []
-            result_type, result_data = l.result(ldap_result_id, 0)
-            # print result_data[0][1]['cn'][0]
-            try:
-                return result_data[0][1]['cn'][0]
-            except Exception as e:
-                print(e)
-                return "Firstname Surname"
-        except ldap.LDAPError, e:
-            return 'An Error Occurred'
-        l.unbind_s()
+        suffix=uid_suffix()
+        if (suffix=="ox.ac.uk"):
+           searchFilter = "(&(objectClass=user)(sAMAccountName=%s))" % uid
+           searchAttribute = ["displayName"]
+           searchScope = ldap.SCOPE_SUBTREE
+           l = ldap.initialize(ldapconfig.ldaphost_ad)
+           try:
+               l.protocol_version = ldap.VERSION3
+               l.simple_bind_s(ldapconfig.username_ad, ldapconfig.password_ad)
+               valid = True
+           except Exception, error:
+               print error
+           try:
+               ldap_result_id = l.search(ldapconfig.basedn_ad, searchScope, searchFilter, searchAttribute)
+               result_type, result_data = l.result(ldap_result_id, 0)
+               try:
+                   return result_data[0][1]['displayName'][0]
+               except Exception as e:
+                   print(e)
+                   return "Firstname Surname"
+           except ldap.LDAPError, e:
+               return 'An Error Occurred (AD)'
+           l.unbind_s()
+   
 
 
+        else:
+           searchFilter = "(&(uid=%s)(objectClass=posixAccount))" % uid
+           searchAttribute = ["cn"]
+           searchScope = ldap.SCOPE_SUBTREE
+           l = ldap.initialize(ldapconfig.ldaphost)
+           try:
+               l.protocol_version = ldap.VERSION3
+               l.simple_bind_s(ldapconfig.username, ldapconfig.password)
+               valid = True
+           except Exception, error:
+               print error
+           try:
+               ldap_result_id = l.search(ldapconfig.basedn, searchScope, searchFilter, searchAttribute)
+               result_type, result_data = l.result(ldap_result_id, 0)
+               try:
+                   return result_data[0][1]['cn'][0]
+               except Exception as e:
+                   print(e)
+                   return "Firstname Surname"
+           except ldap.LDAPError, e:
+               return 'An Error Occurred'
+           l.unbind_s()
+   
+
+# For testing
 superusers_usernames=["cenv0594",
                       "cenv0252",
                       "hert1424"]
@@ -102,7 +141,7 @@ def get_groups(uid):
             # result_set is a list containing lists of tuples, each containing a list - fun!
             groups = ['all_users']
             #todo: remove the next bit which is hardcoded for IT suport users
-            if uid in superusers_usernames or ldapconfig.test==True:
+            if ldapconfig.test==True:
                 groups.append("superusers")
             for res in result_set:
                 # disentangle the various nested stuff!

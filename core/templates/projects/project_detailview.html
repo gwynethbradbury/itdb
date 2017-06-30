@@ -13,7 +13,8 @@
 			    {% for field in form %}
 
 			    	{{field.label()}}
-			        {{field(class="pure-input")}}
+                    {{ field }}
+{#			        {{field(class="pure-input")}}#}
 
 		        {% endfor %}
 

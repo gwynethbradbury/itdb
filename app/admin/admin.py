@@ -180,3 +180,8 @@ register_crud(admin, '/service_instances', 'service_instances', svc_instances, f
 register_crud(admin, '/groups', 'groups', groups)
 register_crud(admin, '/permitted_svc', 'permitted_svc', permitted_svc)
 register_crud(admin, '/services', 'services', services)
+
+# from ..classes import *
+#
+# for c in classesdict:
+#     register_crud(admin,'/'+c,c,classesdict[c])

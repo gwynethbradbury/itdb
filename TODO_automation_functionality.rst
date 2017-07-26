@@ -10,14 +10,16 @@ WebAppaS Creation:
   - Push a webapp template to Gitlab
   - Generate Credentials for DBaS DB and push to the VM
   - Create RT Ticket requesting DNS aliases (test and production)
-  - Configure Reverse Proxy on IaaS
-  - 
+  - Configure Reverse Proxy on IaaS-gw
   - Regenerate SSL Certificates
   
 VMaS Creation:
   - Create a Hyper-V VM with empty disk
   - Attach an Install Media Image to the VM
-  - Generate
+  - Configure Firewall rule on iaas-gw for assigned port
+  - Configure HTML5 RDP system on iaas to allow access to members of appropriate LDAP group
+  
+
 
 
 List of automated functionality and hooks which need to be built.

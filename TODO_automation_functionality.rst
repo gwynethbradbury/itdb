@@ -1,6 +1,6 @@
 TODO:
 
-High level functionality (All will require a call to add an LDAP entry):
+High level functionality (All will require a call to add an LDAP entry), and appropriate ACL handling:
 
 WebAppaS Creation:
   - Create a Hyper-V VM from a WebApp Template
@@ -19,7 +19,12 @@ VMaS Creation:
   - Configure Firewall rule on iaas-gw for assigned port
   - Configure HTML5 RDP system on iaas to allow access to members of appropriate LDAP group
   
-
+DBaS Creation: 
+  - Create DB
+  - Create Appropriate firewall rule/port allocation on iaas-gw
+  - Generate DB Passwords for users (if they don't already have such things)
+  - Grant permissions to DB users
+  
 
 
 List of automated functionality and hooks which need to be built.

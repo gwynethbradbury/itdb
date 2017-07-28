@@ -33,7 +33,7 @@ class DBHelper:
             with connection.cursor() as cursor:
                 cursor.execute(query)
             for page in cursor:
-                article = [page[0], page[1][:100],page[3]]
+                article = [page[0], page[1][:300],page[3]]
                 pages.append(article)
                 _topic,_tags = self.getPageTopicTags(page[3],page[2])
                 topics.append(_topic)

@@ -28,7 +28,7 @@
         <ul>
             {% for instance in instances %}
                 <li><a class="button tag-colour{{ (4 * loop.index0 + 3) % 20 + 1 }}" href="/online_learning/topics/{{ topics[loop.index0] }}">{{ topics[loop.index0] }}</a> - <a href="/online_learning/article/{{instance[2]}}">{{instance[0]}}</a>
-                    <p>{{instance[1]}}</p>
+                    <p>{{instance[1]|safe}}</p>
                     {% for tag in tags[loop.index0] %}
                         <a class="button tag-colour{{ (4 * loop.index0 + 1) % 20 + 1 }}" href="/online_learning/tags/{{ tag[1] }}">{{ tag[0] }}</a>
                     {% endfor %}</li>

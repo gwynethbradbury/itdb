@@ -5,11 +5,17 @@ from sqlalchemy.ext.declarative import declarative_base
 
 
 from . import database as db
+from . import database as db
+from . import database as db
 Base = db.Model
 metadata = Base.metadata
 
 
 class News(Base):
+    def __str__(self):
+        return self.title
+    def __str__(self):
+        return self.title
     def __str__(self):
         return self.title
     __tablename__ = 'News'

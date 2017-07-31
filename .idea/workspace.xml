@@ -2,18 +2,126 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fea06bd9-e89c-4ffd-a449-36dcea70bd18" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/external/.gitkeep" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TODO_automation_functionality.rst" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/external/__init__.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/classes/project2.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/classes/project3.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/classes/__init__.py" afterPath="$PROJECT_DIR$/app/classes/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/classes/iaas.py" afterPath="$PROJECT_DIR$/app/classes/iaas.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/online_learning/article.html" afterPath="$PROJECT_DIR$/core/templates/online_learning/article.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/online_learning/index.html" afterPath="$PROJECT_DIR$/core/templates/online_learning/index.html" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/admin/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/admin/admin.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/admin/models.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/classes/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/classes/iaas.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/classes/it_lending_log.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/classes/map.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/classes/online_learning.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/dev/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/dev/models.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/dev/views.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/access_helper.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/auth/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/auth/forms.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/auth/views.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/email.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/home.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/iaasldap.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/main/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/main/errors.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/main/forms.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/main/views.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/mock_access_helper.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/models.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/401.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/404.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/500.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/admin/admin.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/admin/detailview.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/admin/email_subscribers.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/admin/listview.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/console.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/groupprojects.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/instances.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/layout.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/login.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/online_learning/article.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/online_learning/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/online_learning/learning_layout.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/online_learning/learning_page.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/online_learning/tag.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/online_learning/topic.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/add_column.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/create_table.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/download_link.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/download_table.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/it_lending_log/alteritem.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/it_lending_log/alterlog.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/it_lending_log/it_lending_log.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/map/map.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/project_admin.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/project_detailview.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/project_home.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/project_layout.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/project_listview.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/upload_table.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/service.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/views.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/external/.gitkeep" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/external/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/css/app.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/css/foundation.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/css/foundation.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/css/style.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/Dragon-Fruit.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/Limes.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/calendar.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/calendar.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/coconut.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/fruitbowl.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/fruitbowl.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/geog-intranet-brand-pos.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/Flat Fruit Icons_Foxdesign.ai" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/Flat Fruit Icons_Foxdesign.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/Flat Fruit Icons_preview.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/coconut.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/coconut_64.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/dragonfruit.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/dragonfruit_64.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/lime.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/lime_64.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/passionfruit.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/passionfruit_64.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/pineapple.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/pineapple_64.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/mortarboard.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ox-brand.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/passionfruit.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/pineapple.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/js/app.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/js/vendor/foundation.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/js/vendor/foundation.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/js/vendor/jquery.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/js/vendor/what-input.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/it_lending_log/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/it_lending_log/dbhelper.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/it_lending_log/mockdbhelper.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/it_lending_log/models.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/it_lending_log/views.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/data/example_import.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/data/export.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/data/genblankcsv.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/data/upload.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/db_setup.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/dbhelper.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/forms.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/mockdbhelper.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/models.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/views.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/online_learning/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/online_learning/dbhelper.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/online_learning/mockdbhelper.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/online_learning/models.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/online_learning/views.py" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/__init__.py" afterPath="$PROJECT_DIR$/app/__init__.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dbas.py" afterPath="$PROJECT_DIR$/dbas.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web_apps_examples/online_learning/dbhelper.py" afterPath="$PROJECT_DIR$/web_apps_examples/online_learning/dbhelper.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,7 +133,7 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/iaas_pages_copy$iaas.coverage" NAME="iaas Coverage Results" MODIFIED="1497623250012" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/iaas_pages$iaas.coverage" NAME="iaas Coverage Results" MODIFIED="1497602591663" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/dbas$dbas.coverage" NAME="dbas Coverage Results" MODIFIED="1501259307186" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/dbas$dbas.coverage" NAME="dbas Coverage Results" MODIFIED="1501498092888" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/online$iaas.coverage" NAME="iaas Coverage Results" MODIFIED="1497623763640" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -36,84 +144,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="__init__.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app/__init__.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="3585">
-                  <caret line="239" column="1" lean-forward="false" selection-start-line="239" selection-start-column="1" selection-end-line="239" selection-end-column="1" />
-                  <folding>
-                    <element signature="e#23#91#0" expanded="true" />
-                    <marker date="1498828786000" expanded="true" signature="9086:9097" ph="..." />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/admin/models.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="453">
-                  <caret line="144" column="26" lean-forward="false" selection-start-line="144" selection-start-column="14" selection-end-line="144" selection-end-column="26" />
-                  <folding>
-                    <element signature="e#3232#4045#0" expanded="false" />
-                    <element signature="e#4082#4445#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/core/views.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-296">
-                  <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/core/models.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-162">
-                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#0#73#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="admin.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/admin/admin.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="30">
-                  <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#12#100#0" expanded="true" />
-                    <element signature="e#1246#1690#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/dev/__init__.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="510">
-                  <caret line="34" column="9" lean-forward="false" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
-                  <folding>
-                    <element signature="e#32#52#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/web_apps_examples/__init__.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="15">
-                  <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+                <state relative-caret-position="0">
+                  <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
                   <folding />
                 </state>
               </provider>
@@ -122,31 +157,9 @@
           <file leaf-file-name="dbas.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/dbas.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="603">
-                  <caret line="47" column="7" lean-forward="false" selection-start-line="47" selection-start-column="7" selection-end-line="47" selection-end-column="7" />
+                <state relative-caret-position="18">
+                  <caret line="8" column="7" lean-forward="false" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
                   <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="detailview.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/core/templates/admin/detailview.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="195">
-                  <caret line="13" column="35" lean-forward="false" selection-start-line="13" selection-start-column="35" selection-end-line="13" selection-end-column="35" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/classes/__init__.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="15">
-                  <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
-                  <folding>
-                    <marker date="1501259316000" expanded="true" signature="866:872" ph="..." />
-                  </folding>
                 </state>
               </provider>
             </entry>
@@ -155,139 +168,11 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/app/dev/views.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="120">
-                  <caret line="8" column="42" lean-forward="true" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
-                  <folding>
-                    <element signature="e#0#21#0" expanded="true" />
-                    <element signature="e#11058#11329#0" expanded="false" />
-                    <element signature="e#11482#11729#0" expanded="false" />
-                    <element signature="e#14142#14881#0" expanded="false" />
-                    <element signature="e#14896#14935#0" expanded="false" />
-                    <element signature="e#15117#15454#0" expanded="false" />
-                    <element signature="e#15603#16237#0" expanded="false" />
-                    <element signature="e#16428#17814#0" expanded="false" />
-                    <element signature="e#18080#20970#0" expanded="false" />
-                    <element signature="e#21100#21684#0" expanded="false" />
-                    <element signature="e#21875#22405#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/web_apps_examples/online_learning/views.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="480">
-                  <caret line="49" column="41" lean-forward="false" selection-start-line="49" selection-start-column="41" selection-end-line="49" selection-end-column="41" />
-                  <folding>
-                    <element signature="e#2604#3121#0" expanded="false" />
-                    <element signature="e#3217#3687#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="mockdbhelper.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/web_apps_examples/online_learning/mockdbhelper.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="150">
-                  <caret line="10" column="8" lean-forward="false" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="orm.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="orm.py" pinned="false" current-in-tab="true">
             <entry file="file:///usr/local/lib/python2.7/site-packages/wtforms/ext/sqlalchemy/orm.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1980">
+                <state relative-caret-position="277">
                   <caret line="139" column="0" lean-forward="false" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="learning_page.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/core/templates/online_learning/learning_page.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="510">
-                  <caret line="34" column="20" lean-forward="false" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="article.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/core/templates/online_learning/article.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="330">
-                  <caret line="22" column="8" lean-forward="false" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/core/templates/online_learning/index.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="450">
-                  <caret line="30" column="41" lean-forward="false" selection-start-line="30" selection-start-column="41" selection-end-line="30" selection-end-column="41" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="dbhelper.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/web_apps_examples/online_learning/dbhelper.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="287">
-                  <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-                  <folding>
-                    <marker date="1499356467000" expanded="true" signature="664:704" ph="SELECT title... pages" />
-                    <marker date="1499356467000" expanded="true" signature="1563:1607" ph="SELECT page_... pages_tags" />
-                    <marker date="1499356467000" expanded="true" signature="2088:2121" ph="SELECT topic... topic" />
-                    <marker date="1499356467000" expanded="true" signature="2337:2381" ph="SELECT tag_i... pages_tags" />
-                    <marker date="1499356467000" expanded="true" signature="2625:2655" ph="SELECT tag F... tags" />
-                    <marker date="1499356467000" expanded="true" signature="3171:3208" ph="SELECT id FR... topic" />
-                    <marker date="1499356467000" expanded="true" signature="3805:3839" ph="SELECT id FR... tags" />
-                    <marker date="1499356467000" expanded="true" signature="5373:5413" ph="SELECT id FR... pages" />
-                    <marker date="1499356467000" expanded="true" signature="6062:6112" ph="SELECT title... pages" />
-                    <marker date="1499356467000" expanded="true" signature="6847:6895" ph="SELECT video... pages_videos" />
-                    <marker date="1499356467000" expanded="true" signature="7128:7161" ph="SELECT link videos" />
-                    <marker date="1499356467000" expanded="true" signature="7680:7706" ph="SELECT id,to... topic" />
-                    <marker date="1499356467000" expanded="true" signature="8307:8330" ph="SELECT id,ta... tags" />
-                    <marker date="1499356467000" expanded="true" signature="8886:8963" ph="SELECT latit... project" />
-                    <marker date="1499356467000" expanded="true" signature="10222:10253" ph="SELECT descr... project" />
-                    <marker date="1499356467000" expanded="true" signature="10806:10912" ph="INSERT INTO project... " />
-                    <marker date="1499356467000" expanded="true" signature="11937:12043" ph="INSERT INTO project... " />
-                    <marker date="1499356467000" expanded="true" signature="13695:13815" ph="INSERT INTO project... " />
-                    <marker date="1499356467000" expanded="true" signature="14260:14337" ph="SELECT latit... project" />
-                    <marker date="1499356467000" expanded="true" signature="16181:16200" ph="DELETE FROM " />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="map.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/classes/map.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="15">
-                  <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#16#67#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="iaasldap.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/core/iaasldap.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1710">
-                  <caret line="116" column="0" lean-forward="false" selection-start-line="116" selection-start-column="2" selection-end-line="119" selection-end-column="35" />
                   <folding />
                 </state>
               </provider>
@@ -440,88 +325,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="dbas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dbas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dbas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dbas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dbas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dbas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dbas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dbas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dbas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="classes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dbas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dbas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -825,6 +628,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-225" y="-1177" width="1920" height="1177" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -923,11 +727,6 @@
           <option name="timeStamp" value="67" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/web_apps_examples/online_learning/dbhelper.py</url>
-          <line>153</line>
-          <option name="timeStamp" value="78" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/app/dev/views.py</url>
           <line>342</line>
           <option name="timeStamp" value="89" />
@@ -983,13 +782,6 @@
           <caret line="6" column="47" lean-forward="false" selection-start-line="6" selection-start-column="47" selection-end-line="6" selection-end-column="47" />
           <folding>
             <element signature="e#598#1663#0" expanded="false" />
-            <marker date="1498127020000" expanded="true" signature="1153:1253" ph="SELECT id FR... groups" />
-            <marker date="1498127020000" expanded="true" signature="2156:2350" ph="SELECT insta... svc_instances" />
-            <marker date="1498127020000" expanded="true" signature="3369:3517" ph="SELECT insta... svc_instances" />
-            <marker date="1498127020000" expanded="true" signature="4297:4405" ph="SELECT title... iaas_events" />
-            <marker date="1498127020000" expanded="true" signature="5374:5412" ph="SELECT title... news" />
-            <marker date="1498127020000" expanded="true" signature="6064:6093" ph="SELECT email... subscribers" />
-            <marker date="1498127020000" expanded="true" signature="6673:6730" ph="INSERT INTO subscribers... " />
           </folding>
         </state>
       </provider>
@@ -1066,9 +858,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding>
-            <element signature="e#16#68#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1158,10 +948,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="49" column="41" lean-forward="false" selection-start-line="49" selection-start-column="41" selection-end-line="49" selection-end-column="41" />
-          <folding>
-            <element signature="e#2604#3121#0" expanded="false" />
-            <element signature="e#3217#3687#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1175,7 +962,7 @@
     </entry>
     <entry file="file:///usr/local/lib/python2.7/site-packages/wtforms/ext/sqlalchemy/orm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1980">
+        <state relative-caret-position="277">
           <caret line="139" column="0" lean-forward="false" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
           <folding />
         </state>
@@ -1217,38 +1004,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="287">
           <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding>
-            <marker date="1499356467000" expanded="true" signature="664:704" ph="SELECT title... pages" />
-            <marker date="1499356467000" expanded="true" signature="1563:1607" ph="SELECT page_... pages_tags" />
-            <marker date="1499356467000" expanded="true" signature="2088:2121" ph="SELECT topic... topic" />
-            <marker date="1499356467000" expanded="true" signature="2337:2381" ph="SELECT tag_i... pages_tags" />
-            <marker date="1499356467000" expanded="true" signature="2625:2655" ph="SELECT tag F... tags" />
-            <marker date="1499356467000" expanded="true" signature="3171:3208" ph="SELECT id FR... topic" />
-            <marker date="1499356467000" expanded="true" signature="3805:3839" ph="SELECT id FR... tags" />
-            <marker date="1499356467000" expanded="true" signature="5373:5413" ph="SELECT id FR... pages" />
-            <marker date="1499356467000" expanded="true" signature="6062:6112" ph="SELECT title... pages" />
-            <marker date="1499356467000" expanded="true" signature="6847:6895" ph="SELECT video... pages_videos" />
-            <marker date="1499356467000" expanded="true" signature="7128:7161" ph="SELECT link videos" />
-            <marker date="1499356467000" expanded="true" signature="7680:7706" ph="SELECT id,to... topic" />
-            <marker date="1499356467000" expanded="true" signature="8307:8330" ph="SELECT id,ta... tags" />
-            <marker date="1499356467000" expanded="true" signature="8886:8963" ph="SELECT latit... project" />
-            <marker date="1499356467000" expanded="true" signature="10222:10253" ph="SELECT descr... project" />
-            <marker date="1499356467000" expanded="true" signature="10806:10912" ph="INSERT INTO project... " />
-            <marker date="1499356467000" expanded="true" signature="11937:12043" ph="INSERT INTO project... " />
-            <marker date="1499356467000" expanded="true" signature="13695:13815" ph="INSERT INTO project... " />
-            <marker date="1499356467000" expanded="true" signature="14260:14337" ph="SELECT latit... project" />
-            <marker date="1499356467000" expanded="true" signature="16181:16200" ph="DELETE FROM " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/classes/it_lending_log.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding>
-            <element signature="e#16#96#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1300,16 +1056,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/classes/map.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding>
-            <element signature="e#16#67#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/Cellar/python/2.7.13/Frameworks/Python.framework/Versions/2.7/lib/python2.7/re.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1322,9 +1068,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
-          <folding>
-            <marker date="1501259316000" expanded="true" signature="866:872" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1340,10 +1084,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding>
-            <element signature="e#12#100#0" expanded="true" />
-            <element signature="e#1246#1690#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1351,9 +1092,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
           <caret line="34" column="9" lean-forward="false" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
-          <folding>
-            <element signature="e#32#52#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1367,20 +1106,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dbas.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="603">
-          <caret line="47" column="7" lean-forward="false" selection-start-line="47" selection-start-column="7" selection-end-line="47" selection-end-column="7" />
+        <state relative-caret-position="18">
+          <caret line="8" column="7" lean-forward="false" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3585">
-          <caret line="239" column="1" lean-forward="false" selection-start-line="239" selection-start-column="1" selection-end-line="239" selection-end-column="1" />
-          <folding>
-            <element signature="e#23#91#0" expanded="true" />
-            <marker date="1498828786000" expanded="true" signature="9086:9097" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1388,10 +1116,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="453">
           <caret line="144" column="26" lean-forward="false" selection-start-line="144" selection-start-column="14" selection-end-line="144" selection-end-column="26" />
-          <folding>
-            <element signature="e#3232#4045#0" expanded="false" />
-            <element signature="e#4082#4445#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1403,33 +1128,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/models.py">
+    <entry file="file://$PROJECT_DIR$/app/classes/it_lending_log.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-162">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#73#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="450">
+          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/dev/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
-          <caret line="8" column="42" lean-forward="true" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-            <element signature="e#11058#11329#0" expanded="false" />
-            <element signature="e#11482#11729#0" expanded="false" />
-            <element signature="e#14142#14881#0" expanded="false" />
-            <element signature="e#14896#14935#0" expanded="false" />
-            <element signature="e#15117#15454#0" expanded="false" />
-            <element signature="e#15603#16237#0" expanded="false" />
-            <element signature="e#16428#17814#0" expanded="false" />
-            <element signature="e#18080#20970#0" expanded="false" />
-            <element signature="e#21100#21684#0" expanded="false" />
-            <element signature="e#21875#22405#0" expanded="false" />
-          </folding>
+          <caret line="8" column="42" lean-forward="false" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/classes/map.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>

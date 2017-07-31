@@ -1,13 +1,20 @@
 import os
 import os.path as op
 
-from flask import Flask, Blueprint
+from flask import Flask, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Date, DateTime, ForeignKey, Integer, String, Text, Time, text
 from sqlalchemy.orm import relationship
 
 import flask_admin as admin
 from flask_admin.contrib.sqla import ModelView
+from flask_admin import helpers, expose
+import flask_login as login
+from wtforms import form, fields, validators
+
+from werkzeug.security import generate_password_hash, check_password_hash
+
+
 import dbconfig
 # Create application
 app = Flask(__name__)
@@ -54,16 +61,135 @@ def show(page):
         abort(404)
 
 
+import core.iaasldap as iaasldap
+import ldapconfig as ldapconfig
+current_user = iaasldap.LDAPUser()
 
 
+# Define login and registration forms (for flask-login)
+class LoginForm(form.Form):
+    login = fields.StringField(validators=[validators.required()])
+    password = fields.PasswordField(validators=[validators.required()])
+
+    def validate_login(self, field):
+        user = self.get_user()
+
+        if user is None:
+            raise validators.ValidationError('Invalid user')
+
+        # we're comparing the plaintext pw with the the hash from the db
+        if not check_password_hash(user.password, self.password.data):
+        # to compare plain text passwords use
+        # if user.password != self.password.data:
+            raise validators.ValidationError('Invalid password')
+
+    def get_user(self):
+        return db.session.query(User).filter_by(login=self.login.data).first()
 
 
+# Create customized model view class
+class MyModelView(ModelView, ):
 
+    def is_accessible(self):
+        current_url = str.split(self.admin.url,'/')
+        project_name=""
+        require_project_admin=False
 
+        if current_url[1]=='projects':
+            '''admin view of project'''
+            project_name = current_url[2]
+            require_project_admin = True
+        else:
+            '''normal view of project'''
+            project_name = current_url[1]
 
+        if not current_user.is_active or not current_user.is_authenticated(project_name):
+            return False
+        if require_project_admin and not current_user.has_role('{}_admin'.format(project_name)):
+            return False
 
+        if current_user.has_role('superusers') :
+            return True
 
+        return True
 
+    def _handle_view(self, name, **kwargs):
+        """
+        Override builtin _handle_view in order to redirect users when a view is not accessible.
+        """
+        if not self.is_accessible():
+            if current_user.is_authenticated:
+                # permission denied
+                abort(403)
+            else:
+                # login
+                return "not authenticated" #redirect(url_for('security.login', next=request.url))
+
+            # Create customized index view class that handles login & registration
+            class MyAdminIndexView(admin.AdminIndexView):
+
+                @expose('/')
+                def index(self):
+                    if not login.current_user.is_authenticated:
+                        return redirect(url_for('.login_view'))
+                    return super(MyAdminIndexView, self).index()
+
+                @expose('/login/', methods=('GET', 'POST'))
+                def login_view(self):
+                    # handle user login
+                    form = LoginForm(request.form)
+                    if helpers.validate_form_on_submit(form):
+                        user = form.get_user()
+                        login.login_user(user)
+
+                    if login.current_user.is_authenticated:
+                        return redirect(url_for('.index'))
+                    link = '<p>Don\'t have an account? <a href="' + url_for(
+                        '.register_view') + '">Click here to register.</a></p>'
+                    self._template_args['form'] = form
+                    self._template_args['link'] = link
+                    return super(MyAdminIndexView, self).index()
+
+                @expose('/register/', methods=('GET', 'POST'))
+                def register_view(self):
+                    form = RegistrationForm(request.form)
+                    if helpers.validate_form_on_submit(form):
+                        user = User()
+
+                        form.populate_obj(user)
+                        # we hash the users password to avoid saving it as plaintext in the db,
+                        # remove to use plain text:
+                        user.password = generate_password_hash(form.password.data)
+
+                        db.session.add(user)
+                        db.session.commit()
+
+                        login.login_user(user)
+                        return redirect(url_for('.index'))
+                    link = '<p>Already have an account? <a href="' + url_for(
+                        '.login_view') + '">Click here to log in.</a></p>'
+                    self._template_args['form'] = form
+                    self._template_args['link'] = link
+                    return super(MyAdminIndexView, self).index()
+
+                @expose('/logout/')
+                def logout_view(self):
+                    login.logout_user()
+                    return redirect(url_for('.index'))
+
+# Initialize flask-login
+def init_login():
+    login_manager = login.LoginManager()
+    login_manager.init_app(app)
+
+    # Create user loader function
+    @login_manager.user_loader
+    def load_user(user_id):
+        current_user.uid_trim()
+        # return db.session.query(User).get(user_id)
+
+# Initialize flask-login
+init_login()
 
 
 
@@ -290,13 +416,15 @@ class SvcInstances(Base):
     svc_type_id = Column(Integer, nullable=False)
     group_id = Column(Integer, nullable=False)
 # Create admin
-iaas_admin = admin.Admin(app, name='IAAS admin app', template_mode='foundation',endpoint="admin",url="/admin")
+iaas_admin = admin.Admin(app, name='IAAS admin app', template_mode='foundation',
+                         endpoint="admin",url="/admin",
+                         base_template='my_master.html')
 
 # Add views
-iaas_admin.add_view(ModelView(SvcInstances, db.session))
-iaas_admin.add_view(ModelView(Subscribers, db.session))
-iaas_admin.add_view(ModelView(News, db.session))
-iaas_admin.add_view(ModelView(Comment, db.session))
+iaas_admin.add_view(MyModelView(SvcInstances, db.session))
+iaas_admin.add_view(MyModelView(Subscribers, db.session))
+iaas_admin.add_view(MyModelView(News, db.session))
+iaas_admin.add_view(MyModelView(Comment, db.session))
 
 
 # endregion

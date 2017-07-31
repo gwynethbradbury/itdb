@@ -211,7 +211,7 @@
                         <a href="http://www.geog.ox.ac.uk"><img class="thumbnail" src="{{ admin_static.url(filename='img/geog-intranet-brand-pos.png') }}"></a>
                         <br>
                         <a href="{{ url_for('show', page='') }}"><img class="thumbnail" src="{{ admin_static.url(filename='img/fruitbowl.jpg') }}"></a>
-                        <h4>{{ username }}</h4>
+                        <h4>{{ current_user.uid_trim()}}</h4>
                         <hr>
                         <p>List of my groups:</p>
                         <div>

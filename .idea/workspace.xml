@@ -2,126 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fea06bd9-e89c-4ffd-a449-36dcea70bd18" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/admin/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/admin/admin.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/admin/models.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/classes/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/classes/iaas.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/classes/it_lending_log.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/classes/map.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/classes/online_learning.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/dev/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/dev/models.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/dev/views.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/access_helper.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/auth/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/auth/forms.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/auth/views.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/email.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/home.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/iaasldap.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/main/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/main/errors.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/main/forms.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/main/views.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/mock_access_helper.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/models.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/401.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/404.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/500.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/admin/admin.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/admin/detailview.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/admin/email_subscribers.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/admin/listview.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/console.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/groupprojects.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/instances.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/layout.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/login.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/online_learning/article.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/online_learning/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/online_learning/learning_layout.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/online_learning/learning_page.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/online_learning/tag.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/online_learning/topic.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/add_column.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/create_table.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/download_link.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/download_table.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/it_lending_log/alteritem.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/it_lending_log/alterlog.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/it_lending_log/it_lending_log.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/map/map.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/project_admin.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/project_detailview.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/project_home.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/project_layout.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/project_listview.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/upload_table.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/service.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/views.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/external/.gitkeep" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/external/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/css/app.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/css/foundation.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/css/foundation.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/css/style.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/Dragon-Fruit.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/Limes.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/calendar.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/calendar.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/coconut.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/fruitbowl.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/fruitbowl.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/geog-intranet-brand-pos.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/Flat Fruit Icons_Foxdesign.ai" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/Flat Fruit Icons_Foxdesign.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/Flat Fruit Icons_preview.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/coconut.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/coconut_64.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/dragonfruit.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/dragonfruit_64.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/lime.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/lime_64.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/passionfruit.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/passionfruit_64.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/pineapple.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/pineapple_64.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/mortarboard.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ox-brand.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/passionfruit.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/pineapple.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/js/app.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/js/vendor/foundation.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/js/vendor/foundation.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/js/vendor/jquery.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/js/vendor/what-input.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/it_lending_log/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/it_lending_log/dbhelper.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/it_lending_log/mockdbhelper.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/it_lending_log/models.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/it_lending_log/views.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/data/example_import.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/data/export.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/data/genblankcsv.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/data/upload.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/db_setup.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/dbhelper.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/forms.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/mockdbhelper.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/models.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/map/views.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/online_learning/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/online_learning/dbhelper.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/online_learning/mockdbhelper.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/online_learning/models.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web_apps_examples/online_learning/views.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/__init__.py" afterPath="$PROJECT_DIR$/app/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dbas.py" afterPath="$PROJECT_DIR$/dbas.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/sqla/templates/my_master.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/sqla/app.py" afterPath="$PROJECT_DIR$/app/sqla/app.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/sqla/core/iaasldap.py" afterPath="$PROJECT_DIR$/app/sqla/core/iaasldap.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/base.html" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/base.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -133,7 +18,7 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/iaas_pages_copy$iaas.coverage" NAME="iaas Coverage Results" MODIFIED="1497623250012" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/iaas_pages$iaas.coverage" NAME="iaas Coverage Results" MODIFIED="1497602591663" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/dbas$dbas.coverage" NAME="dbas Coverage Results" MODIFIED="1501498092888" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/dbas$dbas.coverage" NAME="dbas Coverage Results" MODIFIED="1501520139797" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/online$iaas.coverage" NAME="iaas Coverage Results" MODIFIED="1497623763640" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -144,21 +29,109 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="__init__.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/app/__init__.py">
+          <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/sqla/app.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+                <state relative-caret-position="539">
+                  <caret line="154" column="35" lean-forward="true" selection-start-line="154" selection-start-column="35" selection-end-line="154" selection-end-column="35" />
+                  <folding>
+                    <element signature="e#0#9#0" expanded="true" />
+                    <element signature="e#1537#1821#0" expanded="false" />
+                    <element signature="e#2014#2717#0" expanded="false" />
+                    <element signature="e#6455#6702#0" expanded="false" />
+                    <element signature="e#8126#8575#0" expanded="false" />
+                    <element signature="e#8624#11539#0" expanded="false" />
+                    <element signature="e#14772#14796#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="my_master.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/sqla/templates/my_master.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="270">
+                  <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="dbas.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/dbas.py">
+          <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/flask_admin/templates/foundation/admin/base.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="18">
-                  <caret line="8" column="7" lean-forward="false" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
+                <state relative-caret-position="250">
+                  <caret line="213" column="54" lean-forward="false" selection-start-line="213" selection-start-column="54" selection-end-line="213" selection-end-column="54" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="master.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/flask_admin/templates/foundation/admin/master.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="0">
+                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="base.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/flask_admin/base.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="285">
+                  <caret line="527" column="11" lean-forward="false" selection-start-line="527" selection-start-column="11" selection-end-line="527" selection-end-column="11" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="view.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/flask_admin/contrib/sqla/view.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="90">
+                  <caret line="30" column="25" lean-forward="false" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="base.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/flask_admin/model/base.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-9550">
+                  <caret line="99" column="6" lean-forward="false" selection-start-line="99" selection-start-column="6" selection-end-line="99" selection-end-column="6" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="iaas.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/sqla/classes/iaas.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="0">
+                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="runtime.py" pinned="false" current-in-tab="false">
+            <entry file="file:///usr/local/lib/python2.7/site-packages/jinja2/runtime.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="285">
+                  <caret line="259" column="0" lean-forward="false" selection-start-line="259" selection-start-column="0" selection-end-line="259" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="layout.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/flask_admin/templates/foundation/admin/layout.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="765">
+                  <caret line="96" column="0" lean-forward="false" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -168,11 +141,27 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="orm.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="iaasldap.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/app/sqla/core/iaasldap.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="120">
+                  <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="16" />
+                  <folding>
+                    <element signature="e#162#412#0" expanded="false" />
+                    <element signature="e#502#763#0" expanded="false" />
+                    <element signature="e#763#781#0" expanded="false" />
+                    <element signature="e#1875#4163#0" expanded="false" />
+                    <element signature="e#4402#5718#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="orm.py" pinned="false" current-in-tab="false">
             <entry file="file:///usr/local/lib/python2.7/site-packages/wtforms/ext/sqlalchemy/orm.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="277">
-                  <caret line="139" column="0" lean-forward="false" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
+                <state relative-caret-position="2160">
+                  <caret line="151" column="73" lean-forward="false" selection-start-line="151" selection-start-column="73" selection-end-line="151" selection-end-column="73" />
                   <folding />
                 </state>
               </provider>
@@ -192,9 +181,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>SQLAlchemy</find>
-      <find>c</find>
-      <find>class</find>
       <find>session.</find>
       <find>exclude_fk</find>
       <find>su</find>
@@ -222,6 +208,9 @@
       <find>sqlalchem</find>
       <find>sqlalchemy</find>
       <find>region</find>
+      <find>add_view</find>
+      <find>cur</find>
+      <find>current</find>
     </findStrings>
     <replaceStrings>
       <replace>dbas_url</replace>
@@ -234,10 +223,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/core/templates/401.html" />
-        <option value="$PROJECT_DIR$/core/main/views.py" />
-        <option value="$PROJECT_DIR$/core/mock_access_helper.py" />
-        <option value="$PROJECT_DIR$/core/templates/admin/admin.html" />
         <option value="$PROJECT_DIR$/core/home.py" />
         <option value="$PROJECT_DIR$/core/templates/dbas.html" />
         <option value="$PROJECT_DIR$/core/templates/service.html" />
@@ -285,6 +270,10 @@
         <option value="$PROJECT_DIR$/dbas.py" />
         <option value="$PROJECT_DIR$/app/classes/__init__.py" />
         <option value="$PROJECT_DIR$/app/__init__.py" />
+        <option value="$PROJECT_DIR$/flask_admin/contrib/sqla/view.py" />
+        <option value="$PROJECT_DIR$/app/sqla/core/iaasldap.py" />
+        <option value="$PROJECT_DIR$/app/sqla/app.py" />
+        <option value="$PROJECT_DIR$/flask_admin/templates/foundation/admin/base.html" />
       </list>
     </option>
   </component>
@@ -328,6 +317,162 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flask_admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flask_admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foundation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flask_admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foundation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flask_admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sqla" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sqla" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sqla" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="classes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -341,18 +486,18 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/classes" />
-      <recent name="$PROJECT_DIR$/core/templates/projects/it_lending_log" />
-      <recent name="$PROJECT_DIR$/core/templates" />
-      <recent name="$PROJECT_DIR$/core" />
-      <recent name="$PROJECT_DIR$" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/core/templates/projects/alteritem.html" />
       <recent name="$PROJECT_DIR$/core/templates/projects" />
       <recent name="$PROJECT_DIR$/core/templates/projects/map" />
       <recent name="$PROJECT_DIR$/web_apps_examples" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/sqla/templates" />
+      <recent name="$PROJECT_DIR$/app/classes" />
+      <recent name="$PROJECT_DIR$/core/templates/projects/it_lending_log" />
+      <recent name="$PROJECT_DIR$/core/templates" />
+      <recent name="$PROJECT_DIR$/core" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -634,14 +779,14 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20577617" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20577617" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13072917" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32893497" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2030686" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2030686" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -744,138 +889,15 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="152" />
+      <option name="time" value="155" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="C" language="Python" />
-        <watch expression="Base" language="Python" />
-        <watch expression="C.__mapper__" language="Python" />
-        <watch expression="C.__table__" language="Python" />
-        <watch expression="mapper.iterate_properties" language="Python" />
-        <watch expression="prop" language="Python" />
-        <watch expression="properties" language="Python" />
-        <watch expression="name" language="Python" />
-        <watch expression="field" language="Python" />
-        <watch expression="db_session" language="Python" />
-        <watch expression="form" language="Python" />
-        <watch expression="model" language="Python" />
-        <watch expression="converter" language="Python" />
-        <watch expression="__classpath__" language="Python" />
-        <watch expression="globals()" language="Python" />
-        <watch expression="dir(Group)" language="Python" />
-        <watch expression="a" language="Python" />
-        <watch expression="__file__" language="Python" />
-        <watch expression="__dir__" language="Python" />
-        <watch expression="c" language="Python" />
-        <watch expression="data" language="Python" />
-        <watch expression="myfile" language="Python" />
-        <watch expression="cns" language="Python" />
-        <watch expression="tns" language="Python" />
+        <watch expression="self" language="Python" />
       </configuration>
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/core/access_helper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="47" lean-forward="false" selection-start-line="6" selection-start-column="47" selection-end-line="6" selection-end-column="47" />
-          <folding>
-            <element signature="e#598#1663#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/copy_template">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="35" column="23" lean-forward="false" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/sqlalchemy/sql/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="631" column="0" lean-forward="false" selection-start-line="631" selection-start-column="0" selection-end-line="631" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/sqlalchemy/sql/schema.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="394" column="0" lean-forward="false" selection-start-line="394" selection-start-column="0" selection-end-line="394" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/Cellar/python/2.7.13/Frameworks/Python.framework/Versions/2.7/lib/python2.7/importlib/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/ide/ide-scripting.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/classes/bat.py" />
-    <entry file="file://$PROJECT_DIR$/app/admin/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/flask/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1065">
-          <caret line="72" column="8" lean-forward="false" selection-start-line="72" selection-start-column="8" selection-end-line="72" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/flask_sqlalchemy/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="739" column="8" lean-forward="false" selection-start-line="739" selection-start-column="8" selection-end-line="739" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/classes/project2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/classes/online_learning.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/projects/project_admin.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/projects/project_layout.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="119" column="0" lean-forward="false" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/lib/python2.7/site-packages/wtforms/fields/core.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -956,14 +978,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="8" lean-forward="false" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/wtforms/ext/sqlalchemy/orm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="139" column="0" lean-forward="false" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1104,14 +1118,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dbas.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="8" column="7" lean-forward="false" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/admin/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="453">
@@ -1163,7 +1169,151 @@
     <entry file="file://$PROJECT_DIR$/app/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+          <caret line="0" column="17" lean-forward="true" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/sqla/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ldapconfig.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/wtforms/ext/sqlalchemy/orm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2160">
+          <caret line="151" column="73" lean-forward="false" selection-start-line="151" selection-start-column="73" selection-end-line="151" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dbas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#9#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flask_admin/menu.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/jinja2/runtime.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="259" column="0" lean-forward="false" selection-start-line="259" selection-start-column="0" selection-end-line="259" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flask_admin/templates/foundation/admin/layout.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="96" column="0" lean-forward="false" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/sqla/classes/iaas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flask_admin/contrib/sqla/view.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="30" column="25" lean-forward="false" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flask_admin/model/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-9550">
+          <caret line="99" column="6" lean-forward="false" selection-start-line="99" selection-start-column="6" selection-end-line="99" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flask_admin/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="527" column="11" lean-forward="false" selection-start-line="527" selection-start-column="11" selection-end-line="527" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flask_admin/templates/foundation/admin/master.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/sqla/templates/my_master.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/sqla/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="539">
+          <caret line="154" column="35" lean-forward="true" selection-start-line="154" selection-start-column="35" selection-end-line="154" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#1537#1821#0" expanded="false" />
+            <element signature="e#2014#2717#0" expanded="false" />
+            <element signature="e#6455#6702#0" expanded="false" />
+            <element signature="e#8126#8575#0" expanded="false" />
+            <element signature="e#8624#11539#0" expanded="false" />
+            <element signature="e#14772#14796#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/sqla/core/iaasldap.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="16" />
+          <folding>
+            <element signature="e#162#412#0" expanded="false" />
+            <element signature="e#502#763#0" expanded="false" />
+            <element signature="e#763#781#0" expanded="false" />
+            <element signature="e#1875#4163#0" expanded="false" />
+            <element signature="e#4402#5718#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flask_admin/templates/foundation/admin/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="213" column="54" lean-forward="false" selection-start-line="213" selection-start-column="54" selection-end-line="213" selection-end-column="54" />
           <folding />
         </state>
       </provider>

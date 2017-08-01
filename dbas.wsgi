@@ -10,5 +10,5 @@ sys.path.insert(0,path)
 
 
 # from app.sqla import *
-from app.sqla import app as application
+import app as application
 # application = app

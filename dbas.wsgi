@@ -10,4 +10,4 @@ sys.path.insert(0,path)
 
 
 from app.sqla import *
-
+application = app

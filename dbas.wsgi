@@ -9,5 +9,6 @@ path=__file__[0:-9]
 sys.path.insert(0,path)
 
 
-from app.sqla import *
-application = app
+# from app.sqla import *
+from app.sqla import app as application
+# application = app

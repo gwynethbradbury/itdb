@@ -13,7 +13,7 @@
     {% endblock %}
     {% block head_css %}
 
-{#        <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/swatch/{swatch}/bootstrap.min.css'.format(swatch=config.get('FLASK_ADMIN_SWATCH', 'default')), v='3.3.5') }}" rel="stylesheet">#}
+        <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/swatch/{swatch}/bootstrap.min.css'.format(swatch=config.get('FLASK_ADMIN_SWATCH', 'default')), v='3.3.5') }}" rel="stylesheet">
     {% block css_admin_extensions %}
 
 {#        {% if admin_view.extra_css %}#}
@@ -239,6 +239,40 @@
 
                     {% block page %}
                     {% endblock %}
+
+
+
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="medium-6 columns">
+                            <h3>Enquiries</h3>
+                            <p>Use this area to request more information on using one of our services for your project.</p>
+                            <ul class="menu">
+                                <li><a href="http://intranet.ouce.ox.ac.uk">School Intranet</a></li>
+                                <li><a href="/subscribe">Subscribe</a></li>
+                                <!--<li><a href="#">Facebook</a></li>
+                                <li><a href="#">Yo</a></li>-->
+                            </ul>
+                        </div>
+                        <div class="medium-6 columns">
+                            <!--should autofill:
+                            <label>Name
+                            <input type="text" placeholder="Name">
+                            </label>
+                            <label>Email
+                            <input type="text" placeholder="Email">
+                            </label>-->
+                            <form action="sendenquiry" method="post" name="enquiry">
+                                <label for="messagebody">
+                                Message
+                                <textarea name="messagebody" placeholder="Enter your question here"></textarea>
+                                </label>
+                                <input type="submit" class="button expanded" value="Submit">
+                            </form>
+                        </div>
+                    </div>
 
                 </div>
             </div>

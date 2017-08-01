@@ -58,16 +58,17 @@ class AccessHelper:
         svc_type = dict1[svc_type]
         try:
             print("about to query...")
-            usersgroups = iaasldap.get_groups(iaasldap.uid_trim())
+            usersgroups = iaasldap.get_groups()
             print("user {} is in groups {}".format(iaasldap.uid_trim(),
                                                    usersgroups))
             for g in usersgroups:
                 g_id = self.get_group_id(g)
                 query = "SELECT instance_identifier,project_display_name " \
                         "FROM svc_instances " \
-                        "WHERE svc_type_id='{}' " \
-                        "AND group_id='{}';"\
-                    .format(str(svc_type),str(g_id))
+                        "WHERE svc_type_id='{}' " .format(str(svc_type))
+                if not iaasldap.has_role('superusers'):
+                    query=query+"AND group_id='{}'".format(str(g_id))
+                query=query+";"
 
                 with connection.cursor() as cursor:
                     cursor.execute(query)
@@ -97,8 +98,9 @@ class AccessHelper:
             query = "SELECT instance_identifier,project_display_name,svc_type_id " \
                     "FROM svc_instances "
             if not iaasldap.has_role('superusers'):
-                query=query+"WHERE group_id='{}';"\
+                query=query+"WHERE group_id='{}'"\
                 .format(str(g_id))
+            query=query+";"
 
             with connection.cursor() as cursor:
                 cursor.execute(query)

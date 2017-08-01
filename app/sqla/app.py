@@ -65,9 +65,8 @@ def show_groups(group_name):
 @app.route('/')
 def index():
     try:
-        return render_template("index.html")
-        #                       , servicelist=iaasldap.get_groups(iaasldap.uid_trim()),
-                               # instances=instances)
+        instances = AH.get_projects('dbas')
+        return render_template("index.html", instances=instances)
     except TemplateNotFound:
         abort(404)
 

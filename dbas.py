@@ -1,16 +1,20 @@
-#!/usr/bin/env python
+import os
+import os.path as op
 
 
 # from projects.map import map_app
 #
 # from core.home import home
 
-from app import app
+from app.sqla import app as app
 
+from app.sqla import *
 # app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 # manager = Manager(app)
 # migrate = Migrate(app, db)
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=2000)#, debug=True)
+    # app_dir = op.realpath(os.path.dirname(__file__))
+    app.run()
+    # app.run(host="0.0.0.0", port=5000, debug=True)

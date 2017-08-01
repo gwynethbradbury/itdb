@@ -74,21 +74,23 @@ class LoginForm(form.Form):
     def validate_login(self, field):
         user = self.get_user()
 
-        if user is None:
-            raise validators.ValidationError('Invalid user')
-
-        # we're comparing the plaintext pw with the the hash from the db
-        if not check_password_hash(user.password, self.password.data):
-        # to compare plain text passwords use
-        # if user.password != self.password.data:
-            raise validators.ValidationError('Invalid password')
+        # if user is None:
+        #     raise validators.ValidationError('Invalid user')
+        #
+        # # we're comparing the plaintext pw with the the hash from the db
+        # if not check_password_hash(user.password, self.password.data):
+        # # to compare plain text passwords use
+        # # if user.password != self.password.data:
+        #     raise validators.ValidationError('Invalid password')
 
     def get_user(self):
-        return db.session.query(User).filter_by(login=self.login.data).first()
+        return current_user.uid_trim()
+        # return db.session.query(User).filter_by(login=self.login.data).first()
 
 
 # Create customized model view class
 class MyModelView(ModelView, ):
+    current_user = iaasldap.LDAPUser()
 
     def is_accessible(self):
         current_url = str.split(self.admin.url,'/')
@@ -125,57 +127,63 @@ class MyModelView(ModelView, ):
                 # login
                 return "not authenticated" #redirect(url_for('security.login', next=request.url))
 
-            # Create customized index view class that handles login & registration
-            class MyAdminIndexView(admin.AdminIndexView):
+@app.context_processor
+def inject_paths():
+    # you will be able to access {{ path1 }} and {{ path2 }} in templates
+    return dict(LDAPUser=iaasldap.LDAPUser())
 
-                @expose('/')
-                def index(self):
-                    if not login.current_user.is_authenticated:
-                        return redirect(url_for('.login_view'))
-                    return super(MyAdminIndexView, self).index()
+# Create customized index view class that handles login & registration
+class MyAdminIndexView(admin.AdminIndexView):
 
-                @expose('/login/', methods=('GET', 'POST'))
-                def login_view(self):
-                    # handle user login
-                    form = LoginForm(request.form)
-                    if helpers.validate_form_on_submit(form):
-                        user = form.get_user()
-                        login.login_user(user)
+    @expose('/')
+    def index(self):
+        # if not login.current_user.is_authenticated:
+        if not current_user.is_authenticated:
+            return "user not authenticatedr" #edirect(url_for('.login_view'))
+        return super(MyAdminIndexView, self).index()
 
-                    if login.current_user.is_authenticated:
-                        return redirect(url_for('.index'))
-                    link = '<p>Don\'t have an account? <a href="' + url_for(
-                        '.register_view') + '">Click here to register.</a></p>'
-                    self._template_args['form'] = form
-                    self._template_args['link'] = link
-                    return super(MyAdminIndexView, self).index()
+    # @expose('/login/', methods=('GET', 'POST'))
+    # def login_view(self):
+    #     # handle user login
+    #     form = LoginForm(request.form)
+    #     if helpers.validate_form_on_submit(form):
+    #         user = form.get_user()
+    #         login.login_user(user)
+    #
+    #     if login.current_user.is_authenticated:
+    #         return redirect(url_for('.index'))
+    #     link = '<p>Don\'t have an account? <a href="' + url_for(
+    #         '.register_view') + '">Click here to register.</a></p>'
+    #     self._template_args['form'] = form
+    #     self._template_args['link'] = link
+    #     return super(MyAdminIndexView, self).index()
 
-                @expose('/register/', methods=('GET', 'POST'))
-                def register_view(self):
-                    form = RegistrationForm(request.form)
-                    if helpers.validate_form_on_submit(form):
-                        user = User()
+    # @expose('/register/', methods=('GET', 'POST'))
+    # def register_view(self):
+    #     form = RegistrationForm(request.form)
+    #     if helpers.validate_form_on_submit(form):
+    #         user = User()
+    #
+    #         form.populate_obj(user)
+    #         # we hash the users password to avoid saving it as plaintext in the db,
+    #         # remove to use plain text:
+    #         user.password = generate_password_hash(form.password.data)
+    #
+    #         db.session.add(user)
+    #         db.session.commit()
+    #
+    #         login.login_user(user)
+    #         return redirect(url_for('.index'))
+    #     link = '<p>Already have an account? <a href="' + url_for(
+    #         '.login_view') + '">Click here to log in.</a></p>'
+    #     self._template_args['form'] = form
+    #     self._template_args['link'] = link
+    #     return super(MyAdminIndexView, self).index()
 
-                        form.populate_obj(user)
-                        # we hash the users password to avoid saving it as plaintext in the db,
-                        # remove to use plain text:
-                        user.password = generate_password_hash(form.password.data)
-
-                        db.session.add(user)
-                        db.session.commit()
-
-                        login.login_user(user)
-                        return redirect(url_for('.index'))
-                    link = '<p>Already have an account? <a href="' + url_for(
-                        '.login_view') + '">Click here to log in.</a></p>'
-                    self._template_args['form'] = form
-                    self._template_args['link'] = link
-                    return super(MyAdminIndexView, self).index()
-
-                @expose('/logout/')
-                def logout_view(self):
-                    login.logout_user()
-                    return redirect(url_for('.index'))
+    # @expose('/logout/')
+    # def logout_view(self):
+    #     login.logout_user()
+    #     return redirect(url_for('.index'))
 
 # Initialize flask-login
 def init_login():
@@ -421,7 +429,7 @@ iaas_admin = admin.Admin(app, name='IAAS admin app', template_mode='foundation',
                          base_template='my_master.html')
 
 # Add views
-iaas_admin.add_view(MyModelView(SvcInstances, db.session))
+iaas_admin.add_view(MyModelView(SvcInstances, db.session,))
 iaas_admin.add_view(MyModelView(Subscribers, db.session))
 iaas_admin.add_view(MyModelView(News, db.session))
 iaas_admin.add_view(MyModelView(Comment, db.session))

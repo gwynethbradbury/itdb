@@ -13,7 +13,7 @@
     {% endblock %}
     {% block head_css %}
 
-        <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/swatch/{swatch}/bootstrap.min.css'.format(swatch=config.get('FLASK_ADMIN_SWATCH', 'default')), v='3.3.5') }}" rel="stylesheet">
+{#        <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/swatch/{swatch}/bootstrap.min.css'.format(swatch=config.get('FLASK_ADMIN_SWATCH', 'default')), v='3.3.5') }}" rel="stylesheet">#}
 {#        {%if config.get('FLASK_ADMIN_SWATCH', 'default') == 'default' %}#}
 {#        <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/css/bootstrap-theme.min.css', v='3.3.5') }}" rel="stylesheet">#}
 {#        {%endif%}#}
@@ -211,12 +211,14 @@
                         <a href="http://www.geog.ox.ac.uk"><img class="thumbnail" src="{{ admin_static.url(filename='img/geog-intranet-brand-pos.png') }}"></a>
                         <br>
                         <a href="{{ url_for('show', page='') }}"><img class="thumbnail" src="{{ admin_static.url(filename='img/fruitbowl.jpg') }}"></a>
-                        <h4>{{ current_user.uid_trim()}}</h4>
+                        <h4>
+{#                            {{ current_user.first_name }} #}
+                            {{ LDAPUser.uid_trim() }}</h4>
                         <hr>
                         <p>List of my groups:</p>
                         <div>
                             <ul>
-                                {% for x in servicelist %}
+                                {% for x in LDAPUser.get_groups() %}
                                     <li><a href="/group/{{ x }}">{{ x }}</a></li>
                                 {% endfor %}
                             </ul>
@@ -232,7 +234,7 @@
                     <div class="title-bar hide-for-large">
                         <div class="title-bar-left">
                             <button class="menu-icon" type="button" data-open="my-info"></button>
-                            <span class="title-bar-title">{{ username }}</span>
+                            <span class="title-bar-title">{{ LDAPUser.uid_trim() }}</span>
                         </div>
                     </div>
 
@@ -259,7 +261,7 @@
                             <div class="row">
                                 <div class="top-bar-left">
                                     <ul class="dropdown menu" data-dropdown-menu>
-                                        <li class="menu-text">Welcome, {{ fullname }}</li>
+                                        <li class="menu-text">Welcome, {{ LDAPUser.get_fullname() }}</li>
                                         <li class="has-submenu">
                                             <a href="#">My Account</a>
                                             <ul class="submenu menu vertical" data-submenu>

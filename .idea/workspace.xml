@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fea06bd9-e89c-4ffd-a449-36dcea70bd18" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dbas.wsgi" afterPath="$PROJECT_DIR$/dbas.wsgi" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/sqla/app.py" afterPath="$PROJECT_DIR$/app/sqla/app.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/sqla/core/auth/views.py" afterPath="$PROJECT_DIR$/app/sqla/core/auth/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/sqla/core/iaasldap.py" afterPath="$PROJECT_DIR$/app/sqla/core/iaasldap.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/base.html" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/base.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,7 +18,7 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/iaas_pages_copy$iaas.coverage" NAME="iaas Coverage Results" MODIFIED="1497623250012" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/iaas_pages$iaas.coverage" NAME="iaas Coverage Results" MODIFIED="1497602591663" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/dbas$dbas.coverage" NAME="dbas Coverage Results" MODIFIED="1501520139797" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/dbas$dbas.coverage" NAME="dbas Coverage Results" MODIFIED="1501595707835" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/online$iaas.coverage" NAME="iaas Coverage Results" MODIFIED="1497623763640" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -25,19 +29,29 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="app.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/sqla/app.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1955">
-                  <caret line="154" column="35" lean-forward="true" selection-start-line="154" selection-start-column="35" selection-end-line="154" selection-end-column="35" />
+                <state relative-caret-position="280">
+                  <caret line="132" column="44" lean-forward="false" selection-start-line="132" selection-start-column="44" selection-end-line="132" selection-end-column="44" />
                   <folding>
                     <element signature="e#0#9#0" expanded="true" />
                     <element signature="e#1537#1821#0" expanded="false" />
-                    <element signature="e#2014#2717#0" expanded="false" />
-                    <element signature="e#6455#6702#0" expanded="false" />
-                    <element signature="e#8126#8575#0" expanded="false" />
-                    <element signature="e#8624#11539#0" expanded="false" />
-                    <element signature="e#14772#14796#0" expanded="false" />
+                    <element signature="e#8043#8492#0" expanded="false" />
+                    <element signature="e#8541#11456#0" expanded="false" />
+                    <element signature="e#14690#14714#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/sqla/core/auth/views.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="390">
+                  <caret line="26" column="8" lean-forward="false" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
+                  <folding>
+                    <element signature="e#0#68#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -46,29 +60,21 @@
           <file leaf-file-name="my_master.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/sqla/templates/my_master.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="270">
-                  <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+                <state relative-caret-position="105">
+                  <caret line="7" column="26" lean-forward="false" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="26" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="dbas.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/dbas.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="150">
-                  <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
+          <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/flask_admin/templates/foundation/admin/base.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="250">
-                  <caret line="213" column="54" lean-forward="false" selection-start-line="213" selection-start-column="54" selection-end-line="213" selection-end-column="54" />
-                  <folding />
+                <state relative-caret-position="-423">
+                  <caret line="16" column="64" lean-forward="true" selection-start-line="16" selection-start-column="64" selection-end-line="16" selection-end-column="64" />
+                  <folding>
+                    <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -84,26 +90,6 @@
             </entry>
           </file>
           <file leaf-file-name="base.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/flask_admin/base.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="285">
-                  <caret line="527" column="11" lean-forward="false" selection-start-line="527" selection-start-column="11" selection-end-line="527" selection-end-column="11" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="view.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/flask_admin/contrib/sqla/view.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="90">
-                  <caret line="30" column="25" lean-forward="false" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="base.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/flask_admin/model/base.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="-9550">
@@ -113,44 +99,40 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="iaas.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/sqla/classes/iaas.py">
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="iaasldap.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/app/sqla/core/iaasldap.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                <state relative-caret-position="390">
+                  <caret line="67" column="28" lean-forward="false" selection-start-line="67" selection-start-column="28" selection-end-line="67" selection-end-column="28" />
+                  <folding>
+                    <element signature="e#257#507#0" expanded="false" />
+                    <element signature="e#597#858#0" expanded="false" />
+                    <element signature="e#858#876#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="base.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/flask_admin/base.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="7740">
+                  <caret line="527" column="8" lean-forward="false" selection-start-line="527" selection-start-column="8" selection-end-line="527" selection-end-column="8" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="iaasldap.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/sqla/core/iaasldap.py">
+          <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/sqla/core/auth/__init__.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="120">
-                  <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="16" />
-                  <folding>
-                    <element signature="e#162#412#0" expanded="false" />
-                    <element signature="e#502#763#0" expanded="false" />
-                    <element signature="e#763#781#0" expanded="false" />
-                    <element signature="e#1875#4163#0" expanded="false" />
-                    <element signature="e#4402#5718#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="dbas.wsgi" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/dbas.wsgi">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="210">
-                  <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#18#28#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="0">
+                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -179,12 +161,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>session.</find>
-      <find>exclude_fk</find>
-      <find>su</find>
-      <find>superu</find>
-      <find>superus</find>
-      <find>superuser</find>
       <find>superusers</find>
       <find>email</find>
       <find>classfrom</find>
@@ -207,8 +183,14 @@
       <find>sqlalchemy</find>
       <find>region</find>
       <find>add_view</find>
-      <find>cur</find>
       <find>current</find>
+      <find>cu</find>
+      <find>current_</find>
+      <find>current_user</find>
+      <find>my_</find>
+      <find>my_master</find>
+      <find>curre</find>
+      <find>cur</find>
     </findStrings>
     <replaceStrings>
       <replace>dbas_url</replace>
@@ -221,7 +203,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/core/templates/dbas.html" />
         <option value="$PROJECT_DIR$/core/templates/service.html" />
         <option value="$PROJECT_DIR$/core/templates/groupprojects.html" />
         <option value="$PROJECT_DIR$/core/access_helper.py" />
@@ -268,10 +249,11 @@
         <option value="$PROJECT_DIR$/app/classes/__init__.py" />
         <option value="$PROJECT_DIR$/app/__init__.py" />
         <option value="$PROJECT_DIR$/flask_admin/contrib/sqla/view.py" />
+        <option value="$PROJECT_DIR$/dbas.wsgi" />
         <option value="$PROJECT_DIR$/app/sqla/core/iaasldap.py" />
+        <option value="$PROJECT_DIR$/app/sqla/core/auth/views.py" />
         <option value="$PROJECT_DIR$/app/sqla/app.py" />
         <option value="$PROJECT_DIR$/flask_admin/templates/foundation/admin/base.html" />
-        <option value="$PROJECT_DIR$/dbas.wsgi" />
       </list>
     </option>
   </component>
@@ -366,6 +348,54 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sqla" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sqla" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="auth" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -807,7 +837,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="155" />
+      <option name="time" value="156" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -816,58 +846,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/classes/project3.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/flask/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="415">
-          <caret line="1602" column="23" lean-forward="true" selection-start-line="1602" selection-start-column="23" selection-end-line="1602" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/projects/project_detailview.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="28" lean-forward="false" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitlab-ci.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="114" lean-forward="false" selection-start-line="10" selection-start-column="114" selection-end-line="10" selection-end-column="114" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2017.1/python_stubs/160944109/__builtin__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="4339" column="8" lean-forward="false" selection-start-line="4339" selection-start-column="8" selection-end-line="4339" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/online_learning/learning_layout.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="15" lean-forward="false" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -1156,48 +1134,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/flask_admin/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="527" column="11" lean-forward="false" selection-start-line="527" selection-start-column="11" selection-end-line="527" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/flask_admin/templates/foundation/admin/master.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/sqla/core/iaasldap.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="16" />
-          <folding>
-            <element signature="e#162#412#0" expanded="false" />
-            <element signature="e#502#763#0" expanded="false" />
-            <element signature="e#763#781#0" expanded="false" />
-            <element signature="e#1875#4163#0" expanded="false" />
-            <element signature="e#4402#5718#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flask_admin/templates/foundation/admin/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="213" column="54" lean-forward="false" selection-start-line="213" selection-start-column="54" selection-end-line="213" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/sqla/templates/my_master.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1210,28 +1150,124 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/sqla/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1955">
-          <caret line="154" column="35" lean-forward="true" selection-start-line="154" selection-start-column="35" selection-end-line="154" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-            <element signature="e#1537#1821#0" expanded="false" />
-            <element signature="e#2014#2717#0" expanded="false" />
-            <element signature="e#6455#6702#0" expanded="false" />
-            <element signature="e#8126#8575#0" expanded="false" />
-            <element signature="e#8624#11539#0" expanded="false" />
-            <element signature="e#14772#14796#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dbas.wsgi">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding>
             <element signature="e#18#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/werkzeug/security.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="233" column="4" lean-forward="false" selection-start-line="233" selection-start-column="4" selection-end-line="233" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2017.1/python_stubs/160944109/__builtin__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="788">
+          <caret line="4339" column="8" lean-forward="false" selection-start-line="4339" selection-start-column="8" selection-end-line="4339" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/flask_login/login_manager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-164">
+          <caret line="34" column="8" lean-forward="false" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/flask_login/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="299" column="4" lean-forward="false" selection-start-line="299" selection-start-column="4" selection-end-line="299" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flask_admin/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7740">
+          <caret line="527" column="8" lean-forward="false" selection-start-line="527" selection-start-column="8" selection-end-line="527" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/sqla/core/auth/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="8" lean-forward="false" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#68#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/sqla/core/auth/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/flask_login/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-20">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding>
+            <element signature="e#299#558#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/sqla/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="132" column="44" lean-forward="false" selection-start-line="132" selection-start-column="44" selection-end-line="132" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#1537#1821#0" expanded="false" />
+            <element signature="e#8043#8492#0" expanded="false" />
+            <element signature="e#8541#11456#0" expanded="false" />
+            <element signature="e#14690#14714#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/sqla/templates/my_master.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="26" lean-forward="false" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/sqla/core/iaasldap.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="67" column="28" lean-forward="false" selection-start-line="67" selection-start-column="28" selection-end-line="67" selection-end-column="28" />
+          <folding>
+            <element signature="e#257#507#0" expanded="false" />
+            <element signature="e#597#858#0" expanded="false" />
+            <element signature="e#858#876#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flask_admin/templates/foundation/admin/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-423">
+          <caret line="16" column="64" lean-forward="true" selection-start-line="16" selection-start-column="64" selection-end-line="16" selection-end-column="64" />
+          <folding>
+            <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>

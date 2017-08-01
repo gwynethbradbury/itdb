@@ -5,6 +5,11 @@ import ldapconfig
 
 class LDAPUser():
 
+    def confirmed(self):
+        return True
+    def is_anonymous(self):
+        return False
+
     '''
     Gets the users username credential
     '''

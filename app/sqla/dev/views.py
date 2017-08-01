@@ -19,7 +19,7 @@ def render_detail(tablename, DBA, **kwargs):
                            tablenames=t,
                            pname=DBA.mydatabasename,
                            username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
-                           servicelist=iaasldap.get_groups(iaasldap.uid_trim()),
+                           servicelist=iaasldap.get_groups(),
                            **kwargs)
 
 def render_list(tablename, fields, DBA, **kwargs):
@@ -32,7 +32,7 @@ def render_list(tablename, fields, DBA, **kwargs):
                            filters=DBA.filters,
                            pname=DBA.mydatabasename,
                            username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
-                           servicelist=iaasldap.get_groups(iaasldap.uid_trim()),
+                           servicelist=iaasldap.get_groups(),
                            **kwargs)
 
 
@@ -43,7 +43,7 @@ caveat: if this is an admin-only page, _admin is added to the group name
 def user_authorised(application_name,is_admin_only_page=False):
     if is_admin_only_page:
         application_name = application_name +"_admin"
-    usersgroups = iaasldap.get_groups(iaasldap.uid_trim())
+    usersgroups = iaasldap.get_groups()
     if application_name in usersgroups:
         return True
     if "superusers" in usersgroups:

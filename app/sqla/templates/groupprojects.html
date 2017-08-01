@@ -1,0 +1,28 @@
+{% extends "console.html" %}
+
+
+{% block servicename %}
+    Projects for group '{{ groupname }}'
+{% endblock %}
+
+	
+{% block consolecontent %}
+    {% if instances|length>0 %}
+
+
+        <ul>
+                {% for instance in instances %}
+                        <li><a href="{{ dbas_url }}/projects/{{instance[0]}}">{{instance[1]}}</a> ({{ instance[2] }})</li>
+                {% endfor %}
+        </ul>
+
+
+    {% else %}
+
+        You are not authorised to view any projects for this group, or none exist.
+
+    {% endif %}
+{% endblock %}
+
+
+

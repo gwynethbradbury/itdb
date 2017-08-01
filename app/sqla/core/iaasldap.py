@@ -171,7 +171,7 @@ class LDAPUser():
             return ["filteredgroup1", "filteredgroup2"]
         else:
             groups=[]
-            result_set = self.get_groups(uid)
+            result_set = self.get_groups()
             # result_set is a list containing lists of tuples, each containing a list - fun!
             for res in result_set:
                 if res.find(filter) != -1:

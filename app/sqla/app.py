@@ -44,9 +44,33 @@ from jinja2 import TemplateNotFound
 from flask import render_template, abort
 
 
+
+if dbconfig.test:
+    from core.mock_access_helper import MockAccessHelper as AccessHelper
+else:
+    from core.access_helper import AccessHelper
+AH = AccessHelper()
+
 # Flask views
+@app.route('/group/<group_name>')
+def show_groups(group_name):
+    instances = AH.get_projects_for_group(group_name)
+    try:
+        return render_template("groupprojects.html",groupname=group_name,instances=instances)
+    except TemplateNotFound:
+        abort(404)
+
+    return '<a href="/admin/">Click me to get to Admin!</a>'
+
 @app.route('/')
 def index():
+    try:
+        return render_template("index.html")
+        #                       , servicelist=iaasldap.get_groups(iaasldap.uid_trim()),
+                               # instances=instances)
+    except TemplateNotFound:
+        abort(404)
+
     return '<a href="/admin/">Click me to get to Admin!</a>'
 
 

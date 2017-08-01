@@ -1,382 +1,59 @@
+{% extends "base_template.html" %}
 {% import 'admin/layout.html' as layout with context -%}
 {% import 'admin/static.html' as admin_static with context %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>{% block title %}{% if admin_view.category %}{{ admin_view.category }} - {% endif %}{{ admin_view.name }} - {{ admin_view.admin.name }}{% endblock %}</title>
-    {% block head_meta %}
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
-        <meta name="author" content="">
-    {% endblock %}
-    {% block head_css %}
 
-        <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/swatch/{swatch}/bootstrap.min.css'.format(swatch=config.get('FLASK_ADMIN_SWATCH', 'default')), v='3.3.5') }}" rel="stylesheet">
-{#        {%if config.get('FLASK_ADMIN_SWATCH', 'default') == 'default' %}#}
-{#        <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/css/bootstrap-theme.min.css', v='3.3.5') }}" rel="stylesheet">#}
-{#        {%endif%}#}
-{#        <link href="{{ admin_static.url(filename='admin/css/bootstrap3/admin.css', v='1.1.1') }}" rel="stylesheet">#}
-
-        {% if admin_view.extra_css %}
-          {% for css_url in admin_view.extra_css %}
-            <link href="{{ css_url }}" rel="stylesheet">
-          {% endfor %}
-        {% endif %}
-        <style>
-{#            body {#}
-{#                padding-top: 4px;#}
-{#            }#}
-
-            /* List View - fix trash icon inside table column */
-            .model-list form.icon {
-                display: inline;
-            }
-
-            .model-list form.icon button {
-                border: none;
-                background: transparent;
-                text-decoration: none;
-                padding: 0;
-                line-height: normal;
-            }
-
-            /* List View - link icons - prevent underline */
-            .model-list a.icon {
-                text-decoration: none;
-            }
-
-            /* List View - fix checkbox column width */
-            .list-checkbox-column {
-                width: 14px;
-            }
-
-            /* List View - prevent word wrap on buttons column, to keep it on one line */
-            .list-buttons-column {
-                white-space: nowrap;
-            }
-
-            /* List View - fix gap between actions and table */
-            .model-list  {
-                position: relative;
-                margin-top: -1px;
-                z-index: 999;
-            }
-
-            .actions-nav  {
-            margin-bottom: 0;
-            margin-left: 4px;
-            margin-right: 4px;
-            }
-
-            #filter_form  {
-                margin-bottom: 0;
-            }
-
-            /* List View Search Form - fix gap between form and table */
-            .actions-nav form.search-form {
-                margin: -1px 0 0 0;
-            }
-
-            /* Filters */
-            table.filters {
-                border-collapse: collapse;
-                border-spacing: 4px;
-            }
-
-            /* prevents gap between table and actions while there are no filters set */
-            table.filters:not(:empty) {
-                margin: 12px 0px 20px 0px;
-            }
-
-            /* spacing between filter X button, operation, and value field */
-            /* uses tables instead of form classes for bootstrap2-3 compatibility */
-            table.filters tr td {
-                padding-right: 5px;
-                padding-bottom: 3px;
-            }
-
-            /* match filter operation drop-down height with bootstrap input */
-            .filters .filter-op > a {
-                height: 28px;
-                line-height: 28px;
-            }
-
-            /* Image thumbnails */
-            .image-thumbnail img {
-                max-width: 100px;
-                max-height: 100px;
-            }
-
-            /* Forms */
-            .admin-form .control-label {
-                width: 100px;
-                text-align: left;
-                margin-left: 4px;
-            }
-
-            /* add spacing between labels and form fields */
-            .admin-form .controls {
-                margin-left: 110px;
-            }
-
-            @media only screen and (max-width: 800px) {
-
-                /* Force table to not be like tables anymore */
-                #no-more-tables table,
-                #no-more-tables thead,
-                #no-more-tables tbody,
-                #no-more-tables th,
-                #no-more-tables td,
-                #no-more-tables tr {
-                    display: block;
-                }
-
-                /* Hide table headers (but not display: none;, for accessibility) */
-                #no-more-tables thead tr {
-                    position: absolute;
-                    top: -9999px;
-                    left: -9999px;
-                }
-
-                #no-more-tables tr { border: 1px solid #ccc; }
-
-                #no-more-tables td {
-                    /* Behave  like a "row" */
-                    border: none;
-                    border-bottom: 1px solid #eee;
-                    position: relative;
-                    padding-left: 50%;
-                    white-space: normal;
-                    text-align:left;
-                }
-
-                #no-more-tables td:before {
-                    /* Now like a table header */
-                    position: absolute;
-                    /* Top/left values mimic padding */
-                    top: 6px;
-                    left: 6px;
-                    width: 45%;
-                    padding-right: 10px;
-                    white-space: nowrap;
-                    text-align:left;
-                    font-weight: bold;
-                }
-
-                /*
-                Label the data
-                */
-                #no-more-tables td:before { content: attr(data-title); }
-            }
-
-        </style>
+{% block title %}
+    {% if admin_view.category %}{{ admin_view.category }} - {% endif %}{{ admin_view.name }} - {{ admin_view.admin.name }}
+{% endblock %}
 
 
-        <link rel="stylesheet" href="{{ admin_static.url(filename='css/foundation.css') }}">
-        <link rel="stylesheet" href="{{ admin_static.url(filename='css/app.css') }}">
-        <link rel="shortcut icon" href="http://www.geog.ox.ac.uk/favicon.ico">
+{% block page %}
+    <div class="page">
+        <!--<h1>This is blueprint example</h1>
+        <p>
+        A simple page blueprint is registered under / and /pages
+        you can access it using this URLs:
+        <ul>
+        <li><a href="{{ url_for('show', page='service') }}">/service</a>
+        <li><a href="{{ url_for('show', page='iaas') }}">/iaas</a>
+        </ul>
+        <p>
+        Also you can register the same blueprint under another path
+        <ul>
+        <li><a href="/pages/service">/pages/service</a>
+        <li><a href="/pages/iaas">/pages/iaas</a>
+        </ul>-->
 
 
-    {% endblock %}
-
-    {% block head %}
-    {% endblock %}
-
-    {% block head_tail %}
-    {% endblock %}
-
-{#  ####}
-
-
-
-
-	<title>IT: IaaS | School of Geography and the Environment | University of Oxford</title>
-
-
-
-	{% block scripts %}{% endblock %}
-    </head>
-
-    <body {% block bodycalls %}{% endblock %}>
-    {% block page_body %}
-
-        <div class="off-canvas-wrapper">
-            <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
-
-                <div class="off-canvas position-left reveal-for-large" id="my-info" data-off-canvas data-position="left">
-                    <div class="row column">
-                        <br>
-                        <a href="http://www.geog.ox.ac.uk"><img class="thumbnail" src="{{ admin_static.url(filename='img/geog-intranet-brand-pos.png') }}"></a>
-                        <br>
-                        <a href="{{ url_for('show', page='') }}"><img class="thumbnail" src="{{ admin_static.url(filename='img/fruitbowl.jpg') }}"></a>
-                        <h4>{{ username }}</h4>
-                        <hr>
-                        <p>List of my groups:</p>
-                        <div>
-                            <ul>
-                                {% for x in servicelist %}
-                                    <li><a href="/group/{{ x }}">{{ x }}</a></li>
-                                {% endfor %}
+        <div class="top-bar">
+            <div class="row">
+                <div class="top-bar-left">
+                    <ul class="dropdown menu" data-dropdown-menu>
+                        <li class="menu-text">Welcome, {{ LDAPUser.get_fullname() }}</li>
+                        <li class="has-submenu">
+                            <a href="#">My Account</a>
+                            <ul class="submenu menu vertical" data-submenu>
+                                <li><a href="{{ iaas_url }}/iam">IAM management Console</a></li>
+                                <li><a href="{{ iaas_url }}/nextcloud">NextCloud Services Console</a></li>
+                                <li><a href="{{ iaas_url }}/dbas">DBAS Services Console</a></li>
+                                <hr>
                             </ul>
-                            <hr>
-                            {% if 'superusers' in servicelist %}
-                                <h4><a href="{{ url_for('show', page='admin') }}" title="Admin">Admin</a></h4>
-                            {% endif %}
-                        </div>
-                    </div>
+                        </li>
+                    </ul>
                 </div>
+                <div class="top-bar-right">
+                    <ul class="menu">
+                        <li><a href="{{ iaas_url }}/iam" title="Identity and Access Management">
+                        <img width=64 src="{{ admin_static.url(filename='img/ico/pineapple_64.png') }}" style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"></a></li>
+                        <li><a href="{{ iaas_url }}/nextcloud" title="NextCloud Service"><img width=64 src="{{ admin_static.url(filename='img/ico/lime_64.png') }}"></a></li>
+                        <li><a href="{{ iaas_url }}/dbas" title="DataBases as a Service"><img width=64 src="{{ admin_static.url(filename='img/ico/dragonfruit_64.png') }}"></a></li>
+                        <li><a href="{{ iaas_url }}/waas" title="Web App as a Service">
+                        <img width=64 src="{{ admin_static.url(filename='img/ico/passionfruit_64.png') }}" style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"></a></li>
+                        <li><a href="{{ iaas_url }}/ci" title="Continuous Integration">
+                        <img width=64 src="{{ admin_static.url(filename='img/ico/coconut_64.png') }}" style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"></a></li>
+                        <li><a href="https://www.ox.ac.uk"><img width="50" src="{{ admin_static.url(filename='img/ox-brand.png') }}" /></a></li>
 
-                <div class="off-canvas-content" data-off-canvas-content>
-                    <div class="title-bar hide-for-large">
-                        <div class="title-bar-left">
-                            <button class="menu-icon" type="button" data-open="my-info"></button>
-                            <span class="title-bar-title">{{ username }}</span>
-                        </div>
-                    </div>
-
-
-
-                    <div class="page">
-                        <!--<h1>This is blueprint example</h1>
-                        <p>
-                        A simple page blueprint is registered under / and /pages
-                        you can access it using this URLs:
-                        <ul>
-                        <li><a href="{{ url_for('show', page='service') }}">/service</a>
-                        <li><a href="{{ url_for('show', page='iaas') }}">/iaas</a>
-                        </ul>
-                        <p>
-                        Also you can register the same blueprint under another path
-                        <ul>
-                        <li><a href="/pages/service">/pages/service</a>
-                        <li><a href="/pages/iaas">/pages/iaas</a>
-                        </ul>-->
-
-
-                        <div class="top-bar">
-                            <div class="row">
-                                <div class="top-bar-left">
-                                    <ul class="dropdown menu" data-dropdown-menu>
-                                        <li class="menu-text">Welcome, {{ fullname }}</li>
-                                        <li class="has-submenu">
-                                            <a href="#">My Account</a>
-                                            <ul class="submenu menu vertical" data-submenu>
-                                                <li><a href="{{ iaas_url }}/iam">IAM management Console</a></li>
-                                                <li><a href="{{ iaas_url }}/nextcloud">NextCloud Services Console</a></li>
-                                                <li><a href="{{ iaas_url }}/dbas">DBAS Services Console</a></li>
-                                                <hr>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="top-bar-right">
-                                    <ul class="menu">
-                                        <li><a href="{{ iaas_url }}/iam" title="Identity and Access Management">
-                                        <img width=64 src="{{ admin_static.url(filename='img/ico/pineapple_64.png') }}" style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"></a></li>
-                                        <li><a href="{{ iaas_url }}/nextcloud" title="NextCloud Service"><img width=64 src="{{ admin_static.url(filename='img/ico/lime_64.png') }}"></a></li>
-                                        <li><a href="{{ iaas_url }}/dbas" title="DataBases as a Service"><img width=64 src="{{ admin_static.url(filename='img/ico/dragonfruit_64.png') }}"></a></li>
-                                        <li><a href="{{ iaas_url }}/waas" title="Web App as a Service">
-                                        <img width=64 src="{{ admin_static.url(filename='img/ico/passionfruit_64.png') }}" style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"></a></li>
-                                        <li><a href="{{ iaas_url }}/ci" title="Continuous Integration">
-                                        <img width=64 src="{{ admin_static.url(filename='img/ico/coconut_64.png') }}" style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"></a></li>
-                                        <li><a href="https://www.ox.ac.uk"><img width="50" src="{{ admin_static.url(filename='img/ox-brand.png') }}" /></a></li>
-
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-
-                        <div class="row">
-                            <div class="column">
-                                <br/><h2>
-                                  <a href="{{ admin_view.admin.url }}">{{ admin_view.admin.name }}</a>
-                                    {% if admin_view.category %}{{ admin_view.category }} - {% endif %}: {{ admin_view.name }}
-                                </h2><br/>
-
-                                {% block body2 %}{% endblock %}
-
-
-
-        {#                          {% block brand %}#}
-        {#                          <a href="{{ admin_view.admin.url }}">{{ admin_view.admin.name }}</a>#}
-        {#                          {% endblock %}#}
-
-        {#                        <div>#}
-                                  {% block main_menu %}
-                                  <ul class="menu vertical">
-                                    {{ layout.menu() }}
-                                  </ul>
-                                  {% endblock %}
-
-                                  {% block menu_links %}
-                                  <ul class="menu horizontal">
-                                    {{ layout.menu_links() }}
-                                  </ul>
-                                  {% endblock %}
-
-                                  {% block access_control %}
-                                  {% endblock %}
-
-        {#                        </div>#}
-
-
-                                  <hr>
-
-                                  {% block body %}{% endblock %}
-
-
-                              {% block messages %}
-                              {{ layout.messages() }}
-                              {% endblock %}
-
-                              {# store the jinja2 context for form_rules rendering logic #}
-                              {% set render_ctx = h.resolve_ctx() %}
-
-                              {% block body_bootstrap %}{% endblock %}
-
-                            </div>
-                        </div>
-
-
-                        <hr>
-
-                        <div class="row">
-                            <div class="medium-6 columns">
-                                <h3>Enquiries</h3>
-                                <p>Use this area to request more information on using one of our services for your project.</p>
-                                <ul class="menu">
-                                    <li><a href="http://intranet.ouce.ox.ac.uk">School Intranet</a></li>
-                                    <li><a href="/subscribe">Subscribe</a></li>
-                                    <!--<li><a href="#">Facebook</a></li>
-                                    <li><a href="#">Yo</a></li>-->
-                                </ul>
-                            </div>
-                            <div class="medium-6 columns">
-                                <!--should autofill:
-                                <label>Name
-                                <input type="text" placeholder="Name">
-                                </label>
-                                <label>Email
-                                <input type="text" placeholder="Email">
-                                </label>-->
-                                <form action="sendenquiry" method="post" name="enquiry">
-                                    <label for="messagebody">
-                                    Message
-                                    <textarea name="messagebody" placeholder="Enter your question here"></textarea>
-                                    </label>
-                                    <input type="submit" class="button expanded" value="Submit">
-                                </form>
-                            </div>
-                        </div>
-                    <br/>
-                    <br/>
-                    </div>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -384,28 +61,91 @@
 
 
 
-    {% endblock %}
 
-    {% block tail_js %}
-        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-        <script src="{{ admin_static.url(filename='js/vendor/foundation.js') }}"></script>
-        <script>
-            $(document).foundation();
-        </script>
+        <div class="row">
+            <div class="column">
+                <br/><h2>
+                  <a href="{{ admin_view.admin.url }}">{{ admin_view.admin.name }}</a>
+                    {% if admin_view.category %}{{ admin_view.category }} - {% endif %}: {{ admin_view.name }}
+                </h2><br/>
+
+                {% block body2 %}{% endblock %}
 
 
-{#    <script src="{{ admin_static.url(filename='vendor/jquery.min.js', v='2.1.4') }}" type="text/javascript"></script>#}
-{#    <script src="{{ admin_static.url(filename='bootstrap/bootstrap3/js/bootstrap.min.js', v='3.3.5') }}" type="text/javascript"></script>#}
-{#    <script src="{{ admin_static.url(filename='vendor/moment.min.js', v='2.9.0') }}" type="text/javascript"></script>#}
-{#    <script src="{{ admin_static.url(filename='vendor/select2/select2.min.js', v='3.5.2') }}" type="text/javascript"></script>#}
-{#    {% if admin_view.extra_js %}#}
-{#      {% for js_url in admin_view.extra_js %}#}
-{#        <script src="{{ js_url }}" type="text/javascript"></script>#}
-{#      {% endfor %}#}
-{#    {% endif %}#}
-    {% endblock %}
 
-    {% block tail %}
-    {% endblock %}
-  </body>
-</html>
+{#                          {% block brand %}#}
+{#                          <a href="{{ admin_view.admin.url }}">{{ admin_view.admin.name }}</a>#}
+{#                          {% endblock %}#}
+
+{#                        <div>#}
+                  {% block main_menu %}
+                  <ul class="menu vertical">
+                    {{ layout.menu() }}
+                  </ul>
+                  {% endblock %}
+
+                  {% block menu_links %}
+                  <ul class="menu horizontal">
+                    {{ layout.menu_links() }}
+                  </ul>
+                  {% endblock %}
+
+                  {% block access_control %}
+                  {% endblock %}
+
+{#                        </div>#}
+
+
+                  <hr>
+
+                  {% block body %}{% endblock %}
+
+
+              {% block messages %}
+              {{ layout.messages() }}
+              {% endblock %}
+
+              {# store the jinja2 context for form_rules rendering logic #}
+              {% set render_ctx = h.resolve_ctx() %}
+
+              {% block body_bootstrap %}{% endblock %}
+
+            </div>
+        </div>
+
+
+        <hr>
+
+        <div class="row">
+            <div class="medium-6 columns">
+                <h3>Enquiries</h3>
+                <p>Use this area to request more information on using one of our services for your project.</p>
+                <ul class="menu">
+                    <li><a href="http://intranet.ouce.ox.ac.uk">School Intranet</a></li>
+                    <li><a href="/subscribe">Subscribe</a></li>
+                    <!--<li><a href="#">Facebook</a></li>
+                    <li><a href="#">Yo</a></li>-->
+                </ul>
+            </div>
+            <div class="medium-6 columns">
+                <!--should autofill:
+                <label>Name
+                <input type="text" placeholder="Name">
+                </label>
+                <label>Email
+                <input type="text" placeholder="Email">
+                </label>-->
+                <form action="sendenquiry" method="post" name="enquiry">
+                    <label for="messagebody">
+                    Message
+                    <textarea name="messagebody" placeholder="Enter your question here"></textarea>
+                    </label>
+                    <input type="submit" class="button expanded" value="Submit">
+                </form>
+            </div>
+        </div>
+        <br/>
+        <br/>
+    </div>
+{% endblock %}
+

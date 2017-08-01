@@ -3,10 +3,10 @@ from datetime import datetime
 import pymysql
 
 import dbconfig
-import iaasldap
+from iaasldap import LDAPUser as iaasldap
 from . import dict1, dict2
 
-
+iaasldap=iaasldap()
 # this needs to be updated dynamically. superusers=1
 # usergroup_ID = 0
 # if dbconfig.test:
@@ -90,13 +90,14 @@ class AccessHelper:
         connection = self.connect()
         try:
             print("about to query...")
-            usersgroups = iaasldap.get_groups(iaasldap.uid_trim())
+            usersgroups = iaasldap.get_groups()
             print("user {} is in groups {}".format(iaasldap.uid_trim(),
                                                    usersgroups))
             g_id = self.get_group_id(group)
             query = "SELECT instance_identifier,project_display_name,svc_type_id " \
-                    "FROM svc_instances " \
-                    "WHERE group_id='{}';"\
+                    "FROM svc_instances "
+            if not iaasldap.has_role('superusers'):
+                query=query+"WHERE group_id='{}';"\
                 .format(str(g_id))
 
             with connection.cursor() as cursor:

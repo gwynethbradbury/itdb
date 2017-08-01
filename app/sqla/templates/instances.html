@@ -1,0 +1,35 @@
+{% extends "service.html" %}
+
+{% block title %}My Databases{% endblock %}
+
+{% block scripts %}
+<!--define scripts for home here-->
+{% endblock %}
+
+
+
+
+
+
+{% block bodycalls %}
+{% endblock %}
+
+
+
+
+
+
+{% block body2 %}
+
+
+Thie section should contain a list of my databases
+<br/>
+temporary: <a href="{{ url_for('home.show', page='map') }}">map application</a href>
+
+<ul>
+	{% for instance in instances %}
+		<li><a href="{{instance}}">{{instance}}</a></li>
+	{% endfor %}
+</ul>
+
+{% endblock %}

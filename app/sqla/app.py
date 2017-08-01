@@ -244,7 +244,6 @@ import dev.models as devmodels
 modules = []
 dictline = []
 # bind_line = []
-dictionary_of_databases = {}
 class_db_dict={}
 SQLALCHEMY_BINDS = {'iaas':'mysql+pymysql://{}:{}@localhost/iaas'
                         .format(dbconfig.db_user,dbconfig.db_password)}
@@ -272,6 +271,13 @@ def get_binds():
                                                   "localhost",
                                                   r[1])
         SQLALCHEMY_BINDS["{}".format(r[1])] = db_string
+
+
+        project_dba = devmodels.DatabaseAssistant(db_string, r[1], r[1])
+        tns,cns = project_dba.getTableAndColumnNames()
+        for t in tns:
+            nm = line = re.sub('_', '', t.title())
+            class_db_dict['cls_{}_{}'.format(r[1],t)] = r[1]
 
 get_binds()
 
@@ -311,7 +317,6 @@ def create_classes_from_db():
         for t in tns:
             nm = line = re.sub('_', '', t.title())
             dictline.append("'cls_{}_{}': db_{}.{}".format(r[1],t,r[1],nm))
-            class_db_dict['cls_{}_{}'.format(r[1],t)] = r[1]
             # bind_line.append("setattr(db_{}.{},'__bind_key__', '{}')\n".format(r[1],nm,r[1]))
 
 

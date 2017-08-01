@@ -5,7 +5,14 @@
 {% block title %}
     {% if admin_view.category %}{{ admin_view.category }} - {% endif %}{{ admin_view.name }} - {{ admin_view.admin.name }}
 {% endblock %}
+    {% block css_admin_extensions %}
 
+        {% if admin_view.extra_css %}
+          {% for css_url in admin_view.extra_css %}
+            <link href="{{ css_url }}" rel="stylesheet">
+          {% endfor %}
+        {% endif %}
+    {% endblock %}
 
 {% block page %}
     <div class="page">

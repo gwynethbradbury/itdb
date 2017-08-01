@@ -261,11 +261,6 @@ result, list_of_projects = dba.retrieveDataFromDatabase("svc_instances",
 print("retrieving list of DBAS services available and adding to dictionary:")
 
 
-print("writing to file: " + os.path.dirname(__file__) + "/classes/__init__.py")
-file = open(os.path.dirname(__file__) + "/classes/__init__.py", "w")
-file.write(
-    "from flask_sqlalchemy import SQLAlchemy\n"
-    "from app.sqla.app import db as db\n")
 
 def get_binds():
     for r in list_of_projects:
@@ -281,6 +276,11 @@ def get_binds():
 get_binds()
 
 def create_classes_from_db():
+    print("writing to file: " + os.path.dirname(__file__) + "/classes/__init__.py")
+    file = open(os.path.dirname(__file__) + "/classes/__init__.py", "w")
+    file.write(
+        "from flask_sqlalchemy import SQLAlchemy\n"
+        "from app.sqla.app import db as db\n")
     for r in list_of_projects:
         if not(r[2] == '1' or r[2] == '4'):  # then this is a database project
             continue
@@ -346,7 +346,14 @@ def create_classes_from_db():
         file2 = open(filename,"w")
         file2.writelines(lines)
         file2.close()
-create_classes_from_db()
+
+    file.write("classesdict={\n")
+    for d in dictline:
+        file.write("    {},\n".format(d,d))
+    file.write("    }\n")
+
+    file.close()
+# create_classes_from_db()
 
 app.config['SQLALCHEMY_BINDS'] =SQLALCHEMY_BINDS
 
@@ -354,12 +361,6 @@ app.config['SQLALCHEMY_BINDS'] =SQLALCHEMY_BINDS
 db = SQLAlchemy(app)
 
 
-file.write("classesdict={\n")
-for d in dictline:
-    file.write("    {},\n".format(d,d))
-file.write("    }\n")
-
-file.close()
 
 
 # region deal with the IAAS admin console

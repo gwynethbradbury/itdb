@@ -2,47 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fea06bd9-e89c-4ffd-a449-36dcea70bd18" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/401.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/404.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/500.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/admin/admin.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/admin/detailview.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/admin/email_subscribers.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/admin/listview.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/console.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/groupprojects.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/instances.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/layout.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/login.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/service.html" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/online_learning/article.html" afterPath="$PROJECT_DIR$/app/sqla/templates/online_learning/article.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/online_learning/index.html" afterPath="$PROJECT_DIR$/app/sqla/templates/online_learning/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/online_learning/learning_layout.html" afterPath="$PROJECT_DIR$/app/sqla/templates/online_learning/learning_layout.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/online_learning/learning_page.html" afterPath="$PROJECT_DIR$/app/sqla/templates/online_learning/learning_page.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/online_learning/tag.html" afterPath="$PROJECT_DIR$/app/sqla/templates/online_learning/tag.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/online_learning/topic.html" afterPath="$PROJECT_DIR$/app/sqla/templates/online_learning/topic.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/projects/add_column.html" afterPath="$PROJECT_DIR$/app/sqla/templates/projects/add_column.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/projects/create_table.html" afterPath="$PROJECT_DIR$/app/sqla/templates/projects/create_table.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/projects/download_link.html" afterPath="$PROJECT_DIR$/app/sqla/templates/projects/download_link.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/projects/download_table.html" afterPath="$PROJECT_DIR$/app/sqla/templates/projects/download_table.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/projects/it_lending_log/alteritem.html" afterPath="$PROJECT_DIR$/app/sqla/templates/projects/it_lending_log/alteritem.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/projects/it_lending_log/alterlog.html" afterPath="$PROJECT_DIR$/app/sqla/templates/projects/it_lending_log/alterlog.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/projects/it_lending_log/it_lending_log.html" afterPath="$PROJECT_DIR$/app/sqla/templates/projects/it_lending_log/it_lending_log.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/projects/map/map.html" afterPath="$PROJECT_DIR$/app/sqla/templates/projects/map/map.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/projects/project_admin.html" afterPath="$PROJECT_DIR$/app/sqla/templates/projects/project_admin.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/projects/project_detailview.html" afterPath="$PROJECT_DIR$/app/sqla/templates/projects/project_detailview.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/projects/project_home.html" afterPath="$PROJECT_DIR$/app/sqla/templates/projects/project_home.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/projects/project_layout.html" afterPath="$PROJECT_DIR$/app/sqla/templates/projects/project_layout.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/projects/project_listview.html" afterPath="$PROJECT_DIR$/app/sqla/templates/projects/project_listview.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/sqla/core/templates/projects/upload_table.html" afterPath="$PROJECT_DIR$/app/sqla/templates/projects/upload_table.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/sqla/app.py" afterPath="$PROJECT_DIR$/app/sqla/app.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/sqla/core/access_helper.py" afterPath="$PROJECT_DIR$/app/sqla/core/access_helper.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/sqla/templates/service.html" afterPath="$PROJECT_DIR$/app/sqla/templates/service.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/base.html" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/base.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flask_admin/templates/foundation/base_template.html" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/base_template.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flask_admin/templates/foundation/project/base.html" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/base.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -78,8 +38,8 @@
           <file leaf-file-name="base_template.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/flask_admin/templates/foundation/base_template.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="214">
-                  <caret line="18" column="41" lean-forward="true" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
+                <state relative-caret-position="194">
+                  <caret line="15" column="152" lean-forward="false" selection-start-line="15" selection-start-column="152" selection-end-line="15" selection-end-column="152" />
                   <folding />
                 </state>
               </provider>
@@ -1370,8 +1330,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/flask_admin/templates/foundation/base_template.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="18" column="41" lean-forward="true" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
+        <state relative-caret-position="194">
+          <caret line="15" column="152" lean-forward="false" selection-start-line="15" selection-start-column="152" selection-end-line="15" selection-end-column="152" />
           <folding />
         </state>
       </provider>

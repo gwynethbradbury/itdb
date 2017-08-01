@@ -13,7 +13,7 @@
     {% endblock %}
     {% block head_css %}
 
-        <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/swatch/{swatch}/bootstrap.min.css'.format(swatch=config.get('FLASK_ADMIN_SWATCH', 'default')), v='3.3.5') }}" rel="stylesheet">
+        <link href="{{ '/templates/bootstrap/bootstrap3/swatch/{swatch}/bootstrap.min.css'.format(swatch=config.get('FLASK_ADMIN_SWATCH', 'default')) }}>
     {% block css_admin_extensions %}
 
 {#        {% if admin_view.extra_css %}#}

@@ -8,8 +8,12 @@ Base=db.Model
 metadata = Base.metadata
 
 
-class Derp(Base):
+class Emptytable(Base):
     def __str__(self):
+<<<<<<< HEAD:app/classes/map.py
+        return self.id
+    __tablename__ = 'emptytable'
+=======
         if hasattr(self, 'title'):
             return self.title
         elif hasattr(self,'name'):
@@ -18,10 +22,17 @@ class Derp(Base):
             return self.id
     __bind_key__ = 'map'
     __tablename__ = 'derp'
+>>>>>>> 0255d14853abc282d386706787c958bdae27e1fc:app/sqla/classes/map.py
 
     id = Column(Integer, primary_key=True)
 
 
+<<<<<<< HEAD:app/classes/map.py
+class Project(Base):
+    def __str__(self):
+        return self.latitude
+    __tablename__ = 'project'
+=======
 class Derp2(Base):
     def __str__(self):
         if hasattr(self, 'title'):
@@ -46,16 +57,11 @@ class Derp4(Base):
             return self.id
     __bind_key__ = 'map'
     __tablename__ = 'derp4'
+>>>>>>> 0255d14853abc282d386706787c958bdae27e1fc:app/sqla/classes/map.py
 
-    imported_id = Column(Integer)
-    latitude = Column(Float(asdecimal=True))
-    longitude = Column(Float(asdecimal=True))
-    startdate = Column(Text)
-    enddate = Column(Text)
-    category = Column(Text)
-    description = Column(Text)
-    updated_at = Column(Text)
     id = Column(Integer, primary_key=True)
+<<<<<<< HEAD:app/classes/map.py
+=======
 
 
 class Pro(Base):
@@ -70,6 +76,7 @@ class Pro(Base):
     __tablename__ = 'pro'
 
     imported_id = Column(Integer)
+>>>>>>> 0255d14853abc282d386706787c958bdae27e1fc:app/sqla/classes/map.py
     latitude = Column(Float(asdecimal=True))
     longitude = Column(Float(asdecimal=True))
     startdate = Column(Text)
@@ -77,11 +84,14 @@ class Pro(Base):
     category = Column(Text)
     description = Column(Text)
     updated_at = Column(Text)
-    id = Column(Integer, primary_key=True)
 
 
-class Project(Base):
+class Testtable(Base):
     def __str__(self):
+<<<<<<< HEAD:app/classes/map.py
+        return self.id
+    __tablename__ = 'testtable'
+=======
         if hasattr(self, 'title'):
             return self.title
         elif hasattr(self,'name'):
@@ -90,13 +100,6 @@ class Project(Base):
             return self.id
     __bind_key__ = 'map'
     __tablename__ = 'project'
+>>>>>>> 0255d14853abc282d386706787c958bdae27e1fc:app/sqla/classes/map.py
 
-    imported_id = Column(Integer)
-    latitude = Column(Float(asdecimal=True))
-    longitude = Column(Float(asdecimal=True))
-    startdate = Column(Text)
-    enddate = Column(Text)
-    category = Column(Text)
-    description = Column(Text)
-    updated_at = Column(Text)
     id = Column(Integer, primary_key=True)

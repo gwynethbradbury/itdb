@@ -6,4 +6,4 @@ ldapconfig.py
 *.DS_Store
 .idea*
 
-app/classes/*.*
+app/qla/lasses/*.*

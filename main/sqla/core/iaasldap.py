@@ -130,9 +130,11 @@ class LDAPUser():
     '''gets a list of the groups for which this user is a member'''
     def get_groups(self):
         uid = self.uid_trim()
+        groups = ['all_users']
         if ldapconfig.test:
             # return[]
-            return ["superusers"]
+            groups.append("superusers")
+            return groups
         else:
             import ldap
             searchFilter = '(|(&(objectClass=*)(memberUid=%s)))' % uid
@@ -148,14 +150,10 @@ class LDAPUser():
             try:
                 result_set = l.search_s(ldapconfig.basedn, searchScope, searchFilter, searchAttribute)
                 # result_set is a list containing lists of tuples, each containing a list - fun!
-                groups = ['all_users']
-                #todo: remove the next bit which is hardcoded for IT suport users
-                if ldapconfig.test==True:
-                    groups.append("superusers")
                 for res in result_set:
                     # disentangle the various nested stuff!
                     groups.append(((res[1])['cn'])[0])
-                print groups
+                # print groups
                 return groups
             except ldap.LDAPError, e:
                 return []

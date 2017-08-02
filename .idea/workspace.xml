@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fea06bd9-e89c-4ffd-a449-36dcea70bd18" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dbas.wsgi" afterPath="$PROJECT_DIR$/dbas.wsgi" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/core/iaasldap.py" afterPath="$PROJECT_DIR$/main/sqla/core/iaasldap.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -37,7 +37,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="dbas.wsgi" pinned="false" current-in-tab="true">
+          <file leaf-file-name="dbas.wsgi" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/dbas.wsgi">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="135">
@@ -107,11 +107,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="iaasldap.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="iaasldap.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main/sqla/core/iaasldap.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="284">
-                  <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+                <state relative-caret-position="322">
+                  <caret line="151" column="96" lean-forward="false" selection-start-line="151" selection-start-column="96" selection-end-line="151" selection-end-column="96" />
                   <folding />
                 </state>
               </provider>
@@ -165,9 +165,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sqlalchemy</find>
-      <find>region</find>
-      <find>add_view</find>
       <find>cu</find>
       <find>current_</find>
       <find>my_</find>
@@ -195,6 +192,9 @@
       <find>get_groups</find>
       <find>get_groups(</find>
       <find>LDAPUser</find>
+      <find>superusers</find>
+      <find>a</find>
+      <find>all_users</find>
     </findStrings>
     <replaceStrings>
       <replace>dbas_url</replace>
@@ -212,7 +212,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/.gitlab-ci.yml" />
         <option value="$PROJECT_DIR$/core/iaasldap.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/core/templates/online_learning/article.html" />
@@ -263,6 +262,7 @@
         <option value="$PROJECT_DIR$/ldapconfig.py" />
         <option value="$PROJECT_DIR$/main/sqla/app.py" />
         <option value="$PROJECT_DIR$/dbas.wsgi" />
+        <option value="$PROJECT_DIR$/main/sqla/core/iaasldap.py" />
       </list>
     </option>
   </component>
@@ -356,7 +356,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
+              <option name="myItemId" value="core" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1197,14 +1197,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/sqla/core/iaasldap.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ldapconfig.py_">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1241,6 +1233,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/sqla/core/iaasldap.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="151" column="96" lean-forward="false" selection-start-line="151" selection-start-column="96" selection-end-line="151" selection-end-column="96" />
           <folding />
         </state>
       </provider>

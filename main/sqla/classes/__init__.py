@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 from flask_sqlalchemy import SQLAlchemy
 from main.sqla.app import db as db
 import map as db_map
@@ -20,4 +18,3 @@ classesdict={
     'cls_it_lending_log_items': db_it_lending_log.Items,
     'cls_it_lending_log_log': db_it_lending_log.Log,
     }
->>>>>>> 89dce57bab3a946d941cd9b5bb44ebcbae55d3f2

@@ -26,7 +26,8 @@ app.config['SECRET_KEY'] = '123456790'
 # Create in-memory database
 # app.config['DATABASE_FILE'] = 'sample_db.sqlite'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + app.config['DATABASE_FILE']
-app.config['SQLALCHEMY_DATABASE_URI'] ='mysql+pymysql://{}:{}@localhost/iaas'.format(dbconfig.db_user,dbconfig.db_password)
+app.config['SQLALCHEMY_DATABASE_URI'] ='mysql+pymysql://{}:{}@{}/{}'\
+    .format(dbconfig.db_user,dbconfig.db_password, dbconfig.db_hostname,dbconfig.db_name)
 # app.config['SQLALCHEMY_BINDS'] ={
 #     'map':'mysql+pymysql://root:GTG24DDa@localhost/map',
 #     'online_learning':'mysql+pymysql://root:GTG24DDa@localhost/online_learning',

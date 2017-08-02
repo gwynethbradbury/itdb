@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fea06bd9-e89c-4ffd-a449-36dcea70bd18" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/sqla/classes/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/sqla/classes/iaas.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/sqla/classes/it_lending_log.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/sqla/classes/map.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/sqla/classes/online_learning.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ldapconfig.py" afterPath="$PROJECT_DIR$/ldapconfig.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dbas.wsgi" afterPath="$PROJECT_DIR$/dbas.wsgi" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -39,6 +33,16 @@
                   <folding>
                     <element signature="e#0#71#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="dbas.wsgi" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/dbas.wsgi">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="135">
+                  <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -93,7 +97,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="app.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main/sqla/app.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="218">
@@ -216,7 +220,6 @@
         <option value="$PROJECT_DIR$/web_apps_examples/online_learning/dbhelper.py" />
         <option value="$PROJECT_DIR$/app/classes/__init__.py" />
         <option value="$PROJECT_DIR$/flask_admin/contrib/sqla/view.py" />
-        <option value="$PROJECT_DIR$/dbas.wsgi" />
         <option value="$PROJECT_DIR$/app/sqla/core/auth/views.py" />
         <option value="$PROJECT_DIR$/flask_admin/templates/foundation/base.html" />
         <option value="$PROJECT_DIR$/flask_admin/templates/foundation/index.html" />
@@ -259,6 +262,7 @@
         <option value="$PROJECT_DIR$/main/sqla/classes/__init__.py" />
         <option value="$PROJECT_DIR$/ldapconfig.py" />
         <option value="$PROJECT_DIR$/main/sqla/app.py" />
+        <option value="$PROJECT_DIR$/dbas.wsgi" />
       </list>
     </option>
   </component>
@@ -803,14 +807,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/sqla/core/templates/admin/admin.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1164">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/sqla/templates/service.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -1237,6 +1233,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="218">
           <caret line="362" column="0" lean-forward="true" selection-start-line="362" selection-start-column="0" selection-end-line="362" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dbas.wsgi">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
         </state>
       </provider>

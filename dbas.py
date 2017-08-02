@@ -10,20 +10,7 @@ from main.sqla import app as app
 
 from main.sqla import *
 from main.web_apps_examples import *
-try:
 
-    # db = SQLAlchemy(app)
-
-    import main.web_apps_examples
-    # from web_apps_examples import map as maps
-
-    # maps.assignroutes(app)#,nm='map')
-
-    # # THE FOLLOWING ARE MAP-SPECIFIC - SHOULD BE MOVED TO MAP WEB APP
-    # my_module = importlib.import_module('web_apps_examples.'+r[1])
-    # my_module.views.assignroutes(app,nm='map')
-except Exception as e:
-    print e
 # app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 # manager = Manager(app)
 # migrate = Migrate(app, db)

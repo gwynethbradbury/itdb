@@ -7,3 +7,4 @@ ldapconfig.py
 .idea*
 
 main/sqla/classes/*.*
+static

@@ -2,73 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fea06bd9-e89c-4ffd-a449-36dcea70bd18" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/dev/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/dev/models.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/dev/views.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/map/create_table.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/map/detailview.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/map/download_link.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/map/download_table.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/map/listview.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/map/mapadmin.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/templates/projects/map/upload_table.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/css/app.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/css/foundation.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/css/foundation.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/css/style.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/Dragon-Fruit.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/Limes.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/calendar.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/calendar.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/coconut.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/fruitbowl.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/fruitbowl.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/geog-intranet-brand-pos.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/Flat Fruit Icons_Foxdesign.ai" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/Flat Fruit Icons_Foxdesign.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/Flat Fruit Icons_preview.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/coconut.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/coconut_64.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/dragonfruit.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/dragonfruit_64.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/lime.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/lime_64.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/passionfruit.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/passionfruit_64.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/pineapple.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ico/pineapple_64.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/mortarboard.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/ox-brand.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/passionfruit.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/pineapple.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/js/app.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/js/vendor/foundation.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/js/vendor/foundation.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/js/vendor/jquery.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/js/vendor/what-input.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/admin/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/online_learning/article.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/online_learning/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/online_learning/learning_layout.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/online_learning/learning_page.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/online_learning/tag.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/online_learning/topic.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/projects/add_column.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/projects/create_table.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/projects/download_link.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/projects/download_table.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/projects/it_lending_log/alteritem.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/projects/it_lending_log/alterlog.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/projects/it_lending_log/it_lending_log.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/projects/map/map.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/projects/project_admin.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/projects/project_detailview.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/projects/project_home.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/projects/project_layout.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/projects/project_listview.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/projects/upload_table.html" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/external/__init__.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/app.py" afterPath="$PROJECT_DIR$/main/sqla/app.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -91,34 +28,12 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="dbas.wsgi" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/dbas.wsgi">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="150">
-                  <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+          <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/.gitignore">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="135">
-                  <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+                  <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
                   <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/main/sqla/dev/views.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-650">
-                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#0#15#0" expanded="true" />
-                  </folding>
                 </state>
               </provider>
             </entry>
@@ -140,21 +55,92 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="dbas.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/dbas.py">
+          <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/main/sqla/app.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="165">
-                  <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+                <state relative-caret-position="30">
+                  <caret line="20" column="22" lean-forward="false" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="app.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/main/sqla/app.py">
+          <file leaf-file-name="map.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/main/sqla/templates/projects/map/map.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="30">
-                  <caret line="20" column="22" lean-forward="false" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
+                <state relative-caret-position="-28">
+                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="service.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/main/sqla/templates/service.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="0">
+                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/main/web_apps_examples/it_lending_log/__init__.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="0">
+                  <caret line="0" column="15" lean-forward="false" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="dbhelper.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/main/web_apps_examples/it_lending_log/dbhelper.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-814">
+                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#0#14#0" expanded="true" />
+                    <marker date="1498236243000" expanded="true" signature="616:649" ph="SELECT name,... items" />
+                    <marker date="1498236243000" expanded="true" signature="1152:1240" ph="SELECT item,... log" />
+                    <marker date="1498236243000" expanded="true" signature="2184:2227" ph="SELECT id,na... items" />
+                    <marker date="1498236243000" expanded="true" signature="2765:2916" ph="UPDATE log S... " />
+                    <marker date="1498236243000" expanded="true" signature="3370:3465" ph="UPDATE items... " />
+                    <marker date="1498236243000" expanded="true" signature="3897:3975" ph="SELECT item,... log" />
+                    <marker date="1498236243000" expanded="true" signature="4152:4184" ph="SELECT name items" />
+                    <marker date="1498236243000" expanded="true" signature="4784:4887" ph="INSERT INTO log... " />
+                    <marker date="1498236243000" expanded="true" signature="5279:5327" ph="INSERT INTO items... " />
+                    <marker date="1498236243000" expanded="true" signature="5675:5699" ph="DELETE FROM " />
+                    <marker date="1498236243000" expanded="true" signature="6043:6081" ph="UPDATE log S... " />
+                    <marker date="1498236243000" expanded="true" signature="6450:6527" ph="SELECT latit... project" />
+                    <marker date="1498236243000" expanded="true" signature="7786:7817" ph="SELECT descr... project" />
+                    <marker date="1498236243000" expanded="true" signature="8942:9048" ph="INSERT INTO project... " />
+                    <marker date="1498236243000" expanded="true" signature="10700:10820" ph="INSERT INTO project... " />
+                    <marker date="1498236243000" expanded="true" signature="11265:11342" ph="SELECT latit... project" />
+                    <marker date="1498236243000" expanded="true" signature="13186:13205" ph="DELETE FROM " />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/main/web_apps_examples/it_lending_log/models.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-187">
+                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#0#29#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/main/web_apps_examples/it_lending_log/views.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-2296">
+                  <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -165,36 +151,6 @@
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="277">
                   <caret line="1597" column="0" lean-forward="false" selection-start-line="1597" selection-start-column="0" selection-end-line="1597" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="dbconfig.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/dbconfig.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="24" lean-forward="false" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="iaasldap.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/main/sqla/core/iaasldap.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="322">
-                  <caret line="151" column="96" lean-forward="false" selection-start-line="151" selection-start-column="96" selection-end-line="151" selection-end-column="96" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ldapconfig.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/ldapconfig.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="120">
-                  <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -334,8 +290,8 @@
         <option value="$PROJECT_DIR$/dbconfig.py" />
         <option value="$PROJECT_DIR$/dbas.py" />
         <option value="$PROJECT_DIR$/dbas.wsgi" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/main/sqla/app.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -346,10 +302,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-225" />
-    <option name="y" value="-1177" />
+    <option name="y" value="23" />
     <option name="width" value="1920" />
-    <option name="height" value="1177" />
+    <option name="height" value="830" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -407,29 +362,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="sqla" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dbas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dbas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sqla" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="classes" />
+              <option name="myItemId" value="web_apps_examples" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -733,7 +666,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-225" y="-1177" width="1920" height="1177" extended-state="6" />
+    <frame x="0" y="23" width="1920" height="830" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -746,7 +680,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32893497" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2030686" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2956636" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -879,46 +813,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/sqla/templates/bootstrap3/admin/file/modals/form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/sqla/static/bootstrap/bootstrap2/js/bootstrap.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/sqla/static/bootstrap.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/sqla/classes/it_lending_log.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/sqla/classes/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="24" lean-forward="false" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/sqla/core/iaasldap.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="366">
@@ -1016,22 +910,6 @@
             <marker date="1501666838000" expanded="true" signature="2948:2985" ph="..." />
             <marker date="1501666838000" expanded="true" signature="3013:3124" ph="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/web_apps_examples/it_lending_log/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="15" lean-forward="false" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/web_apps_examples/it_lending_log/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1275,14 +1153,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/sqla/dev/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-650">
@@ -1316,10 +1186,95 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main/sqla/templates/admin/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main/sqla/app.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="20" column="22" lean-forward="false" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/sqla/templates/projects/map/map.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-28">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/sqla/templates/service.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/web_apps_examples/it_lending_log/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="15" lean-forward="false" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/web_apps_examples/it_lending_log/dbhelper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-814">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+            <marker date="1498236243000" expanded="true" signature="616:649" ph="SELECT name,... items" />
+            <marker date="1498236243000" expanded="true" signature="1152:1240" ph="SELECT item,... log" />
+            <marker date="1498236243000" expanded="true" signature="2184:2227" ph="SELECT id,na... items" />
+            <marker date="1498236243000" expanded="true" signature="2765:2916" ph="UPDATE log S... " />
+            <marker date="1498236243000" expanded="true" signature="3370:3465" ph="UPDATE items... " />
+            <marker date="1498236243000" expanded="true" signature="3897:3975" ph="SELECT item,... log" />
+            <marker date="1498236243000" expanded="true" signature="4152:4184" ph="SELECT name items" />
+            <marker date="1498236243000" expanded="true" signature="4784:4887" ph="INSERT INTO log... " />
+            <marker date="1498236243000" expanded="true" signature="5279:5327" ph="INSERT INTO items... " />
+            <marker date="1498236243000" expanded="true" signature="5675:5699" ph="DELETE FROM " />
+            <marker date="1498236243000" expanded="true" signature="6043:6081" ph="UPDATE log S... " />
+            <marker date="1498236243000" expanded="true" signature="6450:6527" ph="SELECT latit... project" />
+            <marker date="1498236243000" expanded="true" signature="7786:7817" ph="SELECT descr... project" />
+            <marker date="1498236243000" expanded="true" signature="8942:9048" ph="INSERT INTO project... " />
+            <marker date="1498236243000" expanded="true" signature="10700:10820" ph="INSERT INTO project... " />
+            <marker date="1498236243000" expanded="true" signature="11265:11342" ph="SELECT latit... project" />
+            <marker date="1498236243000" expanded="true" signature="13186:13205" ph="DELETE FROM " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/web_apps_examples/it_lending_log/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-187">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/web_apps_examples/it_lending_log/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2296">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
           <folding />
         </state>
       </provider>

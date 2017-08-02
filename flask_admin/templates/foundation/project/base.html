@@ -15,59 +15,6 @@
     {% endblock %}
 
 {% block page %}
-    <div class="page">
-        <!--<h1>This is blueprint example</h1>
-        <p>
-        A simple page blueprint is registered under / and /pages
-        you can access it using this URLs:
-        <ul>
-        <li><a href="{{ url_for('show', page='service') }}">/service</a>
-        <li><a href="{{ url_for('show', page='iaas') }}">/iaas</a>
-        </ul>
-        <p>
-        Also you can register the same blueprint under another path
-        <ul>
-        <li><a href="/pages/service">/pages/service</a>
-        <li><a href="/pages/iaas">/pages/iaas</a>
-        </ul>-->
-
-
-        <div class="top-bar">
-            <div class="row">
-                <div class="top-bar-left">
-                    <ul class="dropdown menu" data-dropdown-menu>
-                        <li class="menu-text">Welcome, {{ LDAPUser.get_fullname() }}</li>
-                        <li class="has-submenu">
-                            <a href="#">My Account</a>
-                            <ul class="submenu menu vertical" data-submenu>
-                                <li><a href="{{ iaas_url }}/iam">IAM management Console</a></li>
-                                <li><a href="{{ iaas_url }}/nextcloud">NextCloud Services Console</a></li>
-                                <li><a href="{{ iaas_url }}/dbas">DBAS Services Console</a></li>
-                                <hr>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <div class="top-bar-right">
-                    <ul class="menu">
-                        <li><a href="{{ iaas_url }}/iam" title="Identity and Access Management">
-                        <img width=64 src="{{ admin_static.url(filename='img/ico/pineapple_64.png') }}" style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"></a></li>
-                        <li><a href="{{ iaas_url }}/nextcloud" title="NextCloud Service"><img width=64 src="{{ admin_static.url(filename='img/ico/lime_64.png') }}"></a></li>
-                        <li><a href="{{ iaas_url }}/dbas" title="DataBases as a Service"><img width=64 src="{{ admin_static.url(filename='img/ico/dragonfruit_64.png') }}"></a></li>
-                        <li><a href="{{ iaas_url }}/waas" title="Web App as a Service">
-                        <img width=64 src="{{ admin_static.url(filename='img/ico/passionfruit_64.png') }}" style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"></a></li>
-                        <li><a href="{{ iaas_url }}/ci" title="Continuous Integration">
-                        <img width=64 src="{{ admin_static.url(filename='img/ico/coconut_64.png') }}" style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"></a></li>
-                        <li><a href="https://www.ox.ac.uk"><img width="50" src="{{ admin_static.url(filename='img/ox-brand.png') }}" /></a></li>
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-
-
-
 
         <div class="row">
             <div class="column">
@@ -124,6 +71,8 @@
 
         <br/>
         <br/>
-    </div>
+
+
+
 {% endblock %}
 

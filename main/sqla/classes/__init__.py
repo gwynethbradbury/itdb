@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from app.sqla.app import db as db
+from main.sqla.app import db as db
 import map as db_map
 import online_learning as db_online_learning
 import it_lending_log as db_it_lending_log

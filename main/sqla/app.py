@@ -15,6 +15,7 @@ from wtforms import form, fields, validators
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
+
 import dbconfig
 # Create application
 app = Flask(__name__)
@@ -286,7 +287,7 @@ def create_classes_from_db():
     file = open(os.path.dirname(__file__) + "/classes/__init__.py", "w")
     file.write(
         "from flask_sqlalchemy import SQLAlchemy\n"
-        "from app.sqla.app import db as db\n")
+        "from main.sqla.app import db as db\n")
     for r in list_of_projects:
         if not(r[2] == '1' or r[2] == '4'):  # then this is a database project
             continue
@@ -481,6 +482,7 @@ for d in binds:
             print ('class {} is in db {}'.format(c,d))
 
             proj_admin.add_view(ModelView(classes.classesdict[c], db.session))
+
 
 # def build_sample_db():
 #     """

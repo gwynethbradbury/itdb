@@ -4,7 +4,8 @@ from flask import request, redirect, render_template
 from jinja2 import TemplateNotFound
 
 import dbconfig
-import iaasldap
+import iaasldap.LDAPUser as iaasldap
+iaasldap = iaasldap()
 from home import app as home
 from .email import send_email_simple as send_email
 
@@ -27,7 +28,7 @@ def get_all_dbas_projects():
         instances = AH.get_projects("dbas")
         return render_template("index.html",
                                username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
-                               servicelist=iaasldap.get_groups(iaasldap.uid_trim()),
+                               servicelist=iaasldap.get_groups(),
                                instances=instances)
     except TemplateNotFound:
         abort(404)
@@ -38,7 +39,7 @@ def show(page):
     try:
         return render_template("%s.html" % page,
                                username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
-                               servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
+                               servicelist=iaasldap.get_groups())
     except TemplateNotFound:
         abort(404)
 
@@ -54,7 +55,7 @@ def projects_by_group(group):
     instances = AH.get_projects_for_group(group)
     return render_template("groupprojects.html",
                            username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
-                           servicelist=iaasldap.get_groups(iaasldap.uid_trim()),
+                           servicelist=iaasldap.get_groups(),
                            instances=instances, group=group)
 
 @home.route('/sendenquiry', methods=['GET', 'POST'])

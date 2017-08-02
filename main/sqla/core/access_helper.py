@@ -29,7 +29,7 @@ class AccessHelper:
         group_id=0
         try:
             print("about to query...")
-            usersgroups = iaasldap.get_groups(iaasldap.uid_trim())
+            usersgroups = iaasldap.get_groups()
             print("user {} is in groups {}".format(iaasldap.uid_trim(),
                                                    usersgroups))
             for g in usersgroups:

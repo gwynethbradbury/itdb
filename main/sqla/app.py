@@ -18,7 +18,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 import dbconfig
 # Create application
-app = Flask(__name__)
+app = Flask(__name__)#,static_folder='/main/sqla/static',template_folder='/templates')
 
 # Create dummy secrey key so we can use sessions
 app.config['SECRET_KEY'] = '123456790'

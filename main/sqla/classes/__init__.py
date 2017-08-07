@@ -1,8 +1,13 @@
 from flask_sqlalchemy import SQLAlchemy
 from main.sqla.app import db as db
-import map as db_map
-import online_learning as db_online_learning
-import it_lending_log as db_it_lending_log
+import classes_master as db_map
+db_map.init('map')
+import classes_master as db_it_lending_log
+db_it_lending_log.init('it_lending_log')
+import classes_master as db_online_learning
+db_online_learning.init('online_learning')
+
+
 classesdict={
     'cls_map_derp4': db_map.Derp4,
     'cls_map_project': db_map.Project,

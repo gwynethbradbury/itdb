@@ -9,11 +9,9 @@ db_online_learning.init('online_learning')
 
 
 classesdict={
-    'cls_map_derp4': db_map.Derp4,
     'cls_map_project': db_map.Project,
-    'cls_map_pro': db_map.Pro,
-    'cls_map_derp2': db_map.Derp2,
-    'cls_map_derp': db_map.Derp,
+    'cls_map_testtable': db_map.Testtable,
+    'cls_map_emptytable': db_map.Emptytable,
     'cls_online_learning_videos': db_online_learning.Videos,
     'cls_online_learning_tags': db_online_learning.Tags,
     'cls_online_learning_pages_tags': db_online_learning.PagesTags,

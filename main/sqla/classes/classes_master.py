@@ -16,5 +16,9 @@ def init(db_name):
   metadata = MetaData(bind=engine)
   metadata.reflect()
   for name in metadata.tables:
-      cls = type(str(name).capitalize(), (db.Model,), {'__table__': metadata.tables[name],  '__bind_key__': db_name})
+      class_name_arr=str(name).split('_')
+      class_name=''
+      for cn in class_name_arr:
+         class_name=class_name+cn.capitalize()
+      cls = type(class_name, (db.Model,), {'__table__': metadata.tables[name],  '__bind_key__': db_name})
       globals()[cls.__name__] = cls

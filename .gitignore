@@ -6,5 +6,4 @@ ldapconfig.py
 *.DS_Store
 .idea*
 
-main/sqla/classes/*.*
 static

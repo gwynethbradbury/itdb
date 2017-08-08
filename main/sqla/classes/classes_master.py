@@ -8,7 +8,7 @@ from sqlalchemy.ext.declarative import declarative_base
 import dbconfig
 from . import db
 
-
+class_list=[]
 def init(db_name):
   Base = declarative_base()
   engine = create_engine('{}://{}:{}@{}/{}'
@@ -18,6 +18,7 @@ def init(db_name):
   for name in metadata.tables:
       class_name_arr=str(name).split('_')
       class_name=''
+      class_list.append(name)
       for cn in class_name_arr:
          class_name=class_name+cn.capitalize()
       cls = type(class_name, (db.Model,), {'__table__': metadata.tables[name],  '__bind_key__': db_name})

@@ -18,7 +18,7 @@ def register_project(s):
     # set the database entry point for this project
     # database and project names should be the same
     db2 = '{}://{}:{}@{}/{}'.format(dbconfig.db_engine,dbconfig.db_user,
-                                                     dbconfig.db_password,dbconfig.db_hostname
+                                                     dbconfig.db_password,dbconfig.db_hostname,
                                                      s)
 
     dbbindkey="project_"+project_name+"_db"

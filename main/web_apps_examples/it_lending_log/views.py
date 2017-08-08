@@ -31,9 +31,11 @@ from main.sqla.dev import *
 
 import dataset
 
-dbbb = '{}}://{}:{}@{}/{}'.format(dbconfig.db_engine,dbconfig.db_user,
-                                                   dbconfig.db_password,dbconfig.db_hostname,
-                                                   'it_lending_log')#map.name)
+dbbb = '{}://{}:{}@{}/{}'.format(dbconfig.db_engine,
+                                  dbconfig.db_user,
+                                  dbconfig.db_password,
+                                  dbconfig.db_hostname,
+                                  'it_lending_log')#map.name)
 # db2 = dataset.connect(dbbb, row_type=pages)
 dbbindkey="project_online_learning_db"
 appname="it_lending_log"

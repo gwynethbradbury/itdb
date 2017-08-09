@@ -95,7 +95,7 @@ class DatabaseAssistant:
 
     # Gets the database connection
     def connect(self):
-        return pymysql.connect(host=dbconfig.db_hostname,
+        return pymysql.connect(host='localhost',
                                user=dbconfig.db_user,
                                passwd=dbconfig.db_password,
                                db=self.mydatabasename)

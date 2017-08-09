@@ -30,8 +30,8 @@ DB = DBHelper("map")#map.name)
 from main.sqla.dev import *
 
 
-dbbb = '{}://{}:{}@{}/{}'.format(dbconfig.db_engine,dbconfig.db_user,
-                                                   dbconfig.db_password,dbconfig.db_hostname,
+dbbb = 'mysql+pymysql://{}:{}@localhost/{}'.format(dbconfig.db_user,
+                                                   dbconfig.db_password,
                                                    'map')#map.name)
 dbbindkey="project_"+map.name+"_db"
 appname=map.name

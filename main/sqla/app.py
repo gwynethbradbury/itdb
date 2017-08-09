@@ -38,6 +38,29 @@ app.config['SQLALCHEMY_DATABASE_URI'] ='mysql+pymysql://{}:{}@{}/{}'\
 # db = SQLAlchemy(app)
 
 
+app.config.update(
+    DEBUG=dbconfig.debug
+)
+
+# region EMAIL SETTINGS
+
+from core.email import send_email_simple as send_email
+
+
+print('setting up email settings')
+app.secret_key = dbconfig.mail_secret_key
+app.config["MAIL_SERVER"] = dbconfig.mail_server
+app.config["MAIL_PORT"] = dbconfig.mail_port
+app.config["MAIL_USE_SSL"] = dbconfig.mail_use_ssl
+app.config["MAIL_USERNAME"] = dbconfig.mail_username
+if not dbconfig.is_server_version:  # personal machine
+    app.config["AAAS_MAIL_SENDER"] = dbconfig.mail_username
+    app.config["MAIL_PASSWORD"] = dbconfig.mail_password
+else:  # server
+    app.config["AAAS_MAIL_SENDER"] = dbconfig.mail_sender
+    app.config["MAIL_DEFAULT_SENDER"] = dbconfig.mail_sender
+
+# endregion
 
 
 # create views:
@@ -53,7 +76,7 @@ else:
     from core.access_helper import AccessHelper
 AH = AccessHelper()
 
-# Flask views
+# region Flask views
 @app.route('/group/<group_name>')
 def show_groups(group_name):
     instances = AH.get_projects_for_group(group_name)
@@ -85,7 +108,22 @@ def show(page):
     except TemplateNotFound:
         abort(404)
 
+# endregion
 
+# region EMAIL VIEWS
+@app.route('/admin/emailsubscribers')
+def emailsubscribers():
+    return render_template("admin/email_subscribers.html")
+
+
+@app.route('/admin/send_email_subscribers', methods=['GET', 'POST'])
+def send_email_subscribers():
+    s = AH.get_mailing_list()
+    send_email(s, 'IAAS Enquiry', request.form['messagebody'])
+    return redirect("/admin")
+
+
+# endregion
 import core.iaasldap as iaasldap
 import ldapconfig as ldapconfig
 current_user = iaasldap.LDAPUser()

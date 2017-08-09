@@ -8,6 +8,8 @@ from sqlalchemy.orm import sessionmaker
 from datetime import datetime
 from werkzeug.utils import secure_filename
 
+from ..core.iaasldap import LDAPUser as iaasldap
+iaasldap=iaasldap()
 
 templateroute = "/projects/"
 

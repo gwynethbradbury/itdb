@@ -25,14 +25,36 @@ app.config['SECRET_KEY'] = '123456790'
 
 # Create in-memory database
 # app.config['DATABASE_FILE'] = 'sample_db.sqlite'
+
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + app.config['DATABASE_FILE']
 app.config['SQLALCHEMY_DATABASE_URI'] ='{}://{}:{}@{}/{}'\
     .format(dbconfig.db_engine,dbconfig.db_user,dbconfig.db_password, dbconfig.db_hostname,dbconfig.db_name)
-#
+
 # # app.config['SQLALCHEMY_ECHO'] = True
 # db = SQLAlchemy(app)
 
 
+app.config.update(
+    DEBUG=dbconfig.debug
+)
+
+# region EMAIL SETTINGS
+
+from core.email import send_email_simple as send_email
+
+app.secret_key = dbconfig.mail_secret_key
+app.config["MAIL_SERVER"] = dbconfig.mail_server
+app.config["MAIL_PORT"] = dbconfig.mail_port
+app.config["MAIL_USE_SSL"] = dbconfig.mail_use_ssl
+app.config["MAIL_USERNAME"] = dbconfig.mail_username
+if not dbconfig.is_server_version:  # personal machine
+    app.config["AAAS_MAIL_SENDER"] = dbconfig.mail_username
+    app.config["MAIL_PASSWORD"] = dbconfig.mail_password
+else:  # server
+    app.config["AAAS_MAIL_SENDER"] = dbconfig.mail_sender
+    app.config["MAIL_DEFAULT_SENDER"] = dbconfig.mail_sender
+
+# endregion
 
 
 # create views:
@@ -48,7 +70,13 @@ else:
     from core.access_helper import AccessHelper
 AH = AccessHelper()
 
-# Flask views
+import core.iaasldap as iaasldap
+import ldapconfig as ldapconfig
+current_user = iaasldap.LDAPUser()
+
+import dev.models as devmodels
+
+# region Flask views
 @app.route('/group/<group_name>')
 def show_groups(group_name):
     instances = AH.get_projects_for_group(group_name)
@@ -80,10 +108,195 @@ def show(page):
     except TemplateNotFound:
         abort(404)
 
+# endregion
 
-import core.iaasldap as iaasldap
-import ldapconfig as ldapconfig
-current_user = iaasldap.LDAPUser()
+# region EMAIL VIEWS
+@app.route('/admin/emailsubscribers')
+def emailsubscribers():
+    return render_template("admin/email_subscribers.html")
+
+
+@app.route('/admin/send_email_subscribers', methods=['GET', 'POST'])
+def send_email_subscribers():
+    s = AH.get_mailing_list()
+    send_email(s, 'IAAS Enquiry', request.form['messagebody'])
+    return redirect("/admin")
+
+
+# endregion
+
+# region ERROR VIEWS
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+
+@app.errorhandler(500)
+def page_not_found(e):
+    return render_template('500.html'), 500
+
+
+@app.errorhandler(401)
+def page_not_found(e):
+    return render_template('401.html'), 401
+
+# endregion
+
+
+# region EDITING TABLES
+
+# creating a new table
+@app.route("/projects/<application_name>/admin/newtable")
+def newtable(application_name):
+    if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
+
+    db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                     dbconfig.db_password,
+                                                     dbconfig.db_hostname,
+                                                     application_name)
+    dbbindkey="project_"+application_name+"_db"
+
+    DBA = devmodels.DatabaseAssistant(db_string,dbbindkey,application_name)#, upload_folder=uploadfolder)
+
+    tablenames,columnnames=DBA.getTableAndColumnNames()
+
+    return render_template("projects/create_table.html",
+                           tablenames=tablenames,
+                           columnnames=columnnames,
+                           pname=application_name)
+
+
+# todo: move thissomewhere:
+listOfColumnTypesByName = {"Integer":"INTEGER",
+                           "String":"VARCHAR",
+                           "Characters":"CHARACTER",
+                           "Bool":"BOOLEAN",
+                           "Time stamp":"TIMESTAMP",
+                           "Date":"DATE",
+                           "Time":"TIME",
+                           "Really long string":"CLOB",
+                           "Small integer":"SMALLINT",
+                           "Real":"REAL",
+                           "Float":"FLOAT",
+                           "Double":"DOUBLE",
+                           "Precision":"PRECISION",
+                           "Text block":"TEXT"}
+DataTypeNeedsN= {"INTEGER":False,
+                 "VARCHAR":True,
+                 "CHARACTER":True,
+                 "BOOLEAN":False,
+                 "TIMESTAMP":False,
+                 "DATE":False,
+                 "TIME":False,
+                 "CLOB":True,
+                 "SMALLINT":False,
+                 "REAL":False,
+                 "FLOAT":True,
+                 "DOUBLE":False,
+                 "PRECISION":False,
+                 "TEXT":False}
+listOfColumnTypesByDescriptor = dict(reversed(item) for item in listOfColumnTypesByName.items())
+
+# adding a column to an existing table
+# todo: unfinished
+@app.route("/projects/<application_name>/admin/<tablename>/addcolumn")
+def addcolumn(application_name,tablename):
+    if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
+    db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                     dbconfig.db_password,
+                                                     dbconfig.db_hostname,
+                                                     application_name)
+    dbbindkey = "project_" + application_name + "_db"
+
+    DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+
+    tablenames, columnnames = DBA.getTableAndColumnNames()
+
+    lstofdatatypes = listOfColumnTypesByName
+
+    return render_template("projects/add_column.html",
+                           tablename=tablename,appname=application_name,
+                           tablenames=tablenames,
+                           listofdatatypes = lstofdatatypes,
+                           columnnames=columnnames,
+                           pname=application_name)
+#
+@app.route("/projects/<application_name>/admin/<tablename>/createcolumn", methods=['GET', 'POST'])
+def createcolumn(application_name,tablename):
+    if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
+    db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                     dbconfig.db_password,
+                                                     dbconfig.db_hostname,
+                                                     application_name)
+    dbbindkey = "project_" + application_name + "_db"
+
+    DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+
+    # create a new table either from scratch or from an existing csv
+    tablenames, columnnames = DBA.getTableAndColumnNames(tablename)
+    success = 0
+    ret = ""
+
+
+
+    # check for no column name
+    if request.form.get("newcolumnname") == "":
+        success = 0
+        ret = "Enter column name"
+
+    # check for existing table with this name
+    elif request.form.get("newcolumnname") in columnnames[0]:
+        success = 0
+        ret = "Column " + request.form.get("newcolumnname") + " already exists, try a new name"
+
+
+    # todo: get argument n which islength of string etc, default is curretly 10
+    ret, success = DBA.addColumn(tablename, request.form.get("newcolumnname"), request.form.get("datatypes"))
+
+    # redirects to the same page
+    if success == 1:
+        return render_template("projects/add_column.html",
+                               tablenames=tablenames, columnnames=columnnames,
+                               message="Column " +
+                                       request.form.get("newcolumnname") + " created successfully!\n" + ret,
+                               pname=application_name)
+
+    else:
+        return render_template("projects/add_column.html",
+                               tablenames=tablenames, columnnames=columnnames,
+                               error="Creation of column " + request.form.get("newcolumnname") +
+                                     " failed!<br/>Error: " + ret,
+                               pname=application_name)
+
+
+#
+# # delete a whole table
+# @application.route("/projects/<application_name>/admin/deletetable/<page>")
+# def deletetable(application_name,page):
+#     if not user_authorised(application_name=application_name,is_admin_only_page=True):
+#         return abort(401)
+#     DBA = dictionary_of_databases[application_name]
+#     DBA.deleteTable(page)
+#     # DBA.DBE.refresh()
+#     return redirect("/projects/"+application_name+"/admin/")
+#
+# # clear all entries from a table
+# @application.route("/projects/<application_name>/admin/cleartable/<page>")
+# def cleartable(application_name,page):
+#     if not user_authorised(application_name=application_name,is_admin_only_page=True):
+#         return abort(401)
+#     DBA = dictionary_of_databases[application_name]
+#
+#     DBA.clearTable(page)
+#     return redirect("/projects/"+application_name+"/admin/")
+
+# endregion
+
+
 
 
 # Define login and registration forms (for flask-login)
@@ -149,8 +362,9 @@ class MyModelView(ModelView, ):
 
 @app.context_processor
 def inject_paths():
-    # you will be able to access {{ path1 }} and {{ path2 }} in templates
-    return dict(LDAPUser=iaasldap.LDAPUser())
+    return dict(iaas_url=dbconfig.iaas_route,
+                dbas_url=dbconfig.dbas_route,
+                LDAPUser=iaasldap.LDAPUser())
 
 # Create customized index view class that handles login & registration
 class MyAdminIndexView(admin.AdminIndexView):
@@ -227,7 +441,6 @@ init_login()
 # do this for each project:
 # uses database to do this dynamically
 # import dev
-import dbconfig
 import re
 from flask import Blueprint
 
@@ -236,7 +449,6 @@ from flask import Blueprint
 iaas_main_db = app.config['SQLALCHEMY_DATABASE_URI']
 
 
-import dev.models as devmodels
 
 modules = []
 dictline = []

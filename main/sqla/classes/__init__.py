@@ -1,20 +1,20 @@
 from flask_sqlalchemy import SQLAlchemy
 from main.sqla.app import db as db
-import map as db_map
-import online_learning as db_online_learning
-import it_lending_log as db_it_lending_log
-classesdict={
-    'cls_map_derp4': db_map.Derp4,
-    'cls_map_project': db_map.Project,
-    'cls_map_pro': db_map.Pro,
-    'cls_map_derp2': db_map.Derp2,
-    'cls_map_derp': db_map.Derp,
-    'cls_online_learning_videos': db_online_learning.Videos,
-    'cls_online_learning_tags': db_online_learning.Tags,
-    'cls_online_learning_pages_tags': db_online_learning.PagesTags,
-    'cls_online_learning_topic': db_online_learning.Topic,
-    'cls_online_learning_pages_videos': db_online_learning.PagesVideos,
-    'cls_online_learning_pages': db_online_learning.Pages,
-    'cls_it_lending_log_items': db_it_lending_log.Items,
-    'cls_it_lending_log_log': db_it_lending_log.Log,
-    }
+import inspect
+import importlib
+
+db_list = ['map', 'it_lending_log', 'online_learning']
+
+classesdict = {}
+my_db = {}
+
+for db_item in db_list:
+    my_db[db_item] = importlib.import_module('.classes_master', __name__)
+    my_db[db_item].init(db_item)
+    # this doesn't work as we need to map to the class, not merely the name of the class!
+    for i in my_db[db_item].class_list:
+        classes_arr = i.split('_')
+        cn = ""
+        for cl in classes_arr:
+            cn = cn + cl.capitalize()
+        classesdict["cls_" + db_item + "_" + i] = getattr(my_db[db_item], cn)

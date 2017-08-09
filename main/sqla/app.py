@@ -25,8 +25,10 @@ app.config['SECRET_KEY'] = '123456790'
 
 # Create in-memory database
 # app.config['DATABASE_FILE'] = 'sample_db.sqlite'
-app.config['SQLALCHEMY_DATABASE_URI'] ='mysql+pymysql://{}:{}@{}/{}'\
-    .format(dbconfig.db_user,dbconfig.db_password, dbconfig.db_hostname,dbconfig.db_name)
+
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + app.config['DATABASE_FILE']
+app.config['SQLALCHEMY_DATABASE_URI'] ='{}://{}:{}@{}/{}'\
+    .format(dbconfig.db_engine,dbconfig.db_user,dbconfig.db_password, dbconfig.db_hostname,dbconfig.db_name)
 
 # # app.config['SQLALCHEMY_ECHO'] = True
 # db = SQLAlchemy(app)
@@ -452,8 +454,8 @@ modules = []
 dictline = []
 # bind_line = []
 class_db_dict={}
-SQLALCHEMY_BINDS = {'iaas':'mysql+pymysql://{}:{}@localhost/iaas'
-                        .format(dbconfig.db_user,dbconfig.db_password)}
+SQLALCHEMY_BINDS = {'iaas':'{}://{}:{}@{}/iaas'
+                        .format(dbconfig.db_engine,dbconfig.db_user,dbconfig.db_password,dbconfig.db_hostname)}
 
 
 dba = devmodels.DatabaseAssistant(iaas_main_db, "iaas", "iaas")
@@ -473,9 +475,9 @@ def get_binds():
         if not(r[2] == '1' or r[2] == '4'):  # then this is a database project
             continue
 
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+        db_string = '{}://{}:{}@{}/{}'.format(dbconfig.db_engine,dbconfig.db_user,
                                                   dbconfig.db_password,
-                                                  "localhost",
+                                                  dbconfig.db_hostname,
                                                   r[1])
         SQLALCHEMY_BINDS["{}".format(r[1])] = db_string
 
@@ -488,84 +490,7 @@ def get_binds():
 
 get_binds()
 
-def create_classes_from_db():
-    print("writing to file: " + os.path.dirname(__file__) + "/classes/__init__.py")
-    file = open(os.path.dirname(__file__) + "/classes/__init__.py", "w")
-    file.write(
-        "from flask_sqlalchemy import SQLAlchemy\n"
-        "from main.sqla.app import db as db\n")
-    for r in list_of_projects:
-        if not(r[2] == '1' or r[2] == '4'):  # then this is a database project
-            continue
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                  dbconfig.db_password,
-                                                  "localhost",
-                                                  r[1])
 
-        project_dba = devmodels.DatabaseAssistant(db_string, r[1], r[1])
-
-        tns,cns = project_dba.getTableAndColumnNames()
-
-        # generate the class files
-        cmd = "sqlacodegen mysql://{}:{}@{}/{} " \
-              "--outfile {}/classes/{}.py " \
-              "--noinflect " \
-              "--tables {}"\
-            .format(dbconfig.db_user,
-                          dbconfig.db_password,
-                          "localhost",
-                          r[1],
-                          os.path.dirname(__file__) ,
-                          r[1],
-                          ','.join(tns))
-        os.system(cmd)
-
-        file.write("import {} as db_{}\n".format(r[1],r[1]))
-        for t in tns:
-            nm = line = re.sub('_', '', t.title())
-            dictline.append("'cls_{}_{}': db_{}.{}".format(r[1],t,r[1],nm))
-            # bind_line.append("setattr(db_{}.{},'__bind_key__', '{}')\n".format(r[1],nm,r[1]))
-
-
-
-        # add some bits to the class files
-        filename = "{}/classes/{}.py".format(os.path.dirname(__file__),r[1])
-        #             load file
-        lines=[]
-        with open(filename, 'r') as current:
-            lines = current.readlines()
-            if not lines:
-                print('FILE IS EMPTY')
-            else:
-                i=0
-                for l in lines:
-                    # look for Base line and repalce with import db\n Base=db.model
-                    if l.startswith('Base'):
-                        lines[i] = 'from . import db\n' \
-                            'Base=db.Model\n'
-                    # look for lines starting with 'class ' add a line for bind_key
-                    if l.startswith('class '):
-                        lines.insert(i+1,"    def __str__(self):\n"
-                                         "        if hasattr(self, 'title'):\n"
-                                         "            return self.title\n"
-                                         "        elif hasattr(self,'name'):\n"
-                                         "            return self.name\n"
-                                         "        elif hasattr(self,'id'):\n"
-                                         "            return self.id\n"
-                                         "    __bind_key__ = '{}'\n"
-                                         "".format(r[1]))
-                    i=i+1
-        file2 = open(filename,"w")
-        file2.writelines(lines)
-        file2.close()
-
-    file.write("classesdict={\n")
-    for d in dictline:
-        file.write("    {},\n".format(d,d))
-    file.write("    }\n")
-
-    file.close()
-# create_classes_from_db()
 
 app.config['SQLALCHEMY_BINDS'] =SQLALCHEMY_BINDS
 

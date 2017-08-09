@@ -11,7 +11,7 @@ class DBHelper:
         self.mydatabase = dbname
 
     def connect(self, database=""):
-        return pymysql.connect(host=dbconfig.db_hostname,
+        return pymysql.connect(host='localhost',
                                user=dbconfig.db_user,
                                passwd=dbconfig.db_password,
                                db=self.mydatabase)

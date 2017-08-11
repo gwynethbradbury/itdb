@@ -17,7 +17,7 @@
 {%- endmacro %}
 
 {% macro menu(menu_root=None) %}
-  {% if menu_root is none %}{% set menu_root = admin_view.admin.menu() %}{% endif %}
+  {% if menu_root is none %}{% set menu_root = admin_view.admin.menu() %}{% else %}{% endif %}
   {%- for item in menu_root %}
     {%- if item.is_category() -%}
       {% set children = item.get_children() %}

@@ -418,7 +418,7 @@ def test_menu_links():
 def test_add_links():
     app = Flask(__name__)
     admin = base.Admin(app)
-    admin.add_links(base.MenuLink('TestMenuLink1', endpoint='.index'),
+    admin.add_links(base.MenuLiadd_columnnk('TestMenuLink1', endpoint='.index'),
                     base.MenuLink('TestMenuLink2', url='http://python.org/'))
 
     client = app.test_client()

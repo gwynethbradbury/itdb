@@ -149,6 +149,7 @@ def page_not_found(e):
 # creating a new table
 @app.route("/projects/<application_name>/admin/newtable")
 def newtable(application_name):
+
     if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
         return abort(401)
 
@@ -161,6 +162,8 @@ def newtable(application_name):
     DBA = devmodels.DatabaseAssistant(db_string,dbbindkey,application_name)#, upload_folder=uploadfolder)
 
     tablenames,columnnames=DBA.getTableAndColumnNames()
+    if not tablenames ==[]:
+        return redirect("/projects/{}/{}/admin/newtable".format(application_name,tablenames[0]))
 
     return render_template("projects/create_table.html",
                            tablenames=tablenames,
@@ -201,8 +204,9 @@ listOfColumnTypesByDescriptor = dict(reversed(item) for item in listOfColumnType
 
 # adding a column to an existing table
 # todo: unfinished
-@app.route("/projects/<application_name>/admin/<tablename>/addcolumn")
-def addcolumn(application_name,tablename):
+@app.route("/projects/<application_name>/admin/newcolumn")
+# @app.route("/projects/<application_name>/<tablename>/admin/newcolumn")
+def newcolumn(application_name,tablename=""):
     if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
         return abort(401)
     db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
@@ -217,6 +221,8 @@ def addcolumn(application_name,tablename):
 
     lstofdatatypes = listOfColumnTypesByName
 
+    if not tablenames ==[]:
+        return redirect("/projects/{}/{}/admin/newcolumn".format(application_name,tablenames[0]))
     return render_template("projects/add_column.html",
                            tablename=tablename,appname=application_name,
                            tablenames=tablenames,
@@ -273,30 +279,247 @@ def createcolumn(application_name,tablename):
                                pname=application_name)
 
 
-#
-# # delete a whole table
-# @application.route("/projects/<application_name>/admin/deletetable/<page>")
-# def deletetable(application_name,page):
-#     if not user_authorised(application_name=application_name,is_admin_only_page=True):
-#         return abort(401)
-#     DBA = dictionary_of_databases[application_name]
-#     DBA.deleteTable(page)
-#     # DBA.DBE.refresh()
-#     return redirect("/projects/"+application_name+"/admin/")
-#
-# # clear all entries from a table
-# @application.route("/projects/<application_name>/admin/cleartable/<page>")
-# def cleartable(application_name,page):
-#     if not user_authorised(application_name=application_name,is_admin_only_page=True):
-#         return abort(401)
-#     DBA = dictionary_of_databases[application_name]
-#
-#     DBA.clearTable(page)
-#     return redirect("/projects/"+application_name+"/admin/")
+
+# delete a whole table
+@app.route("/projects/<application_name>/admin/deletetable/<tablename>")
+def deletetable(application_name,tablename):
+    if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
+    db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                     dbconfig.db_password,
+                                                     dbconfig.db_hostname,
+                                                     application_name)
+    dbbindkey = "project_" + application_name + "_db"
+
+    DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+
+
+    DBA.deleteTable(tablename)
+    # DBA.DBE.refresh()
+    return redirect("/projects/"+application_name+"/admin/")
+
+# clear all entries from a table
+@app.route("/projects/<application_name>/admin/cleartable/<tablename>")
+def cleartable(application_name,tablename):
+    if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
+    db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                     dbconfig.db_password,
+                                                     dbconfig.db_hostname,
+                                                     application_name)
+    dbbindkey = "project_" + application_name + "_db"
+
+    DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+
+    DBA.clearTable(tablename)
+    return redirect("/projects/"+application_name+"/admin/")
 
 # endregion
 
+# region UPLOADING AND DOWNLOADING DATA
 
+from werkzeug.utils import secure_filename
+from datetime import datetime
+
+# generate a blank cv given an existing table
+@app.route("/projects/<application_name>/admin/genblankcsv", methods=['GET', 'POST'])
+def genblankcsv(application_name):
+    if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
+    db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                     dbconfig.db_password,
+                                                     dbconfig.db_hostname,
+                                                     application_name)
+    dbbindkey = "project_" + application_name + "_db"
+
+    DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+
+
+    try:
+        return DBA.genBlankCSV(request.form.get("tablename"))
+    except Exception as e:
+        print(e)
+
+    return redirect("/projects/"+application_name+"/admin/")
+
+# renders the upload form
+@app.route("/projects/<application_name>/admin/uploaddata")
+def uploaddata(application_name,msg="", err=""):
+    if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
+    db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                     dbconfig.db_password,
+                                                     dbconfig.db_hostname,
+                                                     application_name)
+    dbbindkey = "project_" + application_name + "_db"
+
+    DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+
+
+    tablenames, columnnames = DBA.getTableAndColumnNames()
+    return render_template("projects/upload_table.html",
+                           tablenames=tablenames,
+                           message=msg,
+                           error=err,
+                           pname=application_name)
+
+# adds the data from the CSV to an existing table
+@app.route("/projects/<application_name>/admin/uploaddatafrom", methods=['GET', 'POST'])
+def uploaddatafrom(application_name):
+    if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
+    db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                     dbconfig.db_password,
+                                                     dbconfig.db_hostname,
+                                                     application_name)
+    dbbindkey = "project_" + application_name + "_db"
+
+    DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+
+
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            return uploaddata(err="No file part")
+        else:
+            file = request.files['file']
+            # if user does not select file, browser also
+            # submit a empty part without filename
+            if file.filename == '':
+                return uploaddata(err="No selected file")
+            if file:  # and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                dt = datetime.utcnow().strftime("%Y-%m-%d_%H:%M:%S")
+                file.save(os.path.join(DBA.uploadfolder, dt + '_' + filename))
+                tablename = str(request.form.get("tablename"))
+
+                success, ret = DBA.createTableFrom(os.path.join(DBA.uploadfolder, dt + '_' + filename),
+                                                   tablename)
+                if success:
+                    ret = "Success, data added to table: %s%s%s" % (tablename, "<br/>", ret)
+                    return uploaddata(msg=ret)
+                else:
+                    return uploaddata(err=ret)
+
+    return redirect("/projects/"+application_name+"/admin/")
+
+# creates a new table taking name from form
+# if table exists, supplements it with the new data
+# todo: check for column missmatch
+# @app.route("/projects/<application_name>/admin/createtable", methods=['GET', 'POST'])
+# def createtable(application_name):
+#     if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
+#         return abort(401)
+#     db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+#                                                      dbconfig.db_password,
+#                                                      dbconfig.db_hostname,
+#                                                      application_name)
+#     dbbindkey = "project_" + application_name + "_db"
+#
+#     DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+#     # create a new table either from scratch or from an existing csv
+#     tablenames, columnnames = DBA.getTableAndColumnNames()
+#     success = 0
+#     ret = ""
+#
+#     # check for no table name
+#     if request.form.get("newtablename") == "":
+#         success = 0
+#         ret = "Enter table name"
+#
+#     # check for existing table with this name
+#     elif request.form.get("newtablename") in tablenames:
+#         success = 0
+#         ret = "Table " + request.form.get("newtablename") + " already exists, try a new name"
+#
+#     # check whether this should be an empty table or from existing data
+#     elif request.form.get("source") == "emptytable":
+#         success, ret = DBA.createEmptyTable(request.form.get("newtablename"))
+#
+#     elif 'file' not in request.files:
+#         # check if the post request has the file part
+#         print('No file found')
+#         success = 0
+#         ret = "No file part, contact admin"
+#
+#     else:
+#         file = request.files['file']
+#         # if user does not select file, browser also
+#         # submit a empty part without filename
+#         if file.filename == '':
+#             success = 0
+#             ret = 'No selected file.'
+#
+#         elif file:  # and allowed_file(file.filename):
+#             filename = secure_filename(file.filename)
+#             dt = datetime.utcnow().strftime("%Y-%m-%d_%H:%M:%S")
+#             file.save(os.path.join(DBA.uploadfolder, dt + '_' + filename))
+#             success, ret = DBA.createTableFromCSV(os.path.join(DBA.uploadfolder, filename),
+#                                                   request.form.get("newtablename"))
+#
+#     if success == 1:
+#         # todo: this does not work on the fly
+#         return render_template("projects/create_table.html",
+#                                tablenames=tablenames, columnnames=columnnames,
+#                                message="Table " +
+#                                        request.form.get("newtablename") + " created successfully!\n" + ret,
+#                                pname=application_name)
+#     else:
+#         return render_template("projects/create_table.html",
+#                                tablenames=tablenames, columnnames=columnnames,
+#                                error="Creation of table " + request.form.get("newtablename") +
+#                                      " failed!<br/>Error: " + ret,
+#                                pname=application_name)
+
+# renders the download form
+# @app.route("/projects/<application_name>/admin/download")
+# def download(application_name):
+#     if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
+#         return abort(401)
+#     db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+#                                                      dbconfig.db_password,
+#                                                      dbconfig.db_hostname,
+#                                                      application_name)
+#     dbbindkey = "project_" + application_name + "_db"
+#
+#     DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+#
+#
+#     tablenames, columnnames = DBA.getTableAndColumnNames()
+#
+#     return render_template("projects/download_table.html",
+#                            tablenames=tablenames, columnnames=columnnames,
+#                            pname=application_name,
+#                            username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+#                            servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
+
+# serves the data given the response from the download form
+@app.route("/projects/<application_name>/admin/servedata", methods=['GET', 'POST'])
+def servedata(application_name):
+    if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
+        return abort(401)
+    db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                     dbconfig.db_password,
+                                                     dbconfig.db_hostname,
+                                                     application_name)
+    dbbindkey = "project_" + application_name + "_db"
+
+    DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+
+    # serves the requested data
+    # todo: problems with filename and extension
+
+
+    try:
+        return DBA.serveData(F=request.form,
+                             ClassName=str(request.form.get("tablename")))  # os.path.abspath(os.path.dirname(__file__)))
+    except Exception as e:
+        print(str(e))
+
+    return redirect("/projects/"+application_name+"/admin/")
+
+
+# endregion
 
 
 # Define login and registration forms (for flask-login)
@@ -322,10 +545,12 @@ class LoginForm(form.Form):
 
 
 # Create customized model view class
-class MyModelView(ModelView, ):
+class MyModelView(ModelView,):
     current_user = iaasldap.LDAPUser()
 
     def is_accessible(self):
+        if current_user.has_role('superusers') :
+            return True
         current_url = str.split(self.admin.url,'/')
         project_name=""
         require_project_admin=False
@@ -343,8 +568,6 @@ class MyModelView(ModelView, ):
         if require_project_admin and not current_user.has_role('{}_admin'.format(project_name)):
             return False
 
-        if current_user.has_role('superusers') :
-            return True
 
         return True
 
@@ -359,6 +582,216 @@ class MyModelView(ModelView, ):
             else:
                 # login
                 return "not authenticated" #redirect(url_for('security.login', next=request.url))
+
+
+    @expose('/admin/newtable')
+    def newtable(self):
+        current_url = str.split(self.admin.url,'/')
+        application_name = current_url[2]
+
+        if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
+            return abort(401)
+
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                         dbconfig.db_password,
+                                                         dbconfig.db_hostname,
+                                                         application_name)
+        dbbindkey="project_"+application_name+"_db"
+
+        DBA = devmodels.DatabaseAssistant(db_string,dbbindkey,application_name)#, upload_folder=uploadfolder)
+
+        tablenames,columnnames=DBA.getTableAndColumnNames()
+
+        return self.render("projects/create_table.html",
+                               tablenames=tablenames,
+                               columnnames=columnnames,
+                               pname=application_name)
+
+
+        # return newtable(application_name)#self.render('analytics_index.html')
+
+    @expose("/admin/createtable", methods=['GET', 'POST'])
+    def createtable(self):
+        current_url = str.split(self.admin.url,'/')
+        application_name = current_url[2]
+        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+            return abort(401)
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                         dbconfig.db_password,
+                                                         dbconfig.db_hostname,
+                                                         application_name)
+        dbbindkey = "project_" + application_name + "_db"
+
+        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+        # create a new table either from scratch or from an existing csv
+        tablenames, columnnames = DBA.getTableAndColumnNames()
+        success = 0
+        ret = ""
+
+        # check for no table name
+        if request.form.get("newtablename") == "":
+            success = 0
+            ret = "Enter table name"
+
+        # check for existing table with this name
+        elif request.form.get("newtablename") in tablenames:
+            success = 0
+            ret = "Table " + request.form.get("newtablename") + " already exists, try a new name"
+
+        # check whether this should be an empty table or from existing data
+        elif request.form.get("source") == "emptytable":
+            success, ret = DBA.createEmptyTable(request.form.get("newtablename"))
+
+        elif 'file' not in request.files:
+            # check if the post request has the file part
+            print('No file found')
+            success = 0
+            ret = "No file part, contact admin"
+
+        else:
+            file = request.files['file']
+            # if user does not select file, browser also
+            # submit a empty part without filename
+            if file.filename == '':
+                success = 0
+                ret = 'No selected file.'
+
+            elif file:  # and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                dt = datetime.utcnow().strftime("%Y-%m-%d_%H:%M:%S")
+                file.save(os.path.join(DBA.uploadfolder, dt + '_' + filename))
+                success, ret = DBA.createTableFromCSV(os.path.join(DBA.uploadfolder, filename),
+                                                      request.form.get("newtablename"))
+
+        if success == 1:
+            # todo: this does not work on the fly
+            add_single_view(request.form.get("newtablename"),application_name)
+            return self.render("projects/create_table.html",
+                                   tablenames=tablenames, columnnames=columnnames,
+                                   message="Table " +
+                                           request.form.get("newtablename") + " created successfully!\n" + ret,
+                                   pname=application_name)
+
+        else:
+            return self.render("projects/create_table.html",
+                                   tablenames=tablenames, columnnames=columnnames,
+                                   error="Creation of table " + request.form.get("newtablename") +
+                                         " failed!<br/>Error: " + ret,
+                                   pname=application_name)
+
+    @expose('/admin/newcolumn')
+    def newcolumn(self):
+        rule = str.split(str(request.url_rule),'/')
+        current_url = str.split(self.admin.url,'/')
+        application_name = current_url[2]
+        tablename=rule[3]
+
+        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+            return abort(401)
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                         dbconfig.db_password,
+                                                         dbconfig.db_hostname,
+                                                         application_name)
+        dbbindkey = "project_" + application_name + "_db"
+
+        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+
+        tablenames, columnnames = DBA.getTableAndColumnNames()
+
+        lstofdatatypes = listOfColumnTypesByName
+
+
+        return self.render("projects/add_column.html",
+                               tablename=tablename, appname=application_name,
+                               tablenames=tablenames,
+                               listofdatatypes=lstofdatatypes,
+                               columnnames=columnnames,
+                               pname=application_name)
+
+    @expose('/upload')
+    def upload(self,msg="", err=""):
+        current_url = str.split(self.admin.url,'/')
+        application_name = current_url[2]
+        if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
+            return abort(401)
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                         dbconfig.db_password,
+                                                         dbconfig.db_hostname,
+                                                         application_name)
+        dbbindkey = "project_" + application_name + "_db"
+
+        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+
+
+        tablenames, columnnames = DBA.getTableAndColumnNames()
+        return self.render("projects/upload_table.html",
+                               tablenames=tablenames,
+                               message=msg,
+                               error=err,
+                               pname=application_name)
+
+    @expose('/download')
+    def download(self):
+        current_url = str.split(self.admin.url,'/')
+        application_name = current_url[2]
+        if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
+            return abort(401)
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                         dbconfig.db_password,
+                                                         dbconfig.db_hostname,
+                                                         application_name)
+        dbbindkey = "project_" + application_name + "_db"
+
+        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+
+
+        tablenames, columnnames = DBA.getTableAndColumnNames()
+
+        return self.render("projects/download_table.html",
+                               tablenames=tablenames, columnnames=columnnames,
+                               pname=application_name)
+
+    @expose('/deletetable')
+    def deletetable(self):
+        rule = str.split(str(request.url_rule),'/')
+        current_url = str.split(self.admin.url,'/')
+        application_name = current_url[2]
+        tablename=rule[3]
+
+        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+            return abort(401)
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                         dbconfig.db_password,
+                                                         dbconfig.db_hostname,
+                                                         application_name)
+        dbbindkey = "project_" + application_name + "_db"
+
+        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+
+        # admin_pages_setup()
+        # DBA.deleteTable(tablename)
+        # DBA.DBE.refresh()
+        return 'feature currently disabled' #redirect("/projects/" + application_name + "/admin/")
+
+    @expose('/cleartable')
+    def cleartable(self):
+        rule = str.split(str(request.url_rule),'/')
+        current_url = str.split(self.admin.url,'/')
+        application_name = current_url[2]
+        tablename=rule[3]
+        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+            return abort(401)
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                         dbconfig.db_password,
+                                                         dbconfig.db_hostname,
+                                                         application_name)
+        dbbindkey = "project_" + application_name + "_db"
+
+        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+
+        DBA.clearTable(tablename)
+        return redirect("/projects/" + application_name + "/admin/")
+
 
 @app.context_processor
 def inject_paths():
@@ -453,9 +886,6 @@ iaas_main_db = app.config['SQLALCHEMY_DATABASE_URI']
 modules = []
 dictline = []
 # bind_line = []
-class_db_dict={}
-SQLALCHEMY_BINDS = {'iaas':'{}://{}:{}@{}/iaas'
-                        .format(dbconfig.db_engine,dbconfig.db_user,dbconfig.db_password,dbconfig.db_hostname)}
 
 
 dba = devmodels.DatabaseAssistant(iaas_main_db, "iaas", "iaas")
@@ -469,11 +899,18 @@ result, list_of_projects = dba.retrieveDataFromDatabase("svc_instances",
 print("retrieving list of DBAS services available and adding to dictionary:")
 
 
-
+'''checks the iaas db for dbas services and collects the db binds'''
 def get_binds():
+    class_db_dict = {}
+    SQLALCHEMY_BINDS = {'iaas': '{}://{}:{}@{}/iaas'
+        .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname)}
+    db_list=[]
+
     for r in list_of_projects:
         if not(r[2] == '1' or r[2] == '4'):  # then this is a database project
             continue
+
+        db_list.append(r[1])
 
         db_string = '{}://{}:{}@{}/{}'.format(dbconfig.db_engine,dbconfig.db_user,
                                                   dbconfig.db_password,
@@ -488,7 +925,9 @@ def get_binds():
             nm = line = re.sub('_', '', t.title())
             class_db_dict['cls_{}_{}'.format(r[1],t)] = r[1]
 
-get_binds()
+    return SQLALCHEMY_BINDS, class_db_dict, db_list
+
+SQLALCHEMY_BINDS,class_db_dict,db_list = get_binds()
 
 
 
@@ -508,7 +947,7 @@ from sqlalchemy.ext.declarative import declarative_base
 Base=declarative_base()
 metadata = Base.metadata
 
-
+# region iaas classes
 class News(Base):
     __tablename__ = 'News'
 
@@ -584,13 +1023,22 @@ class SvcInstances(Base):
     instance_identifier = Column(String(70))
     svc_type_id = Column(Integer, nullable=False)
     group_id = Column(Integer, nullable=False)
+
+# endregion
 # Create admin
 iaas_admin = admin.Admin(app, name='IAAS admin app', template_mode='foundation',
                          endpoint="admin",url="/admin",
                          base_template='my_master.html')
 
+
+from flask_admin.menu import MenuLink as ML
+# iaas_admin.add_links(ML('Test Internal Link', endpoint='applicationhome'),
+#                      ML('Test External Link', url='http://python.org/'))
+iaas_admin.add_links(ML('Application', endpoint='applicationhome'),
+                     ML('New Table', url='/projects/iaas/admin/newtable'))
+
 # Add views
-iaas_admin.add_view(MyModelView(SvcInstances, db.session,))
+iaas_admin.add_view(MyModelView(SvcInstances, db.session))
 iaas_admin.add_view(MyModelView(Subscribers, db.session))
 iaas_admin.add_view(MyModelView(News, db.session))
 iaas_admin.add_view(MyModelView(Comment, db.session))
@@ -598,22 +1046,56 @@ iaas_admin.add_view(MyModelView(Comment, db.session))
 
 # endregion
 
-
 import classes
-binds = app.config['SQLALCHEMY_BINDS']
-for d in binds:
-    print(d,binds[d])
+
+def _add_a_view(proj_admin,c):
+    proj_admin.add_view(MyModelView(c, db.session))
+
+def add_collection_of_views(d, classesdict):
     proj_admin = admin.Admin(app, name='{} admin'.format(d),
                              template_mode='foundation',
                              endpoint=d,
-                             url="/projects/{}".format(d))
+                             url="/projects/{}".format(d),
+                             base_template='my_master.html'
+                             )
+    proj_admin.add_menu_item(ML('New Table', url='/projects/{}/admin/newtable'.format(d),
+                                category="actions"))
+    proj_admin.add_links(ML('Application', url='/projects/{}/app'.format(d)))
 
     for c in class_db_dict:
-        if d==class_db_dict[c]:
-            print ('class {} is in db {}'.format(c,d))
+        if d == class_db_dict[c]:
+            print ('class {} is in db {}'.format(c, d))
 
-            proj_admin.add_view(ModelView(classes.classesdict[c], db.session))
+            _add_a_view(proj_admin, classesdict[c])
 
+def add_single_view(c,d):
+    classesdict, my_db = classes.initialise(db_list)
+
+    # iaas_admin = admin.Admin(app, name='{} admin'.format(d),
+    #                          template_mode='foundation',
+    #                          endpoint=d,
+    #                          url="/projects/{}".format(d),
+    #                          base_template='my_master.html'
+    #                          )
+    # iaas_admin.add_menu_item(ML('New Table', url='/projects/{}/admin/newtable'.format(d),
+    #                             category="actions"))
+    # iaas_admin.add_links(ML('Application', url='/projects/{}/app'.format(d)))
+
+
+    print ('class {} is in db {}'.format(c, d))
+
+    _add_a_view(iaas_admin, classesdict['cls_{}_{}'.format(d,c)])
+
+def admin_pages_setup():
+    classesdict, my_db = classes.initialise(db_list)
+
+    binds = app.config['SQLALCHEMY_BINDS']
+    for d in binds:
+        print(d,binds[d])
+
+        add_collection_of_views(d,classesdict)
+
+admin_pages_setup()
 
 # def build_sample_db():
 #     """

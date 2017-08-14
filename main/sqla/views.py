@@ -204,50 +204,51 @@ def set_views(app):
                                pname=application_name)
 
     #
-    @app.route("/projects/<application_name>/admin/<tablename>/createcolumn", methods=['GET', 'POST'])
-    def createcolumn(application_name, tablename):
-        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
-            return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
-                                                         application_name)
-        dbbindkey = "project_" + application_name + "_db"
-
-        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
-
-        # create a new table either from scratch or from an existing csv
-        tablenames, columnnames = DBA.getTableAndColumnNames(tablename)
-        success = 0
-        ret = ""
-
-        # check for no column name
-        if request.form.get("newcolumnname") == "":
-            success = 0
-            ret = "Enter column name"
-
-        # check for existing table with this name
-        elif request.form.get("newcolumnname") in columnnames[0]:
-            success = 0
-            ret = "Column " + request.form.get("newcolumnname") + " already exists, try a new name"
-
-        # todo: get argument n which islength of string etc, default is curretly 10
-        ret, success = DBA.addColumn(tablename, request.form.get("newcolumnname"), request.form.get("datatypes"))
-
-        # redirects to the same page
-        if success == 1:
-            return render_template("projects/add_column.html",
-                                   tablenames=tablenames, columnnames=columnnames,
-                                   message="Column " +
-                                           request.form.get("newcolumnname") + " created successfully!\n" + ret,
-                                   pname=application_name)
-
-        else:
-            return render_template("projects/add_column.html",
-                                   tablenames=tablenames, columnnames=columnnames,
-                                   error="Creation of column " + request.form.get("newcolumnname") +
-                                         " failed!<br/>Error: " + ret,
-                                   pname=application_name)
+    # @app.route("/projects/<application_name>/admin/<tablename>/createcolumn", methods=['GET', 'POST'])
+    # @app.route("/projects/<application_name>/<tablename>/admin/createcolumn", methods=['GET', 'POST'])
+    # def createcolumn(application_name, tablename):
+    #     if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+    #         return abort(401)
+    #     db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+    #                                                      dbconfig.db_password,
+    #                                                      dbconfig.db_hostname,
+    #                                                      application_name)
+    #     dbbindkey = "project_" + application_name + "_db"
+    #
+    #     DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+    #
+    #     # create a new table either from scratch or from an existing csv
+    #     tablenames, columnnames = DBA.getTableAndColumnNames(tablename)
+    #     success = 0
+    #     ret = ""
+    #
+    #     # check for no column name
+    #     if request.form.get("newcolumnname") == "":
+    #         success = 0
+    #         ret = "Enter column name"
+    #
+    #     # check for existing table with this name
+    #     elif request.form.get("newcolumnname") in columnnames[0]:
+    #         success = 0
+    #         ret = "Column " + request.form.get("newcolumnname") + " already exists, try a new name"
+    #
+    #     # todo: get argument n which islength of string etc, default is curretly 10
+    #     ret, success = DBA.addColumn(tablename, request.form.get("newcolumnname"), request.form.get("datatypes"))
+    #
+    #     # redirects to the same page
+    #     if success == 1:
+    #         return render_template("projects/add_column.html",
+    #                                tablenames=tablenames, columnnames=columnnames,
+    #                                message="Column " +
+    #                                        request.form.get("newcolumnname") + " created successfully!\n" + ret,
+    #                                pname=application_name)
+    #
+    #     else:
+    #         return render_template("projects/add_column.html",
+    #                                tablenames=tablenames, columnnames=columnnames,
+    #                                error="Creation of column " + request.form.get("newcolumnname") +
+    #                                      " failed!<br/>Error: " + ret,
+    #                                pname=application_name)
 
     # delete a whole table
     @app.route("/projects/<application_name>/admin/deletetable/<tablename>")
@@ -749,8 +750,10 @@ class MyModelView(ModelView,):
         current_url = str.split(self.admin.url,'/')
         application_name = current_url[2]
         tablename=rule[3]
+
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
+
         db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
                                                          dbconfig.db_password,
                                                          dbconfig.db_hostname,
@@ -761,5 +764,60 @@ class MyModelView(ModelView,):
 
         DBA.clearTable(tablename)
         return redirect("/projects/" + application_name + "/" + tablename)
+
+    # @app.route("/projects/<application_name>/admin/<tablename>/createcolumn", methods=['GET', 'POST'])
+    @expose('/admin/createcolumn', methods=['GET', 'POST'])
+    def createcolumn(self):
+        rule = str.split(str(request.url_rule),'/')
+        application_name = rule[2]
+        tablename=rule[3]
+
+        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+            return abort(401)
+
+
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                         dbconfig.db_password,
+                                                         dbconfig.db_hostname,
+                                                         application_name)
+        dbbindkey = "project_" + application_name + "_db"
+
+        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+
+        # create a new table either from scratch or from an existing csv
+        tablenames, columnnames = DBA.getTableAndColumnNames(tablename)
+        success = 0
+        ret = ""
+
+        # check for no column name
+        if request.form.get("newcolumnname") == "":
+            success = 0
+            ret = "Enter column name"
+
+        # check for existing table with this name
+        elif request.form.get("newcolumnname") in columnnames[0]:
+            success = 0
+            ret = "Column " + request.form.get("newcolumnname") + " already exists, try a new name"
+
+        # todo: get argument n which islength of string etc, default is curretly 10
+        ret, success = DBA.addColumn(tablename, request.form.get("newcolumnname"), request.form.get("datatypes"))
+
+        listofdatatypes = listOfColumnTypesByName
+        # redirects to the same page
+        if success == 1:
+            return self.render("projects/add_column.html",
+                               tablenames=tablenames, columnnames=columnnames,
+                               message="Column " +
+                                       request.form.get("newcolumnname") + " created successfully!\n" + ret,
+                               listofdatatypes=listofdatatypes,
+                               pname=application_name)
+
+        else:
+            return self.render("projects/add_column.html",
+                               tablenames=tablenames, columnnames=columnnames,
+                               error="Creation of column " + request.form.get("newcolumnname") +
+                                     " failed!<br/>Error: " + ret,
+                               listofdatatypes=listofdatatypes,
+                               pname=application_name)
 
 

@@ -7,7 +7,6 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.engine import reflection
 import dbconfig
-from . import db
 
 def ClassStr(self):
         if hasattr(self, 'title'):
@@ -19,7 +18,7 @@ def ClassStr(self):
 
 
 class_list=[]
-def init(db_name):
+def init(db, db_name):
   Base = declarative_base()
   engine = create_engine('{}://{}:{}@{}/{}'
                         .format(dbconfig.db_engine,dbconfig.db_user,dbconfig.db_password,dbconfig.db_hostname,db_name))

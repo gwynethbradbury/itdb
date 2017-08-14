@@ -636,11 +636,12 @@ class MyModelView(ModelView,):
         if success == 1:
             # todo: this does not work on the fly
             from main.sqla.app import DBAS as DBAS
-            DBAS.add_single_view(request.form.get("newtablename"),application_name)
+            DBAS.setup()
             return self.render("projects/create_table.html",
                                    tablenames=tablenames, columnnames=columnnames,
                                    message="Table " +
-                                           request.form.get("newtablename") + " created successfully!\n" + ret,
+                                           request.form.get("newtablename") + " created successfully!\n" + ret +
+                                           "\nBUT app needs to reload",
                                    pname=application_name)
 
         else:
@@ -773,6 +774,10 @@ class MyModelView(ModelView,):
         DBA.deleteTable(tablename)
         # DBA.DBE.refresh()
         # todo: fix this
+
+        from main.sqla.app import DBAS
+        DBAS.setup()
+
         return '{}: table {} deleted from app but app needs to reload'.format(application_name,tablename)
         return redirect("/projects/" + application_name + "/admin/")
 
@@ -836,6 +841,8 @@ class MyModelView(ModelView,):
         listofdatatypes = listOfColumnTypesByName
         # redirects to the same page
         if success == 1:
+            from main.sqla.app import DBAS
+            DBAS.setup()
             return self.render("projects/add_column.html",
                                tablenames=tablenames, columnnames=columnnames,
                                message="Column " +
@@ -891,6 +898,10 @@ class MyModelView(ModelView,):
         # redirects to the same page
         if success == 1:
             # todo: fixthe following
+
+            from main.sqla.app import DBAS
+            DBAS.setup()
+
             return "{}: column {} removed from table {} but app needs to be reloaded to proceed"\
                 .format(application_name,request.form.get("colnames"),tablename)
             return self.render("projects/rem_column.html",

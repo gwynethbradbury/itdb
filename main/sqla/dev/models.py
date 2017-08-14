@@ -266,7 +266,8 @@ class DatabaseAssistant:
             mytable = SqlAl.Table(tablename, self.DBE.metadata, autoload=True)  # .data, metadata, autoload=True)
         except Exception as e:
             print(str(e))
-            msg = ("couldn't get table "+tablename+", stopping")
+            return ("couldn't get table "+tablename+", stopping"),0
+
 
 
 
@@ -295,10 +296,12 @@ class DatabaseAssistant:
                 topic = c[0]
         except Exception as e:
             print(e)
+            msg = str(e)
+            success=0
         finally:
             connection.close
 
-        return msg, 1
+        return msg, success
 
     # removes a column from the database
     def remColumn(self,tablename, colname):

@@ -15,19 +15,21 @@ class DBAS():
         self.app = _app
         self.db = _db
         self.setup()
+        self.setup_pages()
 
     def setup(self):
-        views.set_views(self.app)
-
-        # Initialize flask-login
-        self.init_login()
-
-        SQLALCHEMY_BINDS, class_db_dict, db_list = self.get_binds()
+        SQLALCHEMY_BINDS, self.class_db_dict, self.db_list = self.get_binds()
 
         self.app.config['SQLALCHEMY_BINDS'] = SQLALCHEMY_BINDS
 
+        self.classesdict, self.my_db = self.init_classes(self.db_list,self.class_db_dict)
+
+    def setup_pages(self):
+        # Initialize flask-login
+        self.init_login()
+        views.set_views(self.app)
         self.set_iaas_admin_console()
-        self.admin_pages_setup(db_list, class_db_dict)
+        self.admin_pages_setup(self.db_list, self.classesdict, self.class_db_dict)
 
 
     def init_login(self):
@@ -127,8 +129,11 @@ class DBAS():
 
         self._add_a_view(admin_view, classesdict['cls_{}_{}'.format(d,c)]) # admin_view = iaas_view for eg
 
-    def admin_pages_setup(self, db_list, class_db_dict):
+    def init_classes(self,db_list, class_db_dict):
         classesdict, my_db = classes.initialise(self.db, db_list)
+        return classesdict, my_db
+
+    def admin_pages_setup(self, db_list, classesdict, class_db_dict):
 
         binds = self.app.config['SQLALCHEMY_BINDS']
         for d in binds:

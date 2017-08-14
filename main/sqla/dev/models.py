@@ -70,7 +70,7 @@ class DatabaseAssistant:
     mydatabasename=""
     adminroute = ""
     approute = ""
-    uploadfolder=""
+    upload_folder=""
     list_template = ""
     detail_template = ""
 
@@ -103,9 +103,8 @@ class DatabaseAssistant:
     # creates a class from a table
     def classFromTableName(self, classname, fields, classes_loaded=True):
         if classes_loaded:
-            from ..classes import classesdict as CD
-            if 'cls_{}_{}'.format(self.mydatabasename,classname) in CD and classes_loaded:
-                C= CD['cls_{}_{}'.format(self.mydatabasename,classname)]
+            from main.sqla.classes import initialise_single_class
+            C = initialise_single_class(self.mydatabasename,classname)
         else:
 
             import importlib
@@ -210,7 +209,7 @@ class DatabaseAssistant:
         return result, result_as_string
 
     # serves the data to the client
-    def serveData(self,F,ClassName,p):
+    def serveData(self,F,ClassName):
         # serves the data from the database given the corresponding class C
 
         t = F.get("tablename")
@@ -428,15 +427,15 @@ class DatabaseAssistant:
     def genBlankCSV(self, tablename=""):
         # generates an empty file to upload data for the selected table
 
-        mytable = SqlAl.Table(tablename, self.DBE.metadata, autoload=True)  # .data, metadata, autoload=True)
 
         db_connection = self.DBE.E.connect()
+        mytable = SqlAl.Table(tablename, self.DBE.metadata, autoload=True)  # .data, metadata, autoload=True)
         print("1")
         select = SqlAl.sql.select([mytable])
         print("2")
         result = db_connection.execute(select)
 
-        exportpath = self.uploadfolder + 'upload.csv'
+        exportpath = self.upload_folder + 'upload.csv'
         fh = open(exportpath, 'wb')
         outcsv = csv.writer(fh)
 

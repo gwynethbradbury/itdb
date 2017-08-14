@@ -34,9 +34,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] ='{}://{}:{}@{}/{}'\
 # db = SQLAlchemy(app)
 
 
-app.config.update(
-    DEBUG=dbconfig.debug
-)
+
+#app.config.update(
+#    DEBUG=dbconfig.debug
+#)
 
 # region EMAIL SETTINGS
 

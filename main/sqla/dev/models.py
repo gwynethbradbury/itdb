@@ -300,6 +300,34 @@ class DatabaseAssistant:
 
         return msg, 1
 
+    # removes a column from the database
+    def remColumn(self,tablename, colname):
+        msg=""
+        print("attempting to remove column " + colname + " from table "+tablename+"...")
+        try:
+            mytable = SqlAl.Table(tablename, self.DBE.metadata, autoload=True)  # .data, metadata, autoload=True)
+        except Exception as e:
+            print(str(e))
+            return ("couldn't get table "+tablename+", stopping"), 0
+
+
+
+        tablenames, columnnames = self.getTableAndColumnNames(tablename)
+        if not colname in columnnames[0]:
+            return "failed, could not find column in table {}".format(tablename), 0
+
+        try:
+            connection = self.connect()
+            query = "ALTER TABLE {} DROP COLUMN {};".format(tablename,colname)
+            with connection.cursor() as cursor:
+                cursor.execute(query)
+        except Exception as e:
+            print(e)
+        finally:
+            connection.close
+
+        return msg, 1
+
     # adds a primary key column for integer ids to the table
     def addIdColumn(self, table_name, column_name="id"):
         self.DBE.E.execute('ALTER TABLE %s ADD %s INT PRIMARY KEY AUTO_INCREMENT;' %(table_name, column_name))

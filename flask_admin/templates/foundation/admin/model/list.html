@@ -28,6 +28,13 @@
         </li>
         <li>
           {%- if admin_view.create_modal -%}
+            {{ lib.add_modal_button(url=get_url('.removecolumn', url=return_url, modal=True), title=_gettext('Remove Column'), content=_gettext('Remove Column')) }}
+          {% else %}
+            <a href="{{ get_url('.removecolumn', url=return_url) }}" title="{{ _gettext('Remove Column') }}">{{ _gettext('Remove Column') }}</a>
+          {%- endif -%}
+        </li>
+        <li>
+          {%- if admin_view.create_modal -%}
             {{ lib.add_modal_button(url=get_url('.cleartable', url=return_url, modal=True), title=_gettext('Clear Table'), content=_gettext('Clear Table')) }}
           {% else %}
             <a href="{{ get_url('.cleartable', url=return_url) }}" title="{{ _gettext('Clear Table') }}">{{ _gettext('Clear Table') }}</a>

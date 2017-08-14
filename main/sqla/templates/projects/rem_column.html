@@ -1,0 +1,77 @@
+{% extends "projects/project_admin.html" %}
+
+{% block body %}
+        <style type="text/css">
+            #myData{visibility:hidden;}
+        </style>
+        <script language="JavaScript">
+            var showwholetable = false;
+            function toggleVisibility(eventsender, idOfObjectToToggle){
+                var myNewState = "collapse";
+                showwholetable = false;
+                displ="none"
+                if (eventsender.checked === false){
+                    myNewState = "visible";
+                    showwholetable=true;
+                    displ="inline"
+                }
+
+                document.getElementById(idOfObjectToToggle).style.visibility = myNewState;
+                document.getElementById(idOfObjectToToggle).style.display = displ;
+                toggleColumnHeaders(eventsender,myNewState)
+            }
+
+            function toggleColumnHeaders(eventsender){
+
+                for(i=0;i<document.getElementById("tablename").options.length;i++){
+                    idd = "_"+document.getElementById("tablename").options[i].text;
+
+                    try {
+                        document.getElementById(idd).style.visibility = "hidden";
+
+                         document.getElementById(idd).style.display="none";
+                    }
+                    catch(err) {
+{#                        document.getElementById("demo").innerHTML = err.message;#}
+                    }
+                }
+
+                if(showwholetable){
+                    idOfObjectToToggle = "_"+document.getElementById("tablename").options[document.getElementById("tablename").selectedIndex].text;
+                    document.getElementById(idOfObjectToToggle).style.visibility = "visible";
+                    document.getElementById(idOfObjectToToggle).style.display="inline";
+                }
+
+
+                document.getElementById("selectedtablename").innerHTML = "Columns for table: "+document.getElementById("tablename").options[document.getElementById("tablename").selectedIndex].text
+
+            }
+
+        </script>
+
+
+    <h3>Remove column from table: {{ appname }}.{{ tablename }}</h3>
+    <h4>
+        <span style="color: crimson">{{ error|safe }}</span>
+        <span style="color: #22bb5b">{{ message|safe }}</span>
+    </h4>
+    <form action="remcolumn" method="post" name="data" enctype=multipart/form-data>
+{#        <h4>New table:</h4>#}
+
+
+        <label for="colnames">Column names</label>
+{#        <input type="datatype" name="file" size="40">#}
+        <select name="colnames">
+            {% for l in columnnames %}
+
+                <option value="{{ l }}">{{ l }}</option>
+
+            {% endfor %}
+
+        </select>
+
+        <p><input type="submit" class="button" value="Remove"></p>
+    </form>
+
+
+{% endblock %}

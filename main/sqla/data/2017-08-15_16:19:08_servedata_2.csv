@@ -1,0 +1,12 @@
+id,date_out,returned,borrower,signed_out_by,comment,item
+5,2017-06-23 00:00:00,0,AJ the pigeon,Anon.,Not to be expected back,3
+6,2017-07-03 00:00:00,1,Heather Viles via Hong Zhang,Hong Zhang,Returned ,6
+7,2017-07-03 00:00:00,1,Heather Viles via Hong Zhang,Hong Zhang,Returned ,7
+8,2017-07-03 10:58:01,1,Heather Viles via Hong Zhang,Hong Zhang,,6
+9,2017-07-03 10:58:05,1,Heather Viles via Hong Zhang,Hong Zhang,,7
+10,2017-07-03 15:49:43,1,Miriam Mendez,Pete Archer,,8
+11,2017-07-03 15:49:47,1,Miriam Mendez,Pete Archer,,9
+12,None,0,Kim Schumacher,Kim Schumacher,,10
+13,None,0,Chiesa Micol,Pete Archer,Used by smith school for 1 week for external presentations,11
+14,None,0,Mona Edwards,Pete Archer,Out of office for 3 weeks and needs a laptop for working remotely. ,5
+15,None,0,Jesus Aguirre Gutiorrez,Pete Archer,,7

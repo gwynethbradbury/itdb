@@ -113,6 +113,9 @@ class DBAS():
                                  )
         proj_admin.add_menu_item(ML('New Table', url='/projects/{}/admin/newtable'.format(d),
                                     category="actions"))
+        proj_admin.add_menu_item(ML('Relationship Builder', url='/projects/{}/admin/relationshipbuilder'
+                                    .format(d),
+                                    category="actions"))
         proj_admin.add_links(ML('Application', url='/projects/{}/app'.format(d)))
 
         for c in class_db_dict:

@@ -374,6 +374,28 @@ class DatabaseAssistant:
 
         return success, msg
 
+    def createOneToOneRelationship(self,fromtable,fromcolumn,totable,tocolumn,keyname):
+        print("ALTER TABLE {} ADD CONSTRAINT {} FOREIGN KEY({}) REFERENCES {}({});".format(fromtable,keyname,fromcolumn,totable,tocolumn))
+        self.DBE.E.execute(#'DROP TABLE %s;' % (tablename))
+            "ALTER TABLE {} ADD CONSTRAINT {} FOREIGN KEY({}) REFERENCES {}({});"# "ON DELETE CASCADE ON UPDATE CASCADE;"
+                .format(fromtable,keyname,fromcolumn,totable,tocolumn))
+        # ALTER TABLE '[fromtable]'
+        # ADD
+        # CONSTRAINT
+        # 'FK_myKey'
+        # FOREIGN
+        # KEY('[fromcolumn]')
+        # REFERENCES
+        # '[totable]'('[tocolumn]')
+        # ON
+        # DELETE
+        # CASCADE
+        # ON
+        # UPDATE
+        # CASCADE;
+
+
+
     # creates a new table from a csv file
     def createTableFromCSV(self, filepath, tablename):
 

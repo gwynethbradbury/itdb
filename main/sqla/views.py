@@ -519,6 +519,119 @@ def set_views(app):
         #                            servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
 
 
+    '''relationship builder'''
+    @app.route("/projects/<application_name>/admin/relationshipbuilder", methods=['GET', 'POST'])
+    def buildrelationship(application_name):
+
+        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+            return abort(401)
+
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                         dbconfig.db_password,
+                                                         dbconfig.db_hostname,
+                                                         application_name)
+        dbbindkey = "project_" + application_name + "_db"
+
+        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+
+        tablenames, columnnames = DBA.getTableAndColumnNames()
+        if not tablenames == []:
+            return redirect("/projects/{}/{}/admin/relationshipbuilder".format(application_name, tablenames[0]))
+
+
+
+        # creates a new table taking name from form
+        # if table exists, supplements it with the new data
+        # todo: check for column missmatch
+        # @app.route("/projects/<application_name>/admin/createtable", methods=['GET', 'POST'])
+        # def createtable(application_name):
+        #     if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
+        #         return abort(401)
+        #     db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+        #                                                      dbconfig.db_password,
+        #                                                      dbconfig.db_hostname,
+        #                                                      application_name)
+        #     dbbindkey = "project_" + application_name + "_db"
+        #
+        #     DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+        #     # create a new table either from scratch or from an existing csv
+        #     tablenames, columnnames = DBA.getTableAndColumnNames()
+        #     success = 0
+        #     ret = ""
+        #
+        #     # check for no table name
+        #     if request.form.get("newtablename") == "":
+        #         success = 0
+        #         ret = "Enter table name"
+        #
+        #     # check for existing table with this name
+        #     elif request.form.get("newtablename") in tablenames:
+        #         success = 0
+        #         ret = "Table " + request.form.get("newtablename") + " already exists, try a new name"
+        #
+        #     # check whether this should be an empty table or from existing data
+        #     elif request.form.get("source") == "emptytable":
+        #         success, ret = DBA.createEmptyTable(request.form.get("newtablename"))
+        #
+        #     elif 'file' not in request.files:
+        #         # check if the post request has the file part
+        #         print('No file found')
+        #         success = 0
+        #         ret = "No file part, contact admin"
+        #
+        #     else:
+        #         file = request.files['file']
+        #         # if user does not select file, browser also
+        #         # submit a empty part without filename
+        #         if file.filename == '':
+        #             success = 0
+        #             ret = 'No selected file.'
+        #
+        #         elif file:  # and allowed_file(file.filename):
+        #             filename = secure_filename(file.filename)
+        #             dt = datetime.utcnow().strftime("%Y-%m-%d_%H:%M:%S")
+        #             file.save(os.path.join(DBA.uploadfolder, dt + '_' + filename))
+        #             success, ret = DBA.createTableFromCSV(os.path.join(DBA.uploadfolder, filename),
+        #                                                   request.form.get("newtablename"))
+        #
+        #     if success == 1:
+        #         # todo: this does not work on the fly
+        #         return render_template("projects/create_table.html",
+        #                                tablenames=tablenames, columnnames=columnnames,
+        #                                message="Table " +
+        #                                        request.form.get("newtablename") + " created successfully!\n" + ret,
+        #                                pname=application_name)
+        #     else:
+        #         return render_template("projects/create_table.html",
+        #                                tablenames=tablenames, columnnames=columnnames,
+        #                                error="Creation of table " + request.form.get("newtablename") +
+        #                                      " failed!<br/>Error: " + ret,
+        #                                pname=application_name)
+
+
+        # renders the download form
+        # @app.route("/projects/<application_name>/admin/download")
+        # def download(application_name):
+        #     if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
+        #         return abort(401)
+        #     db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+        #                                                      dbconfig.db_password,
+        #                                                      dbconfig.db_hostname,
+        #                                                      application_name)
+        #     dbbindkey = "project_" + application_name + "_db"
+        #
+        #     DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+        #
+        #
+        #     tablenames, columnnames = DBA.getTableAndColumnNames()
+        #
+        #     return render_template("projects/download_table.html",
+        #                            tablenames=tablenames, columnnames=columnnames,
+        #                            pname=application_name,
+        #                            username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
+        #                            servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
+
+
 
 # Create customized model view class
 class MyModelView(ModelView,):
@@ -559,6 +672,41 @@ class MyModelView(ModelView,):
                 # login
                 return "not authenticated" #redirect(url_for('security.login', next=request.url))
 
+    @expose("/admin/relationshipbuilder", methods=['GET', 'POST'])
+    def relationshipbuilder(self):
+        rule = str.split(str(request.url_rule),'/')
+        current_url = str.split(self.admin.url,'/')
+        application_name = current_url[2]
+        tablename=rule[3]
+
+        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+            return abort(401)
+
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                         dbconfig.db_password,
+                                                         dbconfig.db_hostname,
+                                                         application_name)
+        dbbindkey = "project_" + application_name + "_db"
+
+        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+
+        if request.method == 'POST':
+            fromtbl = request.form.get("fromtblnames")
+            fromcol = request.form.get("fromcolnames_"+fromtbl)
+            totbl=request.form.get("totblnames")
+            tocol = request.form.get("tocolnames_"+totbl)
+            k = request.form.get("keyname")
+            success, ret = DBA.createOneToOneRelationship(fromtbl,
+                                                          fromcol,
+                                                          totbl,
+                                                          tocol,
+                                                          k)
+            return self.render('/')
+        else:
+
+
+            tablenames, columnnames = DBA.getTableAndColumnNames()
+            return self.render("projects/project_relationship_builder.html",tablenames=tablenames,columnnames=columnnames)
 
     @expose('/admin/newtable')
     def newtable(self):
@@ -920,7 +1068,6 @@ class MyModelView(ModelView,):
             # todo: fixthe following
 
             from main.sqla.app import DBAS
-            DBAS.setup()
 
             # return "{}: column {} removed from table {} but app needs to be reloaded to proceed"\
             #     .format(application_name,request.form.get("colnames"),tablename)

@@ -286,7 +286,7 @@ class DatabaseAssistant:
 
 
         # self.DBE.E.execute("ALTER TABLE "+tablename+" ADD column "+colname+" "+data_type_formatted+";")
-
+        success=1
         try:
             connection = self.connect()
             query = "ALTER TABLE {} ADD COLUMN {} {};".format(tablename,colname,data_type_formatted)

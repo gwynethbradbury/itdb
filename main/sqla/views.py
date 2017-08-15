@@ -73,7 +73,15 @@ listOfColumnTypesByDescriptor = dict(reversed(item) for item in listOfColumnType
 # create views:
 
 
+
 def set_views(app):
+    dbconfig.trigger_reload = False
+    file_object = open( os.path.abspath(os.path.dirname(__file__))+'/reload.py', 'w')
+    file_object.write('reload=True\n')
+    file_object.write("# " + str(datetime.utcnow()) + "\n")
+    file_object.close()
+
+    import reload as reload
 
     @app.context_processor
     def inject_paths():
@@ -637,6 +645,7 @@ class MyModelView(ModelView,):
             # todo: this does not work on the fly
             from main.sqla.app import DBAS as DBAS
             DBAS.setup()
+            self.trigger_reload()
             return self.render("projects/create_table.html",
                                    tablenames=tablenames, columnnames=columnnames,
                                    message="Table " +
@@ -650,6 +659,16 @@ class MyModelView(ModelView,):
                                    error="Creation of table " + request.form.get("newtablename") +
                                          " failed!<br/>Error: " + ret,
                                    pname=application_name)
+
+    @expose('/admin/reloadapp')
+    def trigger_reload(self):
+        dbconfig.trigger_reload = False
+        file_object = open( os.path.abspath(os.path.dirname(__file__))+'/reload.py', 'w')
+        file_object.write('True\n')
+        file_object.write("# " + str(datetime.utcnow()) + "\n")
+        file_object.close()
+        return 'reloaded'
+
 
     @expose('/admin/newcolumn')
     def newcolumn(self):
@@ -777,9 +796,10 @@ class MyModelView(ModelView,):
 
         from main.sqla.app import DBAS
         DBAS.setup()
+        self.trigger_reload()
 
-        return '{}: table {} deleted from app but app needs to reload'.format(application_name,tablename)
-        return redirect("/projects/" + application_name + "/admin/")
+        # return '{}: table {} deleted from app but app needs to reload'.format(application_name,tablename)
+        return redirect("/projects/" + application_name)
 
     @expose('/cleartable')
     def cleartable(self):
@@ -842,7 +862,7 @@ class MyModelView(ModelView,):
         # redirects to the same page
         if success == 1:
             from main.sqla.app import DBAS
-            DBAS.setup()
+            self.trigger_reload()
             return self.render("projects/add_column.html",
                                tablenames=tablenames, columnnames=columnnames,
                                message="Column " +
@@ -902,8 +922,10 @@ class MyModelView(ModelView,):
             from main.sqla.app import DBAS
             DBAS.setup()
 
-            return "{}: column {} removed from table {} but app needs to be reloaded to proceed"\
-                .format(application_name,request.form.get("colnames"),tablename)
+            # return "{}: column {} removed from table {} but app needs to be reloaded to proceed"\
+            #     .format(application_name,request.form.get("colnames"),tablename)
+            self.trigger_reload()
+
             return self.render("projects/rem_column.html",
                                columnnames=columnnames[0],
                                tablename=tablename, appname=application_name,

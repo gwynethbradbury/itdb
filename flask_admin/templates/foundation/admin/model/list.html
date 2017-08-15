@@ -61,6 +61,13 @@
             <a href="{{ get_url('.download', url=return_url) }}" title="{{ _gettext('Download From Table') }}">{{ _gettext('Download') }}</a>
           {%- endif -%}
         </li>
+        <li>
+          {%- if admin_view.create_modal -%}
+            {{ lib.add_modal_button(url=get_url('.trigger_reload', url=return_url, modal=True), title=_gettext('reload'), content=_gettext('reload')) }}
+          {% else %}
+            <a href="{{ get_url('.trigger_reload', url=return_url) }}" title="{{ _gettext('reload') }}">{{ _gettext('reload') }}</a>
+          {%- endif -%}
+        </li>
 
 
         <li>

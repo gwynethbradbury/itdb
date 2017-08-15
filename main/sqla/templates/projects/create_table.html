@@ -1,6 +1,6 @@
-{% extends "projects/project_admin.html" %}
+{% extends "admin/base.html" %}
 
-{% block content %}
+{% block body %}
         <style type="text/css">
             #myData{visibility:hidden;}
         </style>
@@ -62,8 +62,8 @@
         <input type="text" name="newtablename" id="newtablename"/>
         <br/>
         <label for="source">Source: </label>
-        <input type="radio" name="source" id="source" value="emptytable" checked>Empty table
-        <input type="radio" name="source" id="source" value="fromcsv">From File
+        <input type="radio" name="source" id="source" value="emptytable" checked> Empty table
+        <input type="radio" name="source" id="source" value="fromcsv"> From File
 
         <br/>
         <label for="file">File Name</label>

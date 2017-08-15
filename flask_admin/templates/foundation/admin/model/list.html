@@ -18,6 +18,51 @@
         </li>
 
         {% if admin_view.can_create %}
+
+        <li>
+          {%- if admin_view.create_modal -%}
+            {{ lib.add_modal_button(url=get_url('.newcolumn', url=return_url, modal=True), title=_gettext('Add New Column'), content=_gettext('Add Column')) }}
+          {% else %}
+            <a href="{{ get_url('.newcolumn', url=return_url) }}" title="{{ _gettext('Add New Column') }}">{{ _gettext('Add Column') }}</a>
+          {%- endif -%}
+        </li>
+        <li>
+          {%- if admin_view.create_modal -%}
+            {{ lib.add_modal_button(url=get_url('.removecolumn', url=return_url, modal=True), title=_gettext('Remove Column'), content=_gettext('Remove Column')) }}
+          {% else %}
+            <a href="{{ get_url('.removecolumn', url=return_url) }}" title="{{ _gettext('Remove Column') }}">{{ _gettext('Remove Column') }}</a>
+          {%- endif -%}
+        </li>
+        <li>
+          {%- if admin_view.create_modal -%}
+            {{ lib.add_modal_button(url=get_url('.cleartable', url=return_url, modal=True), title=_gettext('Clear Table'), content=_gettext('Clear Table')) }}
+          {% else %}
+            <a href="{{ get_url('.cleartable', url=return_url) }}" title="{{ _gettext('Clear Table') }}">{{ _gettext('Clear Table') }}</a>
+          {%- endif -%}
+        </li>
+        <li>
+          {%- if admin_view.create_modal -%}
+            {{ lib.add_modal_button(url=get_url('.deletetable', url=return_url, modal=True), title=_gettext('Delete Table'), content=_gettext('Delete Table')) }}
+          {% else %}
+            <a href="{{ get_url('.deletetable', url=return_url) }}" title="{{ _gettext('Delete Table') }}">{{ _gettext('Delete Table') }}</a>
+          {%- endif -%}
+        </li>
+        <li>
+          {%- if admin_view.create_modal -%}
+            {{ lib.add_modal_button(url=get_url('.upload', url=return_url, modal=True), title=_gettext('Upload To Table'), content=_gettext('Upload')) }}
+          {% else %}
+            <a href="{{ get_url('.upload', url=return_url) }}" title="{{ _gettext('Upload To Table') }}">{{ _gettext('Upload') }}</a>
+          {%- endif -%}
+        </li>
+        <li>
+          {%- if admin_view.create_modal -%}
+            {{ lib.add_modal_button(url=get_url('.download', url=return_url, modal=True), title=_gettext('Download From Table'), content=_gettext('Download')) }}
+          {% else %}
+            <a href="{{ get_url('.download', url=return_url) }}" title="{{ _gettext('Download From Table') }}">{{ _gettext('Download') }}</a>
+          {%- endif -%}
+        </li>
+
+
         <li>
           {%- if admin_view.create_modal -%}
             {{ lib.add_modal_button(url=get_url('.create_view', url=return_url, modal=True), title=_gettext('Create New Record'), content=_gettext('Create')) }}
@@ -25,6 +70,7 @@
             <a href="{{ get_url('.create_view', url=return_url) }}" title="{{ _gettext('Create New Record') }}">{{ _gettext('Create') }}</a>
           {%- endif -%}
         </li>
+
         {% endif %}
 
         {% if admin_view.can_export %}

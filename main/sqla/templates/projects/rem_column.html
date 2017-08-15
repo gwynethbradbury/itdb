@@ -50,54 +50,27 @@
         </script>
 
 
-    <h3>Download data</h3>
-    <form action="servedata" method="post" name="data">
+    <h3>Remove column from table: {{ appname }}.{{ tablename }}</h3>
+    <h4>
+        <span style="color: crimson">{{ error|safe }}</span>
+        <span style="color: #22bb5b">{{ message|safe }}</span>
+    </h4>
+    <form action="remcolumn" method="post" name="data" enctype=multipart/form-data>
+{#        <h4>New table:</h4>#}
 
-        <label for="tablename">Select table</label>
-        <select name="tablename" id="tablename" onchange="toggleColumnHeaders(this)"/>
 
+        <label for="colnames">Column names</label>
+{#        <input type="datatype" name="file" size="40">#}
+        <select name="colnames">
+            {% for l in columnnames %}
 
-            {% for t in tablenames %}
-                <option value="{{ t }}" id="{{ t }}">
-                    {{ t }}
-                </option>
+                <option value="{{ l }}">{{ l }}</option>
+
             {% endfor %}
 
-{#                <option value="other" id="other">#}
-{#                    other#}
-{#                </option>#}
         </select>
-    <br/>
-        <label for="wholetable">Download full table? </label>
-        <input type="checkbox" checked="checked"
-               value="yes" id="wholetable" name="wholetable"
-               onClick = "JavaScript:toggleVisibility(this,'myData');"/>
 
-
-
-        <div name="myData" id="myData" style="display: none">
-            <h4>Select fields...</h4>
-            <p id="selectedtablename"></p>
-            {% for c in columnnames %}
-                {% set i=loop.index0 %}
-                <div  id="_{{ tablenames[i] }}" style="display: none">
-                    <table>
-                    {% for cc in c %}
-                        <tr>
-                            <td><input type="checkbox" checked="checked"
-                               value="yes" id="{{ tablenames[i] }}_{{ cc }}"
-                               content="{{ cc }}"
-                               name="{{tablenames[i] }}_{{ cc }}"/></td>
-                            <td><label for="{{ cc }}"> {{ cc }} </label></td>
-                        </tr>
-                    {% endfor %}
-                    </table>
-                </div>
-            {% endfor %}
-
-        </div>
-
-        <p><input type="submit" value="Download"></p>
+        <p><input type="submit" class="button" value="Remove"></p>
     </form>
 
 

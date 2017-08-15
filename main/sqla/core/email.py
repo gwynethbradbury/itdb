@@ -29,7 +29,7 @@ def send_email_simple(to, subject, body=""):
 
     msg = Message(subject,
                   sender=app.config['AAAS_MAIL_SENDER'],
-                  recipients=[to])
+                  recipients=to)
     msg.body = body
     msg.html = body
 

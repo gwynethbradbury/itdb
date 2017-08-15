@@ -20,3 +20,4 @@ production:
     - ssh dbas@iaas.ouce.ox.ac.uk /usr/local/bin/restore_dbconfig
   only:
     - master
+

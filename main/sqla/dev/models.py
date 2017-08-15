@@ -70,7 +70,7 @@ class DatabaseAssistant:
     mydatabasename=""
     adminroute = ""
     approute = ""
-    uploadfolder=""
+    upload_folder=""
     list_template = ""
     detail_template = ""
 
@@ -95,7 +95,7 @@ class DatabaseAssistant:
 
     # Gets the database connection
     def connect(self):
-        return pymysql.connect(host=dbconfig.db_hostname,
+        return pymysql.connect(host='localhost',
                                user=dbconfig.db_user,
                                passwd=dbconfig.db_password,
                                db=self.mydatabasename)
@@ -103,9 +103,8 @@ class DatabaseAssistant:
     # creates a class from a table
     def classFromTableName(self, classname, fields, classes_loaded=True):
         if classes_loaded:
-            from ..classes import classesdict as CD
-            if 'cls_{}_{}'.format(self.mydatabasename,classname) in CD and classes_loaded:
-                C= CD['cls_{}_{}'.format(self.mydatabasename,classname)]
+            from main.sqla.classes import initialise_single_class
+            C = initialise_single_class(self.mydatabasename,classname)
         else:
 
             import importlib
@@ -210,7 +209,7 @@ class DatabaseAssistant:
         return result, result_as_string
 
     # serves the data to the client
-    def serveData(self,F,ClassName,p):
+    def serveData(self,F,ClassName):
         # serves the data from the database given the corresponding class C
 
         t = F.get("tablename")
@@ -267,7 +266,8 @@ class DatabaseAssistant:
             mytable = SqlAl.Table(tablename, self.DBE.metadata, autoload=True)  # .data, metadata, autoload=True)
         except Exception as e:
             print(str(e))
-            msg = ("couldn't get table "+tablename+", stopping")
+            return ("couldn't get table "+tablename+", stopping"),0
+
 
 
 
@@ -294,6 +294,36 @@ class DatabaseAssistant:
                 cursor.execute(query)
             for c in cursor:
                 topic = c[0]
+        except Exception as e:
+            print(e)
+            msg = str(e)
+            success=0
+        finally:
+            connection.close
+
+        return msg, success
+
+    # removes a column from the database
+    def remColumn(self,tablename, colname):
+        msg=""
+        print("attempting to remove column " + colname + " from table "+tablename+"...")
+        try:
+            mytable = SqlAl.Table(tablename, self.DBE.metadata, autoload=True)  # .data, metadata, autoload=True)
+        except Exception as e:
+            print(str(e))
+            return ("couldn't get table "+tablename+", stopping"), 0
+
+
+
+        tablenames, columnnames = self.getTableAndColumnNames(tablename)
+        if not colname in columnnames[0]:
+            return "failed, could not find column in table {}".format(tablename), 0
+
+        try:
+            connection = self.connect()
+            query = "ALTER TABLE {} DROP COLUMN {};".format(tablename,colname)
+            with connection.cursor() as cursor:
+                cursor.execute(query)
         except Exception as e:
             print(e)
         finally:
@@ -428,15 +458,15 @@ class DatabaseAssistant:
     def genBlankCSV(self, tablename=""):
         # generates an empty file to upload data for the selected table
 
-        mytable = SqlAl.Table(tablename, self.DBE.metadata, autoload=True)  # .data, metadata, autoload=True)
 
         db_connection = self.DBE.E.connect()
+        mytable = SqlAl.Table(tablename, self.DBE.metadata, autoload=True)  # .data, metadata, autoload=True)
         print("1")
         select = SqlAl.sql.select([mytable])
         print("2")
         result = db_connection.execute(select)
 
-        exportpath = self.uploadfolder + 'upload.csv'
+        exportpath = self.upload_folder + 'upload.csv'
         fh = open(exportpath, 'wb')
         outcsv = csv.writer(fh)
 

@@ -5,5 +5,5 @@ main/sqla/reload.py
 *.swp
 *.DS_Store
 .idea*
-
+main/sqla/reload.py
 static

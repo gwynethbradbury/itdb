@@ -11,34 +11,60 @@ import pandas as pd
 import os
 
 
-listOfColumnTypesByName = {"Integer":"INTEGER",
-                           "String":"VARCHAR",
-                           "Characters":"CHARACTER",
-                           "Bool":"BOOLEAN",
-                           "Time stamp":"TIMESTAMP",
-                           "Date":"DATE",
-                           "Time":"TIME",
-                           "Really long string":"CLOB",
-                           "Small integer":"SMALLINT",
-                           "Real":"REAL",
-                           "Float":"FLOAT",
-                           "Double":"DOUBLE",
-                           "Precision":"PRECISION",
-                           "Text block":"TEXT"}
-DataTypeNeedsN= {"INTEGER":False,
-                 "VARCHAR":True,
-                 "CHARACTER":True,
-                 "BOOLEAN":False,
-                 "TIMESTAMP":False,
-                 "DATE":False,
-                 "TIME":False,
-                 "CLOB":True,
-                 "SMALLINT":False,
-                 "REAL":False,
-                 "FLOAT":True,
-                 "DOUBLE":False,
-                 "PRECISION":False,
-                 "TEXT":False}
+listOfColumnTypesByName = {"Integer": "INTEGER",
+                           "String": "VARCHAR",
+                           "Characters": "CHARACTER",
+                           "Bool": "BOOLEAN",
+                           "Time stamp": "TIMESTAMP",
+                           "Date": "DATE",
+                           "Time": "TIME",
+                           "Really long string": "CLOB",
+                           "Small integer": "SMALLINT",
+                           "Real": "REAL",
+                           "Float": "FLOAT",
+                           "Double": "DOUBLE",
+                           "Precision": "PRECISION",
+                           "Text block": "TEXT",
+                           "BLOB (untested)":"BLOB",
+                           "GEOMETRY (untested)":"GEOMETRY",
+                           "JSON (untested)":"GEOMETRY"}
+DataTypeNeedsN = {"INTEGER": False,
+                  "INT": False,
+                  "VARCHAR": True,
+                  "CHARACTER": True,
+                  "BOOLEAN": False,
+                  "TIMESTAMP": False,
+                  "DATE": False,
+                  "TIME": False,
+                  "CLOB": True,
+                  "SMALLINT": False,
+                  "REAL": False,
+                  "FLOAT": True,
+                  "DOUBLE": False,
+                  "PRECISION": False,
+                  "TEXT": False,
+                  "BLOB":False,
+                  "GEOMETRY":False,
+                  "JSON":False
+                  }
+DataTypeDefault={"INTEGER":"0",
+                 "INT":"0",
+                 "VARCHAR":"-",
+                 "CHARACTER":"-",
+                 "BOOLEAN":"FALSE",
+                 "TIMESTAMP":"0000-01-01 00:00:00",
+                 "DATE":"00000101",
+                 "TIME":"00:00:00",
+                 "CLOB":"-",
+                 "SMALLINT":"0",
+                 "REAL":"0",
+                 "FLOAT":"0",
+                 "DOUBLE":"0",
+                 "PRECISION":"0",
+                 "TEXT":"NULL",
+                 "BLOB":"NULL",
+                 "GEOMETRY":"NULL",
+                 "JSON":"NULL"}
 listOfColumnTypesByDescriptor = dict(reversed(item) for item in listOfColumnTypesByName.items())
 
 def desc2formattedtype(coltype,numchar):
@@ -374,25 +400,143 @@ class DatabaseAssistant:
 
         return success, msg
 
+
+    def getColTypeFromSchema(self,fromtable,fromcolumn):
+        A = self.DBE.E.execute(
+            "SELECT COLUMN_TYPE FROM information_schema.columns WHERE TABLE_NAME = '{}' AND COLUMN_NAME = '{}';"
+                .format(fromtable,fromcolumn))
+        A = A.fetchone()
+        return A[0]
+
+    def getColumnAsList(self,fromtable,fromcolumn,distinct=False):
+        D=""
+        if distinct:
+            D = "DISTINCT "
+        E = (self.DBE.E.execute("SELECT {}{} FROM {};".format(D,fromcolumn, fromtable))).fetchall()
+        # create set from E
+        thelist = []
+        l = len(E)
+        for r in range(l):
+            print(str(E[r]._row[0]))
+            thelist.append(E[r]._row[0])
+        return thelist
+
+    def getExistingKeys(self,foreign=True,primary=False):
+        P=""
+        if primary and foreign:
+            P=""
+        else:
+            if primary:
+                P="AND CONSTRAINT_NAME = 'PRIMARY'"
+            elif foreign:
+                P="AND NOT CONSTRAINT_NAME = 'PRIMARY'"
+
+
+        Q = self.DBE.E.execute("SELECT CONSTRAINT_NAME,REFERENCED_TABLE_SCHEMA,"
+                               "TABLE_NAME,COLUMN_NAME,"
+                               "REFERENCED_TABLE_NAME,REFERENCED_COLUMN_NAME "
+                               "FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE "
+                               "WHERE TABLE_SCHEMA='{}' {};".format(self.mydatabasename,P))
+
+        Q = Q.fetchall()
+        return Q
+
     def createOneToOneRelationship(self,fromtable,fromcolumn,totable,tocolumn,keyname):
-        print("ALTER TABLE {} ADD CONSTRAINT {} FOREIGN KEY({}) REFERENCES {}({});".format(fromtable,keyname,fromcolumn,totable,tocolumn))
-        self.DBE.E.execute(#'DROP TABLE %s;' % (tablename))
+
+        msg=""
+
+        # check if source and targed have same type
+        A = self.getColTypeFromSchema(fromtable,fromcolumn)
+        B = self.getColTypeFromSchema(totable,tocolumn)
+        if not A==B:
+            return 0,"column types must be the same to construct a relationship."
+        # else:
+        #     self.DBE.E.execute("ALTER TABLE {} MODIFY COLUMN {} {} NOT NULL;".format(fromtable,fromcolumn,B[0]))
+
+        # check that target column contains all distinct entries from the source column
+        tolist = self.getColumnAsList(totable,tocolumn,distinct=False)
+
+        # get distinct entries in from column
+        fromlist = self.getColumnAsList(fromtable,fromcolumn,distinct=True)
+
+        # for each in fromcol check entry is in set above
+        for f in fromlist:
+            if not f in tolist:
+                # if not, create entry. otherwise do nothing
+                self.DBE.E.execute("INSERT INTO {} ({}) VALUES ({})".format(totable,tocolumn,fromlist))
+                msg = msg + "added entry {} to {}.{}\n".format(fromlist,totable,tocolumn)
+
+        # check that tolist is still not empty
+        E = self.DBE.E.execute("SELECT {} FROM {};".format(tocolumn, totable))
+        E = E.fetchall()
+        if E.__len__() > 0:
+            # create single entry in totable, link to id by default
+            self.DBE.E.execute("INSERT INTO {} VALUES()".format(totable))
+
+
+
+        # check if source column is nullable.
+        # yes: enter value for referenced column valid value.
+        # no: continue
+        C = self.DBE.E.execute("SELECT IS_NULLABLE FROM information_schema.columns "
+                               "WHERE TABLE_NAME = '{}' AND COLUMN_NAME = '{}';"
+                               .format(fromtable,fromcolumn))
+        C = C.fetchone()
+        if C[0]=="YES":
+            D = self.getColumnAsList(totable,tocolumn,distinct=True)
+            D_first_valid="NULL"
+            i=0
+            while D_first_valid=="NULL" and i<len(D):
+                if not D[i] == "NULL":
+                    D_first_valid = D[i]
+                i=i+1
+
+            if D_first_valid=="NULL":
+                return 0,"No valid entries in the column that the relationshi maps to. "
+
+            self.DBE.E.execute("UPDATE {} SET {} = {} WHERE {} IS NULL;"
+                               .format(fromtable,fromcolumn,D_first_valid,fromcolumn))
+
+            self.DBE.E.execute("ALTER TABLE {} MODIFY COLUMN {} {} NOT NULL;"
+                               .format(fromtable,fromcolumn,B))
+
+            msg = 'had to remove null entries from {}.{} and make non-nullable {}'\
+                .format(fromtable,fromcolumn,D_first_valid)
+
+
+        # finally, target item can't have a null name
+        # todo: which column must not be null??
+        # so set defaults for all columns and make non-nullable
+
+        G = self.DBE.E.execute("SELECT COLUMN_NAME, IS_NULLABLE, COLUMN_DEFAULT, DATA_TYPE, COLUMN_TYPE "
+                               "FROM information_schema.columns WHERE TABLE_NAME = '{}';"
+                               .format(totable))
+        G=G.fetchall()
+        namefields=['title','name','id']
+        for i in G:
+            # if is_nullable
+            if i[0] in namefields and i[1]=="YES":
+                default = DataTypeDefault[str(i[3]).upper()]
+                if not default=="NULL":
+                    # change all null to default
+                    self.DBE.E.execute("UPDATE {} SET {} = '{}' WHERE {} IS NULL;"
+                                       .format(totable,i[0],default,i[0]))
+                    # set default and not nullable
+                    self.DBE.E.execute("ALTER TABLE {} MODIFY COLUMN {} {} NOT NULL DEFAULT '{}';"
+                                       .format(totable, i[0], i[4],default))
+
+                    msg = msg + "Class display name field found, this cannot be null for a relationship between tables to be displayed correctly.\n" \
+                                "Default set to {} in {}.{} and null entries removed.\n".format(default,totable,i[0])
+
+
+        self.DBE.E.execute(
             "ALTER TABLE {} ADD CONSTRAINT {} FOREIGN KEY({}) REFERENCES {}({});"# "ON DELETE CASCADE ON UPDATE CASCADE;"
                 .format(fromtable,keyname,fromcolumn,totable,tocolumn))
-        # ALTER TABLE '[fromtable]'
-        # ADD
-        # CONSTRAINT
-        # 'FK_myKey'
-        # FOREIGN
-        # KEY('[fromcolumn]')
-        # REFERENCES
-        # '[totable]'('[tocolumn]')
-        # ON
-        # DELETE
-        # CASCADE
-        # ON
-        # UPDATE
-        # CASCADE;
+
+
+        msg = msg + "Success, relationship added between {}.{} and {}.{}."\
+            .format(fromtable,fromcolumn,totable,tocolumn)
+        return 1,msg
 
 
 

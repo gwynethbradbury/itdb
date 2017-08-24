@@ -76,6 +76,9 @@
         </script>
 
 
+
+
+
         <ul class="tabs" data-tabs id="example-tabs">
             <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">One-to-one</a></li>
             <li class="tabs-title"><a data-tabs-target="#panel2" href="#panel2">One-to-many</a></li>
@@ -154,12 +157,6 @@
                 </form>
 
 
-{#            ALTER TABLE '[fromtable]'#}
-{#            ADD CONSTRAINT 'FK_myKey'#}
-{#                FOREIGN KEY ('[fromcolumn]')#}
-{#                REFERENCES '[totable]' ('[tocolumn]')#}
-{#                ON DELETE CASCADE ON UPDATE CASCADE;#}
-
             </div>
 
             {#  one to many mapping form #}
@@ -172,6 +169,49 @@
 
             <div class="tabs-panel" id="panel3">
                 <p>text</p>
+            </div>
+        </div>
+
+    <br/>
+
+        <div class="row">
+            <div class="column">
+
+                <table class="hover model-list" style="z-index: 0">
+                    <thead>
+                        <tr>
+                            {% block list_header scoped %}
+                                <th class="column-header">
+                                    Key name or type{#0:CONSTRAINT_NAME#}
+                                </th>
+                                <th class="column-header">
+                                    From {# 2: TABLE_NAME. 3: COLUMN_NAME #}
+                                </th>
+                                <th class="column-header">
+                                    To {# 4: REFERENCED_TABLE_NAME.5: REFERENCED_COLUMN_NAME #}
+
+{#                                    (Database){# 1: REFERENCED_TABLE_SCHEMA#}
+                                </th>
+                            {% endblock %}
+                        </tr>
+                    </thead>
+                    {% for r in keys %}
+                        <tr>
+                            <td>
+                                {{ r[0] }}
+                            </td>
+                            <td>
+                                {{ r[2] }}.{{ r[3] }}
+                            </td>
+                            <td>
+                                {{ r[4] }}.{{ r[5] }}
+                                ({{ r[1] }})
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            
+
             </div>
         </div>
 

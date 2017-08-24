@@ -1,7 +1,7 @@
 import os
 import os.path as op
 
-from flask import Flask, redirect, url_for, request
+from flask import Flask, redirect, url_for, request, flash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Date, DateTime, ForeignKey, Integer, String, Text, Time, text
 from sqlalchemy.orm import relationship
@@ -37,35 +37,44 @@ from werkzeug.utils import secure_filename
 from datetime import datetime
 
 # todo: move thissomewhere:
-listOfColumnTypesByName = {"Integer": "INTEGER",
-                           "String": "VARCHAR",
-                           "Characters": "CHARACTER",
-                           "Bool": "BOOLEAN",
-                           "Time stamp": "TIMESTAMP",
-                           "Date": "DATE",
-                           "Time": "TIME",
-                           "Really long string": "CLOB",
-                           "Small integer": "SMALLINT",
-                           "Real": "REAL",
-                           "Float": "FLOAT",
-                           "Double": "DOUBLE",
-                           "Precision": "PRECISION",
-                           "Text block": "TEXT"}
-DataTypeNeedsN = {"INTEGER": False,
-                  "VARCHAR": True,
-                  "CHARACTER": True,
-                  "BOOLEAN": False,
-                  "TIMESTAMP": False,
-                  "DATE": False,
-                  "TIME": False,
-                  "CLOB": True,
-                  "SMALLINT": False,
-                  "REAL": False,
-                  "FLOAT": True,
-                  "DOUBLE": False,
-                  "PRECISION": False,
-                  "TEXT": False}
-listOfColumnTypesByDescriptor = dict(reversed(item) for item in listOfColumnTypesByName.items())
+from dev.models import listOfColumnTypesByName,DataTypeNeedsN,listOfColumnTypesByDescriptor
+# listOfColumnTypesByName = {"Integer": "INTEGER",
+#                            "String": "VARCHAR",
+#                            "Characters": "CHARACTER",
+#                            "Bool": "BOOLEAN",
+#                            "Time stamp": "TIMESTAMP",
+#                            "Date": "DATE",
+#                            "Time": "TIME",
+#                            "Really long string": "CLOB",
+#                            "Small integer": "SMALLINT",
+#                            "Real": "REAL",
+#                            "Float": "FLOAT",
+#                            "Double": "DOUBLE",
+#                            "Precision": "PRECISION",
+#                            "Text block": "TEXT",
+#                            "BLOB (untested)":"BLOB",
+#                            "GEOMETRY (untested)":"GEOMETRY",
+#                            "JSON (untested)":"GEOMETRY"}
+# DataTypeNeedsN = {"INTEGER": False,
+#                   "INT": False,
+#                   "VARCHAR": True,
+#                   "CHARACTER": True,
+#                   "BOOLEAN": False,
+#                   "TIMESTAMP": False,
+#                   "DATE": False,
+#                   "TIME": False,
+#                   "CLOB": True,
+#                   "SMALLINT": False,
+#                   "REAL": False,
+#                   "FLOAT": True,
+#                   "DOUBLE": False,
+#                   "PRECISION": False,
+#                   "TEXT": False,
+#                   "BLOB":False,
+#                   "GEOMETRY":False,
+#                   "JSON":False
+#                   }
+# listOfColumnTypesByDescriptor = dict(reversed(item) for item in listOfColumnTypesByName.items())
 
 
 
@@ -691,22 +700,32 @@ class MyModelView(ModelView,):
         DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
 
         if request.method == 'POST':
-            fromtbl = request.form.get("fromtblnames")
-            fromcol = request.form.get("fromcolnames_"+fromtbl)
-            totbl=request.form.get("totblnames")
-            tocol = request.form.get("tocolnames_"+totbl)
-            k = request.form.get("keyname")
-            success, ret = DBA.createOneToOneRelationship(fromtbl,
-                                                          fromcol,
-                                                          totbl,
-                                                          tocol,
-                                                          k)
-            return self.render('/')
-        else:
+            try:
+                fromtbl = request.form.get("fromtblnames")
+                fromcol = request.form.get("fromcolnames_"+fromtbl)
+                totbl=request.form.get("totblnames")
+                tocol = request.form.get("tocolnames_"+totbl)
+                k = request.form.get("keyname")
+                success, ret = DBA.createOneToOneRelationship(fromtbl,
+                                                              fromcol,
+                                                              totbl,
+                                                              tocol,
+                                                              k)
+            except Exception as E:
+                flash("One or more inputs is missing or incomplete.",category="error")
+
+            if success:
+                flash(ret,"info")
+            else:
+                flash(ret,"error")
 
 
-            tablenames, columnnames = DBA.getTableAndColumnNames()
-            return self.render("projects/project_relationship_builder.html",tablenames=tablenames,columnnames=columnnames)
+        tablenames, columnnames = DBA.getTableAndColumnNames()
+        keys = DBA.getExistingKeys(True,True)
+
+        return self.render("projects/project_relationship_builder.html",
+                           tablenames=tablenames,columnnames=columnnames,
+                           keys=keys)
 
     @expose('/admin/newtable')
     def newtable(self):

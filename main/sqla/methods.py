@@ -97,7 +97,6 @@ class DBAS():
             for t in tns:
                 class_db_dict['cls_{}_{}'.format(r[1],t)] = r[1]
 
-        db_list.append("iaas")
 
         return SQLALCHEMY_BINDS, class_db_dict, db_list
 
@@ -119,17 +118,12 @@ class DBAS():
                              ML('New Table', url='/admin/iaas/admin/newtable'))
 
 
-        for c in class_db_dict:
-            if c.startswith("cls_iaas_"):#== class_db_dict[c]:
-                print ('class {} is in db {}'.format(c, "iaas"))
-
-                self._add_a_view( iaas_admin, classesdict[c])
 
         # Add IAAS views
-        iaas_admin.add_view(views.MyModelView(IAASmodels.SvcInstances, self.db.session))
-        iaas_admin.add_view(views.MyModelView(IAASmodels.Subscribers, self.db.session))
-        iaas_admin.add_view(views.MyModelView(IAASmodels.News, self.db.session))
-        iaas_admin.add_view(views.MyModelView(IAASmodels.Comment, self.db.session))
+        # iaas_admin.add_view(views.MyModelView(name="svcinst",model=IAASmodels.SvcInstances, session=self.db.session))
+        # iaas_admin.add_view(views.MyModelView(IAASmodels.Subscribers, self.db.session,"subs"))
+        # iaas_admin.add_view(views.MyModelView(IAASmodels.News, self.db.session,"newsies"))
+        # iaas_admin.add_view(views.MyModelView(IAASmodels.Comment, self.db.session,"commies"))
 
     def _add_a_view(self, proj_admin,c):
         proj_admin.add_view(views.MyModelView(c, self.db.session))

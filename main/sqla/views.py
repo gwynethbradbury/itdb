@@ -686,12 +686,12 @@ class MyModelView(ModelView):
                 return "not authenticated" #redirect(url_for('security.login', next=request.url))
 
 
-    @expose('/')
-    def index(self):
-        rule = str.split(str(request.url_rule),'/')
-        current_url = str.split(self.admin.url,'/')
-        application_name = current_url[2]
-        return self.render("admin/index.html",dbinfo="hihihihi")
+    # @expose('/')
+    # def index(self):
+    #     rule = str.split(str(request.url_rule),'/')
+    #     current_url = str.split(self.admin.url,'/')
+    #     application_name = current_url[2]
+    #     return self.render("admin/index.html",dbinfo="hihihihi")
 
     @expose("/admin/relationshipbuilder", methods=['GET', 'POST'])
     def relationshipbuilder(self):
@@ -724,7 +724,8 @@ class MyModelView(ModelView):
                                                               tocol,
                                                               k)
             except Exception as E:
-                flash("One or more inputs is missing or incomplete.",category="error")
+                success = 0
+                ret = "One or more inputs is missing or incomplete."
 
             if success:
                 flash(ret,"info")

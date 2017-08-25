@@ -1,4 +1,3 @@
-# coding: utf-8
 from sqlalchemy import *
 from sqlalchemy.orm import create_session
 from sqlalchemy.ext.declarative import declarative_base
@@ -26,17 +25,23 @@ def init(db, db_name):
   metadata.reflect()
   insp = reflection.Inspector.from_engine(engine)
   for name in metadata.tables:
-      #print name
-      #class_name_arr=str(name).split('_')
-      #class_name=''
+      print name
+      class_name_arr=str(name).split('_')
+      class_name=''
       class_list.append(name)
-      #for cn in class_name_arr:
-      #   class_name=class_name+cn.capitalize()
-      class_name=str(name)
+      for cn in class_name_arr:
+         class_name=class_name+cn.capitalize()
       md = {}
       for key in insp.get_foreign_keys(name):
          print key['referred_table']
-         md[key['referred_table']]=relationship(globals()[key['referred_table']])
+         try:
+            md[key['referred_table']]=relationship(globals()[key['referred_table'].capitalize()])
+         except Exception as e:
+             try:
+                 md[key['referred_table']]=relationship(globals()[key['referred_table']])
+             except Exception as ee:
+                 pass
+
       md['__table__']=metadata.tables[name]
       md['__bind_key__']=db_name
       cls = type(str(class_name), (db.Model,), md)
@@ -51,4 +56,3 @@ def init(db, db_name):
 #         print "FOUND_FOREIGN_KEY"
 #         print key['referred_table']
 #         globals()[name].__setattr__(key['referred_table'],relationship(globals()[key['referred_table']]))
-

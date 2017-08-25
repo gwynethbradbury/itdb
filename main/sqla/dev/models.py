@@ -469,7 +469,7 @@ class DatabaseAssistant:
         # check that tolist is still not empty
         E = self.DBE.E.execute("SELECT {} FROM {};".format(tocolumn, totable))
         E = E.fetchall()
-        if E.__len__() > 0:
+        if E.__len__() == 0:
             # create single entry in totable, link to id by default
             self.DBE.E.execute("INSERT INTO {} VALUES()".format(totable))
 

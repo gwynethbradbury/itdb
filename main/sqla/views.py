@@ -26,6 +26,7 @@ AH = AccessHelper()
 
 from main.sqla.core.iaasldap import LDAPUser as LDAPUser
 current_user = LDAPUser()
+dbinfo="hdjfkhasdj"
 
 
 import dev.models as devmodels
@@ -641,14 +642,17 @@ def set_views(app):
         #                            servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
 
 
-
+class dbInfo():
+    pass
 # Create customized model view class
-class MyModelView(ModelView,):
-    current_user = current_user
+class MyModelView(ModelView):
+    # current_user = ""#current_user
+
 
     def is_accessible(self):
         if current_user.has_role('superusers') :
             return True
+
         current_url = str.split(self.admin.url,'/')
         project_name=""
         require_project_admin=False
@@ -680,6 +684,14 @@ class MyModelView(ModelView,):
             else:
                 # login
                 return "not authenticated" #redirect(url_for('security.login', next=request.url))
+
+
+    @expose('/')
+    def index(self):
+        rule = str.split(str(request.url_rule),'/')
+        current_url = str.split(self.admin.url,'/')
+        application_name = current_url[2]
+        return self.render("admin/index.html",dbinfo="hihihihi")
 
     @expose("/admin/relationshipbuilder", methods=['GET', 'POST'])
     def relationshipbuilder(self):

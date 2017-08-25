@@ -4,7 +4,7 @@ import importlib
 
 
 
-def initialise(db, db_list=['map', 'it_lending_log', 'online_learning']):
+def initialise(db, db_list=['map', 'it_lending_log', 'online_learning','iaas']):
     classesdict = {}
     my_db = {}
     for db_item in db_list:

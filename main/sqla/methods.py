@@ -5,9 +5,29 @@ import classes
 import models as IAASmodels
 import flask_login as login
 import flask_admin as admin
+from flask_admin import Admin as ImpAdmin
 from flask_admin.menu import MenuLink as ML
 
 import dbconfig
+
+
+class myAdmin(ImpAdmin):
+
+    def getDBInfo(self):
+
+        pass
+
+    def setDBEngine(self, application_name):
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                         dbconfig.db_password,
+                                                         dbconfig.db_hostname,
+                                                         application_name)
+        dbbindkey = "project_" + application_name + "_db"
+
+        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+
+
+        pass
 
 class DBAS():
 
@@ -28,7 +48,7 @@ class DBAS():
         # Initialize flask-login
         self.init_login()
         views.set_views(self.app)
-        self.set_iaas_admin_console()
+        self.set_iaas_admin_console(self.classesdict, self.class_db_dict)
         self.admin_pages_setup(self.db_list, self.classesdict, self.class_db_dict)
 
 
@@ -77,23 +97,33 @@ class DBAS():
             for t in tns:
                 class_db_dict['cls_{}_{}'.format(r[1],t)] = r[1]
 
+        db_list.append("iaas")
+
         return SQLALCHEMY_BINDS, class_db_dict, db_list
 
-    def set_iaas_admin_console(self):
+    def set_iaas_admin_console(self,class_db_dict,classesdict):
         """set up the admin console, depnds on predefined classes"""
 
         # endregion
         # Create admin
         iaas_admin = admin.Admin(self.app, name='IAAS admin app', template_mode='foundation',
                                  endpoint="admin",url="/admin",
-                                 base_template='my_master.html')
+                                 base_template='my_master.html',)
+        # iaas_admin.setDBEngine("iaas")
 
         # example adding links:
         #     iaas_admin.add_links(ML('Test Internal Link', endpoint='applicationhome'),
         #                          ML('Test External Link', url='http://python.org/'))
         #
-        iaas_admin.add_links(ML('Application', endpoint='applicationhome'),
-                             ML('New Table', url='/projects/iaas/admin/newtable'))
+        iaas_admin.add_links(ML('Relationship Builder',url='/iaas/admin/relationshipbuilder'),
+                             ML('New Table', url='/admin/iaas/admin/newtable'))
+
+
+        for c in class_db_dict:
+            if c.startswith("cls_iaas_"):#== class_db_dict[c]:
+                print ('class {} is in db {}'.format(c, "iaas"))
+
+                self._add_a_view( iaas_admin, classesdict[c])
 
         # Add IAAS views
         iaas_admin.add_view(views.MyModelView(IAASmodels.SvcInstances, self.db.session))
@@ -111,12 +141,9 @@ class DBAS():
                                  url="/projects/{}".format(d),
                                  base_template='my_master.html'
                                  )
-        proj_admin.add_menu_item(ML('New Table', url='/projects/{}/admin/newtable'.format(d),
-                                    category="actions"))
-        proj_admin.add_menu_item(ML('Relationship Builder', url='/projects/{}/admin/relationshipbuilder'
-                                    .format(d),
-                                    category="actions"))
-        proj_admin.add_links(ML('Application', url='/projects/{}/app'.format(d)))
+        proj_admin.add_links(ML('New Table',url='/projects/{}/admin/newtable'.format(d)),
+                             ML('Relationship Builder',url='/projects/{}/admin/relationshipbuilder'.format(d)),
+                             ML('Application', url='/projects/{}/app'.format(d)))
 
         for c in class_db_dict:
             if d == class_db_dict[c]:

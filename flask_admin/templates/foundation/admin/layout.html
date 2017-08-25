@@ -70,7 +70,7 @@
   {% for item in links %}
     {% if item.is_accessible() and item.is_visible() %}
       <li>
-        <a href="{{ item.get_url() }}">{{ menu_icon(item) }}{{ item.name }}</a>
+          <a href="{{ item.get_url() }}" class="button tag-colour{{ ((5+3*loop.index0) % 21)|string }}">{{ menu_icon(item) }}{{ item.name }}</a>
       </li>
     {% endif %}
   {% endfor %}

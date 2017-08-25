@@ -2,12 +2,20 @@
 {% block body %}
 {#{{ super() }}#}
     <div class="row">
-            <h1>Admin functionality</h1>
+    {{  dbinfo}}
+    {{  current_user }}
+{#        {{ admin_view.admin.getDBInfo() }}#}
+        <h1>Database Info.</h1>
 
-{#        <a class="button success" href="{{ request.path + 'new' }}">Create new entry</a>#}
-{#        <a class="button success" href="{{ request.path + '../admin/addcolumn' }}">Add column</a>#}
-{#        <a class="button alert" href="{{ request.path + '../admin/cleartable/' + tablename }}">Clear table</a>#}
-{#        <a class="button alert" href="{{ request.path + '../admin/deletetable/' + tablename }}">Delete table</a>#}
-{#            <a class="btn btn-primary" href="/"><i class="glyphicon glyphicon-chevron-left"></i> Back</a>#}
+        <h4>Database Owner:</h4>
+        This database is owned by the group <i>groupname</i> and maintained by <i>user</i>.
+
+        <h4>Database connection string:</h4>
+
+        <h4>Database Capacity:</h4>
+        You are using <i>curent / capacity</i>
+
+        <h4>Description</h4>
+        <i>Optional section</i>
     </div>
 {% endblock body %}

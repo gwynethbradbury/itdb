@@ -26,16 +26,17 @@ def init(db, db_name):
   metadata.reflect()
   insp = reflection.Inspector.from_engine(engine)
   for name in metadata.tables:
-      print name
-      class_name_arr=str(name).split('_')
-      class_name=''
+      #print name
+      #class_name_arr=str(name).split('_')
+      #class_name=''
       class_list.append(name)
-      for cn in class_name_arr:
-         class_name=class_name+cn.capitalize()
+      #for cn in class_name_arr:
+      #   class_name=class_name+cn.capitalize()
+      class_name=str(name)
       md = {}
       for key in insp.get_foreign_keys(name):
          print key['referred_table']
-         md[key['referred_table']]=relationship(globals()[key['referred_table'].capitalize()])
+         md[key['referred_table']]=relationship(globals()[key['referred_table']])
       md['__table__']=metadata.tables[name]
       md['__bind_key__']=db_name
       cls = type(str(class_name), (db.Model,), md)

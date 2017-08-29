@@ -10,10 +10,10 @@ import dbconfig
 def ClassStr(self):
         if hasattr(self, 'title'):
             return self.title
-        elif hasattr(self,'name'):
+        if hasattr(self,'name'):
             return self.name
-        elif hasattr(self,'id'):
-            return self.id
+        if hasattr(self,'id'):
+            return str(self.id)
 
 
 class_list=[]
@@ -47,6 +47,7 @@ def init(db, db_name):
       cls = type(str(class_name), (db.Model,), md)
       globals()[cls.__name__] = cls
       setattr(globals()[cls.__name__], "__str__", ClassStr)
+      setattr(globals()[cls.__name__], "__repr__", ClassStr)
       print "Generated Class: "+class_name
 
 #  for name in metadata.tables:

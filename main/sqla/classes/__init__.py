@@ -19,10 +19,10 @@ def initialise(db, db_list=['map', 'it_lending_log', 'online_learning','iaas']):
             classesdict["cls_" + db_item + "_" + i] = getattr(my_db[db_item], cn)
     return classesdict, my_db
 
-def initialise_single_class(tablename,classname):
+def initialise_single_class(databasename,classname):
     from main.sqla.app import db
-    classesdict, my_db = initialise(db, db_list=[tablename])
-    return classesdict["cls_{}_{}".format(tablename,classname)]
+    classesdict, my_db = initialise(db, db_list=[databasename])
+    return classesdict["cls_{}_{}".format(databasename,classname)]
 
 
 

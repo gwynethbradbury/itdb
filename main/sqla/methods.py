@@ -48,7 +48,7 @@ class DBAS():
         # Initialize flask-login
         self.init_login()
         views.set_views(self.app)
-        self.set_iaas_admin_console(self.classesdict, self.class_db_dict)
+        self.set_iaas_admin_console(self.class_db_dict,self.classesdict)
         self.admin_pages_setup(self.db_list, self.classesdict, self.class_db_dict)
 
 
@@ -117,6 +117,21 @@ class DBAS():
         iaas_admin.add_links(ML('Relationship Builder',url='/iaas/admin/relationshipbuilder'),
                              ML('New Table', url='/admin/iaas/admin/newtable'))
 
+        # proj_admin = admin.Admin(self.app, name='{} admin'.format(d),
+        #                          template_mode='foundation',
+        #                          endpoint=d,
+        #                          url="/projects/{}".format(d),
+        #                          base_template='my_master.html'
+        #                          )
+        # iaas_admin.add_links(ML('New Table',url='/projects/{}/admin/newtable'.format(d)),
+        #                      ML('Relationship Builder',url='/projects/{}/admin/relationshipbuilder'.format(d)),
+        #                      ML('Application', url='/projects/{}/app'.format(d)))
+
+        for c in class_db_dict:
+            if 'iaas' == class_db_dict[c]:
+                print ('class {} is in db {}'.format(c, 'iaas'))
+
+                self._add_a_view( iaas_admin, classesdict[c])
 
 
         # Add IAAS views
@@ -129,6 +144,8 @@ class DBAS():
         proj_admin.add_view(views.MyModelView(c, self.db.session))
 
     def add_collection_of_views(self, d, classesdict,class_db_dict):
+        if d=='iaas':
+            return
         proj_admin = admin.Admin(self.app, name='{} admin'.format(d),
                                  template_mode='foundation',
                                  endpoint=d,

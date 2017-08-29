@@ -648,6 +648,18 @@ class dbInfo():
 class MyModelView(ModelView):
     # current_user = ""#current_user
 
+    # column_display_pk = True
+    # column_display_all_relations=True
+    # form_display_pk = True
+    # # column_filters = ('id')
+    # from sqlalchemy import Boolean,Unicode,Integer
+    # form_optional_types = (Boolean, Unicode,Integer)
+    # ignore_hidden=False
+    # # column_select_related_list = True
+    #
+    # def get_pk_value(self, model):
+    #     return self.model.id
+
 
     def is_accessible(self):
         if current_user.has_role('superusers') :

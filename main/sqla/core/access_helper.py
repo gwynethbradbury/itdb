@@ -105,6 +105,8 @@ class AccessHelper:
             with connection.cursor() as cursor:
                 cursor.execute(query)
             for inst in cursor:
+                if inst[0]=='iaas':
+                    continue
                 instance = [inst[0], inst[1], dict2[inst[2]]]
                 instances.append(instance)
             return instances

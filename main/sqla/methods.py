@@ -105,10 +105,10 @@ class DBAS():
 
         # endregion
         # Create admin
+        # todo: change bootstrap3 back to foundation to use my templates
         iaas_admin = admin.Admin(self.app, name='IAAS admin app', template_mode='foundation',
                                  endpoint="admin",url="/admin",
                                  base_template='my_master.html',)
-        # iaas_admin.setDBEngine("iaas")
 
         # example adding links:
         #     iaas_admin.add_links(ML('Test Internal Link', endpoint='applicationhome'),
@@ -117,15 +117,6 @@ class DBAS():
         iaas_admin.add_links(ML('Relationship Builder',url='/iaas/admin/relationshipbuilder'),
                              ML('New Table', url='/admin/iaas/admin/newtable'))
 
-        # proj_admin = admin.Admin(self.app, name='{} admin'.format(d),
-        #                          template_mode='foundation',
-        #                          endpoint=d,
-        #                          url="/projects/{}".format(d),
-        #                          base_template='my_master.html'
-        #                          )
-        # iaas_admin.add_links(ML('New Table',url='/projects/{}/admin/newtable'.format(d)),
-        #                      ML('Relationship Builder',url='/projects/{}/admin/relationshipbuilder'.format(d)),
-        #                      ML('Application', url='/projects/{}/app'.format(d)))
 
         for c in class_db_dict:
             if 'iaas' == class_db_dict[c]:
@@ -134,11 +125,6 @@ class DBAS():
                 self._add_a_view( iaas_admin, classesdict[c])
 
 
-        # Add IAAS views
-        # iaas_admin.add_view(views.MyModelView(name="svcinst",model=IAASmodels.SvcInstances, session=self.db.session))
-        # iaas_admin.add_view(views.MyModelView(IAASmodels.Subscribers, self.db.session,"subs"))
-        # iaas_admin.add_view(views.MyModelView(IAASmodels.News, self.db.session,"newsies"))
-        # iaas_admin.add_view(views.MyModelView(IAASmodels.Comment, self.db.session,"commies"))
 
     def _add_a_view(self, proj_admin,c):
         proj_admin.add_view(views.MyModelView(c, self.db.session))
@@ -146,6 +132,8 @@ class DBAS():
     def add_collection_of_views(self, d, classesdict,class_db_dict):
         if d=='iaas':
             return
+
+        # todo: change bootstrap3 back to foundation to use my templates
         proj_admin = admin.Admin(self.app, name='{} admin'.format(d),
                                  template_mode='foundation',
                                  endpoint=d,

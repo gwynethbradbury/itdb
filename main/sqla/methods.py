@@ -116,13 +116,13 @@ class DBAS():
         #
         iaas_admin.add_links(ML('Relationship Builder',url='/iaas/admin/relationshipbuilder'),
                              ML('New Table', url='/admin/iaas/admin/newtable'))
-
-
+        #
+        #
         for c in class_db_dict:
             if 'iaas' == class_db_dict[c]:
                 print ('class {} is in db {}'.format(c, 'iaas'))
-
-                self._add_a_view( iaas_admin, classesdict[c])
+        #
+        #         self._add_a_view( iaas_admin, classesdict[c])
 
 
 
@@ -130,8 +130,8 @@ class DBAS():
         proj_admin.add_view(views.MyModelView(c, self.db.session))
 
     def add_collection_of_views(self, d, classesdict,class_db_dict):
-        if d=='iaas':
-            return
+        # if d=='iaas':
+        #     return
 
         # todo: change bootstrap3 back to foundation to use my templates
         proj_admin = admin.Admin(self.app, name='{} admin'.format(d),

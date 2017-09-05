@@ -32,8 +32,10 @@ def init(db, db_name):
     mddict = {}
     tempdict = {}
     names = []
+    failed = []
     for key, value in metadata.tables.items():
         names.append(key)
+        failed.append(key)
     # for i in range(len(names)):
     #     name = names[i]
     # for name in names:
@@ -44,7 +46,7 @@ def init(db, db_name):
         for name in metadata.tables:
             if name not in names:
                 continue
-            print name
+            # print name
             class_name_arr = str(name).split('_')
             class_name = ''
             class_list.append(name)
@@ -53,7 +55,7 @@ def init(db, db_name):
             md = {}
             success=True
             for key in insp.get_foreign_keys(name):
-               print key['referred_table']
+               # print key['referred_table']
                try:
                   md[key['referred_table']]= relationship(globals()[key['referred_table'].capitalize()])
                except Exception as e:
@@ -76,9 +78,13 @@ def init(db, db_name):
                 setattr(globals()[cls.__name__], "__str__", ClassStr)
                 setattr(globals()[cls.__name__], "__repr__", ClassStr)
                 print "Generated Class: " + class_name
+                if success:
+                    failed.remove(name)
                 names.remove(name)
         names.reverse()
 
+    if len(failed)>0:
+        print str(len(failed))+" failed"
     return
     # for key, value in metadata.tables.items():
     #     names.append(key)

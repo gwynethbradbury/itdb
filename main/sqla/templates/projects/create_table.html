@@ -55,7 +55,7 @@
         <span style="color: crimson">{{ error|safe }}</span>
         <span style="color: #22bb5b">{{ message|safe }}</span>
     </h4>
-    <form action="createtable" method="post" name="data" enctype=multipart/form-data>
+    <form action="newtable" method="post" name="data" enctype=multipart/form-data>
 {#        <h4>New table:</h4>#}
 
         <label for="newtablename">New table name</label>
@@ -69,7 +69,7 @@
         <label for="file">File Name</label>
         <input type="file" name="file" size="40">
 
-        <p><input type="submit" class="button" value="Create"></p>
+        <p><input type="submit" class="button" value="Create" method="POST"></p>
     </form>
 
 

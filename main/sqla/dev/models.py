@@ -463,7 +463,7 @@ class DatabaseAssistant:
         for f in fromlist:
             if not f in tolist:
                 # if not, create entry. otherwise do nothing
-                self.DBE.E.execute("INSERT INTO {} ({}) VALUES ({})".format(totable,tocolumn,fromlist))
+                self.DBE.E.execute("INSERT INTO {} ({}) VALUES ({})".format(totable,tocolumn,f))
                 msg = msg + "added entry {} to {}.{}\n".format(fromlist,totable,tocolumn)
 
         # check that tolist is still not empty
@@ -543,7 +543,7 @@ class DatabaseAssistant:
     # creates a new table from a csv file
     def createTableFromCSV(self, filepath, tablename):
 
-        df = pd.read_csv(filepath,parse_dates=True)
+        df = pd.read_csv(filepath)#,parse_dates=True,quoting=csv.QUOTE_MINIMAL)
 
         try:
             msg=""
@@ -583,7 +583,6 @@ class DatabaseAssistant:
     def createTableFromXLS(self, filepath, tablename):
 
         df = pd.read_excel(filepath,
-                           sheetname=tablename,
                            parse_dates=True)
 
         try:

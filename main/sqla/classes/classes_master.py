@@ -58,16 +58,35 @@ def init(db, db_name):
             md = {}
             success=True
             for key in insp.get_foreign_keys(name):
-               # print key['referred_table']
-               try:
-                  md[key['referred_table']]= relationship(globals()["cls_"+db_name+"_"+key['referred_table'].capitalize()])
-               except Exception as e:
-                   try:
-                       md[key['referred_table']]=relationship(globals()["cls_"+db_name+"_"+key['referred_table']])
-                   except Exception as ee:
-                       print(ee)
-                       success=False
-                       # pass
+                try:
+                    md[key['referred_table']] = relationship(
+                        globals()["cls_" + db_name + "_" + key['referred_table'].capitalize()])
+                except Exception as e:
+                    try:
+                        md[key['referred_table']] = relationship(
+                            globals()["cls_" + db_name + "_" + key['referred_table']])
+                    except Exception as ee:
+                        print(ee)
+                        success = False
+                        # pass
+                # try:
+                #
+                #     class_name_arr = str(key['referred_table']).split('_')
+                #     rt = ''
+                #     for cn in class_name_arr:
+                #         rt = rt + cn.capitalize()
+                #     print "Attempting to build relationship between "+key['referred_table']+" and "+rt
+                #     md[key['referred_table']]= relationship(globals()[rt])
+                #
+                # except Exception as e:
+                #     try:
+                #          print "Didn't work, attempting to build relationship between "+key['referred_table']+" and "+key['referred_table']
+                #          md[key['referred_table']]=relationship(globals()[key['referred_table']])
+                #     except Exception as ee:
+                #          print "Still didn't work!"
+                #          print(ee)
+                #          success=False
+                #          # pass
 
             md['__table__'] = metadata.tables[name]
             md['__bind_key__'] = db_name

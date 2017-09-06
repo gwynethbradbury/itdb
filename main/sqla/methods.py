@@ -439,19 +439,19 @@ class DBAS():
         # Create admin
         # todo: change bootstrap3 back to foundation to use my templates
         iaas_admin = MyAdmin(self.app, name='IAAS admin app', template_mode='foundation',
-                                 endpoint="admin",url="/admin",
+                                 endpoint="admin",url="/admin/iaas",
                                  base_template='my_master.html',)
 
         # example adding links:
         #     iaas_admin.add_links(ML('Test Internal Link', endpoint='applicationhome'),
         #                          ML('Test External Link', url='http://python.org/'))
         #
-        iaas_admin.add_links(ML('New Table', url='/admin/iaas_ops/newtable'),
-                             ML('Import Data',url='/admin/iaas_ops/upload'),
-                             ML('Export Data',url='/admin/iaas_ops/download'),
-                             ML('Relationship Builder', url='/admin/iaas_ops/relationshipbuilder'))
+        iaas_admin.add_links(ML('New Table', url='/admin/iaas/ops/newtable'),
+                             ML('Import Data',url='/admin/iaas/ops/upload'),
+                             ML('Export Data',url='/admin/iaas/ops/download'),
+                             ML('Relationship Builder', url='/admin/iaas/ops/relationshipbuilder'))
 
-        iaas_admin.add_hidden_view(DatabaseOps(name='Edit Database', endpoint='iaas_ops'))
+        iaas_admin.add_hidden_view(DatabaseOps(name='Edit Database', endpoint='ops'))
 
 
         for c in class_db_dict:
@@ -463,7 +463,7 @@ class DBAS():
 
 
     def _add_a_view(self, proj_admin,c):
-        proj_admin.add_view(views.MyModelView(c, self.db.session))
+        proj_admin.add_view(views.MyModelView(c, self.db.session,name=c.__display_name__,endpoint=c.__display_name__,category="Tables"))
 
     def add_collection_of_views(self, d, classesdict,class_db_dict):
         if d=='iaas':

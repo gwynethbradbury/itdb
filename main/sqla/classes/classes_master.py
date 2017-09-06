@@ -46,7 +46,7 @@ def init(db, db_name):
         for name in metadata.tables:
             if name not in names:
                 continue
-            # print name
+            print name
             class_name_arr = str(name).split('_')
             class_name = ''
             class_list.append(name)
@@ -55,13 +55,20 @@ def init(db, db_name):
             md = {}
             success=True
             for key in insp.get_foreign_keys(name):
-               # print key['referred_table']
                try:
-                  md[key['referred_table']]= relationship(globals()[key['referred_table'].capitalize()])
+                  class_name_arr = str(key['referred_table']).split('_')
+                  rt = ''
+                  for cn in class_name_arr:
+                      rt = rt + cn.capitalize()
+                  print "Attempting to build relationship between "+key['referred_table']+" and "+rt
+                  md[key['referred_table']]= relationship(globals()[rt])
+                  
                except Exception as e:
                    try:
+	               print "Didn't work, attempting to build relationship between "+key['referred_table']+" and "+key['referred_table']
                        md[key['referred_table']]=relationship(globals()[key['referred_table']])
                    except Exception as ee:
+                       print "Still didn't work!"
                        print(ee)
                        success=False
                        # pass

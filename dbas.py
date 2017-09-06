@@ -18,5 +18,5 @@ from main.web_apps_examples import *
 
 if __name__ == '__main__':
     # app_dir = op.realpath(os.path.dirname(__file__))
-    app.run()
-    # app.run(host="0.0.0.0", port=5000, debug=True)
+    #app.run()
+    app.run(host="0.0.0.0", port=5000, debug=True)

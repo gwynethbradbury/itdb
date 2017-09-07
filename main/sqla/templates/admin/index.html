@@ -2,20 +2,34 @@
 {% block body %}
 {#{{ super() }}#}
     <div class="row">
+    <div class="column">
 {#    {{  dbinfo}}#}
 {#    {{  current_user }}#}
-{#        {{ admin_view.admin.getDBInfo() }}#}
-        <h1>Database Info.</h1>
+{{ admin_view.admin.getDBInfo() }}
+{#        {{ admin_view.admin.database_name }}#}
+        <h2>Database Info.</h2>
+
+        <h4>Database Type:</h4>
+        {{ admin_view.admin.engine_type }}
 
         <h4>Database Owner:</h4>
-        This database is owned by the group <i>groupname</i> and maintained by <i>user</i>.
+        This database is owned by the group <i>{{ admin_view.admin.project_owner }}</i> and maintained by <i>{{ admin_view.admin.project_maintainer }}</i>.
 
         <h4>Database connection string:</h4>
+                {{ admin_view.admin.engine_string }}://
+                {{ admin_view.admin.username }}:********@
+                {{ admin_view.admin.ip_address }}:
+                {{ admin_view.admin.port }}
+
+
+
+
+
 
         <h4>Database Capacity:</h4>
-        You are using <i>curent / capacity</i>
+        You are using <i>{{ admin_view.admin.dbuseage }} / {{ admin_view.admin.dbquota }}</i>
 
         <h4>Description</h4>
-        <i>Optional section</i>
-    </div>
+        <i>{{ admin_view.admin.description }}</i>
+    </div></div>
 {% endblock body %}

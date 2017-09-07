@@ -9,7 +9,11 @@ from flask_admin import Admin as ImpAdmin
 from flask_admin.menu import MenuLink as ML
 
 import dbconfig
-
+if dbconfig.test:
+    from core.mock_access_helper import MockAccessHelper as AccessHelper
+else:
+    from core.access_helper import AccessHelper
+AH = AccessHelper()
 
 class myAdmin(ImpAdmin):
 
@@ -38,7 +42,11 @@ from datetime import datetime
 import os
 
 class DatabaseOps(BaseView):
-
+    def __init__(self,name, endpoint, database_name, menu_class_name=None):
+        super(DatabaseOps,self).__init__(name,
+                                         endpoint=endpoint,
+                                         menu_class_name=menu_class_name)
+        self.database_name = database_name
 
     @expose('/')
     def index(self):
@@ -47,8 +55,7 @@ class DatabaseOps(BaseView):
     @expose('/newtable', methods=['GET', 'POST'])
     def newtable(self):
 
-        current_url = str.split(self.admin.url, '/')
-        application_name = current_url[2]
+        application_name=self.database_name
 
 
         if request.method == 'GET':
@@ -58,30 +65,30 @@ class DatabaseOps(BaseView):
             db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
                                                              dbconfig.db_password,
                                                              dbconfig.db_hostname,
-                                                             application_name)
-            dbbindkey="project_"+application_name+"_db"
+                                                             self.database_name)
+            dbbindkey="project_"+self.database_name+"_db"
 
-            DBA = devmodels.DatabaseAssistant(db_string,dbbindkey,application_name)#, upload_folder=uploadfolder)
+            DBA = devmodels.DatabaseAssistant(db_string,dbbindkey,self.database_name)#, upload_folder=uploadfolder)
 
             tablenames,columnnames=DBA.getTableAndColumnNames()
 
             return self.render("projects/create_table.html",
                                    tablenames=tablenames,
                                    columnnames=columnnames,
-                                   pname=application_name)
+                                   pname=self.database_name)
 
 
 
 
-        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+        if not current_user.is_authorised(application_name=self.database_name, is_admin_only_page=True):
             return abort(401)
         db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
                                                          dbconfig.db_password,
                                                          dbconfig.db_hostname,
-                                                         application_name)
-        dbbindkey = "project_" + application_name + "_db"
+                                                         self.database_name)
+        dbbindkey = "project_" + self.database_name + "_db"
 
-        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name,
+        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, self.database_name,
                                           upload_folder=os.path.dirname(os.path.realpath(__file__)) + '/data/')
 
         # create a new table either from scratch or from an existing csv
@@ -144,7 +151,7 @@ class DatabaseOps(BaseView):
         return self.render("projects/create_table.html",
                                tablenames=tablenames,
                                columnnames=columnnames,
-                               pname=application_name)
+                               pname=self.database_name)
 
 
     @expose('/deletetable')
@@ -153,10 +160,7 @@ class DatabaseOps(BaseView):
 
     @expose("/relationshipbuilder", methods=['GET', 'POST'])
     def relationshipbuilder(self):
-        rule = str.split(str(request.url_rule),'/')
-        current_url = str.split(self.admin.url,'/')
-        application_name = current_url[2]
-        tablename=rule[3]
+        application_name = self.database_name
 
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
@@ -200,8 +204,7 @@ class DatabaseOps(BaseView):
 
     @expose('/upload', methods=['GET', 'POST'])
     def upload(self,msg="", err=""):
-        current_url = str.split(self.admin.url,'/')
-        application_name = current_url[2]
+        application_name = self.database_name
         if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
             return abort(401)
 
@@ -261,8 +264,7 @@ class DatabaseOps(BaseView):
 
     @expose('/download', methods=['GET', 'POST'])
     def download(self):
-        current_url = str.split(self.admin.url,'/')
-        application_name = current_url[2]
+        application_name = self.database_name
         if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
             return abort(401)
 
@@ -306,6 +308,13 @@ class DatabaseOps(BaseView):
 
 
 
+    def trigger_reload(self):
+        dbconfig.trigger_reload = False
+        file_object = open( os.path.abspath(os.path.dirname(__file__))+'/reload.py', 'w')
+        file_object.write('True\n')
+        file_object.write("# " + str(datetime.utcnow()) + "\n")
+        file_object.close()
+        return 'reloaded'
     def is_accessible(self):
         # if current_user.has_role('superusers') :
         #     return True
@@ -341,9 +350,46 @@ class DatabaseOps(BaseView):
             # else:
             #     # login
             #     return "not authenticated" #redirect(url_for('security.login', next=request.url))
+
 from flask_admin.base import Admin as Admin2
 class MyAdmin(Admin2):
+    dbquota = 0
+    dbuseage = 0
 
+
+    def __init__(self,app, name, endpoint,url,database_name,
+                 template_mode='foundation',
+                 base_template='my_master.html'):
+        super(MyAdmin,self).__init__(app,name,template_mode=template_mode,
+                                     url=url,
+                                     endpoint=endpoint, base_template=base_template)
+        self.database_name=database_name
+    @expose('/')
+    def home(self):
+
+        return self.render('index.html')
+    def getDBInfo(self):
+        self.project_owner, self.project_maintainer, self.ip_address, self.svc_inst, self.port, self.username, self.password_if_secure, self.description, self.engine_type, self.engine_string = \
+            AH.getDatabaseConnectionString(self.database_name)
+        return ""
+
+
+    def getDatabaseQuota(self):
+        self.dbquota=0
+    def getDatabaseUseage(self):
+        self.dbuseage=0
+
+    def setDBEngine(self, application_name):
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                         dbconfig.db_password,
+                                                         dbconfig.db_hostname,
+                                                         application_name)
+        dbbindkey = "project_" + application_name + "_db"
+
+        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+
+
+        pass
     def add_hidden_view(self, view):
         """
             Add a view to the collection.
@@ -382,7 +428,6 @@ class DBAS():
         views.set_views(self.app)
         self.set_iaas_admin_console(self.class_db_dict,self.classesdict)
         self.admin_pages_setup(self.db_list, self.classesdict, self.class_db_dict)
-
 
     def init_login(self):
         login_manager = login.LoginManager()
@@ -439,19 +484,19 @@ class DBAS():
         # Create admin
         # todo: change bootstrap3 back to foundation to use my templates
         iaas_admin = MyAdmin(self.app, name='IAAS admin app', template_mode='foundation',
-                                 endpoint="admin",url="/admin/iaas",
-                                 base_template='my_master.html',)
+                                 endpoint="admin",url="/admin",
+                                 base_template='my_master.html',database_name='iaas',)
 
         # example adding links:
         #     iaas_admin.add_links(ML('Test Internal Link', endpoint='applicationhome'),
         #                          ML('Test External Link', url='http://python.org/'))
         #
-        iaas_admin.add_links(ML('New Table', url='/admin/iaas/ops/newtable'),
-                             ML('Import Data',url='/admin/iaas/ops/upload'),
-                             ML('Export Data',url='/admin/iaas/ops/download'),
-                             ML('Relationship Builder', url='/admin/iaas/ops/relationshipbuilder'))
+        iaas_admin.add_links(ML('New Table', url='/admin/ops/newtable'),
+                             ML('Import Data',url='/admin/ops/upload'),
+                             ML('Export Data',url='/admin/ops/download'),
+                             ML('Relationship Builder', url='/admin/ops/relationshipbuilder'))
 
-        iaas_admin.add_hidden_view(DatabaseOps(name='Edit Database', endpoint='ops'))
+        iaas_admin.add_hidden_view(DatabaseOps(name='Edit Database', endpoint='ops',database_name='iaas'))
 
 
         for c in class_db_dict:
@@ -463,7 +508,8 @@ class DBAS():
 
 
     def _add_a_view(self, proj_admin,c):
-        proj_admin.add_view(views.MyModelView(c, self.db.session,name=c.__display_name__,endpoint=c.__display_name__,category="Tables"))
+        proj_admin.add_view(views.MyModelView(c, self.db.session,name=c.__display_name__,databasename=proj_admin.database_name,
+                                              endpoint=c.__display_name__,category="Tables"))
 
     def add_collection_of_views(self, d, classesdict,class_db_dict):
         if d=='iaas':
@@ -475,12 +521,12 @@ class DBAS():
                                  template_mode='foundation',
                                  endpoint=d,
                                  url="/projects/{}".format(d),
-                                 base_template='my_master.html'
+                                 base_template='my_master.html',
+                             database_name=d
                                  )
 
         proj_admin.add_hidden_view(DatabaseOps(name='Edit Database'.format(d),
-                                        endpoint='{}_ops'.format(d),
-                                        menu_class_name="hi"))
+                                        endpoint='{}_ops'.format(d),database_name=d))
 
 
 

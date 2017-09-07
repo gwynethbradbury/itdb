@@ -647,7 +647,16 @@ class dbInfo():
     pass
 # Create customized model view class
 class MyModelView(ModelView):
-    # current_user = ""#current_user
+    def __init__(self,
+                 c,
+                 session, name,databasename,
+                 endpoint,
+                 category = "Tables"):
+
+        super(MyModelView, self).__init__(c,session, name=name,endpoint=endpoint,category=category)
+        self.tablename = c.__table__
+        self.application_name=databasename
+        # current_user = ""#current_user
 
     # column_display_pk = True
     # column_display_all_relations=True
@@ -701,10 +710,10 @@ class MyModelView(ModelView):
 
     # @expose('/')
     # def index(self):
-    #     rule = str.split(str(request.url_rule),'/')
-    #     current_url = str.split(self.admin.url,'/')
-    #     application_name = current_url[2]
-    #     return self.render("admin/index.html",dbinfo="hihihihi")
+        # rule = str.split(str(request.url_rule),'/')
+        # current_url = str.split(self.admin.url,'/')
+        # application_name = current_url[2]
+        # return self.render("admin/index.html",dbinfo="hihihihi")
 
     # @expose("/admin/relationshipbuilder", methods=['GET', 'POST'])
     # def relationshipbuilder(self):
@@ -865,10 +874,7 @@ class MyModelView(ModelView):
 
     @expose('/admin/newcolumn')
     def newcolumn(self):
-        rule = str.split(str(request.url_rule),'/')
-        current_url = str.split(self.admin.url,'/')
-        application_name = current_url[2]
-        tablename=rule[3]
+        application_name = self.application_name
 
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
@@ -886,7 +892,7 @@ class MyModelView(ModelView):
 
 
         return self.render("projects/add_column.html",
-                               tablename=tablename, appname=application_name,
+                           appname=application_name,
                                tablenames=tablenames,
                                listofdatatypes=lstofdatatypes,
                                columnnames=columnnames,
@@ -1019,8 +1025,8 @@ class MyModelView(ModelView):
     @expose('/admin/createcolumn', methods=['GET', 'POST'])
     def createcolumn(self):
         rule = str.split(str(request.url_rule), '/')
-        application_name = rule[2]
-        tablename = rule[3]
+        application_name = self.application_name
+        tablename = self.tablename
 
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
@@ -1043,13 +1049,14 @@ class MyModelView(ModelView):
             success = 0
             ret = "Enter column name"
 
+        elif len(columnnames)>0:
         # check for existing table with this name
-        elif request.form.get("newcolumnname") in columnnames[0]:
-            success = 0
-            ret = "Column " + request.form.get("newcolumnname") + " already exists, try a new name"
+            if request.form.get("newcolumnname") in columnnames[0]:
+                success = 0
+                ret = "Column " + request.form.get("newcolumnname") + " already exists, try a new name"
 
         # todo: get argument n which islength of string etc, default is curretly 10
-        ret, success = DBA.addColumn(tablename, request.form.get("newcolumnname"), request.form.get("datatypes"))
+        ret, success = DBA.addColumn(str(tablename), request.form.get("newcolumnname"), request.form.get("datatypes"))
 
         listofdatatypes = listOfColumnTypesByName
         # redirects to the same page

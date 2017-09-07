@@ -18,7 +18,7 @@ class DBAS():
         self.setup_pages()
 
     def setup(self):
-        SQLALCHEMY_BINDS, self.class_db_dict, self.db_list = self.get_binds()
+        SQLALCHEMY_BINDS, self.class_db_dict, self.db_list, self.schema_ids = self.get_binds()
 
         self.app.config['SQLALCHEMY_BINDS'] = SQLALCHEMY_BINDS
 
@@ -42,6 +42,9 @@ class DBAS():
             views.current_user.uid_trim()
             # return db.session.query(User).get(user_id)
 
+    def get_schema(self,prefix):
+        return self.schema_ids[prefix];
+
     def get_binds(self):
         """checks the iaas db for dbas services and collects the db binds"""
         print("retrieving list of DBAS services available and adding to dictionary:")
@@ -52,17 +55,20 @@ class DBAS():
         result, list_of_projects = dba.retrieveDataFromDatabase("svc_instances",
                                                               ["project_display_name", "instance_identifier",
                                                                "svc_type_id",
-                                                               "group_id"],
+                                                               "group_id","schema_id"],
                                                               classes_loaded=False)
         class_db_dict = {}
         SQLALCHEMY_BINDS = {'iaas': '{}://{}:{}@{}/iaas'
             .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname)}
         db_list=[]
 
+        schema_ids={}
+
         for r in list_of_projects:
+          if (r[1]==self.app.config['db']) or (self.app.config['db']=='all'):
             if not(r[2] == '1' or r[2] == '4'):  # then this is a database project
                 continue
-
+            schema_ids[r[1]] = r[4]
             db_list.append(r[1])
 
             db_string = '{}://{}:{}@{}/{}'.format(dbconfig.db_engine,dbconfig.db_user,
@@ -77,7 +83,7 @@ class DBAS():
             for t in tns:
                 class_db_dict['cls_{}_{}'.format(r[1],t)] = r[1]
 
-        return SQLALCHEMY_BINDS, class_db_dict, db_list
+        return SQLALCHEMY_BINDS, class_db_dict, db_list, schema_ids
 
     def set_iaas_admin_console(self):
         """set up the admin console, depnds on predefined classes"""

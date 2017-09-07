@@ -53,13 +53,34 @@ def start_app():
     pass
 
 def get_user_for_prefix(prefix):
-    print "Prefix: "+prefix
     return prefix 
+
+def get_current_schema_id(prefix):
+        import dev.models as devmodels
+        import dbconfig
+        iaas_main_db ='{}://{}:{}@{}/{}'\
+          .format(dbconfig.db_engine,dbconfig.db_user,dbconfig.db_password, dbconfig.db_hostname,dbconfig.db_name)
+ 
+        dba = devmodels.DatabaseAssistant(iaas_main_db, "iaas", "iaas")
+
+        result, list_of_projects = dba.retrieveDataFromDatabase("svc_instances",
+                                                              ["project_display_name", "instance_identifier",
+                                                               "svc_type_id",
+                                                               "group_id","schema_id"],
+                                                              classes_loaded=False)
+        schema_ids={}
+
+        for r in list_of_projects:
+          print "checking schema_id for "+r[1]
+          if (r[1]==prefix):
+            if not(r[2] == '1' or r[2] == '4'):  # then this is a database project
+                continue
+            schema_ids[r[1]] = r[4]
+        return schema_ids[prefix]
 
 def create_app(config_filename):
     # my files
     from methods import *
-    print "Prefix: creating app: "+config_filename
 
     app = Flask(__name__)
 #    app.config.from_pyfile(config_filename)
@@ -75,7 +96,7 @@ def create_app(config_filename):
     
     # Create dummy secrey key so we can use sessions
     app.config['SECRET_KEY'] = '123456790'
-    
+    app.config["db"] =  config_filename    
     # Create in-memory database
     # app.config['DATABASE_FILE'] = 'sample_db.sqlite'
     
@@ -106,16 +127,18 @@ def create_app(config_filename):
         app.config["MAIL_DEFAULT_SENDER"] = dbconfig.mail_sender
        
     # endregion
-    
+    app.config['schema_id']=-1
     db = SQLAlchemy(app)
     
     # endregion
     
     
     DBAS = DBAS(app,db)
-    
+   
+    if config_filename!='':
+       app.config['schema_id']=DBAS.get_schema(config_filename) 
 
-    return app
+    return app, app.config['schema_id']
 
 
 

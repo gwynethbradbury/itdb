@@ -84,13 +84,13 @@ from dev.models import listOfColumnTypesByName,DataTypeNeedsN,listOfColumnTypesB
 
 
 def set_views(app):
-    dbconfig.trigger_reload = False
-    file_object = open( os.path.abspath(os.path.dirname(__file__))+'/reload.py', 'w')
-    file_object.write('reload=True\n')
-    file_object.write("# " + str(datetime.utcnow()) + "\n")
-    file_object.close()
+#    dbconfig.trigger_reload = False
+#    file_object = open( os.path.abspath(os.path.dirname(__file__))+'/reload.py', 'w')
+#    file_object.write('reload=True\n')
+#    file_object.write("# " + str(datetime.utcnow()) + "\n")
+#    file_object.close()
 
-    import reload as reload
+#    import reload as reload
 
     @app.context_processor
     def inject_paths():
@@ -810,7 +810,8 @@ class MyModelView(ModelView,):
 
         if success == 1:
             # todo: this does not work on the fly
-            from main.sqla.app import DBAS as DBAS
+            #from main.sqla.app import DBAS as DBAS
+            from app import DBAS as DBAS
             DBAS.setup()
             self.trigger_reload()
             return self.render("projects/create_table.html",
@@ -829,11 +830,15 @@ class MyModelView(ModelView,):
 
     @expose('/admin/reloadapp')
     def trigger_reload(self):
-        dbconfig.trigger_reload = False
-        file_object = open( os.path.abspath(os.path.dirname(__file__))+'/reload.py', 'w')
-        file_object.write('True\n')
-        file_object.write("# " + str(datetime.utcnow()) + "\n")
-        file_object.close()
+        print "Triggering reload: "+self.config['db']
+        # Need to do the following against the iaas db:
+        # update svc_instance set schema_id=schema_id+1 where project_display_name=self-config['db']
+
+#        dbconfig.trigger_reload = False
+#        file_object = open( os.path.abspath(os.path.dirname(__file__))+'/reload.py', 'w')
+#        file_object.write('True\n')
+#        file_object.write("# " + str(datetime.utcnow()) + "\n")
+#        file_object.close()
         return 'reloaded'
 
 
@@ -961,7 +966,7 @@ class MyModelView(ModelView,):
         # DBA.DBE.refresh()
         # todo: fix this
 
-        from main.sqla.app import DBAS
+        from app import DBAS
         DBAS.setup()
         self.trigger_reload()
 

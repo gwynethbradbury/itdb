@@ -11,7 +11,7 @@ sys.path.insert(0,path)
 
 from threading import Lock
 from werkzeug.wsgi import pop_path_info, extract_path_info, peek_path_info
-from main.sqla.app import create_app, get_user_for_prefix, get_current_schema_id,increment_schema_id
+from main.sqla.app import create_app, get_user_for_prefix, get_current_schema_id
 
 class PathDispatcher(object):
 
@@ -45,12 +45,13 @@ class PathDispatcher(object):
           proj_uri=environ['PATH_INFO']
           uri_parts=proj_uri.split('/')
           mypath=uri_parts[2]
-        elif path_start=='reload':
-          proj_uri=environ['PATH_INFO']
-          uri_parts=proj_uri.split('/')
-          mypath=uri_parts[2]
-          environ['PATH_INFO']='/projects/'+mypath
-          increment_schema_id(mypath)
+# Erm, that is silly, do this elsewhere!
+#        elif path_start=='reload':
+#          proj_uri=environ['PATH_INFO']
+#          uri_parts=proj_uri.split('/')
+#          mypath=uri_parts[2]
+#          environ['PATH_INFO']='/projects/'+mypath
+#          increment_schema_id(mypath)
         app = self.get_application(mypath)
         print "Prefix: schema_id: "+str(schema_ids[mypath])+' current schema: '+str(get_current_schema_id(mypath))
         if schema_ids[mypath]!=get_current_schema_id(mypath):

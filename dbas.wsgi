@@ -53,9 +53,10 @@ class PathDispatcher(object):
 #          environ['PATH_INFO']='/projects/'+mypath
 #          increment_schema_id(mypath)
         app = self.get_application(mypath)
-        print "Prefix: schema_id: "+str(schema_ids[mypath])+' current schema: '+str(get_current_schema_id(mypath))
-        if schema_ids[mypath]!=get_current_schema_id(mypath):
-            self.reload_app(mypath)
+        if mypath!='':
+           print "Prefix: schema_id: "+str(schema_ids[mypath])+' current schema: '+str(get_current_schema_id(mypath))
+           if schema_ids[mypath]!=get_current_schema_id(mypath):
+              self.reload_app(mypath)
         if app is None:
             app = self.default_app
         return app(environ, start_response)
@@ -73,7 +74,8 @@ def make_app(prefix):
     if user is None:
        return NotFound()
     app, schema_id = create_app(user)
-    schema_ids[user]=schema_id
+    if user!='':
+       schema_ids[user]=schema_id
     return app
 
 application = PathDispatcher(NotFound(), make_app)

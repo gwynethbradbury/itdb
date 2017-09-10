@@ -36,6 +36,11 @@ from core.email import send_email_simple as send_email
 from werkzeug.utils import secure_filename
 from datetime import datetime
 
+# this doesn't work right...
+db_user=dbconfig.db_user
+db_pass=dbconfig.db_password
+db_hostname=dbconfig.db_hostname
+ 
 # todo: move thissomewhere:
 from dev.models import listOfColumnTypesByName,DataTypeNeedsN,listOfColumnTypesByDescriptor
 # listOfColumnTypesByName = {"Integer": "INTEGER",
@@ -672,10 +677,7 @@ def set_views(app):
 # Create customized model view class
 class MyModelView(ModelView,):
     current_user = current_user
-    db_user=dbconfig.db_user
-    db_pass=dbconfig.db_password
-    db_hostname=dbconfig.db_hostname
-    
+   
     def is_accessible(self):
         if current_user.has_role('superusers') :
             return True
@@ -767,10 +769,10 @@ class MyModelView(ModelView,):
 
         if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
             return abort(401)
-        print "FOO: ::"+self.db_user
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(self.db_user,
-                                                         self.db_pass,
-                                                         self.db_hostname,
+        print "FOO: ::"+db_user
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
+                                                         db_pass,
+                                                         db_hostname,
                                                          application_name)
 #        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
 #                                                         dbconfig.db_password,

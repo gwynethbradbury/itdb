@@ -55,11 +55,11 @@ class DBAS():
         result, list_of_projects = dba.retrieveDataFromDatabase("svc_instances",
                                                               ["project_display_name", "instance_identifier",
                                                                "svc_type_id",
-                                                               "group_id","schema_id"],
+                                                               "group_id","schema_id","priv_user","priv_pass", "db_ip"],
                                                               classes_loaded=False)
         class_db_dict = {}
-        SQLALCHEMY_BINDS = {'iaas': '{}://{}:{}@{}/iaas'
-            .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname)}
+        SQLALCHEMY_BINDS = {'iaas': '{}://{}:{}@{}/{}'
+            .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname, dbconfig.db_name)}
         db_list=[]
 
         schema_ids={}
@@ -71,9 +71,9 @@ class DBAS():
             schema_ids[r[1]] = r[4]
             db_list.append(r[1])
 
-            db_string = '{}://{}:{}@{}/{}'.format(dbconfig.db_engine,dbconfig.db_user,
-                                                      dbconfig.db_password,
-                                                      dbconfig.db_hostname,
+            db_string = '{}://{}:{}@{}/{}'.format(dbconfig.db_engine,r[5],
+                                                      r[6],
+                                                      r[7],
                                                       r[1])
             SQLALCHEMY_BINDS["{}".format(r[1])] = db_string
 

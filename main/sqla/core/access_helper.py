@@ -14,7 +14,7 @@ iaasldap=iaasldap()
 
 class AccessHelper:
     def connect(self, database=dbconfig.db_name):
-        return pymysql.connect(host='localhost',
+        return pymysql.connect(host=dbconfig.db_hostname,
                                user=dbconfig.db_user,
                                passwd=dbconfig.db_password,
                                db=database)

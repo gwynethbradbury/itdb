@@ -89,9 +89,7 @@ def set_views(app):
 #    file_object.write('reload=True\n')
 #    file_object.write("# " + str(datetime.utcnow()) + "\n")
 #    file_object.close()
-
 #    import reload as reload
-
     @app.context_processor
     def inject_paths():
         return dict(iaas_url=dbconfig.iaas_route,
@@ -174,9 +172,11 @@ def set_views(app):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
 
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
+       
+
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
+                                                         db_pass,
+                                                         db_hostname,
                                                          application_name)
         dbbindkey = "project_" + application_name + "_db"
 
@@ -199,9 +199,9 @@ def set_views(app):
     def newcolumn(application_name, tablename=""):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
+                                                         db_pass,
+                                                         db_hostname,
                                                          application_name)
         dbbindkey = "project_" + application_name + "_db"
 
@@ -272,10 +272,14 @@ def set_views(app):
     def deletetable(application_name, tablename):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
+                                                         db_pass,
+                                                         db_hostname,
                                                          application_name)
+#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+#                                                         dbconfig.db_password,
+#                                                         dbconfig.db_hostname,
+#                                                         application_name)
         dbbindkey = "project_" + application_name + "_db"
 
         DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
@@ -289,10 +293,14 @@ def set_views(app):
     def cleartable(application_name, tablename):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
+                                                         db_pass,
+                                                         db_hostname,
                                                          application_name)
+#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+#                                                         dbconfig.db_password,
+#                                                         dbconfig.db_hostname,
+#                                                         application_name)
         dbbindkey = "project_" + application_name + "_db"
 
         DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
@@ -312,9 +320,13 @@ def set_views(app):
     def genblankcsv(application_name,tablename=""):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
+#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+#                                                         dbconfig.db_password,
+#                                                         dbconfig.db_hostname,
+#                                                         application_name)
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
+                                                         db_pass,
+                                                         db_hostname,
                                                          application_name)
         dbbindkey = "project_" + application_name + "_db"
 
@@ -342,10 +354,14 @@ def set_views(app):
     def uploaddata(application_name, msg="", err=""):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
+                                                         db_pass,
+                                                         db_hostname,
                                                          application_name)
+#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+#                                                         dbconfig.db_password,
+#                                                         dbconfig.db_hostname,
+#                                                         application_name)
         dbbindkey = "project_" + application_name + "_db"
 
         DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
@@ -363,10 +379,14 @@ def set_views(app):
     def servedata(application_name,tablename=""):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
+                                                         db_pass,
+                                                         db_hostname,
                                                          application_name)
+#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+#                                                         dbconfig.db_password,
+#                                                         dbconfig.db_hostname,
+#                                                         application_name)
         dbbindkey = "project_" + application_name + "_db"
 
         DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name,
@@ -398,10 +418,14 @@ def set_views(app):
     def uploaddatafrom(application_name):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
+                                                         db_pass,
+                                                         db_hostname,
                                                          application_name)
+#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+#                                                         dbconfig.db_password,
+#                                                         dbconfig.db_hostname,
+#                                                         application_name)
         dbbindkey = "project_" + application_name + "_db"
 
         DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
@@ -534,11 +558,14 @@ def set_views(app):
 
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
+                                                         db_pass,
+                                                         db_hostname,
                                                          application_name)
+#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+#                                                         dbconfig.db_password,
+#                                                         dbconfig.db_hostname,
+#                                                         application_name)
         dbbindkey = "project_" + application_name + "_db"
 
         DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
@@ -645,7 +672,10 @@ def set_views(app):
 # Create customized model view class
 class MyModelView(ModelView,):
     current_user = current_user
-
+    db_user=dbconfig.db_user
+    db_pass=dbconfig.db_password
+    db_hostname=dbconfig.db_hostname
+    
     def is_accessible(self):
         if current_user.has_role('superusers') :
             return True
@@ -690,11 +720,14 @@ class MyModelView(ModelView,):
 
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
+                                                         db_pass,
+                                                         db_hostname,
                                                          application_name)
+#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+#                                                         dbconfig.db_password,
+#                                                         dbconfig.db_hostname,
+#                                                         application_name)
         dbbindkey = "project_" + application_name + "_db"
 
         DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
@@ -734,11 +767,15 @@ class MyModelView(ModelView,):
 
         if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
             return abort(401)
-
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
+        print "FOO: ::"+self.db_user
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(self.db_user,
+                                                         self.db_pass,
+                                                         self.db_hostname,
                                                          application_name)
+#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+#                                                         dbconfig.db_password,
+#                                                         dbconfig.db_hostname,
+#                                                         application_name)
         dbbindkey="project_"+application_name+"_db"
 
         DBA = devmodels.DatabaseAssistant(db_string,dbbindkey,application_name)#, upload_folder=uploadfolder)
@@ -759,10 +796,14 @@ class MyModelView(ModelView,):
         application_name = current_url[2]
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
+                                                         db_pass,
+                                                         db_hostname,
                                                          application_name)
+#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+#                                                         dbconfig.db_password,
+#                                                         dbconfig.db_hostname,
+#                                                         application_name)
         dbbindkey = "project_" + application_name + "_db"
 
         DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name,
@@ -851,10 +892,14 @@ class MyModelView(ModelView,):
 
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
+                                                         db_pass,
+                                                         db_hostname,
                                                          application_name)
+#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+#                                                         dbconfig.db_password,
+#                                                         dbconfig.db_hostname,
+#                                                         application_name)
         dbbindkey = "project_" + application_name + "_db"
 
         DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
@@ -880,11 +925,14 @@ class MyModelView(ModelView,):
 
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
+                                                         db_pass,
+                                                         db_hostname,
                                                          application_name)
+#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+#                                                         dbconfig.db_password,
+#                                                         dbconfig.db_hostname,
+#                                                         application_name)
         dbbindkey = "project_" + application_name + "_db"
 
         DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
@@ -907,10 +955,15 @@ class MyModelView(ModelView,):
         application_name = current_url[2]
         if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
+
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
+                                                         db_pass,
+                                                         db_hostname,
                                                          application_name)
+#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+#                                                         dbconfig.db_password,
+#                                                         dbconfig.db_hostname,
+#                                                         application_name)
         dbbindkey = "project_" + application_name + "_db"
 
         DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name,
@@ -929,10 +982,14 @@ class MyModelView(ModelView,):
         application_name = current_url[2]
         if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
+                                                         db_pass,
+                                                         db_hostname,
                                                          application_name)
+#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+#                                                         dbconfig.db_password,
+#                                                         dbconfig.db_hostname,
+#                                                         application_name)
         dbbindkey = "project_" + application_name + "_db"
 
         DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
@@ -953,10 +1010,14 @@ class MyModelView(ModelView,):
 
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
+                                                         db_pass,
+                                                         db_hostname,
                                                          application_name)
+#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+#                                                         dbconfig.db_password,
+#                                                         dbconfig.db_hostname,
+#                                                         application_name)
         dbbindkey = "project_" + application_name + "_db"
 
         DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
@@ -982,11 +1043,14 @@ class MyModelView(ModelView,):
 
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
+                                                         db_pass,
+                                                         db_hostname,
                                                          application_name)
+#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+#                                                         dbconfig.db_password,
+#                                                         dbconfig.db_hostname,
+#                                                         application_name)
         dbbindkey = "project_" + application_name + "_db"
 
         DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)
@@ -1007,6 +1071,10 @@ class MyModelView(ModelView,):
         db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
                                                          dbconfig.db_password,
                                                          dbconfig.db_hostname,
+                                                         application_name)
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
+                                                         db_pass,
+                                                         db_hostname,
                                                          application_name)
         dbbindkey = "project_" + application_name + "_db"
 
@@ -1060,9 +1128,13 @@ class MyModelView(ModelView,):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
 
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
+#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+#                                                         dbconfig.db_password,
+#                                                         dbconfig.db_hostname,
+#                                                         application_name)
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
+                                                         db_pass,
+                                                         db_hostname,
                                                          application_name)
         dbbindkey = "project_" + application_name + "_db"
 

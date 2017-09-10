@@ -55,6 +55,34 @@ def start_app():
 def get_user_for_prefix(prefix):
     return prefix 
 
+def get_db_creds(prefix):
+        import dev.models as devmodels
+        import dbconfig
+        iaas_main_db ='{}://{}:{}@{}/{}'\
+          .format(dbconfig.db_engine,dbconfig.db_user,dbconfig.db_password, dbconfig.db_hostname,dbconfig.db_name)
+ 
+        dba = devmodels.DatabaseAssistant(iaas_main_db, "iaas", "iaas")
+
+        result, list_of_projects = dba.retrieveDataFromDatabase("svc_instances",
+                                                              ["project_display_name", "instance_identifier",
+                                                               "svc_type_id",
+                                                               "group_id","schema_id","priv_user","priv_pass","db_ip"],
+                                                              classes_loaded=False)
+        schema_ids={}
+        priv_users={}
+        priv_pass={}
+        db_ip={}
+        for r in list_of_projects:
+          print "checking schema_id for "+r[1]
+          if (r[1]==prefix):
+            if not(r[2] == '1' or r[2] == '4'):  # then this is a database project
+                continue
+            schema_ids[r[1]] = r[4]
+            priv_users[r[1]] = r[5]
+            priv_pass[r[1]] = r[6]
+            db_ip[r[1]] = r[7]
+        return priv_users[prefix],priv_pass[prefix],db_ip[prefix]
+
 def get_current_schema_id(prefix):
         import dev.models as devmodels
         import dbconfig
@@ -66,16 +94,19 @@ def get_current_schema_id(prefix):
         result, list_of_projects = dba.retrieveDataFromDatabase("svc_instances",
                                                               ["project_display_name", "instance_identifier",
                                                                "svc_type_id",
-                                                               "group_id","schema_id"],
+                                                               "group_id","schema_id","priv_user","priv_pass"],
                                                               classes_loaded=False)
         schema_ids={}
-
+        priv_users={}
+        priv_pass={}
         for r in list_of_projects:
           print "checking schema_id for "+r[1]
           if (r[1]==prefix):
             if not(r[2] == '1' or r[2] == '4'):  # then this is a database project
                 continue
             schema_ids[r[1]] = r[4]
+            priv_users[r[1]] = r[5]
+            priv_pass[r[1]] = r[6]
         return schema_ids[prefix]
 
 #def increment_schema_id(prefix):
@@ -108,7 +139,14 @@ def create_app(config_filename):
     
     # Create dummy secrey key so we can use sessions
     app.config['SECRET_KEY'] = '123456790'
-    app.config["db"] =  config_filename    
+    app.config["db"] =  config_filename
+    app.config["db_user"] = dbconfig.db_user
+    app.config["db_pass"] = dbconfig.db_password
+    app.config["db_hostname"] = dbconfig.db_hostname
+
+    if (config_filename!="all") and (config_filename!=''):
+       # We're in the dispatcher, use privilege separation
+       app.config["db_user"],app.config["db_password"],app.config["db_hostname"] = get_db_creds(config_filename)
     # Create in-memory database
     # app.config['DATABASE_FILE'] = 'sample_db.sqlite'
     

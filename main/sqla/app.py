@@ -109,17 +109,6 @@ def get_current_schema_id(prefix):
             priv_pass[r[1]] = r[6]
         return schema_ids[prefix]
 
-#def increment_schema_id(prefix):
-#        import dev.models as devmodels
-#        import dbconfig
-#        iaas_main_db ='{}://{}:{}@{}/{}'\
-#          .format(dbconfig.db_engine,dbconfig.db_user,dbconfig.db_password, dbconfig.db_hostname,dbconfig.db_name)
-#
-#        dba = devmodels.DatabaseAssistant(iaas_main_db, "iaas", "iaas")
-
-        # update svc_instance set schema_id=schema_id+1 where project_display_name=prefix
-
-
 
 def create_app(config_filename):
     # my files

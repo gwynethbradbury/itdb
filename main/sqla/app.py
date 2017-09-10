@@ -147,7 +147,7 @@ def create_app(config_filename):
     
     DBAS = DBAS(app,db)
    
-    if config_filename!='':
+    if (config_filename!='') and (config_filename!='all'):
        app.config['schema_id']=DBAS.get_schema(config_filename) 
 
     return app, app.config['schema_id']

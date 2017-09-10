@@ -36,10 +36,36 @@ from core.email import send_email_simple as send_email
 from werkzeug.utils import secure_filename
 from datetime import datetime
 
-# this doesn't work right...
-db_user=dbconfig.db_user
-db_pass=dbconfig.db_password
-db_hostname=dbconfig.db_hostname
+
+
+def get_db_creds():
+        import dev.models as devmodels
+        import dbconfig
+        iaas_main_db ='{}://{}:{}@{}/{}'\
+          .format(dbconfig.db_engine,dbconfig.db_user,dbconfig.db_password, dbconfig.db_hostname,dbconfig.db_name)
+
+        dba = devmodels.DatabaseAssistant(iaas_main_db, "iaas", "iaas")
+
+        result, list_of_projects = dba.retrieveDataFromDatabase("svc_instances",
+                                                              ["project_display_name", "instance_identifier",
+                                                               "svc_type_id",
+                                                               "group_id","schema_id","priv_user","priv_pass","db_ip"],
+                                                              classes_loaded=False)
+        schema_ids={}
+        priv_users={}
+        priv_pass={}
+        db_ip={}
+        for r in list_of_projects:
+            if not(r[2] == '1' or r[2] == '4'):  # then this is a database project
+                continue
+            schema_ids[r[1]] = r[4]
+            priv_users[r[1]] = r[5]
+            priv_pass[r[1]] = r[6]
+            db_ip[r[1]] = r[7]
+        return priv_users,priv_pass,db_ip
+
+
+db_user,db_pass,db_hostname = get_db_creds()
  
 # todo: move thissomewhere:
 from dev.models import listOfColumnTypesByName,DataTypeNeedsN,listOfColumnTypesByDescriptor
@@ -179,9 +205,9 @@ def set_views(app):
 
        
 
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
-                                                         db_pass,
-                                                         db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
+                                                         db_pass[application_name],
+                                                         db_hostname[application_name],
                                                          application_name)
         dbbindkey = "project_" + application_name + "_db"
 
@@ -204,9 +230,9 @@ def set_views(app):
     def newcolumn(application_name, tablename=""):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
-                                                         db_pass,
-                                                         db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
+                                                         db_pass[application_name],
+                                                         db_hostname[application_name],
                                                          application_name)
         dbbindkey = "project_" + application_name + "_db"
 
@@ -277,9 +303,9 @@ def set_views(app):
     def deletetable(application_name, tablename):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
-                                                         db_pass,
-                                                         db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
+                                                         db_pass[application_name],
+                                                         db_hostname[application_name],
                                                          application_name)
 #        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
 #                                                         dbconfig.db_password,
@@ -298,9 +324,9 @@ def set_views(app):
     def cleartable(application_name, tablename):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
-                                                         db_pass,
-                                                         db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
+                                                         db_pass[application_name],
+                                                         db_hostname[application_name],
                                                          application_name)
 #        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
 #                                                         dbconfig.db_password,
@@ -329,9 +355,9 @@ def set_views(app):
 #                                                         dbconfig.db_password,
 #                                                         dbconfig.db_hostname,
 #                                                         application_name)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
-                                                         db_pass,
-                                                         db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
+                                                         db_pass[application_name],
+                                                         db_hostname[application_name],
                                                          application_name)
         dbbindkey = "project_" + application_name + "_db"
 
@@ -359,9 +385,9 @@ def set_views(app):
     def uploaddata(application_name, msg="", err=""):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
-                                                         db_pass,
-                                                         db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
+                                                         db_pass[application_name],
+                                                         db_hostname[application_name],
                                                          application_name)
 #        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
 #                                                         dbconfig.db_password,
@@ -384,9 +410,9 @@ def set_views(app):
     def servedata(application_name,tablename=""):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
-                                                         db_pass,
-                                                         db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
+                                                         db_pass[application_name],
+                                                         db_hostname[application_name],
                                                          application_name)
 #        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
 #                                                         dbconfig.db_password,
@@ -423,9 +449,9 @@ def set_views(app):
     def uploaddatafrom(application_name):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
-                                                         db_pass,
-                                                         db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
+                                                         db_pass[application_name],
+                                                         db_hostname[application_name],
                                                          application_name)
 #        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
 #                                                         dbconfig.db_password,
@@ -563,9 +589,9 @@ def set_views(app):
 
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
-                                                         db_pass,
-                                                         db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
+                                                         db_pass[application_name],
+                                                         db_hostname[application_name],
                                                          application_name)
 #        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
 #                                                         dbconfig.db_password,
@@ -722,9 +748,9 @@ class MyModelView(ModelView,):
 
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
-                                                         db_pass,
-                                                         db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
+                                                         db_pass[application_name],
+                                                         db_hostname[application_name],
                                                          application_name)
 #        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
 #                                                         dbconfig.db_password,
@@ -769,10 +795,9 @@ class MyModelView(ModelView,):
 
         if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
             return abort(401)
-        print "FOO: ::"+db_user
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
-                                                         db_pass,
-                                                         db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
+                                                         db_pass[application_name],
+                                                         db_hostname[application_name],
                                                          application_name)
 #        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
 #                                                         dbconfig.db_password,
@@ -798,9 +823,9 @@ class MyModelView(ModelView,):
         application_name = current_url[2]
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
-                                                         db_pass,
-                                                         db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
+                                                         db_pass[application_name],
+                                                         db_hostname[application_name],
                                                          application_name)
 #        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
 #                                                         dbconfig.db_password,
@@ -894,9 +919,9 @@ class MyModelView(ModelView,):
 
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
-                                                         db_pass,
-                                                         db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
+                                                         db_pass[application_name],
+                                                         db_hostname[application_name],
                                                          application_name)
 #        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
 #                                                         dbconfig.db_password,
@@ -927,9 +952,9 @@ class MyModelView(ModelView,):
 
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
-                                                         db_pass,
-                                                         db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
+                                                         db_pass[application_name],
+                                                         db_hostname[application_name],
                                                          application_name)
 #        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
 #                                                         dbconfig.db_password,
@@ -958,9 +983,9 @@ class MyModelView(ModelView,):
         if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
             return abort(401)
 
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
-                                                         db_pass,
-                                                         db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
+                                                         db_pass[application_name],
+                                                         db_hostname[application_name],
                                                          application_name)
 #        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
 #                                                         dbconfig.db_password,
@@ -984,9 +1009,9 @@ class MyModelView(ModelView,):
         application_name = current_url[2]
         if not current_user.is_authorised(application_name=application_name,is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
-                                                         db_pass,
-                                                         db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
+                                                         db_pass[application_name],
+                                                         db_hostname[application_name],
                                                          application_name)
 #        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
 #                                                         dbconfig.db_password,
@@ -1012,9 +1037,9 @@ class MyModelView(ModelView,):
 
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
-                                                         db_pass,
-                                                         db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
+                                                         db_pass[application_name],
+                                                         db_hostname[application_name],
                                                          application_name)
 #        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
 #                                                         dbconfig.db_password,
@@ -1045,9 +1070,9 @@ class MyModelView(ModelView,):
 
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
-                                                         db_pass,
-                                                         db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
+                                                         db_pass[application_name],
+                                                         db_hostname[application_name],
                                                          application_name)
 #        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
 #                                                         dbconfig.db_password,
@@ -1074,9 +1099,9 @@ class MyModelView(ModelView,):
                                                          dbconfig.db_password,
                                                          dbconfig.db_hostname,
                                                          application_name)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
-                                                         db_pass,
-                                                         db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
+                                                         db_pass[application_name],
+                                                         db_hostname[application_name],
                                                          application_name)
         dbbindkey = "project_" + application_name + "_db"
 
@@ -1134,9 +1159,9 @@ class MyModelView(ModelView,):
 #                                                         dbconfig.db_password,
 #                                                         dbconfig.db_hostname,
 #                                                         application_name)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user,
-                                                         db_pass,
-                                                         db_hostname,
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
+                                                         db_pass[application_name],
+                                                         db_hostname[application_name],
                                                          application_name)
         dbbindkey = "project_" + application_name + "_db"
 

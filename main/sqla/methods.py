@@ -495,7 +495,7 @@ class DBAS():
         print("retrieving list of DBAS services available and adding to dictionary:")
 
         iaas_main_db = self.app.config['SQLALCHEMY_DATABASE_URI']
-        dba = devmodels.DatabaseAssistant(iaas_main_db, "iaas", "iaas")
+        dba = devmodels.DatabaseAssistant(iaas_main_db, dbconfig.db_name, dbconfig.db_name)
 
         result, list_of_projects = dba.retrieveDataFromDatabase("svc_instances",
                                                               ["project_display_name", "instance_identifier",
@@ -519,7 +519,7 @@ class DBAS():
         print("retrieving list of DBAS services available and adding to dictionary:")
 
         iaas_main_db = self.app.config['SQLALCHEMY_DATABASE_URI']
-        dba = devmodels.DatabaseAssistant(iaas_main_db, "iaas", "iaas")
+        dba = devmodels.DatabaseAssistant(iaas_main_db, dbconfig.db_name, dbconfig.db_name)
 
         result, list_of_projects = dba.retrieveDataFromDatabase("svc_instances",
                                                               ["project_display_name", "instance_identifier",
@@ -527,8 +527,8 @@ class DBAS():
                                                                "group_id"],
                                                               classes_loaded=False)
         class_db_dict = {}
-        SQLALCHEMY_BINDS = {'iaas': '{}://{}:{}@{}/iaas'
-            .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname)}
+        SQLALCHEMY_BINDS = {dbconfig.db_name: '{}://{}:{}@{}/{}'
+            .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname, dbconfig.db_name)}
         db_list=[]
 
         for r in list_of_projects:
@@ -560,7 +560,7 @@ class DBAS():
         # todo: change bootstrap3 back to foundation to use my templates
         iaas_admin = MyIAASView(self.app, name='IAAS admin app', template_mode='foundation',
                                  endpoint="admin",url="/admin",
-                                 base_template='my_master.html',database_name='iaas',)
+                                 base_template='my_master.html',database_name=dbconfig.db_name,)
 
         # example adding links:
         #     iaas_admin.add_links(ML('Test Internal Link', endpoint='applicationhome'),
@@ -578,7 +578,7 @@ class DBAS():
         iaas_admin.add_hidden_view(IPAddressView(name="IP Addresses",endpoint="ip_addresses",category="Useage"))
 
         for c in class_db_dict:
-            if 'iaas' == class_db_dict[c]:
+            if dbconfig.db_name == class_db_dict[c]:
                 print ('class {} is in db {}'.format(c, 'iaas'))
 
                 self._add_a_view( iaas_admin, classesdict[c])

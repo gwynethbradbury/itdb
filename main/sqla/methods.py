@@ -422,10 +422,10 @@ class MyIAASView(MyStandardView):
         db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
                                                          dbconfig.db_password,
                                                          dbconfig.db_hostname,
-                                                         "iaas")
-        dbbindkey = "project_iaas_db"
+                                                         dbconfig.db_name)
+        dbbindkey = "project_{}_db".format(dbconfig.db_name)
 
-        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, "iaas")
+        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, dbconfig.db_name)
         R = DBA.DBE.E.execute("SELECT ip_address FROM database_instances "
                               "UNION "
                               "SELECT ip_address from nextcloud_instances;")
@@ -440,10 +440,10 @@ class MyIAASView(MyStandardView):
         db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
                                                          dbconfig.db_password,
                                                          dbconfig.db_hostname,
-                                                         "iaas")
-        dbbindkey = "project_iaas_db"
+                                                         dbconfig.db_name)
+        dbbindkey = "project_{}_db".format(dbconfig.db_name)
 
-        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, "iaas")
+        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, dbconfig.db_name)
         R = DBA.DBE.E.execute("SELECT ip_address, port from database_instances;")
         instances = []
         for inst in R:

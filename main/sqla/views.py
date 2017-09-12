@@ -82,7 +82,19 @@ from dev.models import listOfColumnTypesByName,DataTypeNeedsN,listOfColumnTypesB
 
 # create views:
 
+def set_nextcloud_views(app, names,nc_identifiers):
+    @app.route('/nextcloud/<nc_identifier>')
+    def show_cloud_details(nc_identifier):
+        if nc_identifier in nc_identifiers:
+            nc_name = names[nc_identifiers.index(nc_identifier)]
+            return render_template("nextcloud_instance.html", nc_name=nc_name,nc_identifier=nc_identifier)
+        else:
+            flash("Not a valid nextcloud name.",category="error")
+            return abort(404)
 
+
+def set_webapp_views(app):
+    pass
 
 def set_views(app):
     dbconfig.trigger_reload = False
@@ -108,7 +120,6 @@ def set_views(app):
         except TemplateNotFound:
             abort(404)
 
-        return '<a href="/admin/">Click me to get to Admin!</a>'
 
     @app.route('/')
     def index():
@@ -641,6 +652,7 @@ def set_views(app):
         #                            pname=application_name,
         #                            username=iaasldap.uid_trim(), fullname=iaasldap.get_fullname(),
         #                            servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
+
 
 
 class dbInfo():

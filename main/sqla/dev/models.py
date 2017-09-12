@@ -203,7 +203,7 @@ class DatabaseAssistant:
         return tablenames,columnnames
 
     # gets data from the table given a list of desired fields
-    def retrieveDataFromDatabase(self, classname, columnnames,classes_loaded= True):
+    def retrieveDataFromDatabase(self, classname, columnnames, classes_loaded= True):
 
         C = self.classFromTableName(classname, columnnames, classes_loaded=classes_loaded)
 

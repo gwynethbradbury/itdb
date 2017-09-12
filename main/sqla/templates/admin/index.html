@@ -9,10 +9,10 @@
 {#        {{ admin_view.admin.database_name }}#}
         <h2>Database Info.</h2>
 
-        <h4>Database Type:</h4>
+        <h4>Database type:</h4>
         {{ admin_view.admin.engine_type }}
 
-        <h4>Database Owner:</h4>
+        <h4>Database owner:</h4>
         This database is owned by the group <i>{{ admin_view.admin.project_owner }}</i> and maintained by <i>{{ admin_view.admin.project_maintainer }}</i>.
 
         <h4>Database connection string:</h4>
@@ -26,8 +26,8 @@
 
 
 
-        <h4>Database Capacity:</h4>
-        You are using <i>{{ admin_view.admin.dbuseage }} / {{ admin_view.admin.dbquota }}</i>
+        <h4>Database capacity:</h4>
+        You are using <i>{{ admin_view.admin.getDatabaseUseage() }} MB / {{ admin_view.admin.dbquota }}</i>
 
         <h4>Description</h4>
         <i>{{ admin_view.admin.description }}</i>

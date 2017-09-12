@@ -15,23 +15,7 @@ else:
     from core.access_helper import AccessHelper
 AH = AccessHelper()
 
-class myAdmin(ImpAdmin):
 
-    def getDBInfo(self):
-
-        pass
-
-    def setDBEngine(self, application_name):
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
-                                                         application_name)
-        dbbindkey = "project_" + application_name + "_db"
-
-        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
-
-
-        pass
 
 from flask_admin import BaseView, expose
 from main.sqla.core.iaasldap import LDAPUser as LDAPUser
@@ -40,6 +24,18 @@ from flask import abort, request, flash
 from werkzeug.utils import secure_filename
 from datetime import datetime
 import os
+from flask_admin.base import Admin as Admin2
+
+class IPAddressView(BaseView):
+
+    @expose('/')
+    def index(self):
+        return self.render('ip_addresses.html')
+
+
+    @expose('/ports')
+    def show_ports_in_use(self):
+        return self.render('ports.html')
 
 class DatabaseOps(BaseView):
     def __init__(self,name, endpoint, database_name, menu_class_name=None):
@@ -351,33 +347,43 @@ class DatabaseOps(BaseView):
             #     # login
             #     return "not authenticated" #redirect(url_for('security.login', next=request.url))
 
-from flask_admin.base import Admin as Admin2
-class MyAdmin(Admin2):
+
+class MyStandardView(Admin2):
     dbquota = 0
     dbuseage = 0
 
-
-    def __init__(self,app, name, endpoint,url,database_name,
+    def __init__(self, app, name, endpoint, url, database_name,
                  template_mode='foundation',
                  base_template='my_master.html'):
-        super(MyAdmin,self).__init__(app,name,template_mode=template_mode,
-                                     url=url,
-                                     endpoint=endpoint, base_template=base_template)
-        self.database_name=database_name
+        super(MyStandardView, self).__init__(app, name, template_mode=template_mode,
+                                      url=url,
+                                      endpoint=endpoint, base_template=base_template)
+        self.database_name = database_name
+        self.setDBEngine(self.database_name)
+
     @expose('/')
     def home(self):
 
         return self.render('index.html')
+
     def getDBInfo(self):
         self.project_owner, self.project_maintainer, self.ip_address, self.svc_inst, self.port, self.username, self.password_if_secure, self.description, self.engine_type, self.engine_string = \
             AH.getDatabaseConnectionString(self.database_name)
         return ""
 
-
     def getDatabaseQuota(self):
-        self.dbquota=0
+        self.dbquota = 0
+
     def getDatabaseUseage(self):
-        self.dbuseage=0
+        self.dbuseage = 0
+        C = self.DBA.DBE.E.execute("SELECT Round(Sum(data_length + index_length) / 1024 / 1024, 1) 'db_size_mb' "
+                                   "FROM information_schema.tables "
+                                   "WHERE table_schema = '{}';".format(self.database_name))
+
+        for inst in C:
+            self.dbuseage = inst[0]
+
+        return self.dbuseage
 
     def setDBEngine(self, application_name):
         db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
@@ -386,10 +392,12 @@ class MyAdmin(Admin2):
                                                          application_name)
         dbbindkey = "project_" + application_name + "_db"
 
-        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+        self.DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
 
+        R = self.getDatabaseUseage()
 
         pass
+
     def add_hidden_view(self, view):
         """
             Add a view to the collection.
@@ -404,8 +412,45 @@ class MyAdmin(Admin2):
         if self.app is not None:
             self.app.register_blueprint(view.create_blueprint(self))
 
-        # self._add_view_to_menu(view)
-    # pass
+            # self._add_view_to_menu(view)
+            # pass
+
+class MyIAASView(MyStandardView):
+
+
+    def getIPAddresses(self):
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                         dbconfig.db_password,
+                                                         dbconfig.db_hostname,
+                                                         "iaas")
+        dbbindkey = "project_iaas_db"
+
+        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, "iaas")
+        R = DBA.DBE.E.execute("SELECT ip_address FROM database_instances "
+                              "UNION "
+                              "SELECT ip_address from nextcloud_instances;")
+        instances = []
+        for inst in R:
+            instances.append(inst[0])
+
+        return instances
+
+    def getPorts(self):
+
+        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
+                                                         dbconfig.db_password,
+                                                         dbconfig.db_hostname,
+                                                         "iaas")
+        dbbindkey = "project_iaas_db"
+
+        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, "iaas")
+        R = DBA.DBE.E.execute("SELECT ip_address, port from database_instances;")
+        instances = []
+        for inst in R:
+            instances.append([inst[0],inst[1]])
+
+        return instances
+
 
 class DBAS():
 
@@ -418,6 +463,8 @@ class DBAS():
     def setup(self):
         SQLALCHEMY_BINDS, self.class_db_dict, self.db_list = self.get_binds()
 
+        self.nextcloud_identifiers,self.nextcloud_names = self.get_nextclouds()
+
         self.app.config['SQLALCHEMY_BINDS'] = SQLALCHEMY_BINDS
 
         self.classesdict, self.my_db = self.init_classes(self.db_list,self.class_db_dict)
@@ -426,6 +473,9 @@ class DBAS():
         # Initialize flask-login
         self.init_login()
         views.set_views(self.app)
+        views.set_nextcloud_views(self.app,self.nextcloud_names,self.nextcloud_identifiers)
+
+        # put the database views in
         self.set_iaas_admin_console(self.class_db_dict,self.classesdict)
         self.admin_pages_setup(self.db_list, self.classesdict, self.class_db_dict)
 
@@ -438,6 +488,31 @@ class DBAS():
         def load_user(user_id):
             views.current_user.uid_trim()
             # return db.session.query(User).get(user_id)
+
+    def get_nextclouds(self):
+
+        """checks the iaas db for nc services and collects the info"""
+        print("retrieving list of DBAS services available and adding to dictionary:")
+
+        iaas_main_db = self.app.config['SQLALCHEMY_DATABASE_URI']
+        dba = devmodels.DatabaseAssistant(iaas_main_db, "iaas", "iaas")
+
+        result, list_of_projects = dba.retrieveDataFromDatabase("svc_instances",
+                                                              ["project_display_name", "instance_identifier",
+                                                               "svc_type_id",
+                                                               "group_id"],
+                                                              classes_loaded=False)
+
+        identifiers=[]
+        names=[]
+        for r in list_of_projects:
+            if (r[2] == '2'):  # then this is a database project
+                identifiers.append(r[1])
+                names.append(r[0])
+
+
+        return identifiers,names
+
 
     def get_binds(self):
         """checks the iaas db for dbas services and collects the db binds"""
@@ -483,7 +558,7 @@ class DBAS():
         # endregion
         # Create admin
         # todo: change bootstrap3 back to foundation to use my templates
-        iaas_admin = MyAdmin(self.app, name='IAAS admin app', template_mode='foundation',
+        iaas_admin = MyIAASView(self.app, name='IAAS admin app', template_mode='foundation',
                                  endpoint="admin",url="/admin",
                                  base_template='my_master.html',database_name='iaas',)
 
@@ -494,10 +569,13 @@ class DBAS():
         iaas_admin.add_links(ML('New Table', url='/admin/ops/newtable'),
                              ML('Import Data',url='/admin/ops/upload'),
                              ML('Export Data',url='/admin/ops/download'),
-                             ML('Relationship Builder', url='/admin/ops/relationshipbuilder'))
+                             ML('Relationship Builder', url='/admin/ops/relationshipbuilder'),
+                             ML('IPs in use', url='/admin/ip_addresses/',category="Useage"),
+                             ML('Ports in use', url='/admin/ip_addresses/ports',category="Useage"))
 
         iaas_admin.add_hidden_view(DatabaseOps(name='Edit Database', endpoint='ops',database_name='iaas'))
 
+        iaas_admin.add_hidden_view(IPAddressView(name="IP Addresses",endpoint="ip_addresses",category="Useage"))
 
         for c in class_db_dict:
             if 'iaas' == class_db_dict[c]:
@@ -517,7 +595,7 @@ class DBAS():
 
 
         # todo: change bootstrap3 back to foundation to use my templates
-        proj_admin = MyAdmin(self.app, name='{} admin'.format(d),
+        proj_admin = MyStandardView(self.app, name='{} admin'.format(d),
                                  template_mode='foundation',
                                  endpoint=d,
                                  url="/projects/{}".format(d),

@@ -63,20 +63,14 @@ class AccessHelper:
             usersgroups = iaasldap.get_groups()
             print("user {} is in groups {}".format(iaasldap.uid_trim(),
                                                    usersgroups))
-            for g in usersgroups:
-                g_id = self.get_group_id(g)
-                query = "SELECT instance_identifier,project_display_name " \
-                        "FROM svc_instances " \
-                        "WHERE svc_type_id='{}' ".format(str(svc_type))
-                if not iaasldap.has_role('superusers'):
-                    query = query + "AND group_id='{}'".format(str(g_id))
-                query = query + ";"
+            if 'superusers' in usersgroups:
+                usersgroups=['superusers',]
 
-                with connection.cursor() as cursor:
-                    cursor.execute(query)
-                for inst in cursor:
-                    instance = [inst[0], inst[1]]
-                    instances.append(instance)
+            for g in usersgroups:
+                IX = self.get_projects_for_group(g,svc_type)
+                for I in IX:
+                    instances.append(I)
+
             return instances
         except Exception as e:
             print(e)
@@ -88,7 +82,7 @@ class AccessHelper:
         finally:
             connection.close()
 
-    def get_projects_for_group(self, group):
+    def get_projects_for_group(self, group, svc_type=-1):
         instances = []
         connection = self.connect()
         try:
@@ -98,10 +92,19 @@ class AccessHelper:
                                                    usersgroups))
             g_id = self.get_group_id(group)
             query = "SELECT instance_identifier,project_display_name,svc_type_id " \
-                    "FROM svc_instances "
+                    "FROM svc_instances"
+            nextclause=' WHERE '
+            if not iaasldap.has_role('superusers') and svc_type>=0:
+                query=query+nextclause
+                nextclause=' AND '
+
             if not iaasldap.has_role('superusers'):
-                query = query + "WHERE group_id='{}'" \
+                query = query + "group_id='{}'" \
                     .format(str(g_id))
+
+            if svc_type>=0:
+                query=query+nextclause+"svc_type_id='{}' ".format(str(svc_type))
+
             query = query + ";"
 
             with connection.cursor() as cursor:

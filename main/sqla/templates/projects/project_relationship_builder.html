@@ -1,0 +1,221 @@
+{% extends "projects/project_admin.html" %}
+
+{% block body %}
+        <style type="text/css">
+            #myData{visibility:hidden;}
+        </style>
+        <script language="JavaScript">
+            var showwholetable = false;
+            function toggleVisibility(eventsender, idOfObjectToToggle){
+                var myNewState = "collapse";
+                showwholetable = false;
+                displ="none"
+                if (eventsender.checked === false){
+                    myNewState = "visible";
+                    showwholetable=true;
+                    displ="inline"
+                }
+
+                document.getElementById(idOfObjectToToggle).style.visibility = myNewState;
+                document.getElementById(idOfObjectToToggle).style.display = displ;
+                toggleColumnHeaders(eventsender,myNewState)
+            }
+
+            function toggleColumnHeaders(eventsender){
+
+                for(i=0;i<document.getElementById("tablename").options.length;i++){
+                    idd = "_"+document.getElementById("tablename").options[i].text;
+
+                    try {
+                        document.getElementById(idd).style.visibility = "hidden";
+
+                         document.getElementById(idd).style.display="none";
+                    }
+                    catch(err) {
+{#                        document.getElementById("demo").innerHTML = err.message;#}
+                    }
+                }
+
+                if(showwholetable){
+                    idOfObjectToToggle = "_"+document.getElementById("tablename").options[document.getElementById("tablename").selectedIndex].text;
+                    document.getElementById(idOfObjectToToggle).style.visibility = "visible";
+                    document.getElementById(idOfObjectToToggle).style.display="inline";
+                }
+
+
+                document.getElementById("selectedtablename").innerHTML = "Columns for table: "+document.getElementById("tablename").options[document.getElementById("tablename").selectedIndex].text
+
+            }
+            function toggleColumnNames1(eventsender,id,tofrom){
+                for(i=0;i<document.getElementById(id).options.length;i++){
+                    idd = "_"+tofrom+"_"+document.getElementById(id).options[i].text;
+
+                    try {
+                        document.getElementById(idd).style.visibility = "hidden";
+
+                         document.getElementById(idd).style.display="none";
+                    }
+                    catch(err) {
+{#                        document.getElementById("demo").innerHTML = err.message;#}
+                    }
+                }
+
+{#                if(true)#}
+                {
+                    idOfObjectToToggle = "_"+tofrom+"_"+document.getElementById(id).options[document.getElementById(id).selectedIndex].text;
+                    document.getElementById(idOfObjectToToggle).style.visibility = "visible";
+                    document.getElementById(idOfObjectToToggle).style.display="inline";
+                }
+
+
+{#                document.getElementById("selectedtablename").innerHTML = "Columns for table: "+document.getElementById("tablename").options[document.getElementById("tablename").selectedIndex].text#}
+
+            }
+
+
+        </script>
+
+
+
+
+
+        <ul class="tabs" data-tabs id="example-tabs">
+            <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">One-to-one</a></li>
+            <li class="tabs-title"><a data-tabs-target="#panel2" href="#panel2">One-to-many</a></li>
+            <li class="tabs-title"><a data-tabs-target="#panel3" href="#panel3">Many-to-many</a></li>
+        </ul>
+
+        <div class="tabs-content" data-tabs-content="example-tabs">
+
+            {#  one to one mapping form #}
+
+            <div class="tabs-panel is-active" id="panel1">
+                <h3>build relatonship to table: {{ appname }}.{{ tablename }}</h3>
+                <h4>
+                    <span style="color: crimson">{{ error|safe }}</span>
+                    <span style="color: #22bb5b">{{ message|safe }}</span>
+                </h4>
+                <form action="relationshipbuilder" method="post" name="data" enctype=multipart/form-data>
+
+
+                    <label for="keyname">Name the relationship key:</label>
+                    <input type="text" name="keyname" id="keyname"/>
+
+                    <label for="fromtblnames">From table</label>
+                    <select name="fromtblnames" id="fromtblnames" onchange="toggleColumnNames1(this,'fromtblnames','from')">
+
+                        <option selected disabled>Choose here</option>
+                        {% for l in tablenames %}
+
+                            <option value="{{ l }}">{{ l }}</option>
+
+                        {% endfor %}
+
+                    </select>
+
+                    <label for="fromcolnames">column</label>
+                    {% for c in tablenames %}
+                        {% set i=loop.index0 %}
+                        <div  id="_from_{{ tablenames[i] }}" style="display: none">
+                            <select name="fromcolnames_{{ tablenames[i] }}">
+
+                            {% for cc in columnnames[i] %}
+                                <option value="{{ cc }}">{{ cc }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                    {% endfor %}
+
+
+                <hr>
+
+                    <label for="totblnames">To table</label>
+                    <select name="totblnames" id="totblnames" onchange="toggleColumnNames1(this,'totblnames','to')">
+                        <option selected disabled>Choose here</option>
+
+                        {% for l in tablenames %}
+
+                            <option value="{{ l }}">{{ l }}</option>
+
+                        {% endfor %}
+
+                    </select>
+                    <label for="tocolnames">column</label>
+
+                    {% for c in tablenames %}
+                        {% set i=loop.index0 %}
+                        <div  id="_to_{{ tablenames[i] }}" style="display: none">
+                            <select name="tocolnames_{{ tablenames[i] }}">
+                            {% for cc in columnnames[i] %}
+                                <option value="{{ cc }}">{{ cc }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                    {% endfor %}
+
+                    <p><input type="submit" class="button" value="Build"></p>
+                </form>
+
+
+            </div>
+
+            {#  one to many mapping form #}
+
+            <div class="tabs-panel" id="panel2">
+                <p>Suspendisse dictum feugiat nisl ut dapibus.  Vivamus hendrerit arcu sed erat molestie vehicula. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor.  Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
+            </div>
+
+            {#  many to many mapping form #}
+
+            <div class="tabs-panel" id="panel3">
+                <p>text</p>
+            </div>
+        </div>
+
+    <br/>
+
+        <div class="row">
+            <div class="column">
+
+                <table class="hover model-list" style="z-index: 0">
+                    <thead>
+                        <tr>
+                            {% block list_header scoped %}
+                                <th class="column-header">
+                                    Key name or type{#0:CONSTRAINT_NAME#}
+                                </th>
+                                <th class="column-header">
+                                    From {# 2: TABLE_NAME. 3: COLUMN_NAME #}
+                                </th>
+                                <th class="column-header">
+                                    To {# 4: REFERENCED_TABLE_NAME.5: REFERENCED_COLUMN_NAME #}
+
+{#                                    (Database){# 1: REFERENCED_TABLE_SCHEMA#}
+                                </th>
+                            {% endblock %}
+                        </tr>
+                    </thead>
+                    {% for r in keys %}
+                        <tr>
+                            <td>
+                                {{ r[0] }}
+                            </td>
+                            <td>
+                                {{ r[2] }}.{{ r[3] }}
+                            </td>
+                            <td>
+                                {{ r[4] }}.{{ r[5] }}
+                                ({{ r[1] }})
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            
+
+            </div>
+        </div>
+
+
+
+
+{% endblock %}

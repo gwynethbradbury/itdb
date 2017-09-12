@@ -86,6 +86,13 @@ class SvcInstances(Base):
     svc_type_id = Column(Integer, nullable=False)
     group_id = Column(Integer, nullable=False)
 
+# class DatabaseService(Base):
+#     __tablename__ = 'database_service'
+#
+#     id = Column(Integer, primary_key=True)
+#     svc_instance_id = 0
+
+
 # endregion
 
 

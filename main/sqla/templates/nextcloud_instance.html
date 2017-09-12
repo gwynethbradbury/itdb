@@ -1,0 +1,13 @@
+{% extends "console.html" %}
+
+
+{% block servicename %}
+    Nextcloud Info. for '{{ nc_name }}'
+{% endblock %}
+
+
+{% block consolecontent %}
+
+    Your nextcloud instance can be found at <a href="https://nextcloud-{{ nc_identifier }}.ouce.ox.ac.uk">{{ nc_name }}</a>
+
+{% endblock  %}

@@ -224,61 +224,61 @@ class AccessHelper:
             return project_owner, project_maintainer, ip_address, svc_inst, port, username, password_if_secure,description,engine_type,engine_string
 
         connection = self.connect()
-        try:
-            query = "SELECT id,svc_type_id " \
-                    "FROM svc_instances " \
-                    "WHERE instance_identifier='{}';" \
-                .format(db_name)
-
-            with connection.cursor() as cursor:
-                cursor.execute(query)
-
-            for inst in cursor:
-                id = inst[0]
-                svc_type_id=inst[1]
-
-            if not svc_type_id==1:
-                return project_owner, ip_address, svc_inst, port, username, password_if_secure
-
-
-            query = "SELECT project_owner, project_maintainer, ip_address, svc_inst, port, " \
-                    "username, password_if_secure, description, engine_type " \
-                    "FROM database_instances " \
-                    "WHERE svc_inst='{}';" \
-                .format(id)
-
-            with connection.cursor() as cursor:
-                cursor.execute(query)
-
-            for inst in cursor:
-                project_owner = inst[0]
-                project_maintainer = inst[1]
-                ip_address=inst[2]
-                svc_inst=inst[3]
-                port=inst[4]
-                username=inst[5]
-                password_if_secure=inst[6]
-                description=inst[7]
-                engine_type_ind=inst[8]
-
-            query = "SELECT connection_string, name " \
-                    "FROM database_engine " \
-                    "WHERE id='{}';" \
-                .format(engine_type_ind)
-
-            with connection.cursor() as cursor:
-                cursor.execute(query)
-
-            for inst in cursor:
-                engine_string = inst[0]
-                engine_type = inst[1]
-
-            return project_owner, project_maintainer, ip_address, svc_inst, port, username, password_if_secure,description,engine_type,engine_string
-
-        except Exception as e:
-            print(e)
-        finally:
-            connection.close()
+        # try:
+        #     query = "SELECT id,svc_type_id " \
+        #             "FROM svc_instances " \
+        #             "WHERE instance_identifier='{}';" \
+        #         .format(db_name)
+        #
+        #     with connection.cursor() as cursor:
+        #         cursor.execute(query)
+        #
+        #     for inst in cursor:
+        #         id = inst[0]
+        #         svc_type_id=inst[1]
+        #
+        #     if not svc_type_id==1:
+        #         return project_owner, ip_address, svc_inst, port, username, password_if_secure
+        #
+        #
+        #     query = "SELECT project_owner, project_maintainer, ip_address, svc_inst, port, " \
+        #             "username, password_if_secure, description, engine_type " \
+        #             "FROM database_instances " \
+        #             "WHERE svc_inst='{}';" \
+        #         .format(id)
+        #
+        #     with connection.cursor() as cursor:
+        #         cursor.execute(query)
+        #
+        #     for inst in cursor:
+        #         project_owner = inst[0]
+        #         project_maintainer = inst[1]
+        #         ip_address=inst[2]
+        #         svc_inst=inst[3]
+        #         port=inst[4]
+        #         username=inst[5]
+        #         password_if_secure=inst[6]
+        #         description=inst[7]
+        #         engine_type_ind=inst[8]
+        #
+        #     query = "SELECT connection_string, name " \
+        #             "FROM database_engine " \
+        #             "WHERE id='{}';" \
+        #         .format(engine_type_ind)
+        #
+        #     with connection.cursor() as cursor:
+        #         cursor.execute(query)
+        #
+        #     for inst in cursor:
+        #         engine_string = inst[0]
+        #         engine_type = inst[1]
+        #
+        #     return project_owner, project_maintainer, ip_address, svc_inst, port, username, password_if_secure,description,engine_type,engine_string
+        #
+        # except Exception as e:
+        #     print(e)
+        # finally:
+        #     connection.close()
 
         return project_owner, project_maintainer, ip_address, svc_inst, port, username, password_if_secure,description,engine_type,engine_string
 

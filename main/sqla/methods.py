@@ -570,11 +570,19 @@ class DBAS():
                                                       r[1],
                                                       r[2])
             else:
-                db_string = '{}://{}:{}@{}/{}'.format(engine_type,
+                if r[1] == '127.0.0.1':
+                    db_string = '{}://{}:{}@{}/{}'.format(engine_type,
+                                                              r[4],
+                                                              r[5],
+                                                              r[1],
+                                                              svc_inst[1])
+                else:
+                    db_string = '{}://{}:{}@{}:{}'.format(engine_type,
                                                           r[4],
                                                           r[5],
                                                           r[1],
-                                                          svc_inst[1])
+                                                          r[2])
+
             db_string_list.append(db_string)
 
 

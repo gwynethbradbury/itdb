@@ -615,13 +615,13 @@ class DBAS():
                              ML('IPs in use', url='/admin/ip_addresses/',category="Useage"),
                              ML('Ports in use', url='/admin/ip_addresses/ports',category="Useage"))
 
-        iaas_admin.add_hidden_view(DatabaseOps(name='Edit Database', endpoint='ops',database_name='iaas'))
+        iaas_admin.add_hidden_view(DatabaseOps(name='Edit Database', endpoint='ops',database_name=dbconfig.db_name))
 
         iaas_admin.add_hidden_view(IPAddressView(name="IP Addresses",endpoint="ip_addresses",category="Useage"))
 
         for c in class_db_dict:
             if dbconfig.db_name == class_db_dict[c]:
-                print ('class {} is in db {}'.format(c, 'iaas'))
+                print ('class {} is in db {}'.format(c, dbconfig.db_name))
 
                 self._add_a_view( iaas_admin, classesdict[c])
 

@@ -632,7 +632,7 @@ class DBAS():
                                               endpoint=c.__display_name__,category="Tables"))
 
     def add_collection_of_views(self, d, classesdict,class_db_dict):
-        if d.startswith('iaas'):
+        if d==dbconfig.db_name:
             return
 
 

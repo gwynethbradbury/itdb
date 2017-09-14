@@ -564,11 +564,12 @@ class DBAS():
             if r[3] == '2':
 
 
-                db_string = '{}://{}:{}@{}:{}'.format(engine_type,
+                db_string = '{}://{}:{}@{}:{}/{}'.format(engine_type,
                                                       r[4],
                                                       r[5],
                                                       r[1],
-                                                      r[2])
+                                                      r[2],
+                                                         svc_inst[1])
             else:
                 db_string = '{}://{}:{}@{}/{}'.format(engine_type,
                                                           r[4],

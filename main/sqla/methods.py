@@ -481,7 +481,7 @@ class DBAS():
         views.set_nextcloud_views(self.app,self.nextcloud_names,self.nextcloud_identifiers)
 
         # put the database views in
-        self.set_iaas_admin_console(self.class_db_dict,self.classesdict)
+        # self.set_iaas_admin_console(self.class_db_dict,self.classesdict)
         self.dbas_admin_pages_setup(self.db_list, self.classesdict, self.class_db_dict)
 
     def init_login(self):
@@ -632,8 +632,8 @@ class DBAS():
                                               endpoint=c.__display_name__,category="Tables"))
 
     def add_collection_of_views(self, d, classesdict,class_db_dict):
-        if d=='iaas':
-            return
+        # if d=='iaas':
+        #     return
 
 
         # todo: change bootstrap3 back to foundation to use my templates

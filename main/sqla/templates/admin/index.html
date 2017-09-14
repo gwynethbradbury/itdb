@@ -16,10 +16,7 @@
         This database is owned by the group <i>{{ admin_view.admin.project_owner }}</i> and maintained by <i>{{ admin_view.admin.project_maintainer }}</i>.
 
         <h4>Database connection string:</h4>
-                {{ admin_view.admin.engine_string }}://
-                {{ admin_view.admin.username }}:********@
-                {{ admin_view.admin.ip_address }}:
-                {{ admin_view.admin.port }}
+                {{ admin_view.admin.engine_string }}://{{ admin_view.admin.username }}:********@{{ admin_view.admin.ip_address }}:{{ admin_view.admin.port }}
 
 
 

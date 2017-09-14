@@ -203,7 +203,7 @@ class DatabaseAssistant:
         return tablenames,columnnames
 
     # gets data from the table given a list of desired fields
-    def retrieveDataFromDatabase(self, classname, columnnames, classes_loaded= True):
+    def retrieveDataFromDatabase(self, classname, columnnames, classes_loaded= True,wherefield=None,whereval=None):
 
         C = self.classFromTableName(classname, columnnames, classes_loaded=classes_loaded)
 
@@ -219,6 +219,8 @@ class DatabaseAssistant:
         columns = [column(col) for col in col_names_str]
 
         q = select(from_obj=C, columns=columns)
+        if not wherefield is None and not whereval is None:
+            q=q.where(getattr(C,wherefield)==whereval)
 
         result = session.execute(q)
 

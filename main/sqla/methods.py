@@ -376,12 +376,15 @@ class MyStandardView(Admin2):
 
     def getDatabaseUseage(self):
         self.dbuseage = 0
-        C = self.DBA.DBE.E.execute("SELECT Round(Sum(data_length + index_length) / 1024 / 1024, 1) 'db_size_mb' "
-                                   "FROM information_schema.tables "
-                                   "WHERE table_schema = '{}';".format(self.database_name))
+        try:
+            C = self.DBA.DBE.E.execute("SELECT Round(Sum(data_length + index_length) / 1024 / 1024, 1) 'db_size_mb' "
+                                       "FROM information_schema.tables "
+                                       "WHERE table_schema = '{}';".format(self.database_name))
 
-        for inst in C:
-            self.dbuseage = inst[0]
+            for inst in C:
+                self.dbuseage = inst[0]
+        except Exception as e:
+            print(e)
 
         return self.dbuseage
 
@@ -428,7 +431,9 @@ class MyIAASView(MyStandardView):
         DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, dbconfig.db_name)
         R = DBA.DBE.E.execute("SELECT ip_address FROM database_instances "
                               "UNION "
-                              "SELECT ip_address from nextcloud_instances;")
+                              "SELECT ip_address from nextcloud_instances "
+                              "UNION "
+                              "SELECT ip_address from web_apps;")
         instances = []
         for inst in R:
             instances.append(inst[0])
@@ -461,7 +466,7 @@ class DBAS():
         self.setup_pages()
 
     def setup(self):
-        SQLALCHEMY_BINDS, self.class_db_dict, self.db_list = self.get_binds()
+        SQLALCHEMY_BINDS, self.class_db_dict, self.db_list, self.db_strings = self.get_binds()
 
         self.nextcloud_identifiers,self.nextcloud_names = self.get_nextclouds()
 
@@ -477,7 +482,7 @@ class DBAS():
 
         # put the database views in
         self.set_iaas_admin_console(self.class_db_dict,self.classesdict)
-        self.admin_pages_setup(self.db_list, self.classesdict, self.class_db_dict)
+        self.dbas_admin_pages_setup(self.db_list, self.classesdict, self.class_db_dict)
 
     def init_login(self):
         login_manager = login.LoginManager()
@@ -521,36 +526,73 @@ class DBAS():
         iaas_main_db = self.app.config['SQLALCHEMY_DATABASE_URI']
         dba = devmodels.DatabaseAssistant(iaas_main_db, dbconfig.db_name, dbconfig.db_name)
 
-        result, list_of_projects = dba.retrieveDataFromDatabase("svc_instances",
-                                                              ["project_display_name", "instance_identifier",
-                                                               "svc_type_id",
-                                                               "group_id"],
+        result, list_of_databases = dba.retrieveDataFromDatabase("database_instances",
+                                                              ["svc_inst",
+                                                               "ip_address", "port",
+                                                               "engine_type","username","password_if_secure"],
                                                               classes_loaded=False)
+
+
+
         class_db_dict = {}
         SQLALCHEMY_BINDS = {dbconfig.db_name: '{}://{}:{}@{}/{}'
             .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname, dbconfig.db_name)}
         db_list=[]
+        db_string_list=[]
+        for r in list_of_databases:
 
-        for r in list_of_projects:
-            if not(r[2] == '1' or r[2] == '4'):  # then this is a database project
+
+            if  r[5]=='':# postgres or insecure password
                 continue
 
-            db_list.append(r[1])
+            result, engine_type = dba.retrieveDataFromDatabase("database_engine",
+                                                              ["connection_string"],
+                                                                wherefield="id",whereval=r[3],
+                                                              classes_loaded=False)
+            engine_type = engine_type[0][0]
 
-            db_string = '{}://{}:{}@{}/{}'.format(dbconfig.db_engine,dbconfig.db_user,
-                                                      dbconfig.db_password,
-                                                      dbconfig.db_hostname,
-                                                      r[1])
-            SQLALCHEMY_BINDS["{}".format(r[1])] = db_string
+            result, svc_inst = dba.retrieveDataFromDatabase("svc_instances",
+                                                              ["project_display_name",
+                                                               "instance_identifier",
+                                                               "group_id"],
+                                                                wherefield="id",whereval=r[0],
+                                                              classes_loaded=False)
+            svc_inst=svc_inst[0]
+
+            db_list.append(svc_inst[1])
+
+            if r[3] == '2':
 
 
-            project_dba = devmodels.DatabaseAssistant(db_string, r[1], r[1])
-            tns,cns = project_dba.getTableAndColumnNames()
-            for t in tns:
-                class_db_dict['cls_{}_{}'.format(r[1],t)] = r[1]
+                db_string = '{}://{}:{}@{}:{}'.format(engine_type,
+                                                      r[4],
+                                                      r[5],
+                                                      r[1],
+                                                      r[2])
+            else:
+                db_string = '{}://{}:{}@{}/{}'.format(engine_type,
+                                                          r[4],
+                                                          r[5],
+                                                          r[1],
+                                                          svc_inst[1])
+
+            db_string_list.append(db_string)
 
 
-        return SQLALCHEMY_BINDS, class_db_dict, db_list
+            SQLALCHEMY_BINDS["{}".format(svc_inst[1])] = db_string
+
+
+            project_dba = devmodels.DatabaseAssistant(db_string, svc_inst[1], svc_inst[1])
+            try:
+                tns,cns = project_dba.getTableAndColumnNames()
+                for t in tns:
+                    class_db_dict['cls_{}_{}'.format(svc_inst[1],t)] = svc_inst[1]
+            except Exception as e:
+                # flash(e,'error')
+                print(e)
+                print "failed - authentication?"
+
+        return SQLALCHEMY_BINDS, class_db_dict, db_list, db_string_list
 
     def set_iaas_admin_console(self,class_db_dict,classesdict):
         """set up the admin console, depnds on predefined classes"""
@@ -619,7 +661,12 @@ class DBAS():
             if d == class_db_dict[c]:
                 print ('class {} is in db {}'.format(c, d))
 
-                self._add_a_view( proj_admin, classesdict[c])
+                try:
+
+                    self._add_a_view( proj_admin, classesdict[c])
+                except Exception as e:
+                    print(e)
+                    print("failed")
 
     def add_single_view(self, c,d,db_list,admin_view):
         classesdict, my_db = classes.initialise(db=self.db, db_list=db_list)
@@ -630,10 +677,10 @@ class DBAS():
         self._add_a_view(admin_view, classesdict['cls_{}_{}'.format(d,c)]) # admin_view = iaas_view for eg
 
     def init_classes(self,db_list, class_db_dict):
-        classesdict, my_db = classes.initialise(self.db, db_list)
+        classesdict, my_db = classes.initialise(self.db, self.db_list, self.db_strings)
         return classesdict, my_db
 
-    def admin_pages_setup(self, db_list, classesdict, class_db_dict):
+    def dbas_admin_pages_setup(self, db_list, classesdict, class_db_dict):
 
         binds = self.app.config['SQLALCHEMY_BINDS']
         for d in binds:

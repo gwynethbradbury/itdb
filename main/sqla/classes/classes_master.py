@@ -25,12 +25,13 @@ def ClassStr(self):
 
 
 
-def init(db, db_name):
+def init(db, db_name, dbstring):
     class_list = []
     Base = declarative_base()
-    engine = create_engine('{}://{}:{}@{}/{}'
-                           .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname,
-                                   db_name))
+    engine = create_engine(dbstring)
+    # engine = create_engine('{}://{}:{}@{}/{}'
+    #                        .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname,
+    #                                db_name))
     metadata = MetaData(bind=engine)
     metadata.reflect()
     insp = reflection.Inspector.from_engine(engine)
@@ -93,11 +94,14 @@ def init(db, db_name):
             md['__display_name__'] = str(name).title().replace('_',' ')
 
             if success or numattempts==maxattempts:
-                cls = type( str(class_name), (db.Model,), md)
-                globals()[cls.__name__] = cls
-                setattr(globals()[cls.__name__], "__str__", ClassStr)
-                setattr(globals()[cls.__name__], "__repr__", ClassStr)
-                print "Generated Class: " + class_name
+                try:
+                    cls = type( str(class_name), (db.Model,), md)
+                    globals()[cls.__name__] = cls
+                    setattr(globals()[cls.__name__], "__str__", ClassStr)
+                    setattr(globals()[cls.__name__], "__repr__", ClassStr)
+                    print "Generated Class: " + class_name
+                except Exception as e:
+                    print(e)
                 if success:
                     failed.remove(name)
                 names.remove(name)

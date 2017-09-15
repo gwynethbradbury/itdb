@@ -1,6 +1,6 @@
 {% extends "service.html" %}
 
-{% block title %}My Databases{% endblock %}
+{% block title %}My Services{% endblock %}
 
 {% block scripts %}
 <!--define scripts for home here-->
@@ -26,7 +26,12 @@
 
         <ul>
             {% for instance in instances %}
-                <li><a href="/projects/{{instance[0]}}">{{instance[1]}}</a></li>
+
+                <li><a href="/
+                    {% if instance[2]=='dbas' %}nextcloud
+                    {% else %}projects
+                    {% endif %}
+                    /{{instance[0]}}">{{instance[1]}}</a> ({{ instance[2] }})</li>
             {% endfor %}
         </ul>
 

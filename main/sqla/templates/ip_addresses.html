@@ -1,0 +1,22 @@
+{% extends 'admin/master.html' %}
+{% block body %}
+{#{{ super() }}#}
+    <div class="row">
+    <div class="column">
+
+        <h2>Used IP Addresses</h2>
+
+        <table>
+            <thead></thead>
+        {% for i in admin_view.admin.getIPAddresses() %}
+            <tr>
+                <td>
+                    {{ i }}
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+
+
+    </div></div>
+{% endblock body %}

@@ -203,7 +203,7 @@ class DatabaseAssistant:
         return tablenames,columnnames
 
     # gets data from the table given a list of desired fields
-    def retrieveDataFromDatabase(self, classname, columnnames,classes_loaded= True):
+    def retrieveDataFromDatabase(self, classname, columnnames, classes_loaded= True,wherefield=None,whereval=None):
 
         C = self.classFromTableName(classname, columnnames, classes_loaded=classes_loaded)
 
@@ -219,6 +219,8 @@ class DatabaseAssistant:
         columns = [column(col) for col in col_names_str]
 
         q = select(from_obj=C, columns=columns)
+        if not wherefield is None and not whereval is None:
+            q=q.where(getattr(C,wherefield)==whereval)
 
         result = session.execute(q)
 
@@ -463,13 +465,13 @@ class DatabaseAssistant:
         for f in fromlist:
             if not f in tolist:
                 # if not, create entry. otherwise do nothing
-                self.DBE.E.execute("INSERT INTO {} ({}) VALUES ({})".format(totable,tocolumn,fromlist))
+                self.DBE.E.execute("INSERT INTO {} ({}) VALUES ({})".format(totable,tocolumn,f))
                 msg = msg + "added entry {} to {}.{}\n".format(fromlist,totable,tocolumn)
 
         # check that tolist is still not empty
         E = self.DBE.E.execute("SELECT {} FROM {};".format(tocolumn, totable))
         E = E.fetchall()
-        if E.__len__() > 0:
+        if E.__len__() == 0:
             # create single entry in totable, link to id by default
             self.DBE.E.execute("INSERT INTO {} VALUES()".format(totable))
 
@@ -543,7 +545,7 @@ class DatabaseAssistant:
     # creates a new table from a csv file
     def createTableFromCSV(self, filepath, tablename):
 
-        df = pd.read_csv(filepath,parse_dates=True)
+        df = pd.read_csv(filepath)#,parse_dates=True,quoting=csv.QUOTE_MINIMAL)
 
         try:
             msg=""
@@ -583,7 +585,6 @@ class DatabaseAssistant:
     def createTableFromXLS(self, filepath, tablename):
 
         df = pd.read_excel(filepath,
-                           sheetname=tablename,
                            parse_dates=True)
 
         try:

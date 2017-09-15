@@ -27,9 +27,9 @@
         {% endfor %}
 
         <br/>
-
+        <div style="overflow: scroll;">
         {% if obj|length %}
-            <table class=".scroll .stack" table-layout="fixed" >
+            <table class=".scroll .stack" table-layout="fixed" style="overflow: scroll;">
                 <tr>
                     {% for f in fields %}
                         <th>{{ f }}</th>
@@ -60,6 +60,7 @@
                 {% endfor %}
             </table>
         {% endif %}
+        </div>
     </div>
 
 {% endblock %}

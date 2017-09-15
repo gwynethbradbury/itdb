@@ -2,12 +2,31 @@
 {% block body %}
 {#{{ super() }}#}
     <div class="row">
-            <h1>Admin functionality</h1>
+    <div class="column">
+{#    {{  dbinfo}}#}
+{#    {{  current_user }}#}
+{{ admin_view.admin.getDBInfo() }}
+{#        {{ admin_view.admin.database_name }}#}
+        <h2>Database Info.</h2>
 
-{#        <a class="button success" href="{{ request.path + 'new' }}">Create new entry</a>#}
-{#        <a class="button success" href="{{ request.path + '../admin/addcolumn' }}">Add column</a>#}
-{#        <a class="button alert" href="{{ request.path + '../admin/cleartable/' + tablename }}">Clear table</a>#}
-{#        <a class="button alert" href="{{ request.path + '../admin/deletetable/' + tablename }}">Delete table</a>#}
-{#            <a class="btn btn-primary" href="/"><i class="glyphicon glyphicon-chevron-left"></i> Back</a>#}
-    </div>
+        <h4>Database type:</h4>
+        {{ admin_view.admin.engine_type }}
+
+        <h4>Database owner:</h4>
+        This database is owned by the group <i>{{ admin_view.admin.project_owner }}</i> and maintained by <i>{{ admin_view.admin.project_maintainer }}</i>.
+
+        <h4>Database connection string:</h4>
+                {{ admin_view.admin.engine_string }}://{{ admin_view.admin.username }}:********@{{ admin_view.admin.ip_address }}:{{ admin_view.admin.port }}
+
+
+
+
+
+
+        <h4>Database capacity:</h4>
+        You are using <i>{{ admin_view.admin.getDatabaseUseage() }} MB / {{ admin_view.admin.dbquota }}</i>
+
+        <h4>Description</h4>
+        <i>{{ admin_view.admin.description }}</i>
+    </div></div>
 {% endblock body %}

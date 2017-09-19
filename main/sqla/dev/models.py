@@ -127,10 +127,10 @@ class DatabaseAssistant:
                                db=self.mydatabasename)
 
     # creates a class from a table
-    def classFromTableName(self, classname, fields, classes_loaded=True):
+    def classFromTableName(self, classname, fields, classes_loaded=True, db=None):
         if classes_loaded:
             from main.sqla.classes import initialise_single_class
-            C = initialise_single_class(self.mydatabasename,classname)
+            C = initialise_single_class(db,self.mydatabasename,classname)
         else:
 
             import importlib
@@ -203,9 +203,12 @@ class DatabaseAssistant:
         return tablenames,columnnames
 
     # gets data from the table given a list of desired fields
-    def retrieveDataFromDatabase(self, classname, columnnames, classes_loaded= True,wherefield=None,whereval=None):
+    def retrieveDataFromDatabase(self, classname, columnnames, classes_loaded= True,
+                                 wherefield=None,whereval=None,db=None,C=None,exp_method=0):
 
-        C = self.classFromTableName(classname, columnnames, classes_loaded=classes_loaded)
+        exp_method=0
+        if C==None:
+            C = self.classFromTableName(classname, columnnames,db=db, classes_loaded=classes_loaded)
 
         # retrieves the selected columns
 
@@ -228,16 +231,21 @@ class DatabaseAssistant:
         print(KEYS)
         result_as_string = []
         for row in result:
-            rr = []
-            for i in row:
-                rr.append(str(i))
+            if exp_method==0:
+                rr = []
+                for i in row:
+                    rr.append(str(i))
+            else:
+                rr=''
+                for i in row:
+                    rr=rr+','+(str(i))
             result_as_string.append(rr)
 
 
         return result, result_as_string
 
     # serves the data to the client
-    def serveData(self,F,ClassName):
+    def serveData(self,F,ClassName, db=None, C=None):
         # serves the data from the database given the corresponding class C
 
         t = F.get("tablename")
@@ -262,7 +270,7 @@ class DatabaseAssistant:
             elif F.get(t + "_" + cc.name):
                 columnnames.append(cc.name)
 
-        result, result_as_string = self.retrieveDataFromDatabase(ClassName, columnnames)
+        result, result_as_string = self.retrieveDataFromDatabase(ClassName, columnnames, db=db,C=C,exp_method=1)
 
 
         exportpath = self.upload_folder + '/export.csv'

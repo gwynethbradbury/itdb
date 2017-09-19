@@ -29,8 +29,8 @@ def initialise(db, db_list=['map'], dbstring_list=["mysql+pymysql://root:***@loc
             print(e)
     return classesdict, my_db
 
-def initialise_single_class(databasename,classname):
-    from main.sqla.app import db
+def initialise_single_class(db,databasename,classname):
+    # from main.sqla.app import db
     classesdict, my_db = initialise(db, db_list=[databasename])
     return classesdict["cls_{}_{}".format(databasename,classname)]
 

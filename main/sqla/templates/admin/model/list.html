@@ -47,20 +47,6 @@
             <a href="{{ get_url('.deletetable', url=return_url) }}" title="{{ _gettext('Delete Table') }}">{{ _gettext('Delete Table') }}</a>
           {%- endif -%}
         </li>
-{#        <li>#}
-{#          {%- if admin_view.create_modal -%}#}
-{#            {{ lib.add_modal_button(url=get_url('.upload', url=return_url, modal=True), title=_gettext('Upload To Table'), content=_gettext('Upload')) }}#}
-{#          {% else %}#}
-{#            <a href="{{ get_url('.upload', url=return_url) }}" title="{{ _gettext('Upload To Table') }}">{{ _gettext('Upload') }}</a>#}
-{#          {%- endif -%}#}
-{#        </li>#}
-{#        <li>#}
-{#          {%- if admin_view.create_modal -%}#}
-{#            {{ lib.add_modal_button(url=get_url('.download', url=return_url, modal=True), title=_gettext('Download From Table'), content=_gettext('Download')) }}#}
-{#          {% else %}#}
-{#            <a href="{{ get_url('.download', url=return_url) }}" title="{{ _gettext('Download From Table') }}">{{ _gettext('Download') }}</a>#}
-{#          {%- endif -%}#}
-{#        </li>#}
         <li>
           {%- if admin_view.create_modal -%}
             {{ lib.add_modal_button(url=get_url('.trigger_reload', url=return_url, modal=True), title=_gettext('reload'), content=_gettext('reload')) }}

@@ -70,43 +70,6 @@ db_user,db_pass,db_hostname = get_db_creds()
  
 # todo: move thissomewhere:
 from dev.models import listOfColumnTypesByName,DataTypeNeedsN,listOfColumnTypesByDescriptor
-# listOfColumnTypesByName = {"Integer": "INTEGER",
-#                            "String": "VARCHAR",
-#                            "Characters": "CHARACTER",
-#                            "Bool": "BOOLEAN",
-#                            "Time stamp": "TIMESTAMP",
-#                            "Date": "DATE",
-#                            "Time": "TIME",
-#                            "Really long string": "CLOB",
-#                            "Small integer": "SMALLINT",
-#                            "Real": "REAL",
-#                            "Float": "FLOAT",
-#                            "Double": "DOUBLE",
-#                            "Precision": "PRECISION",
-#                            "Text block": "TEXT",
-#                            "BLOB (untested)":"BLOB",
-#                            "GEOMETRY (untested)":"GEOMETRY",
-#                            "JSON (untested)":"GEOMETRY"}
-# DataTypeNeedsN = {"INTEGER": False,
-#                   "INT": False,
-#                   "VARCHAR": True,
-#                   "CHARACTER": True,
-#                   "BOOLEAN": False,
-#                   "TIMESTAMP": False,
-#                   "DATE": False,
-#                   "TIME": False,
-#                   "CLOB": True,
-#                   "SMALLINT": False,
-#                   "REAL": False,
-#                   "FLOAT": True,
-#                   "DOUBLE": False,
-#                   "PRECISION": False,
-#                   "TEXT": False,
-#                   "BLOB":False,
-#                   "GEOMETRY":False,
-#                   "JSON":False
-#                   }
-# listOfColumnTypesByDescriptor = dict(reversed(item) for item in listOfColumnTypesByName.items())
 
 
 
@@ -703,7 +666,15 @@ class dbInfo():
     pass
 # Create customized model view class
 
+from flask_admin.model.template import EndpointLinkRowAction, LinkRowAction
+
 class MyModelView(ModelView):
+    can_export=True
+    # export_types = ['csv','xls','json']
+    # column_extra_row_actions = [
+    #     LinkRowAction('glyphicon glyphicon-off', 'http://direct.link/?id={row_id}'),
+    #     # EndpointLinkRowAction('glyphicon glyphicon-test', '/admin/createcolumn')
+    # ]
     def __init__(self,
                  c,
                  session, name,databasename,
@@ -713,19 +684,7 @@ class MyModelView(ModelView):
         super(MyModelView, self).__init__(c,session, name=name,endpoint=endpoint,category=category)
         self.tablename = c.__table__
         self.application_name=databasename
-        # current_user = ""#current_user
 
-    # column_display_pk = True
-    # column_display_all_relations=True
-    # form_display_pk = True
-    # # column_filters = ('id')
-    # from sqlalchemy import Boolean,Unicode,Integer
-    # form_optional_types = (Boolean, Unicode,Integer)
-    # ignore_hidden=False
-    # # column_select_related_list = True
-    #
-    # def get_pk_value(self, model):
-    #     return self.model.id
 
     def is_accessible(self):
         if current_user.has_role('superusers') :

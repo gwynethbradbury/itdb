@@ -220,7 +220,7 @@ class AccessHelper:
         engine_type=""
         engine_string=""
         if db_name == "":  # and dbconfig.test:
-            return project_owner, project_maintainer, ip_address, svc_inst, port, username, password_if_secure,description,engine_type,engine_string
+            return project_owner, project_maintainer, ip_address, svc_inst, port, username, password_if_secure,description, engine_type, engine_string
 
         connection = self.connect()
         try:
@@ -237,8 +237,7 @@ class AccessHelper:
                 svc_type_id=inst[1]
 
             if not svc_type_id==1:
-                return project_owner, ip_address, svc_inst, port, username, password_if_secure
-
+                return project_owner, project_maintainer, ip_address, svc_inst, port, username, password_if_secure, description, engine_type, engine_string
 
             query = "SELECT project_owner, project_maintainer, ip_address, svc_inst, port, " \
                     "username, password_if_secure, description, engine_type " \

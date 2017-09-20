@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce4c93b2-95bc-4444-b569-e302376b0a7f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/views.py" afterPath="$PROJECT_DIR$/main/sqla/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/core/access_helper.py" afterPath="$PROJECT_DIR$/main/sqla/core/access_helper.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/templates/admin/model/list.html" afterPath="$PROJECT_DIR$/main/sqla/templates/admin/model/list.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -12,7 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/dbas_dev$dbas.coverage" NAME="dbas Coverage Results" MODIFIED="1505909562811" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/dbas_dev$dbas.coverage" NAME="dbas Coverage Results" MODIFIED="1505923377497" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
@@ -32,8 +34,8 @@
           <file leaf-file-name="list.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main/sqla/templates/admin/model/list.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="606">
-                  <caret line="241" column="52" lean-forward="false" selection-start-line="241" selection-start-column="52" selection-end-line="241" selection-end-column="52" />
+                <state relative-caret-position="1650">
+                  <caret line="110" column="5" lean-forward="false" selection-start-line="110" selection-start-column="5" selection-end-line="110" selection-end-column="5" />
                   <folding>
                     <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
                     <element signature="n#style#0;n#table#0;n#div#1;n#!!top" expanded="true" />
@@ -42,51 +44,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/main/sqla/templates/admin/index.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="270">
-                  <caret line="18" column="55" lean-forward="false" selection-start-line="18" selection-start-column="55" selection-end-line="18" selection-end-column="55" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="master.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/main/sqla/templates/admin/master.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="layout.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/main/sqla/templates/admin/layout.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="555">
-                  <caret line="37" column="53" lean-forward="false" selection-start-line="37" selection-start-column="53" selection-end-line="37" selection-end-column="53" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/main/sqla/templates/admin/base.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="585">
-                  <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main/sqla/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="127">
-                  <caret line="859" column="14" lean-forward="true" selection-start-line="859" selection-start-column="14" selection-end-line="859" selection-end-column="14" />
+                <state relative-caret-position="120">
+                  <caret line="646" column="19" lean-forward="false" selection-start-line="646" selection-start-column="19" selection-end-line="646" selection-end-column="19" />
                   <folding>
                     <element signature="e#0#9#0" expanded="true" />
                     <element signature="e#2974#29174#0" expanded="false" />
@@ -95,12 +57,23 @@
                     <element signature="e#30044#30741#0" expanded="false" />
                     <element signature="e#30795#31463#0" expanded="false" />
                     <element signature="e#31463#31527#0" expanded="false" />
+                    <element signature="e#38739#39853#0" expanded="false" />
                     <element signature="e#39922#40339#0" expanded="false" />
                     <element signature="e#40413#40895#0" expanded="false" />
                     <element signature="e#40902#40922#0" expanded="false" />
                     <element signature="e#43253#43954#0" expanded="false" />
                     <marker date="1505913268000" expanded="true" signature="39271:39344" ph="update svc_i... " />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="view.py" pinned="false" current-in-tab="true">
+            <entry file="file://$USER_HOME$/Library/Python/2.7/lib/python/site-packages/flask_admin/contrib/sqla/view.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-4600">
+                  <caret line="30" column="6" lean-forward="false" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -143,11 +116,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="methods.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="methods.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main/sqla/methods.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="117">
-                  <caret line="280" column="22" lean-forward="false" selection-start-line="280" selection-start-column="8" selection-end-line="280" selection-end-column="22" />
+                <state relative-caret-position="52">
+                  <caret line="367" column="24" lean-forward="false" selection-start-line="367" selection-start-column="24" selection-end-line="367" selection-end-column="24" />
                   <folding>
                     <element signature="e#0#12#0" expanded="true" />
                     <element signature="e#743#921#0" expanded="false" />
@@ -156,7 +129,6 @@
                     <element signature="e#9765#11750#0" expanded="false" />
                     <element signature="e#12952#13708#0" expanded="false" />
                     <element signature="e#13762#14188#0" expanded="false" />
-                    <element signature="e#14225#16522#0" expanded="false" />
                     <element signature="e#15282#15749#0" expanded="false" />
                     <element signature="e#16113#16522#0" expanded="false" />
                     <marker date="1505912983000" expanded="true" signature="12323:12400" ph="update svc_i... " />
@@ -167,6 +139,26 @@
                     <marker date="1505912983000" expanded="true" signature="17452:17483" ph="SELECT ip_ad... web_apps" />
                     <marker date="1505912983000" expanded="true" signature="17803:17850" ph="SELECT ip_ad... database_instances" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="runtime.py" pinned="false" current-in-tab="false">
+            <entry file="file:///usr/local/lib/python2.7/site-packages/jinja2/runtime.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="268">
+                  <caret line="259" column="0" lean-forward="false" selection-start-line="259" selection-start-column="0" selection-end-line="259" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="inline_list_base.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/main/sqla/templates/admin/model/inline_list_base.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="90">
+                  <caret line="6" column="50" lean-forward="false" selection-start-line="6" selection-start-column="50" selection-end-line="6" selection-end-column="50" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -222,6 +214,26 @@
               </provider>
             </entry>
           </file>
+          <file leaf-file-name="access_helper.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/main/sqla/core/access_helper.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="261">
+                  <caret line="211" column="0" lean-forward="false" selection-start-line="211" selection-start-column="0" selection-end-line="211" selection-end-column="0" />
+                  <folding>
+                    <marker date="1505923139000" expanded="true" signature="1152:1252" ph="SELECT id FR... groups" />
+                    <marker date="1505923139000" expanded="true" signature="2977:3080" ph="SELECT insta... svc_instances" />
+                    <marker date="1505923139000" expanded="true" signature="4356:4464" ph="SELECT title... iaas_events" />
+                    <marker date="1505923139000" expanded="true" signature="5443:5481" ph="SELECT title... news" />
+                    <marker date="1505923139000" expanded="true" signature="6133:6162" ph="SELECT email... subscribers" />
+                    <marker date="1505923139000" expanded="true" signature="6747:6804" ph="INSERT INTO subscribers... " />
+                    <marker date="1505923139000" expanded="true" signature="7802:7923" ph="SELECT id,sv... svc_instances" />
+                    <marker date="1505923139000" expanded="true" signature="8360:8603" ph="SELECT proje... database_instances" />
+                    <marker date="1505923139000" expanded="true" signature="9112:9227" ph="SELECT conne... database_engine" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
         </leaf>
       </split-second>
     </splitter>
@@ -235,14 +247,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>{{(</find>
-      <find>{{ (</find>
-      <find>{{ (</find>
-      <find>my ser</find>
-      <find>d</find>
-      <find>dispat</find>
-      <find>pymysql</find>
-      <find>\n\# def get_db_creds\(\)\:\n\#         import dev\.models as devmodels\n\#         import dbconfig\n\#         iaas_main_db \=\'\{\}\:\/\/\{\}\:\{\}\@\{\}\/\{\}\'\\\n\#           \.format\(dbconfig\.db_engine\,dbconfig\.db_user\,dbconfig\.db_password\, dbconfig\.db_hostname\,dbconfig\.db_name\)\n\# \n\#         dba \= devmodels\.DatabaseAssistant\(iaas_main_db\, \&quot;iaas\&quot;\, \&quot;iaas\&quot;\)\n\# \n\#         result\, list_of_projects \= dba\.retrieveDataFromDatabase\(\&quot;svc_instances\&quot;\,\n\#                                                               \[\&quot;project_display_name\&quot;\, \&quot;instance_identifier\&quot;\,\n\#                                                                \&quot;svc_type_id\&quot;\,\n\#                                                                \&quot;group_id\&quot;\,\&quot;schema_id\&quot;\,\&quot;priv_user\&quot;\,\&quot;priv_pass\&quot;\,\&quot;db_ip\&quot;\]\,\n\#                                                               classes_loaded\=False\)\n\#         schema_ids\=\{\}\n\#         priv_users\=\{\}\n\#         priv_pass\=\{\}\n\#         db_ip\=\{\}\n\#         for r in list_of_projects\:\n\#             if not\(r\[2\] \=\= \'1\' or r\[2\] \=\= \'4\'\)\:  \# then this is a database project\n\#                 continue\n\#             schema_ids\[r\[1\]\] \= r\[4\]\n\#             priv_users\[r\[1\]\] \= r\[5\]\n\#             priv_pass\[r\[1\]\] \= r\[6\]\n\#             db_ip\[r\[1\]\] \= r\[7\]\n\#         return priv_users\,priv_pass\,db_ip\n\# \n\# \n\# db_user\,db_pass\,db_hostname \= get_db_creds\(\)</find>
       <find>g</find>
       <find>get</find>
       <find>get_db</find>
@@ -258,18 +262,27 @@
       <find>generated clas</find>
       <find>generated class</find>
       <find>priv_user</find>
-      <find>print</find>
       <find>get_binds</find>
       <find>sche</find>
       <find>schema_id</find>
       <find>trig</find>
-      <find>trigger_reload</find>
       <find>where</find>
+      <find>render_ctx</find>
+      <find>glyphicaon</find>
+      <find>glyphicaon-</find>
+      <find>glyphicaon-p</find>
+      <find>glyphicaon-pe</find>
+      <find>glyphicaon-pen</find>
+      <find>glyphicaon-pencil</find>
+      <find>glyphicon-pencil</find>
+      <find>print</find>
+      <find>trigger_reload</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/flask_admin/templates/foundation</dir>
       <dir>$PROJECT_DIR$/</dir>
       <dir>$PROJECT_DIR$/main/sqla/static/js</dir>
+      <dir>$PROJECT_DIR$/flask_admin/translations</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -300,8 +313,6 @@
         <option value="$PROJECT_DIR$/main/sqla/templates/ip_addresses.html" />
         <option value="$PROJECT_DIR$/main/sqla/templates/ports.html" />
         <option value="$PROJECT_DIR$/main/sqla/templates/admin/index.html" />
-        <option value="$PROJECT_DIR$/main/sqla/core/access_helper.py" />
-        <option value="$PROJECT_DIR$/main/sqla/templates/admin/model/list.html" />
         <option value="$PROJECT_DIR$/main/sqla/app.py" />
         <option value="$PROJECT_DIR$/main/sqla/classes/__init__.py" />
         <option value="$PROJECT_DIR$/main/sqla/templates/admin/base.html" />
@@ -311,6 +322,9 @@
         <option value="$PROJECT_DIR$/main/sqla/dev/models.py" />
         <option value="$PROJECT_DIR$/main/sqla/views.py" />
         <option value="$PROJECT_DIR$/main/sqla/methods.py" />
+        <option value="$PROJECT_DIR$/main/sqla/templates/admin/model/inline_list_base.html" />
+        <option value="$PROJECT_DIR$/main/sqla/templates/admin/model/list.html" />
+        <option value="$PROJECT_DIR$/main/sqla/core/access_helper.py" />
       </list>
     </option>
   </component>
@@ -321,9 +335,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1440" />
-    <option name="height" value="830" />
+    <option name="x" value="-225" />
+    <option name="y" value="-1177" />
+    <option name="width" value="1920" />
+    <option name="height" value="1177" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -484,6 +499,90 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas-dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas-dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sqla" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas-dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas-dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sqla" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas-dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas-dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flask_admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas-dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dbas-dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flask_admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -496,6 +595,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/flask_admin" />
       <recent name="$PROJECT_DIR$/main/sqla/templates" />
       <recent name="$PROJECT_DIR$/main/sqla/templates/admin" />
     </key>
@@ -769,8 +869,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="830" extended-state="6" />
-    <editor active="true" />
+    <frame x="-225" y="-1177" width="1920" height="1177" extended-state="6" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -778,11 +877,11 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18333334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36005256" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24729241" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -895,7 +994,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="334" />
+      <option name="time" value="337" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -907,27 +1006,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/Library/Python/2.7/lib/python/site-packages/flask_admin/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="10" lean-forward="false" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/sqla/templates/admin/static.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/sqla/templates/projects/upload_table.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="60" column="28" lean-forward="false" selection-start-line="60" selection-start-column="28" selection-end-line="60" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/lib/python2.7/site-packages/flask/helpers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="268">
@@ -1009,13 +1087,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/jinja2/runtime.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="259" column="0" lean-forward="false" selection-start-line="259" selection-start-column="0" selection-end-line="259" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/sqla/core/mock_access_helper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -1077,14 +1148,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/sqla/core/access_helper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4110">
-          <caret line="280" column="16" lean-forward="false" selection-start-line="226" selection-start-column="9" selection-end-line="280" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/sqla/templates/groupprojects.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1098,17 +1161,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/sqla/templates/admin/model/list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="606">
-          <caret line="241" column="52" lean-forward="false" selection-start-line="241" selection-start-column="52" selection-end-line="241" selection-end-column="52" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#table#0;n#div#1;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1344,18 +1396,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Library/Python/2.7/lib/python/site-packages/flask_admin/contrib/sqla/view.py">
+    <entry file="file://$PROJECT_DIR$/main/sqla/templates/admin/model/list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="30" column="18" lean-forward="true" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
-          <folding />
+        <state relative-caret-position="1650">
+          <caret line="110" column="5" lean-forward="false" selection-start-line="110" selection-start-column="5" selection-end-line="110" selection-end-column="5" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#table#0;n#div#1;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main/sqla/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="859" column="14" lean-forward="true" selection-start-line="859" selection-start-column="14" selection-end-line="859" selection-end-column="14" />
+        <state relative-caret-position="120">
+          <caret line="646" column="19" lean-forward="false" selection-start-line="646" selection-start-column="19" selection-end-line="646" selection-end-column="19" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
             <element signature="e#2974#29174#0" expanded="false" />
@@ -1364,6 +1419,7 @@
             <element signature="e#30044#30741#0" expanded="false" />
             <element signature="e#30795#31463#0" expanded="false" />
             <element signature="e#31463#31527#0" expanded="false" />
+            <element signature="e#38739#39853#0" expanded="false" />
             <element signature="e#39922#40339#0" expanded="false" />
             <element signature="e#40413#40895#0" expanded="false" />
             <element signature="e#40902#40922#0" expanded="false" />
@@ -1373,10 +1429,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/file/modals/form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/sqla/templates/admin/model/inline_list_base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="50" lean-forward="false" selection-start-line="6" selection-start-column="50" selection-end-line="6" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flask_admin/static/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Python/2.7/lib/python/site-packages/flask_admin/contrib/sqla/view.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4600">
+          <caret line="30" column="6" lean-forward="false" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/jinja2/runtime.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="259" column="0" lean-forward="false" selection-start-line="259" selection-start-column="0" selection-end-line="259" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main/sqla/methods.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="280" column="22" lean-forward="false" selection-start-line="280" selection-start-column="8" selection-end-line="280" selection-end-column="22" />
+        <state relative-caret-position="52">
+          <caret line="367" column="24" lean-forward="false" selection-start-line="367" selection-start-column="24" selection-end-line="367" selection-end-column="24" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
             <element signature="e#743#921#0" expanded="false" />
@@ -1385,7 +1481,6 @@
             <element signature="e#9765#11750#0" expanded="false" />
             <element signature="e#12952#13708#0" expanded="false" />
             <element signature="e#13762#14188#0" expanded="false" />
-            <element signature="e#14225#16522#0" expanded="false" />
             <element signature="e#15282#15749#0" expanded="false" />
             <element signature="e#16113#16522#0" expanded="false" />
             <marker date="1505912983000" expanded="true" signature="12323:12400" ph="update svc_i... " />
@@ -1395,6 +1490,24 @@
             <marker date="1505912983000" expanded="true" signature="17337:17379" ph="SELECT ip_ad... nextcloud_instances" />
             <marker date="1505912983000" expanded="true" signature="17452:17483" ph="SELECT ip_ad... web_apps" />
             <marker date="1505912983000" expanded="true" signature="17803:17850" ph="SELECT ip_ad... database_instances" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/sqla/core/access_helper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="211" column="0" lean-forward="false" selection-start-line="211" selection-start-column="0" selection-end-line="211" selection-end-column="0" />
+          <folding>
+            <marker date="1505923139000" expanded="true" signature="1152:1252" ph="SELECT id FR... groups" />
+            <marker date="1505923139000" expanded="true" signature="2977:3080" ph="SELECT insta... svc_instances" />
+            <marker date="1505923139000" expanded="true" signature="4356:4464" ph="SELECT title... iaas_events" />
+            <marker date="1505923139000" expanded="true" signature="5443:5481" ph="SELECT title... news" />
+            <marker date="1505923139000" expanded="true" signature="6133:6162" ph="SELECT email... subscribers" />
+            <marker date="1505923139000" expanded="true" signature="6747:6804" ph="INSERT INTO subscribers... " />
+            <marker date="1505923139000" expanded="true" signature="7802:7923" ph="SELECT id,sv... svc_instances" />
+            <marker date="1505923139000" expanded="true" signature="8360:8603" ph="SELECT proje... database_instances" />
+            <marker date="1505923139000" expanded="true" signature="9112:9227" ph="SELECT conne... database_engine" />
           </folding>
         </state>
       </provider>

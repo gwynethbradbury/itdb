@@ -54,7 +54,6 @@ class PathDispatcher(object):
 #          increment_schema_id(mypath)
         app = self.get_application(mypath)
         if mypath!='':
-           print "Prefix: schema_id: "+str(schema_ids[mypath])+' current schema: '+str(get_current_schema_id(mypath))
            if schema_ids[mypath]!=get_current_schema_id(mypath):
               self.reload_app(mypath)
         if app is None:

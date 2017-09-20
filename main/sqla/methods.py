@@ -520,8 +520,10 @@ class DBAS():
         for r in list_of_databases:
             if not ((r[1] == self.app.config['db']) or (self.app.config['db'] == 'all')):
                 continue
-            if r[5] == '':  # postgres or insecure password
+
+            if  r[5]=='':# postgres or insecure password
                 continue
+
 
             result, engine_type = dba.retrieveDataFromDatabase("database_engine",
                                                                ["connection_string"],
@@ -530,13 +532,14 @@ class DBAS():
             engine_type = engine_type[0][0]
 
             result, svc_inst = dba.retrieveDataFromDatabase("svc_instances",
-                                                            ["project_display_name",
-                                                             "instance_identifier",
-                                                             "group_id",
-                                                             "schema_id", "priv_user", "priv_pass", "db_ip"],
-                                                            wherefield="id", whereval=r[0],
-                                                            classes_loaded=False)
-            svc_inst = svc_inst[0]
+                                                              ["project_display_name",
+                                                               "instance_identifier",
+                                                               "group_id",
+                                                               "schema_id","priv_user","priv_pass", "db_ip"],
+                                                                wherefield="id",whereval=r[0],
+                                                              classes_loaded=False)
+            svc_inst=svc_inst[0]
+
 
             schema_ids[svc_inst[1]] = svc_inst[3]
             db_list.append(svc_inst[1])

@@ -279,11 +279,30 @@ class DatabaseOps(BaseView):
                            pname=application_name)
 
     def trigger_reload(self):
-        dbconfig.trigger_reload = False
-        file_object = open(os.path.abspath(os.path.dirname(__file__)) + '/reload.py', 'w')
-        file_object.write('True\n')
-        file_object.write("# " + str(datetime.utcnow()) + "\n")
-        file_object.close()
+
+        import pymysql
+        current_url = str.split(self.admin.url,'/')
+        application_name = current_url[2]
+        print "Triggering reload: "+application_name
+        # update svc_instance set schema_id=schema_id+1 where project_display_name=self-config['db']
+
+        try:
+            connection = pymysql.connect(host=dbconfig.db_hostname,
+                               user=dbconfig.db_user,
+                               passwd=dbconfig.db_password,
+                               db=dbconfig.db_name)
+            query = "update svc_instance set schema_id=schema_id+1 where project_display_name={};".format(str(application_name))
+            with connection.cursor() as cursor:
+                cursor.execute(query)
+        except Exception as e:
+            print(e)
+        finally:
+            connection.close()
+        # dbconfig.trigger_reload = False
+        # file_object = open(os.path.abspath(os.path.dirname(__file__)) + '/reload.py', 'w')
+        # file_object.write('True\n')
+        # file_object.write("# " + str(datetime.utcnow()) + "\n")
+        # file_object.close()
         return 'reloaded'
 
     def is_accessible(self):

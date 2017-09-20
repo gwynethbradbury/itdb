@@ -287,13 +287,15 @@ class DatabaseOps(BaseView):
         # update svc_instance set schema_id=schema_id+1 where project_display_name=self-config['db']
 
         try:
+
             connection = pymysql.connect(host=dbconfig.db_hostname,
                                user=dbconfig.db_user,
                                passwd=dbconfig.db_password,
                                db=dbconfig.db_name)
-            query = "update svc_instances set schema_id=schema_id+1 where instance_identifier='{}';".format(str(application_name))
+
             with connection.cursor() as cursor:
-                cursor.execute(query)
+                cursor.execute("update svc_instances set schema_id=schema_id+1 where instance_identifier=%s",(str(application_name),))
+                connection.commit()
         except Exception as e:
             print(e)
         finally:

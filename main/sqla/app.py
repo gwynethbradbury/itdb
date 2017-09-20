@@ -110,7 +110,7 @@ def get_current_schema_id(prefix):
         return schema_ids[prefix]
 
 
-def create_app(config_filename):
+def create_app(instance_name):
     # my files
     from methods import *
 
@@ -128,14 +128,14 @@ def create_app(config_filename):
     
     # Create dummy secrey key so we can use sessions
     app.config['SECRET_KEY'] = '123456790'
-    app.config["db"] =  config_filename
+    app.config["db"] =  instance_name
     app.config["db_user"] = dbconfig.db_user
     app.config["db_pass"] = dbconfig.db_password
     app.config["db_hostname"] = dbconfig.db_hostname
 
-    if (config_filename!="all") and (config_filename!=''):
+#    if (config_filename!="all") and (config_filename!=''):
        # We're in the dispatcher, use privilege separation
-       app.config["db_user"],app.config["db_password"],app.config["db_hostname"] = get_db_creds(config_filename)
+#       app.config["db_user"],app.config["db_password"],app.config["db_hostname"] = get_db_creds(config_filename)
     # Create in-memory database
     # app.config['DATABASE_FILE'] = 'sample_db.sqlite'
     
@@ -174,8 +174,8 @@ def create_app(config_filename):
     
     DBAS = DBAS(app,db)
    
-    if (config_filename!='') and (config_filename!='all'):
-       app.config['schema_id']=DBAS.get_schema(config_filename) 
+    if (instance_name!='') and (instance_name!='all'):
+       app.config['schema_id']=DBAS.get_schema(instance_name) 
 
     return app, app.config['schema_id']
 

@@ -291,7 +291,7 @@ class DatabaseOps(BaseView):
                                user=dbconfig.db_user,
                                passwd=dbconfig.db_password,
                                db=dbconfig.db_name)
-            query = "update svc_instances set schema_id=schema_id+1 where project_display_name='{}';".format(str(application_name))
+            query = "update svc_instances set schema_id=schema_id+1 where instance_identifier='{}';".format(str(application_name))
             with connection.cursor() as cursor:
                 cursor.execute(query)
         except Exception as e:

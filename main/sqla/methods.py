@@ -605,12 +605,13 @@ class DBAS():
             if dbconfig.db_name == class_db_dict[c]:
                 print ('class {} is in db {}'.format(c, dbconfig.db_name))
 
-                self._add_a_view(iaas_admin, classesdict[c])
+                self._add_a_view(iaas_admin, classesdict[c],db_string=self.SQLALCHEMY_BINDS[dbconfig.db_name])
 
-    def _add_a_view(self, proj_admin, c):
+    def _add_a_view(self, proj_admin, c, db_string):
         proj_admin.add_view(
             views.MyModelView(c, self.db.session, name=c.__display_name__, databasename=proj_admin.database_name,
-                              endpoint=proj_admin.database_name + "_" + c.__display_name__, category="Tables"))
+                              endpoint=proj_admin.database_name + "_" + c.__display_name__, category="Tables",
+                              db_string=db_string))
 
     def add_collection_of_views(self, d, classesdict, class_db_dict):
         if d == dbconfig.db_name:
@@ -647,17 +648,18 @@ class DBAS():
 
                 try:
 
-                    self._add_a_view(proj_admin, classesdict[c])
+                    self._add_a_view(proj_admin, classesdict[c],db_string=self.SQLALCHEMY_BINDS[d])
                 except Exception as e:
                     print(e)
                     print("failed")
 
-    def add_single_view(self, c, d, db_list, admin_view):
-        classesdict, my_db = classes.initialise(db=self.db, db_list=db_list)
-
-        print ('class {} is in db {}'.format(c, d))
-
-        self._add_a_view(admin_view, classesdict['cls_{}_{}'.format(d, c)])  # admin_view = iaas_view for eg
+    # def add_single_view(self, c, d, db_list, admin_view, db_string):
+    #     classesdict, my_db = classes.initialise(db=self.db, db_list=db_list)
+    #
+    #     print ('class {} is in db {}'.format(c, d))
+    #
+    #     self._add_a_view(admin_view, classesdict['cls_{}_{}'.format(d, c)],
+    #                      db_string=self.SQLALCHEMY_BINDS[d])  # admin_view = iaas_view for eg
 
     def init_classes(self, db_list, class_db_dict):
         classesdict, my_db = classes.initialise(self.db, self.db_list, self.db_strings)

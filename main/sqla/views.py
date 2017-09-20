@@ -199,25 +199,22 @@ def set_views(app):
 
     # adding a column to an existing table
     # todo: unfinished
-    @app.route("/projects/<application_name>/admin/newcolumn")
-    # @app.route("/projects/<application_name>/<tablename>/admin/newcolumn")
+    @app.route("/projects/<application_name>/newcolumn")
+    # @app.route("/projects/<application_name>/<tablename>/newcolumn")
     def newcolumn(application_name, tablename=""):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
-                                                         db_pass[application_name],
-                                                         db_hostname[application_name],
-                                                         application_name)
+
         dbbindkey = "project_" + application_name + "_db"
 
-        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
 
         tablenames, columnnames = DBA.getTableAndColumnNames()
 
         listofdatatypes = listOfColumnTypesByName
 
         if not tablenames == []:
-            return redirect("/projects/{}/{}/admin/newcolumn".format(application_name, tablenames[0]))
+            return redirect("/projects/{}/{}/newcolumn".format(application_name, tablenames[0]))
         return render_template("projects/add_column.html",
                                tablename=tablename, appname=application_name,
                                tablenames=tablenames,
@@ -277,17 +274,10 @@ def set_views(app):
     def deletetable(application_name, tablename):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
-                                                         db_pass[application_name],
-                                                         db_hostname[application_name],
-                                                         application_name)
-#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-#                                                         dbconfig.db_password,
-#                                                         dbconfig.db_hostname,
-#                                                         application_name)
+
         dbbindkey = "project_" + application_name + "_db"
 
-        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
 
         DBA.deleteTable(tablename)
         # DBA.DBE.refresh()
@@ -298,17 +288,10 @@ def set_views(app):
     def cleartable(application_name, tablename):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
-                                                         db_pass[application_name],
-                                                         db_hostname[application_name],
-                                                         application_name)
-#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-#                                                         dbconfig.db_password,
-#                                                         dbconfig.db_hostname,
-#                                                         application_name)
+
         dbbindkey = "project_" + application_name + "_db"
 
-        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
 
         DBA.clearTable(tablename)
         return redirect("/projects/" + application_name + "/admin/")
@@ -325,17 +308,10 @@ def set_views(app):
     def genblankcsv(application_name,tablename=""):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
             return abort(401)
-#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-#                                                         dbconfig.db_password,
-#                                                         dbconfig.db_hostname,
-#                                                         application_name)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
-                                                         db_pass[application_name],
-                                                         db_hostname[application_name],
-                                                         application_name)
+
         dbbindkey = "project_" + application_name + "_db"
 
-        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name,
+        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, application_name,
                                           upload_folder=os.path.dirname(os.path.realpath(__file__)) + '/data/')
 
         if tablename=="":
@@ -677,13 +653,14 @@ class MyModelView(ModelView):
     # ]
     def __init__(self,
                  c,
-                 session, name,databasename,
+                 session, name,databasename,db_string,
                  endpoint,
                  category = "Tables"):
 
         super(MyModelView, self).__init__(c,session, name=name,endpoint=endpoint,category=category)
         self.tablename = c.__table__
         self.application_name=databasename
+        self.db_string = db_string
 
 
     def is_accessible(self):
@@ -909,66 +886,32 @@ class MyModelView(ModelView):
 
     @expose('/admin/newcolumn')
     def newcolumn(self):
-        application_name = self.application_name
 
-        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+        if not current_user.is_authorised(application_name=self.application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
-                                                         db_pass[application_name],
-                                                         db_hostname[application_name],
-                                                         application_name)
-#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-#                                                         dbconfig.db_password,
-#                                                         dbconfig.db_hostname,
-#                                                         application_name)
-        dbbindkey = "project_" + application_name + "_db"
-
-        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
-
-        tablenames, columnnames = DBA.getTableAndColumnNames()
 
         lstofdatatypes = listOfColumnTypesByName
 
 
         return self.render("projects/add_column.html",
-                           appname=application_name,
-                               tablenames=tablenames,
+                           appname=self.application_name,
+                               tablenames=self.tablenames,
                                listofdatatypes=lstofdatatypes,
-                               columnnames=columnnames,
-                               pname=application_name)
+                               pname=self.application_name)
 
     @expose('/admin/removecolumn')
     def removecolumn(self):
-        rule = str.split(str(request.url_rule),'/')
-        current_url = str.split(self.admin.url,'/')
-        application_name = current_url[2]
-        tablename=rule[3]
 
-        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+        if not current_user.is_authorised(application_name=self.application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
-                                                         db_pass[application_name],
-                                                         db_hostname[application_name],
-                                                         application_name)
-#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-#                                                         dbconfig.db_password,
-#                                                         dbconfig.db_hostname,
-#                                                         application_name)
-        dbbindkey = "project_" + application_name + "_db"
 
-        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
-
-        tablenames, columnnames = DBA.getTableAndColumnNames(tablename)
-
-        lstofdatatypes = listOfColumnTypesByName
+        columnnames=[i[0] for i in self.get_column_names(self.scaffold_list_columns(),[])]
 
 
         return self.render("projects/rem_column.html",
-                               tablename=tablename, appname=application_name,
-                               tablenames=tablenames,
-                               listofdatatypes=lstofdatatypes,
-                               columnnames=columnnames[0],
-                               pname=application_name)
+                               tablename=self.tablename, appname=self.application_name,
+                               columnnames=columnnames,
+                               pname=self.application_name)
 
 
     # @expose('/upload')
@@ -1014,29 +957,17 @@ class MyModelView(ModelView):
     #                            tablenames=tablenames, columnnames=columnnames,
     #                            pname=application_name)
 
-    @expose('/deletetable')
+    @expose('/admin/deletetable')
     def deletetable(self):
-        rule = str.split(str(request.url_rule),'/')
-        current_url = str.split(self.admin.url,'/')
-        application_name = current_url[2]
-        tablename=rule[3]
-
-        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+        if not current_user.is_authorised(application_name=self.application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
-                                                         db_pass[application_name],
-                                                         db_hostname[application_name],
-                                                         application_name)
-#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-#                                                         dbconfig.db_password,
-#                                                         dbconfig.db_hostname,
-#                                                         application_name)
-        dbbindkey = "project_" + application_name + "_db"
 
-        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+        dbbindkey = "project_" + self.application_name + "_db"
+
+        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, self.application_name)  # , upload_folder=uploadfolder)
 
         # admin_pages_setup()
-        DBA.deleteTable(tablename)
+        DBA.deleteTable(self.tablename)
         # DBA.DBE.refresh()
         # todo: fix this
 
@@ -1045,72 +976,48 @@ class MyModelView(ModelView):
         # self.trigger_reload()
 
         # return '{}: table {} deleted from app but app needs to reload'.format(application_name,tablename)
-        return redirect("/projects/" + application_name)
+        return redirect("/projects/" + self.application_name)
 
-    @expose('/cleartable')
+    @expose('/admin/cleartable')
     def cleartable(self):
-        rule = str.split(str(request.url_rule),'/')
-        current_url = str.split(self.admin.url,'/')
-        application_name = current_url[2]
-        tablename=rule[3]
 
-        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+        if not current_user.is_authorised(application_name=self.application_name, is_admin_only_page=True):
             return abort(401)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
-                                                         db_pass[application_name],
-                                                         db_hostname[application_name],
-                                                         application_name)
-#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-#                                                         dbconfig.db_password,
-#                                                         dbconfig.db_hostname,
-#                                                         application_name)
-        dbbindkey = "project_" + application_name + "_db"
+        dbbindkey = "project_" + self.application_name + "_db"
 
-        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)
+        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, self.application_name)
 
-        DBA.clearTable(tablename)
-        return redirect("/projects/" + application_name + "/" + tablename)
+        DBA.clearTable(self.tablename)
+        return redirect("/projects/" + self.application_name + "/" + self.tablename)
 
     # @app.route("/projects/<application_name>/admin/<tablename>/createcolumn", methods=['GET', 'POST'])
     @expose('/admin/createcolumn', methods=['GET', 'POST'])
     def createcolumn(self):
-        rule = str.split(str(request.url_rule), '/')
-        application_name = self.application_name
-        tablename = self.tablename
-
-        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+        if not current_user.is_authorised(application_name=self.application_name, is_admin_only_page=True):
             return abort(401)
 
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-                                                         dbconfig.db_password,
-                                                         dbconfig.db_hostname,
-                                                         application_name)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
-                                                         db_pass[application_name],
-                                                         db_hostname[application_name],
-                                                         application_name)
-        dbbindkey = "project_" + application_name + "_db"
+        dbbindkey = "project_" + self.application_name + "_db"
 
-        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, self.application_name)  # , upload_folder=uploadfolder)
 
-        # create a new table either from scratch or from an existing csv
-        tablenames, columnnames = DBA.getTableAndColumnNames(tablename)
         success = 0
         ret = ""
+        columnnames = [i[0] for i in self.get_column_names(self.scaffold_list_columns(), [])]
 
         # check for no column name
         if request.form.get("newcolumnname") == "":
             success = 0
             ret = "Enter column name"
 
-        elif len(columnnames)>0:
         # check for existing table with this name
-            if request.form.get("newcolumnname") in columnnames[0]:
-                success = 0
-                ret = "Column " + request.form.get("newcolumnname") + " already exists, try a new name"
+        elif request.form.get("newcolumnname") in columnnames:
+            success = 0
+            ret = "Column " + request.form.get("newcolumnname") + " already exists, try a new name"
 
         # todo: get argument n which islength of string etc, default is curretly 10
-        ret, success = DBA.addColumn(str(tablename), request.form.get("newcolumnname"), request.form.get("datatypes"))
+        ret, success = DBA.addColumn(str(self.tablename),
+                                     request.form.get("newcolumnname"),
+                                     request.form.get("datatypes"))
 
         listofdatatypes = listOfColumnTypesByName
         # redirects to the same page
@@ -1118,46 +1025,31 @@ class MyModelView(ModelView):
             from main.sqla.app import DBAS
             self.trigger_reload()
             return self.render("projects/add_column.html",
-                               tablenames=tablenames, columnnames=columnnames,
+                               # tablenames=tablenames, columnnames=columnnames,
                                message="Column " +
                                        request.form.get("newcolumnname") + " created successfully!\n" + ret,
                                listofdatatypes=listofdatatypes,
-                               pname=application_name)
+                               pname=self.application_name)
 
         else:
             return self.render("projects/add_column.html",
-                               tablenames=tablenames, columnnames=columnnames,
+                               # tablenames=tablenames, columnnames=columnnames,
                                error="Creation of column " + request.form.get("newcolumnname") +
                                      " failed!<br/>Error: " + ret,
                                listofdatatypes=listofdatatypes,
-                               pname=application_name)
+                               pname=self.application_name)
 
     @expose('/admin/remcolumn', methods=['GET', 'POST'])
     def remcolumn(self):
-
-        rule = str.split(str(request.url_rule), '/')
-        application_name = rule[2]
-        tablename = rule[3]
-
-        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+        if not current_user.is_authorised(application_name=self.application_name, is_admin_only_page=True):
             return abort(401)
+        dbbindkey = "project_" + self.application_name + "_db"
 
-#        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-#                                                         dbconfig.db_password,
-#                                                         dbconfig.db_hostname,
-#                                                         application_name)
-        db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(db_user[application_name],
-                                                         db_pass[application_name],
-                                                         db_hostname[application_name],
-                                                         application_name)
-        dbbindkey = "project_" + application_name + "_db"
+        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, self.application_name)  # , upload_folder=uploadfolder)
 
-        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
-
-        # create a new table either from scratch or from an existing csv
-        tablenames, columnnames = DBA.getTableAndColumnNames(tablename)
         success = 0
         ret = ""
+        columnnames = [i[0] for i in self.get_column_names(self.scaffold_list_columns(), [])]
 
         # check for no column name
         if request.form.get("colnames") == "":
@@ -1165,9 +1057,9 @@ class MyModelView(ModelView):
             ret = "Select column"
 
         # check for existing table with this name
-        elif request.form.get("colnames") in columnnames[0]:
+        elif request.form.get("colnames") in columnnames:
             success = 0
-            ret, success = DBA.remColumn(tablename, request.form.get("colnames"))
+            ret, success = DBA.remColumn(self.tablename, request.form.get("colnames"))
 
         else:
             ret="could not find column " + request.form.get("colnames")
@@ -1185,17 +1077,17 @@ class MyModelView(ModelView):
 
             return self.render("projects/rem_column.html",
                                columnnames=columnnames[0],
-                               tablename=tablename, appname=application_name,
+                               # tablename=tablename, appname=application_name,
                                message="Column " +
                                        request.form.get("colnames") + " removed successfully!\n" + ret,
-                               pname=application_name)
+                               pname=self.application_name)
 
         else:
             return self.render("projects/rem_column.html",
                                columnnames=columnnames[0],
-                               tablename=tablename, appname=application_name,
+                               # tablename=tablename, appname=application_name,
                                error="Removal of column " + request.form.get("colnames") +
                                      " failed!<br/>Error: " + ret,
-                               pname=application_name)
+                               pname=self.application_name)
 
 

@@ -66,7 +66,7 @@ def assignroutes(application):
         except Exception as e:
             print e
             data = []
-        print(data)
+        # print(data)
         return render_template(templateroute+"it_lending_log"+".html",
                                log=log,
                                fields=fields,

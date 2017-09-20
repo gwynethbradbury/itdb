@@ -30,7 +30,7 @@ class AccessHelper:
         connection = self.connect()
         group_id = 0
         try:
-            print("about to query...")
+            # print("about to query...")
             usersgroups = iaasldap.get_groups()
             print("user {} is in groups {}".format(iaasldap.uid_trim(),
                                                    usersgroups))
@@ -59,7 +59,6 @@ class AccessHelper:
         connection = self.connect()
         svc_type = dict1[svc_type]
         try:
-            print("about to query...")
             usersgroups = iaasldap.get_groups()
             print("user {} is in groups {}".format(iaasldap.uid_trim(),
                                                    usersgroups))

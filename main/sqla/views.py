@@ -38,38 +38,38 @@ from werkzeug.utils import secure_filename
 from datetime import datetime
 
 
-
-def get_db_creds():
-        import dev.models as devmodels
-        import dbconfig
-        iaas_main_db ='{}://{}:{}@{}/{}'\
-          .format(dbconfig.db_engine,dbconfig.db_user,dbconfig.db_password, dbconfig.db_hostname,dbconfig.db_name)
-
-        dba = devmodels.DatabaseAssistant(iaas_main_db, "iaas", "iaas")
-
-        result, list_of_projects = dba.retrieveDataFromDatabase("svc_instances",
-                                                              ["project_display_name", "instance_identifier",
-                                                               "svc_type_id",
-                                                               "group_id","schema_id","priv_user","priv_pass","db_ip"],
-                                                              classes_loaded=False)
-        schema_ids={}
-        priv_users={}
-        priv_pass={}
-        db_ip={}
-        for r in list_of_projects:
-            if not(r[2] == '1' or r[2] == '4'):  # then this is a database project
-                continue
-            schema_ids[r[1]] = r[4]
-            priv_users[r[1]] = r[5]
-            priv_pass[r[1]] = r[6]
-            db_ip[r[1]] = r[7]
-        return priv_users,priv_pass,db_ip
-
-
-db_user,db_pass,db_hostname = get_db_creds()
+#
+# def get_db_creds():
+#         import dev.models as devmodels
+#         import dbconfig
+#         iaas_main_db ='{}://{}:{}@{}/{}'\
+#           .format(dbconfig.db_engine,dbconfig.db_user,dbconfig.db_password, dbconfig.db_hostname,dbconfig.db_name)
+#
+#         dba = devmodels.DatabaseAssistant(iaas_main_db, "iaas", "iaas")
+#
+#         result, list_of_projects = dba.retrieveDataFromDatabase("svc_instances",
+#                                                               ["project_display_name", "instance_identifier",
+#                                                                "svc_type_id",
+#                                                                "group_id","schema_id","priv_user","priv_pass","db_ip"],
+#                                                               classes_loaded=False)
+#         schema_ids={}
+#         priv_users={}
+#         priv_pass={}
+#         db_ip={}
+#         for r in list_of_projects:
+#             if not(r[2] == '1' or r[2] == '4'):  # then this is a database project
+#                 continue
+#             schema_ids[r[1]] = r[4]
+#             priv_users[r[1]] = r[5]
+#             priv_pass[r[1]] = r[6]
+#             db_ip[r[1]] = r[7]
+#         return priv_users,priv_pass,db_ip
+#
+#
+# db_user,db_pass,db_hostname = get_db_creds()
  
 # todo: move thissomewhere:
-from dev.models import listOfColumnTypesByName,DataTypeNeedsN,listOfColumnTypesByDescriptor
+from dev.models import listOfColumnTypesByName
 
 
 
@@ -895,7 +895,6 @@ class MyModelView(ModelView):
 
         return self.render("projects/add_column.html",
                            appname=self.application_name,
-                               tablenames=self.tablenames,
                                listofdatatypes=lstofdatatypes,
                                pname=self.application_name)
 
@@ -988,7 +987,8 @@ class MyModelView(ModelView):
         DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, self.application_name)
 
         DBA.clearTable(self.tablename)
-        return redirect("/projects/" + self.application_name + "/" + self.tablename)
+
+        return redirect(url_for('index'))
 
     # @app.route("/projects/<application_name>/admin/<tablename>/createcolumn", methods=['GET', 'POST'])
     @expose('/admin/createcolumn', methods=['GET', 'POST'])
@@ -1022,10 +1022,8 @@ class MyModelView(ModelView):
         listofdatatypes = listOfColumnTypesByName
         # redirects to the same page
         if success == 1:
-            from main.sqla.app import DBAS
             self.trigger_reload()
             return self.render("projects/add_column.html",
-                               # tablenames=tablenames, columnnames=columnnames,
                                message="Column " +
                                        request.form.get("newcolumnname") + " created successfully!\n" + ret,
                                listofdatatypes=listofdatatypes,
@@ -1033,7 +1031,6 @@ class MyModelView(ModelView):
 
         else:
             return self.render("projects/add_column.html",
-                               # tablenames=tablenames, columnnames=columnnames,
                                error="Creation of column " + request.form.get("newcolumnname") +
                                      " failed!<br/>Error: " + ret,
                                listofdatatypes=listofdatatypes,
@@ -1069,23 +1066,19 @@ class MyModelView(ModelView):
         if success == 1:
             # todo: fixthe following
 
-            from main.sqla.app import DBAS
-
             # return "{}: column {} removed from table {} but app needs to be reloaded to proceed"\
             #     .format(application_name,request.form.get("colnames"),tablename)
             self.trigger_reload()
 
             return self.render("projects/rem_column.html",
-                               columnnames=columnnames[0],
-                               # tablename=tablename, appname=application_name,
+                               columnnames=columnnames,
                                message="Column " +
                                        request.form.get("colnames") + " removed successfully!\n" + ret,
                                pname=self.application_name)
 
         else:
             return self.render("projects/rem_column.html",
-                               columnnames=columnnames[0],
-                               # tablename=tablename, appname=application_name,
+                               columnnames=columnnames,
                                error="Removal of column " + request.form.get("colnames") +
                                      " failed!<br/>Error: " + ret,
                                pname=self.application_name)

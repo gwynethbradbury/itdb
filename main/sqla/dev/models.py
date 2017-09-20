@@ -342,22 +342,22 @@ class DatabaseAssistant:
     # removes a column from the database
     def remColumn(self,tablename, colname):
         msg=""
-        print("attempting to remove column " + colname + " from table "+tablename+"...")
+        print("attempting to remove column " + colname + " from table "+str(tablename)+"...")
         try:
             mytable = SqlAl.Table(tablename, self.DBE.metadata, autoload=True)  # .data, metadata, autoload=True)
         except Exception as e:
             print(str(e))
-            return ("couldn't get table "+tablename+", stopping"), 0
+            return ("couldn't get table "+str(tablename)+", stopping"), 0
 
 
 
-        tablenames, columnnames = self.getTableAndColumnNames(tablename)
+        tablenames, columnnames = self.getTableAndColumnNames(str(tablename))
         if not colname in columnnames[0]:
-            return "failed, could not find column in table {}".format(tablename), 0
+            return "failed, could not find column in table {}".format(str(tablename)), 0
 
         try:
             connection = self.connect()
-            query = "ALTER TABLE {} DROP COLUMN {};".format(tablename,colname)
+            query = "ALTER TABLE {} DROP COLUMN {};".format(str(tablename),colname)
             with connection.cursor() as cursor:
                 cursor.execute(query)
         except Exception as e:

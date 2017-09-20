@@ -67,7 +67,7 @@ def init(db, db_name, dbstring):
                         md[key['referred_table']] = relationship(
                             globals()["cls_" + db_name + "_" + key['referred_table']])
                     except Exception as ee:
-                        print(ee)
+                        # print(ee)
                         success = False
                         # pass
                 # try:
@@ -101,7 +101,7 @@ def init(db, db_name, dbstring):
                     setattr(globals()[cls.__name__], "__repr__", ClassStr)
                     print "Generated Class: " + class_name
                 except Exception as e:
-                    print(e)
+                    pass#print(e)
                 if success:
                     failed.remove(name)
                 names.remove(name)

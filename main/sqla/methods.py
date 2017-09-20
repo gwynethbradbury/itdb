@@ -128,8 +128,6 @@ class DatabaseOps(BaseView):
                                                           request.form.get("newtablename"))
 
         if success:
-            from main.sqla.app import DBAS as DBAS
-            DBAS.setup()
             self.trigger_reload()
             flash("Table " + request.form.get("newtablename") + " created successfully!\n" + ret +
                   "\nBUT app needs to reload", category="info")
@@ -474,8 +472,6 @@ class DBAS():
 
     def get_nextclouds(self):
 
-        """checks the iaas db for nc services and collects the info"""
-        print("retrieving list of DBAS services available and adding to dictionary:")
 
         iaas_main_db = self.app.config['SQLALCHEMY_DATABASE_URI']
         dba = devmodels.DatabaseAssistant(iaas_main_db, dbconfig.db_name, dbconfig.db_name)
@@ -498,7 +494,6 @@ class DBAS():
 
     def get_binds(self):
         """checks the iaas db for dbas services and collects the db binds"""
-        print("retrieving list of DBAS services available and adding to dictionary:")
 
         iaas_main_db = self.app.config['SQLALCHEMY_DATABASE_URI']
         dba = devmodels.DatabaseAssistant(iaas_main_db, dbconfig.db_name, dbconfig.db_name)
@@ -518,8 +513,6 @@ class DBAS():
         db_string_list = []
         schema_ids = {}
         for r in list_of_databases:
-            if not ((r[1] == self.app.config['db']) or (self.app.config['db'] == 'all')):
-                continue
 
             if  r[5]=='':# postgres or insecure password
                 continue
@@ -539,6 +532,8 @@ class DBAS():
                                                                 wherefield="id",whereval=r[0],
                                                               classes_loaded=False)
             svc_inst=svc_inst[0]
+            if not ((svc_inst[1] == self.app.config['db']) or (self.app.config['db'] == 'all')):
+                continue
 
 
             schema_ids[svc_inst[1]] = svc_inst[3]
@@ -606,8 +601,6 @@ class DBAS():
 
         for c in class_db_dict:
             if dbconfig.db_name == class_db_dict[c]:
-                print ('class {} is in db {}'.format(c, dbconfig.db_name))
-
                 self._add_a_view(iaas_admin, classesdict[c],db_string=self.SQLALCHEMY_BINDS[dbconfig.db_name])
 
     def _add_a_view(self, proj_admin, c, db_string):
@@ -647,22 +640,12 @@ class DBAS():
             if d == class_db_dict[c]:
                 if 'spatial_ref_sys' in c.lower():
                     continue
-                print ('class {} is in db {}'.format(c, d))
 
                 try:
-
                     self._add_a_view(proj_admin, classesdict[c],db_string=self.SQLALCHEMY_BINDS[d])
                 except Exception as e:
                     print(e)
                     print("failed")
-
-    # def add_single_view(self, c, d, db_list, admin_view, db_string):
-    #     classesdict, my_db = classes.initialise(db=self.db, db_list=db_list)
-    #
-    #     print ('class {} is in db {}'.format(c, d))
-    #
-    #     self._add_a_view(admin_view, classesdict['cls_{}_{}'.format(d, c)],
-    #                      db_string=self.SQLALCHEMY_BINDS[d])  # admin_view = iaas_view for eg
 
     def init_classes(self, db_list, class_db_dict):
         classesdict, my_db = classes.initialise(self.db, self.db_list, self.db_strings)

@@ -553,7 +553,7 @@ class DBAS():
                                                                 wherefield="id",whereval=r[0],
                                                               classes_loaded=False)
             svc_inst=svc_inst[0]
-            if not 'iaas' in svc_inst[1]:
+            if not 'iaas' in svc_inst[1]:# todo: check this clause
                 if not ((svc_inst[1] == self.app.config['db']) or (self.app.config['db'] == 'all')):
                     continue
 
@@ -601,19 +601,19 @@ class DBAS():
         print "CONNECTING TO IAAS ON " + self.SQLALCHEMY_BINDS[dbconfig.db_name]
         iaas_admin = MyIAASView(db_string = self.SQLALCHEMY_BINDS[dbconfig.db_name],
                                 app=self.app, name='IAAS admin app', template_mode='foundation',
-                                endpoint="admin", url="/admin",
+                                endpoint="admin", url="/admin/iaas",
                                 base_template='my_master.html', database_name=dbconfig.db_name)
 
         # example adding links:
         #     iaas_admin.add_links(ML('Test Internal Link', endpoint='applicationhome'),
         #                          ML('Test External Link', url='http://python.org/'))
         #
-        iaas_admin.add_links(ML('New Table', url='/admin/ops/newtable'),
-                             ML('Import Data', url='/admin/ops/upload'),
+        iaas_admin.add_links(ML('New Table', url='/admin/iaas/ops/newtable'),
+                             ML('Import Data', url='/admin/iaas/ops/upload'),
                              # ML('Export Data',url='/admin/ops/download'),
                              ML('Relationship Builder', url='/admin/ops/relationshipbuilder'),
-                             ML('IPs in use', url='/admin/ip_addresses/', category="Useage"),
-                             ML('Ports in use', url='/admin/ip_addresses/ports', category="Useage"))
+                             ML('IPs in use', url='/admin/iaas/ip_addresses/', category="Useage"),
+                             ML('Ports in use', url='/admin/iaas/ip_addresses/ports', category="Useage"))
 
         iaas_admin.add_hidden_view(DatabaseOps(name='Edit Database', endpoint='ops',
                                                db_string=self.SQLALCHEMY_BINDS[dbconfig.db_name],

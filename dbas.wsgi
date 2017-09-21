@@ -13,6 +13,7 @@ from threading import Lock
 from werkzeug.wsgi import pop_path_info, extract_path_info, peek_path_info
 from main.sqla.app import create_app, get_user_for_prefix, get_current_schema_id
 
+app, schema_id = create_app(dbconfig.db_name)
 class PathDispatcher(object):
 
     def __init__(self, default_app, create_app):
@@ -48,7 +49,7 @@ class PathDispatcher(object):
         elif path_start=='admin': # special case for iaas-admin
             proj_uri=environ['PATH_INFO']
             uri_parts=proj_uri.split('/')
-            mypath='iaas'#uri_parts[1]
+            mypath=dbconfig.db_name#uri_parts[1]
         app = self.get_application(mypath)
         if mypath!='':
             if schema_ids[mypath]!=get_current_schema_id(mypath):
@@ -75,8 +76,10 @@ def make_app(prefix):
        schema_ids[user]=schema_id
     return app
 
+import dbconfig
 
-application = PathDispatcher(NotFound(), make_app)
+application = PathDispatcher(app, make_app)
+#application = PathDispatcher(NotFound(), make_app)
 
 ## from app.sqla import *
 #from main.sqla.app import app as application

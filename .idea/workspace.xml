@@ -42,7 +42,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main/sqla/views.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="152">
@@ -67,7 +67,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="view.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="view.py" pinned="false" current-in-tab="true">
             <entry file="file://$USER_HOME$/Library/Python/2.7/lib/python/site-packages/flask_admin/contrib/sqla/view.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="200">
@@ -118,30 +118,33 @@
           <file leaf-file-name="methods.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main/sqla/methods.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="793">
-                  <caret line="280" column="29" lean-forward="false" selection-start-line="280" selection-start-column="29" selection-end-line="280" selection-end-column="29" />
+                <state relative-caret-position="608">
+                  <caret line="625" column="23" lean-forward="false" selection-start-line="625" selection-start-column="23" selection-end-line="625" selection-end-column="23" />
                   <folding>
                     <element signature="e#0#12#0" expanded="true" />
                     <element signature="e#743#921#0" expanded="false" />
+                    <element signature="e#957#14196#0" expanded="false" />
                     <element signature="e#5666#7257#0" expanded="false" />
                     <element signature="e#7353#9681#0" expanded="false" />
                     <element signature="e#9765#11750#0" expanded="false" />
                     <element signature="e#11791#12921#0" expanded="false" />
                     <element signature="e#12960#13716#0" expanded="false" />
                     <element signature="e#13770#14196#0" expanded="false" />
+                    <element signature="e#14233#16527#0" expanded="false" />
+                    <element signature="e#16568#17979#0" expanded="false" />
                     <element signature="e#19355#20311#0" expanded="false" />
                     <element signature="e#20346#24078#0" expanded="false" />
-                    <element signature="e#28516#28629#0" expanded="false" />
-                    <element signature="e#28715#31701#0" expanded="false" />
-                    <marker date="1506007919000" expanded="true" signature="12388:12463" ph="update svc_i... " />
-                    <marker date="1506007919000" expanded="false" signature="15278:15754" ph="..." />
-                    <marker date="1506007919000" expanded="true" signature="15358:15574" ph="SELECT Round... tables" />
-                    <marker date="1506007919000" expanded="false" signature="16109:16527" ph="..." />
-                    <marker date="1506007919000" expanded="true" signature="17228:17269" ph="SELECT ip_ad... database_instances" />
-                    <marker date="1506007919000" expanded="true" signature="17228:17488" ph="SELECT ip_ad... " />
-                    <marker date="1506007919000" expanded="true" signature="17342:17384" ph="SELECT ip_ad... nextcloud_instances" />
-                    <marker date="1506007919000" expanded="true" signature="17457:17488" ph="SELECT ip_ad... web_apps" />
-                    <marker date="1506007919000" expanded="true" signature="17808:17855" ph="SELECT ip_ad... database_instances" />
+                    <element signature="e#28575#28688#0" expanded="false" />
+                    <element signature="e#28774#31760#0" expanded="false" />
+                    <marker date="1506008350000" expanded="true" signature="12388:12463" ph="update svc_i... " />
+                    <marker date="1506008350000" expanded="false" signature="15278:15754" ph="..." />
+                    <marker date="1506008350000" expanded="true" signature="15358:15574" ph="SELECT Round... tables" />
+                    <marker date="1506008350000" expanded="false" signature="16109:16527" ph="..." />
+                    <marker date="1506008350000" expanded="true" signature="17228:17269" ph="SELECT ip_ad... database_instances" />
+                    <marker date="1506008350000" expanded="true" signature="17228:17488" ph="SELECT ip_ad... " />
+                    <marker date="1506008350000" expanded="true" signature="17342:17384" ph="SELECT ip_ad... nextcloud_instances" />
+                    <marker date="1506008350000" expanded="true" signature="17457:17488" ph="SELECT ip_ad... web_apps" />
+                    <marker date="1506008350000" expanded="true" signature="17808:17855" ph="SELECT ip_ad... database_instances" />
                   </folding>
                 </state>
               </provider>
@@ -1435,14 +1438,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Library/Python/2.7/lib/python/site-packages/flask_admin/contrib/sqla/view.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="350" column="54" lean-forward="false" selection-start-line="350" selection-start-column="54" selection-end-line="350" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/sqla/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
@@ -1466,32 +1461,43 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/Library/Python/2.7/lib/python/site-packages/flask_admin/contrib/sqla/view.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="350" column="54" lean-forward="false" selection-start-line="350" selection-start-column="54" selection-end-line="350" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main/sqla/methods.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="793">
-          <caret line="280" column="29" lean-forward="false" selection-start-line="280" selection-start-column="29" selection-end-line="280" selection-end-column="29" />
+        <state relative-caret-position="608">
+          <caret line="625" column="23" lean-forward="false" selection-start-line="625" selection-start-column="23" selection-end-line="625" selection-end-column="23" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
             <element signature="e#743#921#0" expanded="false" />
+            <element signature="e#957#14196#0" expanded="false" />
             <element signature="e#5666#7257#0" expanded="false" />
             <element signature="e#7353#9681#0" expanded="false" />
             <element signature="e#9765#11750#0" expanded="false" />
             <element signature="e#11791#12921#0" expanded="false" />
             <element signature="e#12960#13716#0" expanded="false" />
             <element signature="e#13770#14196#0" expanded="false" />
+            <element signature="e#14233#16527#0" expanded="false" />
+            <element signature="e#16568#17979#0" expanded="false" />
             <element signature="e#19355#20311#0" expanded="false" />
             <element signature="e#20346#24078#0" expanded="false" />
-            <element signature="e#28516#28629#0" expanded="false" />
-            <element signature="e#28715#31701#0" expanded="false" />
-            <marker date="1506007919000" expanded="true" signature="12388:12463" ph="update svc_i... " />
-            <marker date="1506007919000" expanded="false" signature="15278:15754" ph="..." />
-            <marker date="1506007919000" expanded="true" signature="15358:15574" ph="SELECT Round... tables" />
-            <marker date="1506007919000" expanded="false" signature="16109:16527" ph="..." />
-            <marker date="1506007919000" expanded="true" signature="17228:17269" ph="SELECT ip_ad... database_instances" />
-            <marker date="1506007919000" expanded="true" signature="17228:17488" ph="SELECT ip_ad... " />
-            <marker date="1506007919000" expanded="true" signature="17342:17384" ph="SELECT ip_ad... nextcloud_instances" />
-            <marker date="1506007919000" expanded="true" signature="17457:17488" ph="SELECT ip_ad... web_apps" />
-            <marker date="1506007919000" expanded="true" signature="17808:17855" ph="SELECT ip_ad... database_instances" />
+            <element signature="e#28575#28688#0" expanded="false" />
+            <element signature="e#28774#31760#0" expanded="false" />
+            <marker date="1506008350000" expanded="true" signature="12388:12463" ph="update svc_i... " />
+            <marker date="1506008350000" expanded="false" signature="15278:15754" ph="..." />
+            <marker date="1506008350000" expanded="true" signature="15358:15574" ph="SELECT Round... tables" />
+            <marker date="1506008350000" expanded="false" signature="16109:16527" ph="..." />
+            <marker date="1506008350000" expanded="true" signature="17228:17269" ph="SELECT ip_ad... database_instances" />
+            <marker date="1506008350000" expanded="true" signature="17228:17488" ph="SELECT ip_ad... " />
+            <marker date="1506008350000" expanded="true" signature="17342:17384" ph="SELECT ip_ad... nextcloud_instances" />
+            <marker date="1506008350000" expanded="true" signature="17457:17488" ph="SELECT ip_ad... web_apps" />
+            <marker date="1506008350000" expanded="true" signature="17808:17855" ph="SELECT ip_ad... database_instances" />
           </folding>
         </state>
       </provider>

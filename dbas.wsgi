@@ -66,7 +66,6 @@ class PathDispatcher(object):
 from werkzeug.exceptions import NotFound
 
 schema_ids={}
-app, schema_id = create_app('all')
 
 
 def make_app(prefix):
@@ -79,7 +78,9 @@ def make_app(prefix):
        schema_ids[user]=schema_id
     return app
 
-application = PathDispatcher(NotFound(), make_app)
+application, schema_id = create_app('all')
+
+#application = PathDispatcher(NotFound(), make_app)
 
 ## from app.sqla import *
 #from main.sqla.app import app as application

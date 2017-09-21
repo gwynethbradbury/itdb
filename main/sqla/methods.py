@@ -282,7 +282,7 @@ class DatabaseOps(BaseView):
 
         import pymysql
         current_url = str.split(self.admin.url,'/')
-        application_name = current_url[2]
+        application_name = self.database_name
         print "Triggering reload: "+application_name
         # update svc_instance set schema_id=schema_id+1 where project_display_name=self-config['db']
 

@@ -556,7 +556,8 @@ class DBAS():
                                                               classes_loaded=False)
             svc_inst=svc_inst[0]
             if not ((svc_inst[1] == self.app.config['db']) or (self.app.config['db'] == 'all')):
-                continue
+                if not (svc_inst[1] == dbconfig.db_name):
+                    continue
 
 
             schema_ids[svc_inst[1]] = svc_inst[3]

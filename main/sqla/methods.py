@@ -553,8 +553,9 @@ class DBAS():
                                                                 wherefield="id",whereval=r[0],
                                                               classes_loaded=False)
             svc_inst=svc_inst[0]
-            if not ((svc_inst[1] == self.app.config['db']) or (self.app.config['db'] == 'all')):
-                continue
+            if not 'iaas' in svc_inst[1]:
+                if not ((svc_inst[1] == self.app.config['db']) or (self.app.config['db'] == 'all')):
+                    continue
 
 
             schema_ids[svc_inst[1]] = svc_inst[3]

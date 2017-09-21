@@ -78,9 +78,8 @@ def make_app(prefix):
        schema_ids[user]=schema_id
     return app
 
-application, schema_id = create_app('all')
 
-#application = PathDispatcher(NotFound(), make_app)
+application = PathDispatcher(NotFound(), make_app)
 
 ## from app.sqla import *
 #from main.sqla.app import app as application

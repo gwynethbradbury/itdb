@@ -41,21 +41,18 @@ class PathDispatcher(object):
         path_start=peek_path_info(environ)
         mypath=''
         app_blank = self.get_application('')
-        if path_start=='projects':
-          proj_uri=environ['PATH_INFO']
-          uri_parts=proj_uri.split('/')
-          mypath=uri_parts[2]
-# Erm, that is silly, do this elsewhere!
-#        elif path_start=='reload':
-#          proj_uri=environ['PATH_INFO']
-#          uri_parts=proj_uri.split('/')
-#          mypath=uri_parts[2]
-#          environ['PATH_INFO']='/projects/'+mypath
-#          increment_schema_id(mypath)
+        if path_start=='projects' :
+            proj_uri=environ['PATH_INFO']
+            uri_parts=proj_uri.split('/')
+            mypath=uri_parts[2]
+        elif path_start=='admin': # special case for iaas-admin
+            proj_uri=environ['PATH_INFO']
+            uri_parts=proj_uri.split('/')
+            mypath=uri_parts[1]
         app = self.get_application(mypath)
         if mypath!='':
-           if schema_ids[mypath]!=get_current_schema_id(mypath):
-              self.reload_app(mypath)
+            if schema_ids[mypath]!=get_current_schema_id(mypath):
+                self.reload_app(mypath)
         if app is None:
             app = self.default_app
         return app(environ, start_response)

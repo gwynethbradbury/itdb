@@ -66,6 +66,8 @@ class PathDispatcher(object):
 from werkzeug.exceptions import NotFound
 
 schema_ids={}
+app, schema_id = create_app('all')
+
 
 def make_app(prefix):
     print prefix

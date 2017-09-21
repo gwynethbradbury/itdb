@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce4c93b2-95bc-4444-b569-e302376b0a7f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/methods.py" afterPath="$PROJECT_DIR$/main/sqla/methods.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dbas.wsgi" afterPath="$PROJECT_DIR$/dbas.wsgi" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -116,11 +115,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="methods.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="methods.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main/sqla/methods.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="544">
-                  <caret line="622" column="62" lean-forward="false" selection-start-line="622" selection-start-column="62" selection-end-line="622" selection-end-column="62" />
+                <state relative-caret-position="-594">
+                  <caret line="515" column="8" lean-forward="false" selection-start-line="515" selection-start-column="8" selection-end-line="515" selection-end-column="8" />
                   <folding>
                     <element signature="e#0#12#0" expanded="true" />
                     <element signature="e#743#921#0" expanded="false" />
@@ -134,7 +133,6 @@
                     <element signature="e#14233#16527#0" expanded="false" />
                     <element signature="e#16568#17979#0" expanded="false" />
                     <element signature="e#19355#20311#0" expanded="false" />
-                    <element signature="e#20346#24078#0" expanded="false" />
                     <element signature="e#28659#28772#0" expanded="false" />
                     <element signature="e#28858#31844#0" expanded="false" />
                     <marker date="1506008764000" expanded="true" signature="12388:12463" ph="update svc_i... " />
@@ -154,11 +152,9 @@
           <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main/sqla/app.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="543">
-                  <caret line="174" column="6" lean-forward="false" selection-start-line="174" selection-start-column="6" selection-end-line="174" selection-end-column="6" />
-                  <folding>
-                    <marker date="1505923460000" expanded="true" signature="6192:6239" ph="..." />
-                  </folding>
+                <state relative-caret-position="130">
+                  <caret line="112" column="14" lean-forward="false" selection-start-line="112" selection-start-column="4" selection-end-line="112" selection-end-column="14" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -190,6 +186,16 @@
                     <marker date="1505905364000" expanded="true" signature="14065:14142" ph="SELECT latit... project" />
                     <marker date="1505905364000" expanded="true" signature="15986:16005" ph="DELETE FROM " />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="dbas.wsgi" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/dbas.wsgi">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="495">
+                  <caret line="69" column="0" lean-forward="true" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -227,11 +233,8 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>g</find>
-      <find>get</find>
       <find>get_db</find>
       <find>get_db_creds</find>
-      <find>create_app</find>
       <find>export</find>
       <find>pri</find>
       <find>p</find>
@@ -257,6 +260,9 @@
       <find>glyphicon-pencil</find>
       <find>print</find>
       <find>trigger_reload</find>
+      <find>PathDispatcher</find>
+      <find>make_app</find>
+      <find>create_app</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/flask_admin/templates/foundation</dir>
@@ -305,6 +311,7 @@
         <option value="$PROJECT_DIR$/main/sqla/core/access_helper.py" />
         <option value="$PROJECT_DIR$/main/sqla/views.py" />
         <option value="$PROJECT_DIR$/main/sqla/methods.py" />
+        <option value="$PROJECT_DIR$/dbas.wsgi" />
       </list>
     </option>
   </component>
@@ -850,6 +857,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-225" y="-1177" width="1920" height="1177" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -861,7 +869,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24729241" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24729241" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1234,14 +1242,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dbas.wsgi">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="530">
-          <caret line="45" column="28" lean-forward="false" selection-start-line="45" selection-start-column="28" selection-end-line="45" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/web_apps_examples/online_learning/dbhelper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="598">
@@ -1276,16 +1276,6 @@
         <state relative-caret-position="506">
           <caret line="113" column="61" lean-forward="false" selection-start-line="113" selection-start-column="61" selection-end-line="113" selection-end-column="61" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/sqla/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="543">
-          <caret line="174" column="6" lean-forward="false" selection-start-line="174" selection-start-column="6" selection-end-line="174" selection-end-column="6" />
-          <folding>
-            <marker date="1505923460000" expanded="true" signature="6192:6239" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1472,8 +1462,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main/sqla/methods.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="622" column="62" lean-forward="false" selection-start-line="622" selection-start-column="62" selection-end-line="622" selection-end-column="62" />
+        <state relative-caret-position="-594">
+          <caret line="515" column="8" lean-forward="false" selection-start-line="515" selection-start-column="8" selection-end-line="515" selection-end-column="8" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
             <element signature="e#743#921#0" expanded="false" />
@@ -1487,7 +1477,6 @@
             <element signature="e#14233#16527#0" expanded="false" />
             <element signature="e#16568#17979#0" expanded="false" />
             <element signature="e#19355#20311#0" expanded="false" />
-            <element signature="e#20346#24078#0" expanded="false" />
             <element signature="e#28659#28772#0" expanded="false" />
             <element signature="e#28858#31844#0" expanded="false" />
             <marker date="1506008764000" expanded="true" signature="12388:12463" ph="update svc_i... " />
@@ -1500,6 +1489,22 @@
             <marker date="1506008764000" expanded="true" signature="17457:17488" ph="SELECT ip_ad... web_apps" />
             <marker date="1506008764000" expanded="true" signature="17808:17855" ph="SELECT ip_ad... database_instances" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/sqla/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="112" column="14" lean-forward="false" selection-start-line="112" selection-start-column="4" selection-end-line="112" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dbas.wsgi">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="69" column="0" lean-forward="true" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

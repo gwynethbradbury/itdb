@@ -659,6 +659,7 @@ class MyModelView(ModelView):
 
         super(MyModelView, self).__init__(c,session, name=name,endpoint=endpoint,category=category)
         self.tablename = c.__table__
+        print "VIEW CREATED FOR " + str(self.tablename)
         self.application_name=databasename
         self.db_string = db_string
 

@@ -350,9 +350,9 @@ class MyStandardView(Admin2):
     dbuseage = 0
 
     def __init__(self, app, name, endpoint, url, database_name,
+                 db_string,
                  template_mode='foundation',
-                 base_template='my_master.html',
-                 db_string=""):
+                 base_template='my_master.html'):
         super(MyStandardView, self).__init__(app, name, template_mode=template_mode,
                                              url=url,
                                              endpoint=endpoint, base_template=base_template)
@@ -597,6 +597,7 @@ class DBAS():
         # endregion
         # Create admin
         # todo: change bootstrap3 back to foundation to use my templates
+        print "CONNECTING TO IAAS ON " + self.SQLALCHEMY_BINDS[dbconfig.db_name]
         iaas_admin = MyIAASView(db_string = self.SQLALCHEMY_BINDS[dbconfig.db_name],
                                 app=self.app, name='IAAS admin app', template_mode='foundation',
                                 endpoint="admin", url="/admin",

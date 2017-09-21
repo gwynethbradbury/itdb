@@ -48,7 +48,7 @@ class PathDispatcher(object):
         elif path_start=='admin': # special case for iaas-admin
             proj_uri=environ['PATH_INFO']
             uri_parts=proj_uri.split('/')
-            mypath=uri_parts[1]
+            mypath='iaas'#uri_parts[1]
         app = self.get_application(mypath)
         if mypath!='':
             if schema_ids[mypath]!=get_current_schema_id(mypath):

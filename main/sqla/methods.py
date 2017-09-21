@@ -620,9 +620,10 @@ class DBAS():
                                                db=self.db))
 
         iaas_admin.add_hidden_view(IPAddressView(name="IP Addresses", endpoint="ip_addresses", category="Useage"))
-        print "ADDING IAAS CLASSES"
+        print "ADDING IAAS CLASSES " + str(len(class_db_dict))
         for c in class_db_dict:
-            print c
+            print c + " "+ class_db_dict[c]
+            
             if dbconfig.db_name == class_db_dict[c]:
                 print c
                 self._add_a_view(iaas_admin, classesdict[c],db_string=self.SQLALCHEMY_BINDS[dbconfig.db_name])

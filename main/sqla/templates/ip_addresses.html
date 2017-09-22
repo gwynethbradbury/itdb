@@ -11,7 +11,7 @@
         {% for i in admin_view.admin.getIPAddresses() %}
             <tr>
                 <td>
-                    {{ i }}
+                    {{ i[0] }}
                 </td>
             </tr>
         {% endfor %}

@@ -1,7 +1,6 @@
 import views
 import dev.models as devmodels
 import classes
-import models as IAASmodels
 import flask_login as login
 import flask_admin as admin
 from flask_admin import Admin as ImpAdmin
@@ -24,6 +23,7 @@ from werkzeug.utils import secure_filename
 from datetime import datetime
 import os
 from flask_admin.base import Admin as Admin2
+import pymysql
 
 
 class IPAddressView(BaseView):
@@ -350,14 +350,15 @@ class MyStandardView(Admin2):
     dbuseage = 0
 
     def __init__(self, app, name, endpoint, url, database_name,
-                 db_string,
+                 db_details,
                  template_mode='foundation',
                  base_template='my_master.html'):
         super(MyStandardView, self).__init__(app, name, template_mode=template_mode,
                                              url=url,
                                              endpoint=endpoint, base_template=base_template)
         self.database_name = database_name
-        self.db_string = db_string
+        self.db_string = db_details.__str__()
+        self.db_details = db_details
         self.setDBEngine(self.database_name)
 
     @expose('/')
@@ -375,17 +376,8 @@ class MyStandardView(Admin2):
 
     def getDatabaseUseage(self):
         self.dbuseage = 0
-        try:
-            C = self.DBA.DBE.E.execute("SELECT Round(Sum(data_length + index_length) / 1024 / 1024, 1) 'db_size_mb' "
-                                       "FROM information_schema.tables "
-                                       "WHERE table_schema = '{}';".format(self.database_name))
+        return self.db_details.GetUseage()
 
-            for inst in C:
-                self.dbuseage = inst[0]
-        except Exception as e:
-            print(e)
-
-        return self.dbuseage
 
     def setDBEngine(self, application_name):
         dbbindkey = "project_" + application_name + "_db"
@@ -415,42 +407,107 @@ class MyStandardView(Admin2):
             # pass
 
 
+
+
 class MyIAASView(MyStandardView):
-    def __init__(self, db_string,
+    def __init__(self, db_details,
                  app, name, template_mode,
                  endpoint, url, base_template, database_name):
-        super(MyIAASView, self).__init__(app=app, name=name, db_string=db_string, template_mode=template_mode,
+        super(MyIAASView, self).__init__(app=app, name=name, db_details=db_details, template_mode=template_mode,
                                          endpoint=endpoint, url=url,base_template=base_template,
                                          database_name=database_name)
-        self.db_string = db_string
+        self.db_details = db_details
 
     def getIPAddresses(self):
-        dbbindkey = "project_{}_db".format(dbconfig.db_name)
+        return self.db_details.ConnectAndExecute(query="SELECT ip_address FROM database_instances "
+                                      "UNION "
+                                      "SELECT ip_address from nextcloud_instances "
+                                      "UNION "
+                                      "SELECT ip_address from web_apps;")
 
-        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, dbconfig.db_name)
-        R = DBA.DBE.E.execute("SELECT ip_address FROM database_instances "
-                              "UNION "
-                              "SELECT ip_address from nextcloud_instances "
-                              "UNION "
-                              "SELECT ip_address from web_apps;")
-        instances = []
-        for inst in R:
-            instances.append(inst[0])
 
-        return instances
+
+
 
     def getPorts(self):
 
-        dbbindkey = "project_{}_db".format(dbconfig.db_name)
+        return self.db_details.ConnectAndExecute(query="SELECT ip_address, port from database_instances;")
 
-        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, dbconfig.db_name)
-        R = DBA.DBE.E.execute("SELECT ip_address, port from database_instances;")
+
+
+class DBDetails():
+    def __init__(self, engine_type,username,passwd,host,port,dbname):
+        self.engine_type=engine_type
+        self.username=username
+        self.passwd=passwd
+        self.host=host
+        self.port=port
+        self.dbname=dbname
+
+    def ConnectAndExecute(self, query):
+        conn = pymysql.connect(host=self.host,
+                               port=self.port,
+                               user=self.username,
+                               passwd=self.passwd,
+                               db=self.dbname)
+
+        cur = conn.cursor()
+
+        cur.execute(query)
+
         instances = []
-        for inst in R:
-            instances.append([inst[0], inst[1]])
+        for inst in cur:
+            instances.append(inst)
+        cur.close()
+        conn.close()
 
         return instances
 
+    def GetUseage(self):
+        dbuseage=0
+        if self.engine_type == 'postgresql':
+            try:
+                r = self.ConnectAndExecute("SELECT table_name, pg_size_pretty(total_bytes) AS total "
+                                       "FROM("
+                                       "SELECT *, total_bytes - index_bytes - COALESCE(toast_bytes, 0) AS table_bytes "
+                                       "FROM("
+                                       "SELECT c.oid, nspname AS table_schema, relname AS TABLE_NAME, c.reltuples AS row_estimate, pg_total_relation_size(c.oid) AS total_bytes, pg_indexes_size(c.oid) AS index_bytes, pg_total_relation_size(reltoastrelid) AS toast_bytes "
+                                       "FROM pg_class c LEFT JOIN pg_namespace n ON n.oid = c.relnamespace WHERE relkind = 'r' and nspname = 'public'"
+                                       ") a"
+                                       ") a;")
+            except Exception as e:
+                print(e)
+
+            return 0
+        else:
+            try:
+                C = self.ConnectAndExecute(
+                    "SELECT Round(Sum(data_length + index_length) / 1024 / 1024, 1) 'db_size_mb' "
+                    "FROM information_schema.tables "
+                    "WHERE table_schema = '{}';".format(self.dbname))
+
+                for inst in C:
+                    dbuseage = inst[0]
+            except Exception as e:
+                print(e)
+
+        return dbuseage
+
+    def __str__(self):
+        if self.engine_type=='postgresql':
+            return '{}://{}:{}@{}:{}/{}'.format(self.engine_type,
+                                                 self.username,
+                                                 self.passwd,
+                                                 self.host,
+                                                 self.port,
+                                                 self.dbname)
+        else:
+
+            return '{}://{}:{}@{}/{}'.format(self.engine_type,
+                                             self.username,
+                                             self.passwd,
+                                             self.host,
+                                             self.dbname)
 
 class DBAS():
     def __init__(self, _app, _db):
@@ -460,7 +517,7 @@ class DBAS():
         self.setup_pages()
 
     def setup(self):
-        self.SQLALCHEMY_BINDS, self.class_db_dict, self.db_list, self.schema_ids, self.db_strings = self.get_binds()
+        self.SQLALCHEMY_BINDS, self.class_db_dict, self.db_list, self.schema_ids, self.db_strings, self.db_details_dict = self.get_binds()
 
         self.nextcloud_identifiers, self.nextcloud_names = self.get_nextclouds()
 
@@ -535,6 +592,9 @@ class DBAS():
         db_list = []
         db_string_list = []
         schema_ids = {}
+        db_details_dict={}
+        db_details_dict[dbconfig.db_name] = DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname, 3306, dbconfig.db_name)
+
         for r in list_of_databases:
 
             if  r[5]=='':# postgres or insecure password
@@ -561,27 +621,21 @@ class DBAS():
 
             schema_ids[svc_inst[1]] = svc_inst[3]
             db_list.append(svc_inst[1])
+            if r[2]=='None':
+                r[2]='0'
+            db_string = DBDetails(engine_type,
+                                     r[4],
+                                     r[5],
+                                     r[1],
+                                     int(r[2]),
+                                     svc_inst[1])
+            db_details_dict[svc_inst[1]] = db_string
 
-            if r[3] == '2':
+            db_string_list.append(db_string.__str__())
 
-                db_string = '{}://{}:{}@{}:{}/{}'.format(engine_type,
-                                                         r[4],
-                                                         r[5],
-                                                         r[1],
-                                                         r[2],
-                                                         svc_inst[1])
-            else:
-                db_string = '{}://{}:{}@{}/{}'.format(engine_type,
-                                                      r[4],
-                                                      r[5],
-                                                      r[1],
-                                                      svc_inst[1])
+            SQLALCHEMY_BINDS["{}".format(svc_inst[1])] = db_string.__str__()
 
-            db_string_list.append(db_string)
-
-            SQLALCHEMY_BINDS["{}".format(svc_inst[1])] = db_string
-
-            project_dba = devmodels.DatabaseAssistant(db_string, svc_inst[1], svc_inst[1])
+            project_dba = devmodels.DatabaseAssistant(db_string.__str__(), svc_inst[1], svc_inst[1])
             try:
                 tns, cns = project_dba.getTableAndColumnNames()
                 for t in tns:
@@ -591,7 +645,7 @@ class DBAS():
                 print(e)
                 print "failed - authentication?"
 
-        return SQLALCHEMY_BINDS, class_db_dict, db_list, schema_ids, db_string_list
+        return SQLALCHEMY_BINDS, class_db_dict, db_list, schema_ids, db_string_list, db_details_dict
 
     def set_iaas_admin_console(self, class_db_dict, classesdict):
         """set up the admin console, depnds on predefined classes"""
@@ -600,7 +654,7 @@ class DBAS():
         # Create admin
         # todo: change bootstrap3 back to foundation to use my templates
         print "CONNECTING TO IAAS ON " + self.SQLALCHEMY_BINDS[dbconfig.db_name]
-        iaas_admin = MyIAASView(db_string = self.SQLALCHEMY_BINDS[dbconfig.db_name],
+        iaas_admin = MyIAASView(db_details = self.db_details_dict[dbconfig.db_name],
                                 app=self.app, name='IAAS admin app', template_mode='foundation',
                                 endpoint=dbconfig.db_name, url="/projects/{}".format(dbconfig.db_name),
                                 base_template='my_master.html', database_name=dbconfig.db_name)
@@ -647,7 +701,7 @@ class DBAS():
                                     url="/projects/{}".format(d),
                                     base_template='my_master.html',
                                     database_name=d,
-                                    db_string=self.SQLALCHEMY_BINDS[d]
+                                    db_details=self.db_details_dict[d]
                                     )
 
         proj_admin.add_hidden_view(DatabaseOps(name='Edit Database'.format(d),
@@ -680,11 +734,11 @@ class DBAS():
 
     def dbas_admin_pages_setup(self, db_list, classesdict, class_db_dict):
 
-        binds = self.app.config['SQLALCHEMY_BINDS']
+        binds = self.SQLALCHEMY_BINDS
         for d in binds:
             print(d, binds[d])
 
-            self.add_collection_of_views(d, classesdict, class_db_dict)
+            self.add_collection_of_views(d.__str__(), classesdict, class_db_dict)
 
 
 

@@ -101,7 +101,9 @@ def set_views(app):
     def inject_paths():
         return dict(iaas_url=dbconfig.iaas_route,
                     dbas_url=dbconfig.dbas_route,
-                    LDAPUser=LDAPUser())
+                    LDAPUser=LDAPUser(),
+                    iaas_db_name=dbconfig.db_name
+                    )
 
     # region Flask views
     @app.route('/group/<group_name>')

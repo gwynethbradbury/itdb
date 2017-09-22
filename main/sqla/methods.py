@@ -602,19 +602,19 @@ class DBAS():
         print "CONNECTING TO IAAS ON " + self.SQLALCHEMY_BINDS[dbconfig.db_name]
         iaas_admin = MyIAASView(db_string = self.SQLALCHEMY_BINDS[dbconfig.db_name],
                                 app=self.app, name='IAAS admin app', template_mode='foundation',
-                                endpoint="iaas_dev", url="/projects/iaas_dev",
+                                endpoint=dbconfig.db_name, url="/projects/{}".format(dbconfig.db_name),
                                 base_template='my_master.html', database_name=dbconfig.db_name)
 
         # example adding links:
         #     iaas_admin.add_links(ML('Test Internal Link', endpoint='applicationhome'),
         #                          ML('Test External Link', url='http://python.org/'))
         #
-        iaas_admin.add_links(ML('New Table', url='/projects/iaas_dev/ops/newtable'),
-                             ML('Import Data', url='/projects/iaas_dev/ops/upload'),
+        iaas_admin.add_links(ML('New Table', url='/projects/{}/ops/newtable'.format(dbconfig.db_name)),
+                             ML('Import Data', url='/projects/{}/ops/upload'.format(dbconfig.db_name)),
                              # ML('Export Data',url='/admin/ops/download'),
-                             ML('Relationship Builder', url='/projects/iaas_dev/ops/relationshipbuilder'),
-                             ML('IPs in use', url='/projects/iaas_dev/ip_addresses/', category="Useage"),
-                             ML('Ports in use', url='/projects/iaas_dev/ip_addresses/ports', category="Useage"))
+                             ML('Relationship Builder', url='/projects/{}/ops/relationshipbuilder'.format(dbconfig.db_name)),
+                             ML('IPs in use', url='/projects/{}/ip_addresses/'.format(dbconfig.db_name), category="Useage"),
+                             ML('Ports in use', url='/projects/{}/ip_addresses/ports'.format(dbconfig.db_name), category="Useage"))
 
         iaas_admin.add_hidden_view(DatabaseOps(name='Edit Database', endpoint='ops',
                                                db_string=self.SQLALCHEMY_BINDS[dbconfig.db_name],

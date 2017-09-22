@@ -27,13 +27,13 @@
         <ul>
             {% for instance in instances %}
 
-                <li><a href="/{% if instance[2]=='dbas' %}nextcloud{% else %}projects{% endif %}/{{instance[0]}}">{{instance[1]}}</a> ({{ instance[2] }})</li>
+                <li><a href="/{% if instance[2]=='dbas' %}projects{% else %}nextcloud{% endif %}/{{instance[0]}}">{{instance[1]}}</a> ({{ instance[2] }})</li>
             {% endfor %}
         </ul>
 
     {% else %}
 
-        No databases are currently available to you.
+        No projects are currently available to you.
 
         <br/>
         <a href="{{ url_for('show', page='projects/map') }}">Example map application</a>

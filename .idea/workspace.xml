@@ -1,215 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ce4c93b2-95bc-4444-b569-e302376b0a7f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/it_lending_log" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/map" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/online_learning" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project3" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/it_lending_log" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/map" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/online_learning" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project3" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/actions.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/base.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/file/form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/file/list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/file/modals/form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/layout.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/lib.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/master.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/model/create.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/model/details.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/model/edit.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/model/inline_field_list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/model/inline_form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/model/inline_list_base.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/model/layout.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/model/list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/model/modals/create.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/model/modals/details.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/model/modals/edit.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/model/row_actions.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/rediscli/console.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/rediscli/response.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap2/admin/static.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/actions.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/base.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/file/form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/file/list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/file/modals/form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/layout.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/lib.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/master.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/model/create.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/model/details.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/model/edit.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/model/inline_field_list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/model/inline_form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/model/inline_list_base.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/model/layout.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/model/list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/model/modals/create.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/model/modals/details.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/model/modals/edit.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/model/row_actions.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/rediscli/console.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/rediscli/response.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/bootstrap3/admin/static.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/actions.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/base.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/file/form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/file/list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/file/modals/form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/layout.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/lib.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/master.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/model/create.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/model/details.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/model/edit.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/model/inline_field_list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/model/inline_form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/model/inline_list_base.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/model/layout.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/model/list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/model/modals/create.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/model/modals/details.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/model/modals/edit.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/model/row_actions.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/rediscli/console.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/rediscli/response.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/admin/static.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/base_template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/base_template_foundation.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/actions.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/base.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/file/form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/file/list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/file/modals/form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/layout.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/lib.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/master.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/model/create.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/model/details.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/model/edit.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/model/inline_field_list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/model/inline_form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/model/inline_list_base.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/model/layout.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/model/list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/model/modals/create.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/model/modals/details.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/model/modals/edit.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/model/row_actions.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/rediscli/console.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/rediscli/response.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/flask_admin/templates/foundation/project/static.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/actions.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/base.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/file/form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/file/list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/file/modals/form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/layout.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/lib.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/master.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/model/create.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/model/details.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/model/edit.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/model/inline_field_list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/model/inline_form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/model/inline_list_base.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/model/layout.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/model/list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/model/modals/create.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/model/modals/details.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/model/modals/edit.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/model/row_actions.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/rediscli/console.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/rediscli/response.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap2/admin/static.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/actions.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/base.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/file/form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/file/list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/file/modals/form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/layout.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/lib.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/master.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/model/create.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/model/details.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/model/edit.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/model/inline_field_list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/model/inline_form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/model/inline_list_base.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/model/layout.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/model/list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/model/modals/create.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/model/modals/details.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/model/modals/edit.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/model/row_actions.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/rediscli/console.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/rediscli/response.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/bootstrap3/admin/static.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/actions.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/base.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/file/form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/file/list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/file/modals/form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/layout.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/lib.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/master.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/model/create.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/model/details.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/model/edit.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/model/inline_field_list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/model/inline_form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/model/inline_list_base.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/model/layout.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/model/list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/model/modals/create.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/model/modals/details.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/model/modals/edit.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/model/row_actions.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/rediscli/console.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/rediscli/response.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/admin/static.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/base_template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/base_template_foundation.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/actions.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/base.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/file/form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/file/list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/file/modals/form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/layout.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/lib.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/master.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/model/create.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/model/details.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/model/edit.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/model/inline_field_list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/model/inline_form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/model/inline_list_base.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/model/layout.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/model/list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/model/modals/create.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/model/modals/details.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/model/modals/edit.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/model/row_actions.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/rediscli/console.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/rediscli/response.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/foundation/project/static.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/methods.py" afterPath="$PROJECT_DIR$/main/sqla/methods.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/templates/ip_addresses.html" afterPath="$PROJECT_DIR$/main/sqla/templates/ip_addresses.html" />
-    </list>
+    <list default="true" id="ce4c93b2-95bc-4444-b569-e302376b0a7f" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -292,25 +84,25 @@
                 <element signature="e#21473#21566#0" expanded="false" />
                 <element signature="e#21608#22564#0" expanded="false" />
                 <element signature="e#30969#31082#0" expanded="false" />
-                <marker date="1506089682000" expanded="true" signature="12375:12450" ph="update svc_i... " />
-                <marker date="1506089682000" expanded="true" signature="16741:16782" ph="SELECT ip_ad... database_instances" />
-                <marker date="1506089682000" expanded="true" signature="16741:17033" ph="SELECT ip_ad... " />
-                <marker date="1506089682000" expanded="true" signature="16871:16913" ph="SELECT ip_ad... nextcloud_instances" />
-                <marker date="1506089682000" expanded="true" signature="17002:17033" ph="SELECT ip_ad... web_apps" />
-                <marker date="1506089682000" expanded="true" signature="17123:17170" ph="SELECT ip_ad... " />
-                <marker date="1506089682000" expanded="true" signature="17169:17170" ph="SELECT ip_ad... web_apps" />
-                <marker date="1506089682000" expanded="true" signature="18077:18685" ph="SELECT table... *" />
-                <marker date="1506089682000" expanded="true" signature="18077:18698" ph="SELECT table... *" />
-                <marker date="1506089682000" expanded="true" signature="18077:18700" ph="SELECT table... *" />
-                <marker date="1506089682000" expanded="true" signature="18077:18703" ph="SELECT table... *" />
-                <marker date="1506089682000" expanded="true" signature="18077:18726" ph="SELECT table... *" />
-                <marker date="1506089682000" expanded="true" signature="18077:18732" ph="SELECT table... *" />
-                <marker date="1506089682000" expanded="true" signature="18077:18769" ph="SELECT table... *" />
-                <marker date="1506089682000" expanded="true" signature="18077:18814" ph="SELECT table... *" />
-                <marker date="1506089682000" expanded="true" signature="18077:18859" ph="SELECT table... *" />
-                <marker date="1506089682000" expanded="true" signature="18222:18685" ph="SELECT *, to... oid" />
-                <marker date="1506089682000" expanded="true" signature="18389:18685" ph="SELECT c.oid... pg_class" />
-                <marker date="1506089682000" expanded="true" signature="19041:19219" ph="SELECT Round... tables" />
+                <marker date="1506090083000" expanded="true" signature="12375:12450" ph="update svc_i... " />
+                <marker date="1506090083000" expanded="true" signature="16741:16782" ph="SELECT ip_ad... database_instances" />
+                <marker date="1506090083000" expanded="true" signature="16741:17033" ph="SELECT ip_ad... " />
+                <marker date="1506090083000" expanded="true" signature="16871:16913" ph="SELECT ip_ad... nextcloud_instances" />
+                <marker date="1506090083000" expanded="true" signature="17002:17033" ph="SELECT ip_ad... web_apps" />
+                <marker date="1506090083000" expanded="true" signature="17123:17170" ph="SELECT ip_ad... " />
+                <marker date="1506090083000" expanded="true" signature="17169:17170" ph="SELECT ip_ad... web_apps" />
+                <marker date="1506090083000" expanded="true" signature="18077:18685" ph="SELECT table... *" />
+                <marker date="1506090083000" expanded="true" signature="18077:18698" ph="SELECT table... *" />
+                <marker date="1506090083000" expanded="true" signature="18077:18700" ph="SELECT table... *" />
+                <marker date="1506090083000" expanded="true" signature="18077:18703" ph="SELECT table... *" />
+                <marker date="1506090083000" expanded="true" signature="18077:18726" ph="SELECT table... *" />
+                <marker date="1506090083000" expanded="true" signature="18077:18732" ph="SELECT table... *" />
+                <marker date="1506090083000" expanded="true" signature="18077:18769" ph="SELECT table... *" />
+                <marker date="1506090083000" expanded="true" signature="18077:18814" ph="SELECT table... *" />
+                <marker date="1506090083000" expanded="true" signature="18077:18859" ph="SELECT table... *" />
+                <marker date="1506090083000" expanded="true" signature="18222:18685" ph="SELECT *, to... oid" />
+                <marker date="1506090083000" expanded="true" signature="18389:18685" ph="SELECT c.oid... pg_class" />
+                <marker date="1506090083000" expanded="true" signature="19041:19219" ph="SELECT Round... tables" />
               </folding>
             </state>
           </provider>
@@ -320,7 +112,7 @@
         <entry file="file://$USER_HOME$/Library/Python/2.7/lib/python/site-packages/pymysql/_socketio.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="344">
-              <caret line="63" column="29" lean-forward="true" selection-start-line="63" selection-start-column="29" selection-end-line="63" selection-end-column="29" />
+              <caret line="63" column="29" lean-forward="false" selection-start-line="63" selection-start-column="29" selection-end-line="63" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -1477,7 +1269,7 @@
     <entry file="file://$USER_HOME$/Library/Python/2.7/lib/python/site-packages/pymysql/_socketio.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="344">
-          <caret line="63" column="29" lean-forward="true" selection-start-line="63" selection-start-column="29" selection-end-line="63" selection-end-column="29" />
+          <caret line="63" column="29" lean-forward="false" selection-start-line="63" selection-start-column="29" selection-end-line="63" selection-end-column="29" />
           <folding />
         </state>
       </provider>
@@ -1503,25 +1295,25 @@
             <element signature="e#21473#21566#0" expanded="false" />
             <element signature="e#21608#22564#0" expanded="false" />
             <element signature="e#30969#31082#0" expanded="false" />
-            <marker date="1506089682000" expanded="true" signature="12375:12450" ph="update svc_i... " />
-            <marker date="1506089682000" expanded="true" signature="16741:16782" ph="SELECT ip_ad... database_instances" />
-            <marker date="1506089682000" expanded="true" signature="16741:17033" ph="SELECT ip_ad... " />
-            <marker date="1506089682000" expanded="true" signature="16871:16913" ph="SELECT ip_ad... nextcloud_instances" />
-            <marker date="1506089682000" expanded="true" signature="17002:17033" ph="SELECT ip_ad... web_apps" />
-            <marker date="1506089682000" expanded="true" signature="17123:17170" ph="SELECT ip_ad... " />
-            <marker date="1506089682000" expanded="true" signature="17169:17170" ph="SELECT ip_ad... web_apps" />
-            <marker date="1506089682000" expanded="true" signature="18077:18685" ph="SELECT table... *" />
-            <marker date="1506089682000" expanded="true" signature="18077:18698" ph="SELECT table... *" />
-            <marker date="1506089682000" expanded="true" signature="18077:18700" ph="SELECT table... *" />
-            <marker date="1506089682000" expanded="true" signature="18077:18703" ph="SELECT table... *" />
-            <marker date="1506089682000" expanded="true" signature="18077:18726" ph="SELECT table... *" />
-            <marker date="1506089682000" expanded="true" signature="18077:18732" ph="SELECT table... *" />
-            <marker date="1506089682000" expanded="true" signature="18077:18769" ph="SELECT table... *" />
-            <marker date="1506089682000" expanded="true" signature="18077:18814" ph="SELECT table... *" />
-            <marker date="1506089682000" expanded="true" signature="18077:18859" ph="SELECT table... *" />
-            <marker date="1506089682000" expanded="true" signature="18222:18685" ph="SELECT *, to... oid" />
-            <marker date="1506089682000" expanded="true" signature="18389:18685" ph="SELECT c.oid... pg_class" />
-            <marker date="1506089682000" expanded="true" signature="19041:19219" ph="SELECT Round... tables" />
+            <marker date="1506090083000" expanded="true" signature="12375:12450" ph="update svc_i... " />
+            <marker date="1506090083000" expanded="true" signature="16741:16782" ph="SELECT ip_ad... database_instances" />
+            <marker date="1506090083000" expanded="true" signature="16741:17033" ph="SELECT ip_ad... " />
+            <marker date="1506090083000" expanded="true" signature="16871:16913" ph="SELECT ip_ad... nextcloud_instances" />
+            <marker date="1506090083000" expanded="true" signature="17002:17033" ph="SELECT ip_ad... web_apps" />
+            <marker date="1506090083000" expanded="true" signature="17123:17170" ph="SELECT ip_ad... " />
+            <marker date="1506090083000" expanded="true" signature="17169:17170" ph="SELECT ip_ad... web_apps" />
+            <marker date="1506090083000" expanded="true" signature="18077:18685" ph="SELECT table... *" />
+            <marker date="1506090083000" expanded="true" signature="18077:18698" ph="SELECT table... *" />
+            <marker date="1506090083000" expanded="true" signature="18077:18700" ph="SELECT table... *" />
+            <marker date="1506090083000" expanded="true" signature="18077:18703" ph="SELECT table... *" />
+            <marker date="1506090083000" expanded="true" signature="18077:18726" ph="SELECT table... *" />
+            <marker date="1506090083000" expanded="true" signature="18077:18732" ph="SELECT table... *" />
+            <marker date="1506090083000" expanded="true" signature="18077:18769" ph="SELECT table... *" />
+            <marker date="1506090083000" expanded="true" signature="18077:18814" ph="SELECT table... *" />
+            <marker date="1506090083000" expanded="true" signature="18077:18859" ph="SELECT table... *" />
+            <marker date="1506090083000" expanded="true" signature="18222:18685" ph="SELECT *, to... oid" />
+            <marker date="1506090083000" expanded="true" signature="18389:18685" ph="SELECT c.oid... pg_class" />
+            <marker date="1506090083000" expanded="true" signature="19041:19219" ph="SELECT Round... tables" />
           </folding>
         </state>
       </provider>

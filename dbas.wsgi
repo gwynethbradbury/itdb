@@ -76,9 +76,7 @@ def make_app(prefix):
     return app
 
 
-app, schema_id = create_app(dbconfig.db_name)
-application = PathDispatcher(app, make_app)
-#application = PathDispatcher(NotFound(), make_app)
+application = PathDispatcher(NotFound(), make_app)
 
 ## from app.sqla import *
 #from main.sqla.app import app as application

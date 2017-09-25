@@ -50,25 +50,7 @@ class DatabaseOps(BaseView):
         self.db = db
         self.classes = C
 
-# region error_handling
-    @app.errorhandler(403)
-    def page_not_found(e):
-        return render_template('403.html'), 403
 
-    @app.errorhandler(404)
-    def page_not_found(e):
-        return render_template('404.html'), 404
-
-
-    @app.errorhandler(500)
-    def page_not_found(e):
-        return render_template('500.html'), 500
-
-
-    @app.errorhandler(401)
-    def page_not_found(e):
-        return render_template('401.html'), 401
-# endregion
 
     @expose('/')
     def index(self):
@@ -363,24 +345,7 @@ class MyStandardView(Admin2):
         self.db_details = db_details
         self.setDBEngine(self.database_name)
 
-# region error_handling
-    @app.errorhandler(403)
-    def page_not_found(e):
-        return render_template('403.html'), 403
 
-    @app.errorhandler(404)
-    def page_not_found(e):
-        return render_template('404.html'), 404
-
-    @app.errorhandler(500)
-    def page_not_found(e):
-        return render_template('500.html'), 500
-
-    @app.errorhandler(401)
-    def page_not_found(e):
-        return render_template('401.html'), 401
-
-# endregion
 
     @expose('/')
     def home(self):

@@ -133,8 +133,7 @@ class LDAPUser():
         groups = ['all_users']
         if ldapconfig.test:
             # return[]
-            # groups.append("superusers")
-            groups.append("onlinelrn")
+            groups.append("superusers")
             return groups
         else:
             import ldap

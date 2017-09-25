@@ -6,17 +6,21 @@ import os.path as op
 #
 # from core.home import home
 
-from main.sqla import app as app
 
 from main.sqla import *
-from main.web_apps_examples import *
+# from main.web_apps_examples import *
 
 # app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 # manager = Manager(app)
 # migrate = Migrate(app, db)
 
+from threading import Lock
+from werkzeug.wsgi import pop_path_info, extract_path_info, peek_path_info
+from main.sqla.app import create_app, get_user_for_prefix, get_current_schema_id
+
+app, schema_id = create_app('all')
 
 if __name__ == '__main__':
     # app_dir = op.realpath(os.path.dirname(__file__))
-    app.run()
-    # app.run(host="0.0.0.0", port=5000, debug=True)
+    #app.run()
+    app.run(host="0.0.0.0", port=5000, debug=True)

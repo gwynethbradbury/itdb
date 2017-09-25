@@ -15,7 +15,7 @@
 
 
 {#        <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/swatch/{swatch}/bootstrap.min.css'.format(swatch=config.get('FLASK_ADMIN_SWATCH', 'default')), v='3.3.5') }}" rel="stylesheet">#}
-<link href="/admin/static/bootstrap/bootstrap3/swatch/default/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+<link href="/static/bootstrap/bootstrap3/swatch/default/bootstrap.min.css?v=3.3.5" rel="stylesheet">
         <style>
 {#            body {#}
 {#                padding-top: 4px;#}
@@ -218,7 +218,7 @@
                             </ul>
                             <hr>
                             {% if 'superusers' in LDAPUser.get_groups() %}
-                                <h4><a href="{{ url_for('show', page='admin') }}" title="Admin">Admin</a></h4>
+                                <h4><a href="{{ url_for('show', page='projects/'+iaas_db_name) }}" title="Admin">Admin ({{ iaas_db_name }})</a></h4>
                             {% endif %}
                         </div>
                     </div>

@@ -16,11 +16,12 @@ else:
 AH = AccessHelper()
 
 
-@home.context_processor
-def inject_url():
-    iaas_url=dbconfig.iaas_route
-    dbas_url=dbconfig.dbas_route
-    return dict(iaas_url=iaas_url,dbas_url=dbas_url)
+# @home.context_processor
+# def inject_url():
+#     iaas_url=dbconfig.iaas_route
+#     dbas_url=dbconfig.dbas_route
+#     iaas_db_name = dbconfig.db_name
+#     return dict(iaas_url=iaas_url,dbas_url=dbas_url,iaas_db_name=iaas_db_name)
 
 @home.route('/')#, defaults={'page': 'index'})
 def get_all_dbas_projects():

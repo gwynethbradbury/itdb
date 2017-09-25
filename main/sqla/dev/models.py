@@ -127,10 +127,10 @@ class DatabaseAssistant:
                                db=self.mydatabasename)
 
     # creates a class from a table
-    def classFromTableName(self, classname, fields, classes_loaded=True):
+    def classFromTableName(self, classname, fields, classes_loaded=True, db=None):
         if classes_loaded:
             from main.sqla.classes import initialise_single_class
-            C = initialise_single_class(self.mydatabasename,classname)
+            C = initialise_single_class(db,self.mydatabasename,classname)
         else:
 
             import importlib
@@ -203,9 +203,12 @@ class DatabaseAssistant:
         return tablenames,columnnames
 
     # gets data from the table given a list of desired fields
-    def retrieveDataFromDatabase(self, classname, columnnames, classes_loaded= True,wherefield=None,whereval=None):
+    def retrieveDataFromDatabase(self, classname, columnnames, classes_loaded= True,
+                                 wherefield=None,whereval=None,db=None,C=None,exp_method=0):
 
-        C = self.classFromTableName(classname, columnnames, classes_loaded=classes_loaded)
+        exp_method=0
+        if C==None:
+            C = self.classFromTableName(classname, columnnames,db=db, classes_loaded=classes_loaded)
 
         # retrieves the selected columns
 
@@ -228,16 +231,21 @@ class DatabaseAssistant:
         print(KEYS)
         result_as_string = []
         for row in result:
-            rr = []
-            for i in row:
-                rr.append(str(i))
+            if exp_method==0:
+                rr = []
+                for i in row:
+                    rr.append(str(i))
+            else:
+                rr=''
+                for i in row:
+                    rr=rr+','+(str(i))
             result_as_string.append(rr)
 
 
         return result, result_as_string
 
     # serves the data to the client
-    def serveData(self,F,ClassName):
+    def serveData(self,F,ClassName, db=None, C=None):
         # serves the data from the database given the corresponding class C
 
         t = F.get("tablename")
@@ -262,7 +270,7 @@ class DatabaseAssistant:
             elif F.get(t + "_" + cc.name):
                 columnnames.append(cc.name)
 
-        result, result_as_string = self.retrieveDataFromDatabase(ClassName, columnnames)
+        result, result_as_string = self.retrieveDataFromDatabase(ClassName, columnnames, db=db,C=C,exp_method=1)
 
 
         exportpath = self.upload_folder + '/export.csv'
@@ -286,78 +294,6 @@ class DatabaseAssistant:
     # region EDIT THE EXISTING DATA/TABLES
     #
 
-    # adds a column to the database
-    def addColumn(self,tablename,colname="test",coltype="Integer",numchar=100):
-        msg=""
-        print("attempting to add column "+colname+" ("+coltype+") to table "+tablename+"...")
-        try:
-            mytable = SqlAl.Table(tablename, self.DBE.metadata, autoload=True)  # .data, metadata, autoload=True)
-        except Exception as e:
-            print(str(e))
-            return ("couldn't get table "+tablename+", stopping"),0
-
-
-
-
-        tablenames, columnnames = self.getTableAndColumnNames()
-        i=0
-        for t in tablenames:
-            if t==tablename:
-                for cc in columnnames[i]:
-                    if cc==colname:
-                        msg=(colname +" already exists in table.")
-                        print(msg)
-                        return msg, 0
-            i += 1
-
-        data_type_formatted = desc2formattedtype(coltype,numchar)
-
-
-        # self.DBE.E.execute("ALTER TABLE "+tablename+" ADD column "+colname+" "+data_type_formatted+";")
-        success=1
-        try:
-            connection = self.connect()
-            query = "ALTER TABLE {} ADD COLUMN {} {};".format(tablename,colname,data_type_formatted)
-            with connection.cursor() as cursor:
-                cursor.execute(query)
-            for c in cursor:
-                topic = c[0]
-        except Exception as e:
-            print(e)
-            msg = str(e)
-            success=0
-        finally:
-            connection.close
-
-        return msg, success
-
-    # removes a column from the database
-    def remColumn(self,tablename, colname):
-        msg=""
-        print("attempting to remove column " + colname + " from table "+tablename+"...")
-        try:
-            mytable = SqlAl.Table(tablename, self.DBE.metadata, autoload=True)  # .data, metadata, autoload=True)
-        except Exception as e:
-            print(str(e))
-            return ("couldn't get table "+tablename+", stopping"), 0
-
-
-
-        tablenames, columnnames = self.getTableAndColumnNames(tablename)
-        if not colname in columnnames[0]:
-            return "failed, could not find column in table {}".format(tablename), 0
-
-        try:
-            connection = self.connect()
-            query = "ALTER TABLE {} DROP COLUMN {};".format(tablename,colname)
-            with connection.cursor() as cursor:
-                cursor.execute(query)
-        except Exception as e:
-            print(e)
-        finally:
-            connection.close
-
-        return msg, 1
 
     # adds a primary key column for integer ids to the table
     def addIdColumn(self, table_name, column_name="id"):

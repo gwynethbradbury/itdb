@@ -2,4 +2,4 @@
 
 import app
 
-app.start_app()
+#app.start_app()

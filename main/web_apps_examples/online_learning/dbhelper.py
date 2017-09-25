@@ -22,7 +22,6 @@ class DBHelper:
         tags=[]
         try:
             connection = self.connect()
-            print("about to query...")
             query = "SELECT title,text,topic_id,id FROM pages"
 
             if topic_id:
@@ -220,7 +219,6 @@ class DBHelper:
         topic= ""
         try:
             connection = self.connect()
-            print("about to query...")
             query = "SELECT title,text,topic_id,id FROM pages WHERE id={}".format(str(page_id))
 
             with connection.cursor() as cursor:
@@ -249,7 +247,6 @@ class DBHelper:
 
         try:
             connection = self.connect()
-            print("about to query...")
             video_ids=[]
             query = "SELECT video_id FROM pages_videos WHERE page_id={};".format(page_id)
             with connection.cursor() as cursor:
@@ -279,7 +276,6 @@ class DBHelper:
 
         try:
             connection = self.connect()
-            print("about to query...")
             query = "SELECT id,topic FROM topic;"
             with connection.cursor() as cursor:
                 cursor.execute(query)
@@ -302,7 +298,6 @@ class DBHelper:
 
         try:
             connection = self.connect()
-            print("about to query...")
             query = "SELECT id,tag FROM tags;"
             with connection.cursor() as cursor:
                 cursor.execute(query)

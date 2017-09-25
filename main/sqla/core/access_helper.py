@@ -16,7 +16,7 @@ iaasldap = iaasldap()
 
 class AccessHelper:
     def connect(self, database=dbconfig.db_name):
-        return pymysql.connect(host='localhost',
+        return pymysql.connect(host=dbconfig.db_hostname,
                                user=dbconfig.db_user,
                                passwd=dbconfig.db_password,
                                db=database)
@@ -30,7 +30,7 @@ class AccessHelper:
         connection = self.connect()
         group_id = 0
         try:
-            print("about to query...")
+            # print("about to query...")
             usersgroups = iaasldap.get_groups()
             print("user {} is in groups {}".format(iaasldap.uid_trim(),
                                                    usersgroups))
@@ -59,7 +59,6 @@ class AccessHelper:
         connection = self.connect()
         svc_type = dict1[svc_type]
         try:
-            print("about to query...")
             usersgroups = iaasldap.get_groups()
             print("user {} is in groups {}".format(iaasldap.uid_trim(),
                                                    usersgroups))
@@ -93,17 +92,13 @@ class AccessHelper:
             g_id = self.get_group_id(group)
             query = "SELECT instance_identifier,project_display_name,svc_type_id " \
                     "FROM svc_instances"
-            nextclause=' WHERE '
-            if not iaasldap.has_role('superusers') and svc_type>=0:
-                query=query+nextclause
-                nextclause=' AND '
-
-            if not iaasldap.has_role('superusers'):
-                query = query + "group_id='{}'" \
-                    .format(str(g_id))
-
+            # if iaasldap.has_role('superusers'):
+            #     if svc_type >= 0:
+            #         query = query + " WHERE svc_type_id='{}' ".format(str(svc_type))
+            # else:
+            query = query + " WHERE group_id='{}'".format(str(g_id))
             if svc_type>=0:
-                query=query+nextclause+"svc_type_id='{}' ".format(str(svc_type))
+                query=query+" AND svc_type_id='{}' ".format(str(svc_type))
 
             query = query + ";"
 
@@ -221,7 +216,7 @@ class AccessHelper:
         engine_type=""
         engine_string=""
         if db_name == "":  # and dbconfig.test:
-            return project_owner, project_maintainer, ip_address, svc_inst, port, username, password_if_secure,description,engine_type,engine_string
+            return project_owner, project_maintainer, ip_address, svc_inst, port, username, password_if_secure,description, engine_type, engine_string
 
         connection = self.connect()
         try:
@@ -238,8 +233,7 @@ class AccessHelper:
                 svc_type_id=inst[1]
 
             if not svc_type_id==1:
-                return project_owner, ip_address, svc_inst, port, username, password_if_secure
-
+                return project_owner, project_maintainer, ip_address, svc_inst, port, username, password_if_secure, description, engine_type, engine_string
 
             query = "SELECT project_owner, project_maintainer, ip_address, svc_inst, port, " \
                     "username, password_if_secure, description, engine_type " \

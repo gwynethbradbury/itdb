@@ -20,7 +20,6 @@ class DBHelper:
         items=[]
         try:
             connection = self.connect()
-            print("about to query...")
             query = "SELECT name,id,comment FROM items;"
 
             with connection.cursor() as cursor:
@@ -40,7 +39,6 @@ class DBHelper:
         items=[]
         try:
             connection = self.connect()
-            print("about to query...")
             query = "SELECT item, id, date_out, returned, borrower, signed_out_by, comment FROM log WHERE id={};".format(id)
 
             with connection.cursor() as cursor:
@@ -69,7 +67,6 @@ class DBHelper:
         items=[]
         try:
             connection = self.connect()
-            print("about to query...")
             query = "SELECT id,name,comment FROM items WHERE id={};".format(id)
 
             with connection.cursor() as cursor:
@@ -126,7 +123,6 @@ class DBHelper:
         items=[]
         try:
             connection = self.connect()
-            print("about to query...")
             query = "SELECT item, id, date_out, returned, borrower, signed_out_by, comment FROM log;"
 
             with connection.cursor() as cursor:
@@ -248,7 +244,7 @@ class DBHelper:
             for project in cursor:
                 named_project = project[0]
                 named_projects.append(named_project)
-                print(named_project)
+                # print(named_project)
             return named_projects
         except Exception as e:
             print(e)
@@ -287,11 +283,11 @@ class DBHelper:
                                           3: lambda s: str(s), 4: lambda s: str(s), 5: lambda s: str(s),
                                           6: lambda s: str(s), 7: lambda s: str(s)})
 
-            print(data)
+            # print(data)
             data = data.tolist()
-            print(data)
+            # print(data)
             for i in data:
-                print(i)
+                # print(i)
                 latitude = i[1]
                 longitude = i[2]
                 startdate=datetime.utcnow()
@@ -365,8 +361,8 @@ class DBHelper:
             for project in cursor:
                 thisp=[]
                 for p in project:
-                    print(p)
-                    print(thisp)
+                    # print(p)
+                    # print(thisp)
                     thisp.append(p)
                 projects.append(thisp)
             return projects

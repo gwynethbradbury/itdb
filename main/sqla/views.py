@@ -107,7 +107,7 @@ def set_views(app):
     # region Flask views
     @app.route('/group/<group_name>')
     def show_groups(group_name):
-        if current_user.has_role(group_name):
+        if current_user.has_role(group_name) or current_user.has_role('superusers'):
             instances = AH.get_projects_for_group(group_name)
             try:
                 return render_template("groupprojects.html",groupname=group_name,instances=instances)
@@ -175,34 +175,6 @@ def set_views(app):
     def page_not_found(e):
         return render_template('401.html'), 401
 
-    # endregion
-
-    # region EDITING TABLES
-
-    # creating a new table
-    # @app.route("/projects/<application_name>/admin/newtable")
-    # def newtable(application_name):
-    #
-    #     if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
-    #         return abort(401)
-    #
-    #     db_string = 'mysql+pymysql://{}:{}@{}/{}'.format(dbconfig.db_user,
-    #                                                      dbconfig.db_password,
-    #                                                      dbconfig.db_hostname,
-    #                                                      application_name)
-    #     dbbindkey = "project_" + application_name + "_db"
-    #
-    #     DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
-    #
-    #     tablenames, columnnames = DBA.getTableAndColumnNames()
-    #     if not tablenames == []:
-    #         return redirect("/projects/{}/{}/admin/newtable".format(application_name, tablenames[0]))
-    #
-    #     return render_template("projects/create_table.html",
-    #                            tablenames=tablenames,
-    #                            columnnames=columnnames,
-    #                            pname=application_name)
-
 
 
     # adding a column to an existing table
@@ -211,7 +183,7 @@ def set_views(app):
     # @app.route("/projects/<application_name>/<tablename>/newcolumn")
     def newcolumn(application_name, tablename=""):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
-            return abort(401)
+            return abort(403)
 
         dbbindkey = "project_" + application_name + "_db"
 
@@ -281,7 +253,7 @@ def set_views(app):
     @app.route("/projects/<application_name>/admin/deletetable/<tablename>")
     def deletetable(application_name, tablename):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
-            return abort(401)
+            return abort(403)
 
         dbbindkey = "project_" + application_name + "_db"
 
@@ -295,7 +267,7 @@ def set_views(app):
     @app.route("/projects/<application_name>/admin/cleartable/<tablename>")
     def cleartable(application_name, tablename):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
-            return abort(401)
+            return abort(403)
 
         dbbindkey = "project_" + application_name + "_db"
 
@@ -315,7 +287,7 @@ def set_views(app):
     @app.route("/projects/<application_name>/<tablename>/genblankcsv", methods=['GET', 'POST'])
     def genblankcsv(application_name,tablename=""):
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
-            return abort(401)
+            return abort(403)
 
         dbbindkey = "project_" + application_name + "_db"
 
@@ -645,9 +617,6 @@ def set_views(app):
         #                            servicelist=iaasldap.get_groups(iaasldap.uid_trim()))
 
 
-
-class dbInfo():
-    pass
 # Create customized model view class
 
 from flask_admin.model.template import EndpointLinkRowAction, LinkRowAction
@@ -677,33 +646,18 @@ class MyModelView(ModelView):
         if current_user.has_role('superusers') :
             return True
 
-        # current_url = str.split(self.admin.url,'/')
-
-
         # check project authentication
         if not current_user.is_active or not current_user.is_authenticated(self.application_name):
             return False
 
-        # # check is admin user if necessary
-        # if current_url[1]=='projects':
-        #     '''admin view of project'''
-        #     if require_project_admin and not current_user.has_role('{}_admin'.format(self.application_name)):
-        #         return False
-
-
-        return True
+        return False
 
     def _handle_view(self, name, **kwargs):
         """
         Override builtin _handle_view in order to redirect users when a view is not accessible.
         """
         if not self.is_accessible():
-            if current_user.is_authenticated:
-                # permission denied
-                abort(403)
-            else:
-                # login
-                return "not authenticated" #redirect(url_for('security.login', next=request.url))
+            abort(403)
 
 
 
@@ -894,7 +848,7 @@ class MyModelView(ModelView):
     def newcolumn(self):
 
         if not current_user.is_authorised(application_name=self.application_name, is_admin_only_page=True):
-            return abort(401)
+            return abort(403)
 
         lstofdatatypes = listOfColumnTypesByName
 
@@ -908,7 +862,7 @@ class MyModelView(ModelView):
     def removecolumn(self):
 
         if not current_user.is_authorised(application_name=self.application_name, is_admin_only_page=True):
-            return abort(401)
+            return abort(403)
 
         columnnames=[i[0] for i in self.get_column_names(self.scaffold_list_columns(),[])]
 
@@ -965,7 +919,7 @@ class MyModelView(ModelView):
     @expose('/admin/deletetable')
     def deletetable(self):
         if not current_user.is_authorised(application_name=self.application_name, is_admin_only_page=True):
-            return abort(401)
+            return abort(403)
 
         dbbindkey = "project_" + self.application_name + "_db"
 
@@ -987,7 +941,7 @@ class MyModelView(ModelView):
     def cleartable(self):
 
         if not current_user.is_authorised(application_name=self.application_name, is_admin_only_page=True):
-            return abort(401)
+            return abort(403)
         dbbindkey = "project_" + self.application_name + "_db"
 
         DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, self.application_name)
@@ -1000,7 +954,7 @@ class MyModelView(ModelView):
     @expose('/admin/createcolumn', methods=['GET', 'POST'])
     def createcolumn(self):
         if not current_user.is_authorised(application_name=self.application_name, is_admin_only_page=True):
-            return abort(401)
+            return abort(403)
 
         dbbindkey = "project_" + self.application_name + "_db"
 
@@ -1045,7 +999,7 @@ class MyModelView(ModelView):
     @expose('/admin/remcolumn', methods=['GET', 'POST'])
     def remcolumn(self):
         if not current_user.is_authorised(application_name=self.application_name, is_admin_only_page=True):
-            return abort(401)
+            return abort(403)
         dbbindkey = "project_" + self.application_name + "_db"
 
         DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, self.application_name)  # , upload_folder=uploadfolder)

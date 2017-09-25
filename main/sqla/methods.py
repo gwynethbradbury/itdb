@@ -578,6 +578,7 @@ class DBAS():
         db_details_dict={}
         db_details_dict[dbconfig.db_name] = DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname, 3306, dbconfig.db_name)
         svc_groups={}
+        svc_groups[dbconfig.db_name]='superusers'
         for r in list_of_databases:
 
             if  r[5]=='':# postgres or insecure password

@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce4c93b2-95bc-4444-b569-e302376b0a7f" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main/sqla/templates/403.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/core/access_helper.py" afterPath="$PROJECT_DIR$/main/sqla/core/access_helper.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/core/iaasldap.py" afterPath="$PROJECT_DIR$/main/sqla/core/iaasldap.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/views.py" afterPath="$PROJECT_DIR$/main/sqla/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,40 +34,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main/sqla/dev/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5940">
-              <caret line="455" column="6" lean-forward="false" selection-start-line="455" selection-start-column="6" selection-end-line="548" selection-end-column="20" />
-              <folding>
-                <element signature="e#284#1115#0" expanded="false" />
-                <element signature="e#1133#1755#0" expanded="false" />
-                <element signature="e#1772#2359#0" expanded="false" />
-                <marker date="1505907952000" expanded="true" signature="10463:10492" ph="ALTER TABLE missing_value... " />
-                <marker date="1505907952000" expanded="true" signature="11601:11628" ph="ALTER TABLE missing_value... " />
-                <marker date="1505907952000" expanded="true" signature="12018:12070" ph="ALTER TABLE missing_value... " />
-                <marker date="1505907952000" expanded="true" signature="12230:12265" ph="ALTER TABLE missing_value... " />
-                <marker date="1505907952000" expanded="true" signature="12410:12435" ph="ALTER TABLE missing_value... " />
-                <marker date="1505907952000" expanded="true" signature="12595:12607" ph="DELETE FROM " />
-                <marker date="1505907952000" expanded="true" signature="12776:12787" ph="DROP TABLE m... " />
-                <marker date="1505907952000" expanded="true" signature="13702:13799" ph="SELECT COLUM... columns" />
-                <marker date="1505907952000" expanded="true" signature="14057:14074" ph="SELECT missi... missing_value" />
-                <marker date="1505907952000" expanded="true" signature="14647:14963" ph="SELECT CONST... KEY_COLUMN_USAGE" />
-                <marker date="1505907952000" expanded="true" signature="16048:16079" ph="INSERT INTO missing_value... " />
-                <marker date="1505907952000" expanded="true" signature="16279:16294" ph="SELECT missi... missing_value" />
-                <marker date="1505907952000" expanded="true" signature="16480:16503" ph="INSERT INTO missing_value... " />
-                <marker date="1505907952000" expanded="true" signature="16688:16819" ph="SELECT IS_NU... columns" />
-                <marker date="1505907952000" expanded="true" signature="17368:17406" ph="UPDATE missi... " />
-                <marker date="1505907952000" expanded="true" signature="17529:17572" ph="ALTER TABLE missing_value... " />
-                <marker date="1505907952000" expanded="true" signature="17985:18146" ph="SELECT COLUM... columns" />
-                <marker date="1505907952000" expanded="true" signature="18552:18592" ph="UPDATE missi... " />
-                <marker date="1505907952000" expanded="true" signature="18761:18817" ph="ALTER TABLE missing_value... " />
-                <marker date="1505907952000" expanded="true" signature="19210:19276" ph="ALTER TABLE missing_value... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="methods.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/sqla/methods.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -112,11 +82,22 @@
       <file leaf-file-name="iaasldap.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main/sqla/core/iaasldap.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="623">
-              <caret line="210" column="17" lean-forward="false" selection-start-line="210" selection-start-column="12" selection-end-line="210" selection-end-column="17" />
+            <state relative-caret-position="157">
+              <caret line="136" column="25" lean-forward="true" selection-start-line="136" selection-start-column="25" selection-end-line="136" selection-end-column="25" />
               <folding>
                 <element signature="e#858#876#0" expanded="false" />
+                <element signature="e#1970#4258#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ldapconfig.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ldapconfig.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="1" lean-forward="false" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -134,11 +115,21 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/sqla/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="670" column="0" lean-forward="false" selection-start-line="670" selection-start-column="0" selection-end-line="670" selection-end-column="0" />
+            <state relative-caret-position="282">
+              <caret line="161" column="47" lean-forward="false" selection-start-line="161" selection-start-column="47" selection-end-line="161" selection-end-column="47" />
               <folding>
-                <marker date="1506092405000" expanded="true" signature="39339:39412" ph="update svc_i... " />
+                <marker date="1506337076000" expanded="true" signature="39525:39598" ph="update svc_i... " />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="403.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main/sqla/templates/403.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="40" lean-forward="false" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -156,18 +147,18 @@
       <file leaf-file-name="access_helper.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/sqla/core/access_helper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1185">
-              <caret line="85" column="0" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+            <state relative-caret-position="430">
+              <caret line="100" column="19" lean-forward="false" selection-start-line="98" selection-start-column="19" selection-end-line="100" selection-end-column="19" />
               <folding>
-                <marker date="1506095095000" expanded="true" signature="1152:1252" ph="SELECT id FR... groups" />
-                <marker date="1506095095000" expanded="true" signature="2977:3080" ph="SELECT insta... svc_instances" />
-                <marker date="1506095095000" expanded="true" signature="4298:4406" ph="SELECT title... iaas_events" />
-                <marker date="1506095095000" expanded="true" signature="5385:5423" ph="SELECT title... news" />
-                <marker date="1506095095000" expanded="true" signature="6075:6104" ph="SELECT email... subscribers" />
-                <marker date="1506095095000" expanded="true" signature="6689:6746" ph="INSERT INTO subscribers... " />
-                <marker date="1506095095000" expanded="true" signature="7744:7865" ph="SELECT id,sv... svc_instances" />
-                <marker date="1506095095000" expanded="true" signature="8302:8545" ph="SELECT proje... database_instances" />
-                <marker date="1506095095000" expanded="true" signature="9054:9169" ph="SELECT conne... database_engine" />
+                <marker date="1506336154000" expanded="true" signature="1152:1252" ph="SELECT id FR... groups" />
+                <marker date="1506336154000" expanded="true" signature="2977:3080" ph="SELECT insta... svc_instances" />
+                <marker date="1506336154000" expanded="true" signature="4294:4402" ph="SELECT title... iaas_events" />
+                <marker date="1506336154000" expanded="true" signature="5381:5419" ph="SELECT title... news" />
+                <marker date="1506336154000" expanded="true" signature="6071:6100" ph="SELECT email... subscribers" />
+                <marker date="1506336154000" expanded="true" signature="6685:6742" ph="INSERT INTO subscribers... " />
+                <marker date="1506336154000" expanded="true" signature="7740:7861" ph="SELECT id,sv... svc_instances" />
+                <marker date="1506336154000" expanded="true" signature="8298:8541" ph="SELECT proje... database_instances" />
+                <marker date="1506336154000" expanded="true" signature="9050:9165" ph="SELECT conne... database_engine" />
               </folding>
             </state>
           </provider>
@@ -178,16 +169,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="344">
               <caret line="63" column="29" lean-forward="false" selection-start-line="63" selection-start-column="29" selection-end-line="63" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ports.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main/sqla/templates/ports.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="21" lean-forward="false" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -214,10 +195,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>/iaas</find>
-      <find>schema_ids</find>
-      <find>get_user_for_prefix</find>
-      <find>get_current_schema_id</find>
       <find>app.config</find>
       <find>app.config[</find>
       <find>app.config['</find>
@@ -243,7 +220,11 @@
       <find>.execute</find>
       <find>GTG24</find>
       <find>is_accessible</find>
+      <find>403)</find>
       <find>super</find>
+      <find>group</find>
+      <find>403</find>
+      <find>404</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/flask_admin/templates/foundation</dir>
@@ -296,8 +277,9 @@
         <option value="$PROJECT_DIR$/main/sqla/templates/admin/static.html" />
         <option value="$PROJECT_DIR$/main/sqla/templates/ip_addresses.html" />
         <option value="$PROJECT_DIR$/main/sqla/methods.py" />
-        <option value="$PROJECT_DIR$/main/sqla/views.py" />
         <option value="$PROJECT_DIR$/main/sqla/core/access_helper.py" />
+        <option value="$PROJECT_DIR$/main/sqla/views.py" />
+        <option value="$PROJECT_DIR$/main/sqla/templates/403.html" />
         <option value="$PROJECT_DIR$/main/sqla/core/iaasldap.py" />
       </list>
     </option>
@@ -396,32 +378,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dbas-dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dbas-dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sqla" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -434,8 +390,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/main/sqla/static" />
       <recent name="$PROJECT_DIR$/main/sqla/templates" />
+      <recent name="$PROJECT_DIR$/main/sqla/static" />
       <recent name="$PROJECT_DIR$/flask_admin" />
       <recent name="$PROJECT_DIR$/main/sqla/templates/admin" />
     </key>
@@ -883,20 +839,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/main/sqla/templates/project/layout.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="662">
-          <caret line="64" column="14" lean-forward="true" selection-start-line="19" selection-start-column="2" selection-end-line="64" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/sqla/core/mock_access_helper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="11" column="8" lean-forward="false" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/lib/python2.7/site-packages/flask/app.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23835">
@@ -1291,40 +1233,57 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/sqla/views.py">
+    <entry file="file://$PROJECT_DIR$/main/sqla/core/access_helper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="670" column="0" lean-forward="false" selection-start-line="670" selection-start-column="0" selection-end-line="670" selection-end-column="0" />
+        <state relative-caret-position="430">
+          <caret line="100" column="19" lean-forward="false" selection-start-line="98" selection-start-column="19" selection-end-line="100" selection-end-column="19" />
           <folding>
-            <marker date="1506092405000" expanded="true" signature="39339:39412" ph="update svc_i... " />
+            <marker date="1506336154000" expanded="true" signature="1152:1252" ph="SELECT id FR... groups" />
+            <marker date="1506336154000" expanded="true" signature="2977:3080" ph="SELECT insta... svc_instances" />
+            <marker date="1506336154000" expanded="true" signature="4294:4402" ph="SELECT title... iaas_events" />
+            <marker date="1506336154000" expanded="true" signature="5381:5419" ph="SELECT title... news" />
+            <marker date="1506336154000" expanded="true" signature="6071:6100" ph="SELECT email... subscribers" />
+            <marker date="1506336154000" expanded="true" signature="6685:6742" ph="INSERT INTO subscribers... " />
+            <marker date="1506336154000" expanded="true" signature="7740:7861" ph="SELECT id,sv... svc_instances" />
+            <marker date="1506336154000" expanded="true" signature="8298:8541" ph="SELECT proje... database_instances" />
+            <marker date="1506336154000" expanded="true" signature="9050:9165" ph="SELECT conne... database_engine" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/sqla/core/access_helper.py">
+    <entry file="file://$PROJECT_DIR$/main/sqla/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1185">
-          <caret line="85" column="0" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+        <state relative-caret-position="282">
+          <caret line="161" column="47" lean-forward="false" selection-start-line="161" selection-start-column="47" selection-end-line="161" selection-end-column="47" />
           <folding>
-            <marker date="1506095095000" expanded="true" signature="1152:1252" ph="SELECT id FR... groups" />
-            <marker date="1506095095000" expanded="true" signature="2977:3080" ph="SELECT insta... svc_instances" />
-            <marker date="1506095095000" expanded="true" signature="4298:4406" ph="SELECT title... iaas_events" />
-            <marker date="1506095095000" expanded="true" signature="5385:5423" ph="SELECT title... news" />
-            <marker date="1506095095000" expanded="true" signature="6075:6104" ph="SELECT email... subscribers" />
-            <marker date="1506095095000" expanded="true" signature="6689:6746" ph="INSERT INTO subscribers... " />
-            <marker date="1506095095000" expanded="true" signature="7744:7865" ph="SELECT id,sv... svc_instances" />
-            <marker date="1506095095000" expanded="true" signature="8302:8545" ph="SELECT proje... database_instances" />
-            <marker date="1506095095000" expanded="true" signature="9054:9169" ph="SELECT conne... database_engine" />
+            <marker date="1506337076000" expanded="true" signature="39525:39598" ph="update svc_i... " />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/sqla/templates/403.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="40" lean-forward="false" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ldapconfig.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="1" lean-forward="false" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main/sqla/core/iaasldap.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="623">
-          <caret line="210" column="17" lean-forward="false" selection-start-line="210" selection-start-column="12" selection-end-line="210" selection-end-column="17" />
+        <state relative-caret-position="157">
+          <caret line="136" column="25" lean-forward="true" selection-start-line="136" selection-start-column="25" selection-end-line="136" selection-end-column="25" />
           <folding>
             <element signature="e#858#876#0" expanded="false" />
+            <element signature="e#1970#4258#0" expanded="false" />
           </folding>
         </state>
       </provider>

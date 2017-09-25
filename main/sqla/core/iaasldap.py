@@ -134,6 +134,7 @@ class LDAPUser():
         if ldapconfig.test:
             # return[]
             groups.append("superusers")
+            # groups.append("onlinelrn")
             return groups
         else:
             import ldap

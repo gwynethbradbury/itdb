@@ -26,7 +26,6 @@ AH = AccessHelper()
 
 from main.sqla.core.iaasldap import LDAPUser as LDAPUser
 current_user = LDAPUser()
-dbinfo="hdjfkhasdj"
 
 
 import dev.models as devmodels
@@ -108,11 +107,14 @@ def set_views(app):
     # region Flask views
     @app.route('/group/<group_name>')
     def show_groups(group_name):
-        instances = AH.get_projects_for_group(group_name)
-        try:
-            return render_template("groupprojects.html",groupname=group_name,instances=instances)
-        except TemplateNotFound:
-            abort(404)
+        if current_user.has_role(group_name):
+            instances = AH.get_projects_for_group(group_name)
+            try:
+                return render_template("groupprojects.html",groupname=group_name,instances=instances)
+            except TemplateNotFound:
+                abort(404)
+        else:
+            abort(403)
 
 
     @app.route('/')
@@ -154,6 +156,10 @@ def set_views(app):
     # endregion
 
     # region ERROR VIEWS
+
+    @app.errorhandler(403)
+    def page_not_found(e):
+        return render_template('403.html'), 403
 
     @app.errorhandler(404)
     def page_not_found(e):

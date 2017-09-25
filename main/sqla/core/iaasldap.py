@@ -203,11 +203,11 @@ class LDAPUser():
     Determines whether a user is authorised to view this project
     caveat: if this is an admin-only page, _admin is added to the group name
     '''
-    def is_authorised(self, application_name, is_admin_only_page=False):
+    def is_authorised(self, service_name, is_admin_only_page=False):
         if is_admin_only_page:
-            application_name = application_name + "_admin"
+            service_name = service_name + "_admin"
         usersgroups = self.get_groups()
-        if application_name in usersgroups:
+        if service_name in usersgroups:
             return True
         if "superusers" in usersgroups:
             return True

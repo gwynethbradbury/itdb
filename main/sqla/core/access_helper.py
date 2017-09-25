@@ -92,17 +92,13 @@ class AccessHelper:
             g_id = self.get_group_id(group)
             query = "SELECT instance_identifier,project_display_name,svc_type_id " \
                     "FROM svc_instances"
-            nextclause=' WHERE '
-            if not iaasldap.has_role('superusers') and svc_type>=0:
-                query=query+nextclause
-                nextclause=' AND '
-
-            if not iaasldap.has_role('superusers'):
-                query = query + "group_id='{}'" \
-                    .format(str(g_id))
-
-            if svc_type>=0:
-                query=query+nextclause+"svc_type_id='{}' ".format(str(svc_type))
+            if iaasldap.has_role('superusers'):
+                if svc_type >= 0:
+                    query = query + " WHERE svc_type_id='{}' ".format(str(svc_type))
+            else:
+                query = query + " WHERE group_id='{}'".format(str(g_id))
+                if svc_type>=0:
+                    query=query+" AND svc_type_id='{}' ".format(str(svc_type))
 
             query = query + ";"
 

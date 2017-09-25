@@ -308,25 +308,20 @@ class DatabaseOps(BaseView):
         return 'reloaded'
 
     def is_accessible(self):
-        # if current_user.has_role('superusers') :
-        #     return True
-        #
+        if current_user.has_role('superusers'):
+            return True
+
         # current_url = str.split(self.admin.url,'/')
-        # project_name=""
-        # require_project_admin=False
-        #
-        # if current_url[1]=='projects':
-        #     '''admin view of project'''
-        #     project_name = current_url[2]
-        #     require_project_admin = True
-        # else:
-        #     '''normal view of project'''
-        #     project_name = current_url[1]
-        #
-        # if not current_user.is_active or not current_user.is_authenticated(project_name):
-        #     return False
-        # if require_project_admin and not current_user.has_role('{}_admin'.format(project_name)):
-        #     return False
+
+
+        # check project authentication
+        if not current_user.is_active or not current_user.is_authenticated(self.application_name):
+            return False
+
+        # check is admin user as we're doing database operaions
+        '''admin view of project'''
+        if not current_user.has_role('{}_admin'.format(self.application_name)):
+            return False
 
 
         return True
@@ -336,13 +331,12 @@ class DatabaseOps(BaseView):
         Override builtin _handle_view in order to redirect users when a view is not accessible.
         """
         if not self.is_accessible():
-            pass
-            # if current_user.is_authenticated:
-            #     # permission denied
-            #     abort(403)
-            # else:
-            #     # login
-            #     return "not authenticated" #redirect(url_for('security.login', next=request.url))
+            if current_user.is_authenticated:
+                # permission denied
+                abort(403)
+            else:
+                # login
+                return "not authenticated"  # redirect(url_for('security.login', next=request.url))
 
 
 class MyStandardView(Admin2):
@@ -407,8 +401,6 @@ class MyStandardView(Admin2):
             # pass
 
 
-
-
 class MyIAASView(MyStandardView):
     def __init__(self, db_details,
                  app, name, template_mode,
@@ -466,17 +458,17 @@ class DBDetails():
     def GetUseage(self):
         dbuseage=0
         if self.engine_type == 'postgresql':
-            try:
-                r = self.ConnectAndExecute("SELECT table_name, pg_size_pretty(total_bytes) AS total "
-                                       "FROM("
-                                       "SELECT *, total_bytes - index_bytes - COALESCE(toast_bytes, 0) AS table_bytes "
-                                       "FROM("
-                                       "SELECT c.oid, nspname AS table_schema, relname AS TABLE_NAME, c.reltuples AS row_estimate, pg_total_relation_size(c.oid) AS total_bytes, pg_indexes_size(c.oid) AS index_bytes, pg_total_relation_size(reltoastrelid) AS toast_bytes "
-                                       "FROM pg_class c LEFT JOIN pg_namespace n ON n.oid = c.relnamespace WHERE relkind = 'r' and nspname = 'public'"
-                                       ") a"
-                                       ") a;")
-            except Exception as e:
-                print(e)
+            # try:
+            #     r = self.ConnectAndExecute("SELECT table_name, pg_size_pretty(total_bytes) AS total "
+            #                            "FROM("
+            #                            "SELECT *, total_bytes - index_bytes - COALESCE(toast_bytes, 0) AS table_bytes "
+            #                            "FROM("
+            #                            "SELECT c.oid, nspname AS table_schema, relname AS TABLE_NAME, c.reltuples AS row_estimate, pg_total_relation_size(c.oid) AS total_bytes, pg_indexes_size(c.oid) AS index_bytes, pg_total_relation_size(reltoastrelid) AS toast_bytes "
+            #                            "FROM pg_class c LEFT JOIN pg_namespace n ON n.oid = c.relnamespace WHERE relkind = 'r' and nspname = 'public'"
+            #                            ") a"
+            #                            ") a;")
+            # except Exception as e:
+            #     print(e)
 
             return 0
         else:

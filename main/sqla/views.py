@@ -653,6 +653,7 @@ class MyModelView(ModelView):
     #     LinkRowAction('glyphicon glyphicon-off', 'http://direct.link/?id={row_id}'),
     #     # EndpointLinkRowAction('glyphicon glyphicon-test', '/admin/createcolumn')
     # ]
+
     def __init__(self,
                  c,
                  session, name,databasename,db_string,
@@ -665,27 +666,23 @@ class MyModelView(ModelView):
         self.application_name=databasename
         self.db_string = db_string
 
-
+    '''test that this project is accessible to the user'''
     def is_accessible(self):
         if current_user.has_role('superusers') :
             return True
 
-        current_url = str.split(self.admin.url,'/')
-        project_name=""
-        require_project_admin=False
+        # current_url = str.split(self.admin.url,'/')
 
-        if current_url[1]=='projects':
-            '''admin view of project'''
-            project_name = current_url[2]
-            require_project_admin = True
-        else:
-            '''normal view of project'''
-            project_name = current_url[1]
 
-        if not current_user.is_active or not current_user.is_authenticated(project_name):
+        # check project authentication
+        if not current_user.is_active or not current_user.is_authenticated(self.application_name):
             return False
-        if require_project_admin and not current_user.has_role('{}_admin'.format(project_name)):
-            return False
+
+        # # check is admin user if necessary
+        # if current_url[1]=='projects':
+        #     '''admin view of project'''
+        #     if require_project_admin and not current_user.has_role('{}_admin'.format(self.application_name)):
+        #         return False
 
 
         return True

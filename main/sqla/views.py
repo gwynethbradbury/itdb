@@ -182,7 +182,7 @@ def set_views(app):
     @app.route("/projects/<svc_group>/newcolumn")
     # @app.route("/projects/<application_name>/<tablename>/newcolumn")
     def newcolumn(svc_group, tablename=""):
-        if not current_user.is_authorised(svc_name=applicsvc_groupation_name, is_admin_only_page=True):
+        if not current_user.is_authorised(service_name=applicsvc_groupation_name, is_admin_only_page=True):
             return abort(403)
 
         dbbindkey = "project_" + svc_group + "_db"
@@ -252,12 +252,12 @@ def set_views(app):
     # delete a whole table
     @app.route("/projects/<svc_group>/admin/deletetable/<tablename>")
     def deletetable(svc_group, tablename):
-        if not current_user.is_authorised(svc_name=svc_group, is_admin_only_page=True):
+        if not current_user.is_authorised(service_name=svc_group, is_admin_only_page=True):
             return abort(403)
 
         dbbindkey = "project_" + svc_group + "_db"
 
-        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, svc_group)  # , upload_folder=uploadfolder)
+        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, svc_group)  # , upload_folder=uploadfolder)
 
         DBA.deleteTable(tablename)
         # DBA.DBE.refresh()
@@ -266,7 +266,7 @@ def set_views(app):
     # clear all entries from a table
     @app.route("/projects/<svc_group>/admin/cleartable/<tablename>")
     def cleartable(svc_group, tablename):
-        if not current_user.is_authorised(svc_name=svc_group, is_admin_only_page=True):
+        if not current_user.is_authorised(service_name=svc_group, is_admin_only_page=True):
             return abort(403)
 
         dbbindkey = "project_" + svc_group + "_db"
@@ -286,7 +286,7 @@ def set_views(app):
     @app.route("/projects/<svc_group>/genblankcsv", methods=['GET', 'POST'])
     @app.route("/projects/<svc_group>/<tablename>/genblankcsv", methods=['GET', 'POST'])
     def genblankcsv(svc_group,tablename=""):
-        if not current_user.is_authorised(svc_name=svc_group, is_admin_only_page=True):
+        if not current_user.is_authorised(service_name=svc_group, is_admin_only_page=True):
             return abort(403)
 
         dbbindkey = "project_" + svc_group + "_db"
@@ -845,7 +845,7 @@ class MyModelView(ModelView):
     @expose('/admin/newcolumn')
     def newcolumn(self):
 
-        if not current_user.is_authorised(svc_name=self.svc_group, is_admin_only_page=True):
+        if not current_user.is_authorised(service_name=self.svc_group, is_admin_only_page=True):
             return abort(403)
 
         lstofdatatypes = listOfColumnTypesByName
@@ -859,7 +859,7 @@ class MyModelView(ModelView):
     @expose('/admin/removecolumn')
     def removecolumn(self):
 
-        if not current_user.is_authorised(svc_name=self.svc_group, is_admin_only_page=True):
+        if not current_user.is_authorised(service_name=self.svc_group, is_admin_only_page=True):
             return abort(403)
 
         columnnames=[i[0] for i in self.get_column_names(self.scaffold_list_columns(),[])]
@@ -938,7 +938,7 @@ class MyModelView(ModelView):
     @expose('/admin/cleartable')
     def cleartable(self):
 
-        if not current_user.is_authorised(svc_name=self.svc_group, is_admin_only_page=True):
+        if not current_user.is_authorised(service_name=self.svc_group, is_admin_only_page=True):
             return abort(403)
         dbbindkey = "project_" + self.svc_group + "_db"
 
@@ -951,7 +951,7 @@ class MyModelView(ModelView):
     # @app.route("/projects/<application_name>/admin/<tablename>/createcolumn", methods=['GET', 'POST'])
     @expose('/admin/createcolumn', methods=['GET', 'POST'])
     def createcolumn(self):
-        if not current_user.is_authorised(svc_group=self.svc_group, is_admin_only_page=True):
+        if not current_user.is_authorised(service_name=self.svc_group, is_admin_only_page=True):
             return abort(403)
 
         dbbindkey = "project_" + self.svc_group + "_db"

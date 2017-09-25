@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce4c93b2-95bc-4444-b569-e302376b0a7f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/methods.py" afterPath="$PROJECT_DIR$/main/sqla/methods.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/views.py" afterPath="$PROJECT_DIR$/main/sqla/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,7 +30,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="methods.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="methods.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/sqla/methods.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-19">
@@ -76,7 +76,7 @@
         <entry file="file://$PROJECT_DIR$/main/sqla/core/iaasldap.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="533">
-              <caret line="205" column="8" lean-forward="false" selection-start-line="205" selection-start-column="8" selection-end-line="205" selection-end-column="8" />
+              <caret line="205" column="40" lean-forward="false" selection-start-line="205" selection-start-column="28" selection-end-line="205" selection-end-column="40" />
               <folding>
                 <element signature="e#858#876#0" expanded="false" />
                 <element signature="e#1970#4258#0" expanded="false" />
@@ -105,17 +105,18 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main/sqla/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="665" column="26" lean-forward="false" selection-start-line="665" selection-start-column="10" selection-end-line="665" selection-end-column="26" />
+            <state relative-caret-position="552">
+              <caret line="288" column="54" lean-forward="false" selection-start-line="288" selection-start-column="54" selection-end-line="288" selection-end-column="54" />
               <folding>
-                <element signature="e#6623#6624#0" expanded="false" />
-                <element signature="e#11335#11368#0" expanded="false" />
-                <element signature="e#29599#29663#0" expanded="false" />
-                <element signature="e#36875#37989#0" expanded="false" />
-                <marker date="1506347182000" expanded="true" signature="37407:37480" ph="update svc_i... " />
+                <element signature="e#6627#6628#0" expanded="false" />
+                <element signature="e#11346#11379#0" expanded="false" />
+                <element signature="e#29347#29361#0" expanded="false" />
+                <element signature="e#29610#29674#0" expanded="false" />
+                <element signature="e#36886#38000#0" expanded="false" />
+                <marker date="1506347572000" expanded="true" signature="37418:37491" ph="update svc_i... " />
               </folding>
             </state>
           </provider>
@@ -192,7 +193,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>appconfig['db</find>
       <find>config['db</find>
       <find>'db</find>
       <find>'db'</find>
@@ -220,8 +220,9 @@
       <find>bootstrap.min.css</find>
       <find>401</find>
       <find>error_han</find>
-      <find>super</find>
       <find>application_name</find>
+      <find>super</find>
+      <find>svc_name</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/flask_admin/templates/foundation</dir>
@@ -277,8 +278,8 @@
         <option value="$PROJECT_DIR$/main/sqla/templates/401.html" />
         <option value="$PROJECT_DIR$/main/sqla/templates/base_template_foundation.html" />
         <option value="$PROJECT_DIR$/main/sqla/core/iaasldap.py" />
-        <option value="$PROJECT_DIR$/main/sqla/views.py" />
         <option value="$PROJECT_DIR$/main/sqla/methods.py" />
+        <option value="$PROJECT_DIR$/main/sqla/views.py" />
       </list>
     </option>
   </component>
@@ -1187,14 +1188,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/sqla/core/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="31" column="52" lean-forward="false" selection-start-line="31" selection-start-column="52" selection-end-line="31" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/sqla/core/access_helper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="430">
@@ -1253,31 +1246,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/sqla/core/iaasldap.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="533">
-          <caret line="205" column="8" lean-forward="false" selection-start-line="205" selection-start-column="8" selection-end-line="205" selection-end-column="8" />
-          <folding>
-            <element signature="e#858#876#0" expanded="false" />
-            <element signature="e#1970#4258#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/sqla/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="665" column="26" lean-forward="false" selection-start-line="665" selection-start-column="10" selection-end-line="665" selection-end-column="26" />
-          <folding>
-            <element signature="e#6623#6624#0" expanded="false" />
-            <element signature="e#11335#11368#0" expanded="false" />
-            <element signature="e#29599#29663#0" expanded="false" />
-            <element signature="e#36875#37989#0" expanded="false" />
-            <marker date="1506347182000" expanded="true" signature="37407:37480" ph="update svc_i... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/sqla/methods.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-19">
@@ -1314,6 +1282,40 @@
             <marker date="1506347322000" expanded="true" signature="17473:17942" ph="SELECT *, to... oid" />
             <marker date="1506347322000" expanded="true" signature="17644:17942" ph="SELECT c.oid... pg_class" />
             <marker date="1506347322000" expanded="true" signature="18306:18484" ph="SELECT Round... tables" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/sqla/core/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="31" column="52" lean-forward="false" selection-start-line="31" selection-start-column="52" selection-end-line="31" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/sqla/core/iaasldap.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="533">
+          <caret line="205" column="40" lean-forward="false" selection-start-line="205" selection-start-column="28" selection-end-line="205" selection-end-column="40" />
+          <folding>
+            <element signature="e#858#876#0" expanded="false" />
+            <element signature="e#1970#4258#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/sqla/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="288" column="54" lean-forward="false" selection-start-line="288" selection-start-column="54" selection-end-line="288" selection-end-column="54" />
+          <folding>
+            <element signature="e#6627#6628#0" expanded="false" />
+            <element signature="e#11346#11379#0" expanded="false" />
+            <element signature="e#29347#29361#0" expanded="false" />
+            <element signature="e#29610#29674#0" expanded="false" />
+            <element signature="e#36886#38000#0" expanded="false" />
+            <marker date="1506347572000" expanded="true" signature="37418:37491" ph="update svc_i... " />
           </folding>
         </state>
       </provider>

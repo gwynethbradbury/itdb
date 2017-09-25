@@ -404,20 +404,19 @@ class MyIAASView(MyStandardView):
         self.db_details = db_details
 
     def getIPAddresses(self):
-        return self.db_details.ConnectAndExecute(query="SELECT ip_address FROM database_instances "
+        instances,msg,success =  self.db_details.ConnectAndExecute(query="SELECT ip_address FROM database_instances "
                                       "UNION "
                                       "SELECT ip_address from nextcloud_instances "
                                       "UNION "
                                       "SELECT ip_address from web_apps;")
-
+        return instances
 
 
 
 
     def getPorts(self):
-
-        return self.db_details.ConnectAndExecute(query="SELECT ip_address, port from database_instances;")
-
+        instances, msg, success = self.db_details.ConnectAndExecute(query="SELECT ip_address, port from database_instances;")
+        return instances
 
 
 class DBDetails():
@@ -430,23 +429,26 @@ class DBDetails():
         self.dbname=dbname
 
     def ConnectAndExecute(self, query):
-        conn = pymysql.connect(host=self.host,
-                               port=self.port,
-                               user=self.username,
-                               passwd=self.passwd,
-                               db=self.dbname)
+        try:
+            conn = pymysql.connect(host=self.host,
+                                   port=self.port,
+                                   user=self.username,
+                                   passwd=self.passwd,
+                                   db=self.dbname)
 
-        cur = conn.cursor()
+            cur = conn.cursor()
 
-        cur.execute(query)
+            cur.execute(query)
 
-        instances = []
-        for inst in cur:
-            instances.append(inst)
-        cur.close()
-        conn.close()
+            instances = []
+            for inst in cur:
+                instances.append(inst)
+            cur.close()
+            conn.close()
 
-        return instances
+            return instances, "", 1
+        except Exception as e:
+            return [], e.__str__(), 0
 
     def GetUseage(self):
         dbuseage=0
@@ -466,12 +468,12 @@ class DBDetails():
             return 0
         else:
             try:
-                C = self.ConnectAndExecute(
+                instances, msg, success = self.ConnectAndExecute(
                     "SELECT Round(Sum(data_length + index_length) / 1024 / 1024, 1) 'db_size_mb' "
                     "FROM information_schema.tables "
                     "WHERE table_schema = '{}';".format(self.dbname))
 
-                for inst in C:
+                for inst in instances:
                     dbuseage = inst[0]
             except Exception as e:
                 print(e)
@@ -669,13 +671,14 @@ class DBAS():
             
             if dbconfig.db_name == class_db_dict[c]:
                 print c
-                self._add_a_view(iaas_admin, classesdict[c],db_string=self.SQLALCHEMY_BINDS[dbconfig.db_name],svc_group='superusers')
+                self._add_a_view(iaas_admin, classesdict[c],db_name=dbconfig.db_name,svc_group='superusers')
 
-    def _add_a_view(self, proj_admin, c, db_string, svc_group):
+    def _add_a_view(self, proj_admin, c, db_name, svc_group):
         proj_admin.add_view(
             views.MyModelView(c, self.db.session, name=c.__display_name__, databasename=proj_admin.database_name,
                               endpoint=proj_admin.database_name + "_" + c.__display_name__, category="Tables",
-                              db_string=db_string,svc_group=svc_group))
+                              db_string=self.db_details_dict[db_name].__str__(),svc_group=svc_group,
+                              db_details=self.db_details_dict[db_name]))
 
     def add_collection_of_views(self, d, classesdict, class_db_dict,svc_group):
         if d == dbconfig.db_name:
@@ -712,7 +715,7 @@ class DBAS():
                     continue
 
                 try:
-                    self._add_a_view(proj_admin, classesdict[c],db_string=self.SQLALCHEMY_BINDS[d],svc_group=svc_group)
+                    self._add_a_view(proj_admin, classesdict[c],db_name=d,svc_group=svc_group)
                 except Exception as e:
                     print(e)
                     print("failed")

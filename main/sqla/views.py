@@ -632,7 +632,7 @@ class MyModelView(ModelView):
     def __init__(self,
                  c,
                  session, name,databasename,db_string,
-                 endpoint, svc_group,
+                 endpoint, svc_group, db_details,
                  category = "Tables"):
 
         super(MyModelView, self).__init__(c,session, name=name,endpoint=endpoint,category=category)
@@ -640,6 +640,7 @@ class MyModelView(ModelView):
         print "VIEW CREATED FOR " + str(self.tablename)
         self.svc_group=svc_group
         self.db_string = db_string
+        self.db_details = db_details
 
     '''test that this project is accessible to the user'''
     def is_accessible(self):
@@ -954,11 +955,15 @@ class MyModelView(ModelView):
         if not current_user.is_authorised(service_name=self.svc_group, is_admin_only_page=True):
             return abort(403)
 
-        dbbindkey = "project_" + self.svc_group + "_db"
+        colname=request.form.get("newcolumnname")
+        coltype=request.form.get("datatypes")
+        columnnames = [i[0] for i in self.get_column_names(self.scaffold_list_columns(), [])]
 
-        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, self.svc_group)  # , upload_folder=uploadfolder)
 
-        success = 0
+        # dbbindkey = "project_" + self.svc_group + "_db"
+        # DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, self.svc_group)  # , upload_folder=uploadfolder)
+
+        success = 1
         ret = ""
         columnnames = [i[0] for i in self.get_column_names(self.scaffold_list_columns(), [])]
 
@@ -972,15 +977,25 @@ class MyModelView(ModelView):
             success = 0
             ret = "Column " + request.form.get("newcolumnname") + " already exists, try a new name"
 
-        # todo: get argument n which islength of string etc, default is curretly 10
-        ret, success = DBA.addColumn(str(self.tablename),
-                                     request.form.get("newcolumnname"),
-                                     request.form.get("datatypes"))
+        elif colname in columnnames:
+                ret = (colname + " already exists in table.")
+                success = 0
+
+        else:
+            data_type_formatted = devmodels.desc2formattedtype(coltype, 100)
+
+            query = "ALTER TABLE {} ADD COLUMN {} {};".format(str(self.tablename), colname, data_type_formatted)
+
+            res, ret, success = self.db_details.ConnectAndExecute(query)
+
+
+
 
         listofdatatypes = listOfColumnTypesByName
         # redirects to the same page
         if success == 1:
             self.trigger_reload()
+            flash(ret,'info')
             return self.render("projects/add_column.html",
                                message="Column " +
                                        request.form.get("newcolumnname") + " created successfully!\n" + ret,
@@ -988,6 +1003,7 @@ class MyModelView(ModelView):
                                pname=self.svc_group)
 
         else:
+            flash(ret,'error')
             return self.render("projects/add_column.html",
                                error="Creation of column " + request.form.get("newcolumnname") +
                                      " failed!<br/>Error: " + ret,
@@ -996,36 +1012,32 @@ class MyModelView(ModelView):
 
     @expose('/admin/remcolumn', methods=['GET', 'POST'])
     def remcolumn(self):
-        if not current_user.is_authorised(svc_group=self.svc_group, is_admin_only_page=True):
+        if not current_user.is_authorised(service_name=self.svc_group, is_admin_only_page=True):
             return abort(403)
-        dbbindkey = "project_" + self.svc_group + "_db"
 
-        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, self.svc_group)  # , upload_folder=uploadfolder)
+        colname = request.form.get("colnames")
 
         success = 0
         ret = ""
         columnnames = [i[0] for i in self.get_column_names(self.scaffold_list_columns(), [])]
 
         # check for no column name
-        if request.form.get("colnames") == "":
+        if colname == "":
             success = 0
             ret = "Select column"
 
         # check for existing table with this name
-        elif request.form.get("colnames") in columnnames:
-            success = 0
-            ret, success = DBA.remColumn(self.tablename, request.form.get("colnames"))
+        elif not colname in columnnames:
+            ret="failed, could not find column in table {}".format(str(self.tablename))
+            success=0
 
         else:
-            ret="could not find column " + request.form.get("colnames")
-            success=0
+            query = "ALTER TABLE {} DROP COLUMN {};".format(str(self.tablename), colname)
+            res,ret,success = self.db_details.ConnectAndExecute(query)
+
 
         # redirects to the same page
         if success == 1:
-            # todo: fixthe following
-
-            # return "{}: column {} removed from table {} but app needs to be reloaded to proceed"\
-            #     .format(application_name,request.form.get("colnames"),tablename)
             self.trigger_reload()
 
             return self.render("projects/rem_column.html",

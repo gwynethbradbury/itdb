@@ -58,12 +58,11 @@ class DatabaseOps(BaseView):
 
     @expose('/newtable', methods=['GET', 'POST'])
     def newtable(self):
+        if not current_user.is_authorised(service_name=self.svc_group, is_admin_only_page=True):
+            return abort(403)
 
-        application_name = self.svc_group
 
         if request.method == 'GET':
-            if not current_user.is_authorised(service_name=application_name, is_admin_only_page=True):
-                return abort(403)
 
             dbbindkey = "project_" + self.database_name + "_db"
 
@@ -77,8 +76,7 @@ class DatabaseOps(BaseView):
                                columnnames=columnnames,
                                pname=self.database_name)
 
-        if not current_user.is_authorised(application_name=self.database_name, is_admin_only_page=True):
-            return abort(403)
+
 
         dbbindkey = "project_" + self.database_name + "_db"
 

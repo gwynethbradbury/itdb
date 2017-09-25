@@ -669,7 +669,7 @@ class DBAS():
             
             if dbconfig.db_name == class_db_dict[c]:
                 print c
-                self._add_a_view(iaas_admin, classesdict[c],db_string=self.SQLALCHEMY_BINDS[dbconfig.db_name])
+                self._add_a_view(iaas_admin, classesdict[c],db_string=self.SQLALCHEMY_BINDS[dbconfig.db_name],svc_group='superusers')
 
     def _add_a_view(self, proj_admin, c, db_string, svc_group):
         proj_admin.add_view(

@@ -50,6 +50,26 @@ class DatabaseOps(BaseView):
         self.db = db
         self.classes = C
 
+# region error_handling
+    @app.errorhandler(403)
+    def page_not_found(e):
+        return render_template('403.html'), 403
+
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return render_template('404.html'), 404
+
+
+    @app.errorhandler(500)
+    def page_not_found(e):
+        return render_template('500.html'), 500
+
+
+    @app.errorhandler(401)
+    def page_not_found(e):
+        return render_template('401.html'), 401
+# endregion
+
     @expose('/')
     def index(self):
         return "DatabaseOps"  # self.render('analytics_index.html')
@@ -57,11 +77,11 @@ class DatabaseOps(BaseView):
     @expose('/newtable', methods=['GET', 'POST'])
     def newtable(self):
 
-        application_name = self.database_name
+        application_name = self.svc_group
 
         if request.method == 'GET':
-            if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
-                return abort(401)
+            if not current_user.is_authorised(service_name=application_name, is_admin_only_page=True):
+                return abort(403)
 
             dbbindkey = "project_" + self.database_name + "_db"
 
@@ -76,7 +96,7 @@ class DatabaseOps(BaseView):
                                pname=self.database_name)
 
         if not current_user.is_authorised(application_name=self.database_name, is_admin_only_page=True):
-            return abort(401)
+            return abort(403)
 
         dbbindkey = "project_" + self.database_name + "_db"
 
@@ -150,7 +170,7 @@ class DatabaseOps(BaseView):
         application_name = self.database_name
 
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
-            return abort(401)
+            return abort(403)
 
         dbbindkey = "project_" + application_name + "_db"
 
@@ -188,7 +208,7 @@ class DatabaseOps(BaseView):
     def upload(self, msg="", err=""):
         application_name = self.database_name
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
-            return abort(401)
+            return abort(403)
 
         if request.method == 'GET':
             dbbindkey = "project_" + application_name + "_db"
@@ -240,7 +260,7 @@ class DatabaseOps(BaseView):
     def download(self):
         application_name = self.database_name
         if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
-            return abort(401)
+            return abort(403)
 
         dbbindkey = "project_" + application_name + "_db"
 
@@ -342,6 +362,25 @@ class MyStandardView(Admin2):
         self.db_string = db_details.__str__()
         self.db_details = db_details
         self.setDBEngine(self.database_name)
+
+# region error_handling
+    @app.errorhandler(403)
+    def page_not_found(e):
+        return render_template('403.html'), 403
+
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return render_template('404.html'), 404
+
+    @app.errorhandler(500)
+    def page_not_found(e):
+        return render_template('500.html'), 500
+
+    @app.errorhandler(401)
+    def page_not_found(e):
+        return render_template('401.html'), 401
+
+# endregion
 
     @expose('/')
     def home(self):

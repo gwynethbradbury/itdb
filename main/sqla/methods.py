@@ -671,11 +671,11 @@ class DBAS():
                 print c
                 self._add_a_view(iaas_admin, classesdict[c],db_string=self.SQLALCHEMY_BINDS[dbconfig.db_name])
 
-    def _add_a_view(self, proj_admin, c, db_string):
+    def _add_a_view(self, proj_admin, c, db_string, svc_group):
         proj_admin.add_view(
             views.MyModelView(c, self.db.session, name=c.__display_name__, databasename=proj_admin.database_name,
                               endpoint=proj_admin.database_name + "_" + c.__display_name__, category="Tables",
-                              db_string=db_string))
+                              db_string=db_string,svc_group=svc_group))
 
     def add_collection_of_views(self, d, classesdict, class_db_dict,svc_group):
         if d == dbconfig.db_name:
@@ -712,7 +712,7 @@ class DBAS():
                     continue
 
                 try:
-                    self._add_a_view(proj_admin, classesdict[c],db_string=self.SQLALCHEMY_BINDS[d])
+                    self._add_a_view(proj_admin, classesdict[c],db_string=self.SQLALCHEMY_BINDS[d],svc_group=svc_group)
                 except Exception as e:
                     print(e)
                     print("failed")

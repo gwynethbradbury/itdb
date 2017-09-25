@@ -179,28 +179,28 @@ def set_views(app):
 
     # adding a column to an existing table
     # todo: unfinished
-    @app.route("/projects/<application_name>/newcolumn")
+    @app.route("/projects/<svc_group>/newcolumn")
     # @app.route("/projects/<application_name>/<tablename>/newcolumn")
-    def newcolumn(application_name, tablename=""):
-        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+    def newcolumn(svc_group, tablename=""):
+        if not current_user.is_authorised(svc_name=applicsvc_groupation_name, is_admin_only_page=True):
             return abort(403)
 
-        dbbindkey = "project_" + application_name + "_db"
+        dbbindkey = "project_" + svc_group + "_db"
 
-        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, svc_group)  # , upload_folder=uploadfolder)
 
         tablenames, columnnames = DBA.getTableAndColumnNames()
 
         listofdatatypes = listOfColumnTypesByName
 
         if not tablenames == []:
-            return redirect("/projects/{}/{}/newcolumn".format(application_name, tablenames[0]))
+            return redirect("/projects/{}/{}/newcolumn".format(svc_group, tablenames[0]))
         return render_template("projects/add_column.html",
-                               tablename=tablename, appname=application_name,
+                               tablename=tablename, appname=svc_group,
                                tablenames=tablenames,
                                listofdatatypes=listofdatatypes,
                                columnnames=columnnames,
-                               pname=application_name)
+                               pname=svc_group)
 
     #
     # @app.route("/projects/<application_name>/admin/<tablename>/createcolumn", methods=['GET', 'POST'])
@@ -250,31 +250,31 @@ def set_views(app):
     #                                pname=application_name)
 
     # delete a whole table
-    @app.route("/projects/<application_name>/admin/deletetable/<tablename>")
-    def deletetable(application_name, tablename):
-        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+    @app.route("/projects/<svc_group>/admin/deletetable/<tablename>")
+    def deletetable(svc_group, tablename):
+        if not current_user.is_authorised(svc_name=svc_group, is_admin_only_page=True):
             return abort(403)
 
-        dbbindkey = "project_" + application_name + "_db"
+        dbbindkey = "project_" + svc_group + "_db"
 
-        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, svc_group)  # , upload_folder=uploadfolder)
 
         DBA.deleteTable(tablename)
         # DBA.DBE.refresh()
-        return redirect("/projects/" + application_name + "/admin/")
+        return redirect("/projects/" + svc_group + "/admin/")
 
     # clear all entries from a table
-    @app.route("/projects/<application_name>/admin/cleartable/<tablename>")
-    def cleartable(application_name, tablename):
-        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+    @app.route("/projects/<svc_group>/admin/cleartable/<tablename>")
+    def cleartable(svc_group, tablename):
+        if not current_user.is_authorised(svc_name=svc_group, is_admin_only_page=True):
             return abort(403)
 
-        dbbindkey = "project_" + application_name + "_db"
+        dbbindkey = "project_" + svc_group + "_db"
 
-        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
+        DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, svc_group)  # , upload_folder=uploadfolder)
 
         DBA.clearTable(tablename)
-        return redirect("/projects/" + application_name + "/admin/")
+        return redirect("/projects/" + svc_group + "/admin/")
 
     # endregion
 
@@ -283,15 +283,15 @@ def set_views(app):
 
 
     '''generate a blank cv given an existing table'''
-    @app.route("/projects/<application_name>/genblankcsv", methods=['GET', 'POST'])
-    @app.route("/projects/<application_name>/<tablename>/genblankcsv", methods=['GET', 'POST'])
-    def genblankcsv(application_name,tablename=""):
-        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+    @app.route("/projects/<svc_group>/genblankcsv", methods=['GET', 'POST'])
+    @app.route("/projects/<svc_group>/<tablename>/genblankcsv", methods=['GET', 'POST'])
+    def genblankcsv(svc_group,tablename=""):
+        if not current_user.is_authorised(svc_name=svc_group, is_admin_only_page=True):
             return abort(403)
 
-        dbbindkey = "project_" + application_name + "_db"
+        dbbindkey = "project_" + svc_group + "_db"
 
-        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, application_name,
+        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, svc_group,
                                           upload_folder=os.path.dirname(os.path.realpath(__file__)) + '/data/')
 
         if tablename=="":
@@ -308,7 +308,7 @@ def set_views(app):
 
 
 
-        return redirect("/projects/" + application_name )
+        return redirect("/projects/" + svc_group )
 
 
     # ''' renders the upload form '''
@@ -632,23 +632,21 @@ class MyModelView(ModelView):
     def __init__(self,
                  c,
                  session, name,databasename,db_string,
-                 endpoint,
+                 endpoint, svc_group,
                  category = "Tables"):
 
         super(MyModelView, self).__init__(c,session, name=name,endpoint=endpoint,category=category)
         self.tablename = c.__table__
         print "VIEW CREATED FOR " + str(self.tablename)
-        self.application_name=databasename
+        self.svc_group=svc_group
         self.db_string = db_string
 
     '''test that this project is accessible to the user'''
     def is_accessible(self):
-        if current_user.has_role('superusers') :
-            return True
-
-        # check project authentication
-        if not current_user.is_active or not current_user.is_authenticated(self.application_name):
+        if not current_user.is_active:
             return False
+        if current_user.is_authorised(self.svc_group):
+            return True
 
         return False
 
@@ -847,30 +845,30 @@ class MyModelView(ModelView):
     @expose('/admin/newcolumn')
     def newcolumn(self):
 
-        if not current_user.is_authorised(application_name=self.application_name, is_admin_only_page=True):
+        if not current_user.is_authorised(svc_name=self.svc_group, is_admin_only_page=True):
             return abort(403)
 
         lstofdatatypes = listOfColumnTypesByName
 
 
         return self.render("projects/add_column.html",
-                           appname=self.application_name,
+                           appname=self.svc_group,
                                listofdatatypes=lstofdatatypes,
-                               pname=self.application_name)
+                               pname=self.svc_group)
 
     @expose('/admin/removecolumn')
     def removecolumn(self):
 
-        if not current_user.is_authorised(application_name=self.application_name, is_admin_only_page=True):
+        if not current_user.is_authorised(svc_name=self.svc_group, is_admin_only_page=True):
             return abort(403)
 
         columnnames=[i[0] for i in self.get_column_names(self.scaffold_list_columns(),[])]
 
 
         return self.render("projects/rem_column.html",
-                               tablename=self.tablename, appname=self.application_name,
+                               tablename=self.tablename, appname=self.svc_group,
                                columnnames=columnnames,
-                               pname=self.application_name)
+                               pname=self.svc_group)
 
 
     # @expose('/upload')
@@ -921,9 +919,9 @@ class MyModelView(ModelView):
         if not current_user.is_authorised(application_name=self.application_name, is_admin_only_page=True):
             return abort(403)
 
-        dbbindkey = "project_" + self.application_name + "_db"
+        dbbindkey = "project_" + self.svc_group + "_db"
 
-        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, self.application_name)  # , upload_folder=uploadfolder)
+        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, self.svc_group)  # , upload_folder=uploadfolder)
 
         # admin_pages_setup()
         DBA.deleteTable(self.tablename)
@@ -935,16 +933,16 @@ class MyModelView(ModelView):
         # self.trigger_reload()
 
         # return '{}: table {} deleted from app but app needs to reload'.format(application_name,tablename)
-        return redirect("/projects/" + self.application_name)
+        return redirect("/projects/" + self.svc_group)
 
     @expose('/admin/cleartable')
     def cleartable(self):
 
-        if not current_user.is_authorised(application_name=self.application_name, is_admin_only_page=True):
+        if not current_user.is_authorised(svc_name=self.svc_group, is_admin_only_page=True):
             return abort(403)
-        dbbindkey = "project_" + self.application_name + "_db"
+        dbbindkey = "project_" + self.svc_group + "_db"
 
-        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, self.application_name)
+        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, self.svc_group)
 
         DBA.clearTable(self.tablename)
 
@@ -953,12 +951,12 @@ class MyModelView(ModelView):
     # @app.route("/projects/<application_name>/admin/<tablename>/createcolumn", methods=['GET', 'POST'])
     @expose('/admin/createcolumn', methods=['GET', 'POST'])
     def createcolumn(self):
-        if not current_user.is_authorised(application_name=self.application_name, is_admin_only_page=True):
+        if not current_user.is_authorised(svc_group=self.svc_group, is_admin_only_page=True):
             return abort(403)
 
-        dbbindkey = "project_" + self.application_name + "_db"
+        dbbindkey = "project_" + self.svc_group + "_db"
 
-        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, self.application_name)  # , upload_folder=uploadfolder)
+        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, self.svc_group)  # , upload_folder=uploadfolder)
 
         success = 0
         ret = ""
@@ -987,22 +985,22 @@ class MyModelView(ModelView):
                                message="Column " +
                                        request.form.get("newcolumnname") + " created successfully!\n" + ret,
                                listofdatatypes=listofdatatypes,
-                               pname=self.application_name)
+                               pname=self.svc_group)
 
         else:
             return self.render("projects/add_column.html",
                                error="Creation of column " + request.form.get("newcolumnname") +
                                      " failed!<br/>Error: " + ret,
                                listofdatatypes=listofdatatypes,
-                               pname=self.application_name)
+                               pname=self.svc_group)
 
     @expose('/admin/remcolumn', methods=['GET', 'POST'])
     def remcolumn(self):
-        if not current_user.is_authorised(application_name=self.application_name, is_admin_only_page=True):
+        if not current_user.is_authorised(svc_group=self.svc_group, is_admin_only_page=True):
             return abort(403)
-        dbbindkey = "project_" + self.application_name + "_db"
+        dbbindkey = "project_" + self.svc_group + "_db"
 
-        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, self.application_name)  # , upload_folder=uploadfolder)
+        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, self.svc_group)  # , upload_folder=uploadfolder)
 
         success = 0
         ret = ""
@@ -1034,13 +1032,13 @@ class MyModelView(ModelView):
                                columnnames=columnnames,
                                message="Column " +
                                        request.form.get("colnames") + " removed successfully!\n" + ret,
-                               pname=self.application_name)
+                               pname=self.svc_group)
 
         else:
             return self.render("projects/rem_column.html",
                                columnnames=columnnames,
                                error="Removal of column " + request.form.get("colnames") +
                                      " failed!<br/>Error: " + ret,
-                               pname=self.application_name)
+                               pname=self.svc_group)
 
 

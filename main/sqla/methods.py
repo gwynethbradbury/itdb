@@ -149,7 +149,7 @@ class DatabaseOps(BaseView):
     def relationshipbuilder(self):
         application_name = self.database_name
 
-        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+        if not current_user.is_authorised(service_name=self.svc_group, is_admin_only_page=True):
             return abort(403)
 
         dbbindkey = "project_" + application_name + "_db"
@@ -408,7 +408,9 @@ class MyIAASView(MyStandardView):
                                       "UNION "
                                       "SELECT ip_address from nextcloud_instances "
                                       "UNION "
-                                      "SELECT ip_address from web_apps;")
+                                      "SELECT ip_address from web_apps "
+                                      "UNION "
+                                      "SELECT ip_address from virtual_machines;")
         return instances
 
 

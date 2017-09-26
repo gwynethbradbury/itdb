@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for, request,send_file
-from . import app as map
+# from . import app as map
 import json
 # from .models import project
 from main.sqla.core.iaasldap import LDAPUser as iaasldap
@@ -25,17 +25,10 @@ else:
 
 projects = []
 
-DB = DBHelper("map")#map.name)
 
 from main.sqla.dev import *
 
 
-dbbb = 'mysql+pymysql://{}:{}@localhost/{}'.format(dbconfig.db_user,
-                                                   dbconfig.db_password,
-                                                   'map')#map.name)
-dbbindkey="project_"+map.name+"_db"
-appname=map.name
-DBA = DatabaseAssistant(dbbb,dbbindkey,appname)
 
 
 
@@ -50,9 +43,19 @@ DBA = DatabaseAssistant(dbbb,dbbindkey,appname)
 
 def assignroutes(application):
     approute = "/projects/"+"map"+"/app/"
+    shortapproute = "/"+"map"+"/"
     templateroute = "projects/"+"map"+"/"
 
+    dbbb = 'mysql+pymysql://{}:{}@localhost/{}'.format(dbconfig.db_user,
+                                                       dbconfig.db_password,
+                                                       'map')  # map.name)
+    dbbindkey = "project_" + "map" + "_db"
+    appname = "map"
+    DBA = DatabaseAssistant(dbbb, dbbindkey, appname)
+    DB = DBHelper("map")
+
     @application.route(approute+"showpoints")
+    @application.route(shortapproute+"showpoints")
     def showpoints():
         projects = []
         try:
@@ -70,6 +73,7 @@ def assignroutes(application):
                                servicelist=iaasldap.get_groups())
 
     @application.route(approute+"submitproject", methods=['GET', 'POST'])
+    @application.route(shortapproute+"submitproject", methods=['GET', 'POST'])
     def submit():
         try:
             category = request.form.get("category")
@@ -85,6 +89,7 @@ def assignroutes(application):
         return redirect(approute+"showpoints")#url_for("map"+"_app."+"map"))
 
     @application.route(approute+"uploadxls", methods=['GET', 'POST'])
+    @application.route(shortapproute+"uploadxls", methods=['GET', 'POST'])
     def uploadxls():
         try:
             filename = request.form.get("filename")
@@ -94,6 +99,7 @@ def assignroutes(application):
         return redirect(approute+"showpoints")#redirect(url_for('map_app.map'))
 
     @application.route(approute+"")
+    @application.route(shortapproute+"")
     def applicationhome():
         projects = []
         try:

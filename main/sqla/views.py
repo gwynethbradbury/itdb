@@ -260,6 +260,7 @@ def set_views(app):
         DBA = devmodels.DatabaseAssistant(db_string, dbbindkey, svc_group)  # , upload_folder=uploadfolder)
 
         DBA.deleteTable(tablename)
+        self.trigger_reload()
         # DBA.DBE.refresh()
         return redirect("/projects/" + svc_group + "/admin/")
 
@@ -831,6 +832,7 @@ class MyModelView(ModelView):
             query = "update svc_instances set schema_id=schema_id+1 where instance_identifier={};".format(str(application_name))
             with connection.cursor() as cursor:
                 cursor.execute(query)
+                connection.commit()
         except Exception as e:
             print(e)
         finally:
@@ -931,7 +933,7 @@ class MyModelView(ModelView):
 
         # from app import DBAS
         # DBAS.setup()
-        # self.trigger_reload()
+        self.trigger_reload()
 
         # return '{}: table {} deleted from app but app needs to reload'.format(application_name,tablename)
         return redirect("/projects/" + self.svc_group)

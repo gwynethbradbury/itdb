@@ -12,6 +12,6 @@ ldaphost_ad = 'ldap://ouce-dc0.ouce.ox.ac.uk'
 username_ad="ouce\\adtool"
 password_ad="e6HMjLmiFvGhtHIrUwS3"
 
-test = False
+test = True
 
 

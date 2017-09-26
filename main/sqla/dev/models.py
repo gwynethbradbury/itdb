@@ -359,25 +359,7 @@ class DatabaseAssistant:
             thelist.append(E[r]._row[0])
         return thelist
 
-    def getExistingKeys(self,foreign=True,primary=False):
-        P=""
-        if primary and foreign:
-            P=""
-        else:
-            if primary:
-                P="AND CONSTRAINT_NAME = 'PRIMARY'"
-            elif foreign:
-                P="AND NOT CONSTRAINT_NAME = 'PRIMARY'"
 
-
-        Q = self.DBE.E.execute("SELECT CONSTRAINT_NAME,REFERENCED_TABLE_SCHEMA,"
-                               "TABLE_NAME,COLUMN_NAME,"
-                               "REFERENCED_TABLE_NAME,REFERENCED_COLUMN_NAME "
-                               "FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE "
-                               "WHERE TABLE_SCHEMA='{}' {};".format(self.mydatabasename,P))
-
-        Q = Q.fetchall()
-        return Q
 
     def createOneToOneRelationship(self,fromtable,fromcolumn,totable,tocolumn,keyname):
 
@@ -587,23 +569,7 @@ class DatabaseAssistant:
 
         return
 
-    # creates a new empty table
-    def createEmptyTable(self,tn):
-        if tn[0]=='x' and tn[1]=='_':
-            return 0,"invalid tablename"
-        tablenames, columnnames = self.getTableAndColumnNames()
-        if tablenames.__len__()>0:
-            for t in tablenames:
-                if t==tn:
-                    return 0,(tn + " already exists, stopping")
 
-
-
-        new_table = Table(tn, self.DBE.metadata,
-                          Column('id', Integer, primary_key=True))
-
-        self.DBE.metadata.create_all(bind=self.DBE.E, tables=[new_table])
-        return 1,""
 
     # endregion
 

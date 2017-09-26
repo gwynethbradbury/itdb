@@ -24,6 +24,7 @@ from datetime import datetime
 import os
 from flask_admin.base import Admin as Admin2
 import pymysql
+from sqlalchemy import *
 
 
 class IPAddressView(BaseView):
@@ -39,7 +40,7 @@ class IPAddressView(BaseView):
 class DatabaseOps(BaseView):
     can_export = True
 
-    def __init__(self, name, endpoint, database_name, db_string, svc_group,
+    def __init__(self, name, endpoint, database_name, db_string, svc_group,db_details,
                  menu_class_name=None, db=None, C=None):
         super(DatabaseOps, self).__init__(name,
                                           endpoint=endpoint,
@@ -49,8 +50,7 @@ class DatabaseOps(BaseView):
         self.db_string = db_string
         self.db = db
         self.classes = C
-
-
+        self.db_details = db_details
 
     @expose('/')
     def index(self):
@@ -100,7 +100,20 @@ class DatabaseOps(BaseView):
 
         # check whether this should be an empty table or from existing data
         elif request.form.get("source") == "emptytable":
-            success, ret = DBA.createEmptyTable(request.form.get("newtablename"))
+
+            tn=request.form.get("newtablename")
+            if tn[0] == 'x' and tn[1] == '_':
+                return 0, "invalid tablename"
+            tablenames, columnnames = DBA.getTableAndColumnNames()
+            if tablenames.__len__() > 0:
+                for t in tablenames:
+                    if t == tn:
+                        return 0, (tn + " already exists, stopping")
+
+            new_table = Table(tn, DBA.DBE.metadata,
+                              Column('id', Integer, primary_key=True))
+
+            self.DBE.metadata.create_all(bind=self.DBE.E, tables=[new_table])
 
         elif 'file' not in request.files:
             # check if the post request has the file part
@@ -178,7 +191,8 @@ class DatabaseOps(BaseView):
                 flash(ret, "error")
 
         tablenames, columnnames = DBA.getTableAndColumnNames()
-        keys = DBA.getExistingKeys(True, True)
+
+        keys = self.db_details.GetExistingKeys(True, True)
 
         return self.render("projects/project_relationship_builder.html",
                            tablenames=tablenames, columnnames=columnnames,
@@ -280,33 +294,7 @@ class DatabaseOps(BaseView):
                            pname=application_name)
 
     def trigger_reload(self):
-
-        import pymysql
-        current_url = str.split(self.admin.url,'/')
-        application_name = self.database_name
-        print "Triggering reload: "+application_name
-        # update svc_instance set schema_id=schema_id+1 where project_display_name=self-config['db']
-
-        try:
-
-            connection = pymysql.connect(host=dbconfig.db_hostname,
-                               user=dbconfig.db_user,
-                               passwd=dbconfig.db_password,
-                               db=dbconfig.db_name)
-
-            with connection.cursor() as cursor:
-                cursor.execute("update svc_instances set schema_id=schema_id+1 where instance_identifier=%s",(str(application_name),))
-                connection.commit()
-        except Exception as e:
-            print(e)
-        finally:
-            connection.close()
-        # dbconfig.trigger_reload = False
-        # file_object = open(os.path.abspath(os.path.dirname(__file__)) + '/reload.py', 'w')
-        # file_object.write('True\n')
-        # file_object.write("# " + str(datetime.utcnow()) + "\n")
-        # file_object.close()
-        return 'reloaded'
+        return views.TriggerReload(self.database_name)
 
     def is_accessible(self):
         if not current_user.is_active:
@@ -481,6 +469,25 @@ class DBDetails():
                 print(e)
 
         return dbuseage
+
+    def GetExistingKeys(self,foreign=True,primary=False):
+        P=""
+        if primary and foreign:
+            P=""
+        else:
+            if primary:
+                P="AND CONSTRAINT_NAME = 'PRIMARY'"
+            elif foreign:
+                P="AND NOT CONSTRAINT_NAME = 'PRIMARY'"
+
+
+        Q = self.ConnectAndExecute("SELECT CONSTRAINT_NAME,REFERENCED_TABLE_SCHEMA,"
+                               "TABLE_NAME,COLUMN_NAME,"
+                               "REFERENCED_TABLE_NAME,REFERENCED_COLUMN_NAME "
+                               "FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE "
+                               "WHERE TABLE_SCHEMA='{}' {};".format(self.mydatabasename,P))
+
+        return Q
 
     def __str__(self):
         if self.engine_type=='postgresql':
@@ -664,7 +671,8 @@ class DBAS():
         iaas_admin.add_hidden_view(DatabaseOps(name='Edit Database', endpoint='ops',
                                                db_string=self.SQLALCHEMY_BINDS[dbconfig.db_name],
                                                database_name=dbconfig.db_name,svc_group='superusers',
-                                               db=self.db))
+                                               db=self.db,
+                                               db_details=self.db_details_dict[dbconfig.db_name]))
 
         iaas_admin.add_hidden_view(IPAddressView(name="IP Addresses", endpoint="ip_addresses", category="Useage"))
         print "ADDING IAAS CLASSES " + str(len(class_db_dict))
@@ -703,7 +711,8 @@ class DBAS():
                                                database_name=d,
                                                db=self.db,
                                                C=self.classesdict,
-                                               svc_group=svc_group))
+                                               svc_group=svc_group,
+                                               db_details=self.db_details_dict[d]))
 
         proj_admin.add_links(ML('New Table', url='/projects/{}/{}_ops/newtable'.format(d, d)),
                              ML('Import Data', url='/projects/{}/{}_ops/upload'.format(d, d)),

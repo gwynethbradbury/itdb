@@ -171,8 +171,14 @@ def create_app(instance_name):
 
     # endregion
 
-
     DBAS = DBAS(app, db)
+
+    services = DBAS.get_services()
+    for s in services:
+        DBAS.setup_service(services[s])
+
+    # DBAS.initialise()
+
 
     if (instance_name != '') and (instance_name != 'all'):
         app.config['schema_id'] = DBAS.get_schema(instance_name)

@@ -534,22 +534,26 @@ class SvcDetails():
     svc_name = ""
 
     def __init__(self, svc_id, svc_name,
-                 list_of_dbs, list_of_ncs, list_of_vms, list_of_was):
+                 _list_of_dbs, _list_of_ncs, _list_of_vms, _list_of_was):
         self.svc_id = svc_id
         self.svc_name = svc_name
 
-        for d in list_of_dbs:
+        self.nc = []
+        self.db = []
+        self.wa = []
+        self.vm = []
+        for d in _list_of_dbs:
             self.db.append(DBDetails(engine_type=d[0], username=d[1],
                                      passwd=d[2], host=d[3], port=d[4],
                                      dbname=d[5]))
 
-        for n in list_of_ncs:
+        for n in _list_of_ncs:
             self.nc.append(NextCloud(n[0], n[1]))
 
-        for v in list_of_vms:
+        for v in _list_of_vms:
             self.vm.append(VirtualMachine(v[0], v[1], v[2]))
 
-        for w in list_of_was:
+        for w in _list_of_was:
             self.wa.append(NextCloud(w[0], w[1]))
 
 
@@ -574,7 +578,12 @@ class DBAS():
 
         S = {}
         for r in list_of_services:
-            if id == -1 or id == int(r[0]):
+            if r[1] is not None and (id == -1 or id == int(r[0])):
+                list_of_was = []
+                list_of_vms = []
+                list_of_ncs = []
+                list_of_dbs = []
+
                 list_of_dbs_tmp, msg,ret = controlDB.ConnectAndExecute(
                     "SELECT engine_type, username, password_if_secure, ip_address, port, database_name "
                     "FROM database_instances "
@@ -584,7 +593,7 @@ class DBAS():
                     d = list_of_dbs_tmp[i]
                     engine_type, msg,ret = controlDB.ConnectAndExecute("SELECT connection_string "
                                                                       "FROM database_engine "
-                                                                      "WHERE id = '{}'"
+                                                                      "WHERE id = '{}';"
                                                                       .format((d[0])))
                     L = list(d)
                     L[0] = engine_type[0][0]
@@ -592,21 +601,21 @@ class DBAS():
 
                 list_of_ncs, msg,ret = controlDB.ConnectAndExecute("SELECT link, ip_address "
                                                                   "FROM nextcloud_instances "
-                                                                  "WHERE svc_inst_id = '{}'"
+                                                                  "WHERE svc_inst_id = '{}';"
                                                                   .format(int(r[0])))
                 list_of_vms, msg,ret = controlDB.ConnectAndExecute("SELECT name, ip_address, owned_by "
                                                                   "FROM virtual_machines "
-                                                                  "WHERE svc_inst = '{}'"
+                                                                  "WHERE svc_inst = '{}';"
                                                                   .format(int(r[0])))
                 list_of_was, msg,ret = controlDB.ConnectAndExecute("SELECT name, homepage, name "
                                                                   "FROM web_apps "
-                                                                  "WHERE svc_inst = '{}'"
+                                                                  "WHERE svc_inst = '{}';"
                                                                   .format(int(r[0])))
                 S[r[1]] = SvcDetails(int(r[0]), r[1],
-                                     list_of_was=list_of_was,
-                                     list_of_vms=list_of_vms,
-                                     list_of_ncs=list_of_ncs,
-                                     list_of_dbs=list_of_dbs)
+                                     _list_of_was=list_of_was,
+                                     _list_of_vms=list_of_vms,
+                                     _list_of_ncs=list_of_ncs,
+                                     _list_of_dbs=list_of_dbs)
 
         return S
 
@@ -616,26 +625,30 @@ class DBAS():
                 classesdict, my_db = classes.initialise(self.db, [d.dbname], [d.__str__()])
                 self.db_details_dict = {}
                 self.db_details_dict[d.dbname] = d
-                self.add_collection_of_views(d.dbname, classesdict, class_db_dict={}, svc_group=svc_info.svc_name,
-                                             db_details=d)
+                try:
+                    self.add_collection_of_views(d.dbname, classesdict, class_db_dict={}, svc_group=svc_info.svc_name,
+                                                 db_details=d)
+                except Excepton as e:
+                    print(e)
 
     def setup(self):
-        self.SQLALCHEMY_BINDS, self.class_db_dict, self.db_list, self.schema_ids, self.db_strings, self.db_details_dict, self.svc_groups = self.get_binds()
+        self.SQLALCHEMY_BINDS = self.get_binds()
+        # self.SQLALCHEMY_BINDS, self.class_db_dict, self.db_list, self.schema_ids, self.db_strings, self.db_details_dict, self.svc_groups = self.get_binds()
 
-        self.nextcloud_identifiers, self.nextcloud_names = self.get_nextclouds()
-
+        # self.nextcloud_identifiers, self.nextcloud_names = self.get_nextclouds()
+        #
         self.app.config['SQLALCHEMY_BINDS'] = self.SQLALCHEMY_BINDS
-
-        self.classesdict, self.my_db = self.init_classes(self.db_list, self.class_db_dict)
+        #
+        # self.classesdict, self.my_db = self.init_classes(self.db_list, self.class_db_dict)
 
     def setup_pages(self):
         # Initialize flask-login
         self.init_login()
         views.set_views(self.app)
-        views.set_nextcloud_views(self.app, self.nextcloud_names, self.nextcloud_identifiers)
+        # views.set_nextcloud_views(self.app, self.nextcloud_names, self.nextcloud_identifiers)
 
         # put the database views in
-        self.set_iaas_admin_console(self.class_db_dict, self.classesdict)
+        # self.set_iaas_admin_console(self.class_db_dict, self.classesdict)
         # self.dbas_admin_pages_setup(self.db_list, self.classesdict, self.class_db_dict, self.svc_groups)
 
     def init_login(self):
@@ -748,7 +761,7 @@ class DBAS():
                 print(e)
                 print "failed - authentication?"
 
-        return SQLALCHEMY_BINDS, class_db_dict, db_list, schema_ids, db_string_list, db_details_dict, svc_groups
+        return SQLALCHEMY_BINDS #, class_db_dict, db_list, schema_ids, db_string_list, db_details_dict, svc_groups
 
     def set_iaas_admin_console(self, class_db_dict, classesdict):
         """set up the admin console, depnds on predefined classes"""
@@ -789,7 +802,10 @@ class DBAS():
 
             if dbconfig.db_name == class_db_dict[c]:
                 print c
-                self._add_a_view(iaas_admin, classesdict[c], db_name=dbconfig.db_name, svc_group='superusers')
+                try:
+                    self._add_a_view(iaas_admin, classesdict[c], db_name=dbconfig.db_name, svc_group='superusers')
+                except Exception as e:
+                    print(e)
 
     def _add_a_view(self, proj_admin, c, db_name, svc_group):
         proj_admin.add_view(
@@ -800,18 +816,32 @@ class DBAS():
 
     def add_collection_of_views(self, d, classesdict, class_db_dict, svc_group, db_details=None):
         if d == dbconfig.db_name:
-            return
+            svc_group='superusers'
+            proj_admin = MyIAASView(db_details=self.db_details_dict[dbconfig.db_name],
+                                    app=self.app, name='IAAS admin app', template_mode='foundation',
+                                    endpoint=dbconfig.db_name, url="/projects/{}".format(dbconfig.db_name),
+                                    base_template='my_master.html', database_name=dbconfig.db_name, svc_group='superusers')
+            proj_admin.add_hidden_view(IPAddressView(name="IP Addresses", endpoint="ip_addresses", category="Useage"))
+            proj_admin.add_links(ML('IPs in use', url='/projects/{}/ip_addresses/'.format(dbconfig.db_name),
+                                   category="Useage"),
+                                ML('Ports in use', url='/projects/{}/ip_addresses/ports'.format(dbconfig.db_name),
+                                   category="Useage"))
 
-        # todo: change bootstrap3 back to foundation to use my templates
-        proj_admin = MyStandardView(self.app, name='{} admin'.format(d),
-                                    template_mode='foundation',
-                                    endpoint=d,
-                                    url="/projects/{}".format(d),
-                                    base_template='my_master.html',
-                                    database_name=d,
-                                    db_details=self.db_details_dict[d],
-                                    svc_group=svc_group
-                                    )
+
+        else:
+            proj_admin = MyStandardView(self.app, name='{} admin'.format(d),
+                                        template_mode='foundation',
+                                        endpoint=d,
+                                        url="/projects/{}".format(d),
+                                        base_template='my_master.html',
+                                        database_name=d,
+                                        db_details=self.db_details_dict[d],
+                                        svc_group=svc_group
+                                        )
+            proj_admin.add_links(ML('Application', url='/projects/{}/app'.format(d)))
+
+
+
         if db_details == None:
             db_string = self.SQLALCHEMY_BINDS[d]
         else:
@@ -828,8 +858,8 @@ class DBAS():
         proj_admin.add_links(ML('New Table', url='/projects/{}/{}_ops/newtable'.format(d, d)),
                              ML('Import Data', url='/projects/{}/{}_ops/upload'.format(d, d)),
                              # ML('Export Data',url='/projects/{}/{}_ops/download'.format(d,d)),
-                             ML('Relationship Builder', url='/projects/{}/{}_ops/relationshipbuilder'.format(d, d)),
-                             ML('Application', url='/projects/{}/app'.format(d)))
+                             ML('Relationship Builder', url='/projects/{}/{}_ops/relationshipbuilder'.format(d, d)))
+
 
         if len(class_db_dict) > 0:
             for c in class_db_dict:

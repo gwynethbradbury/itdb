@@ -177,7 +177,7 @@ def create_app(instance_name):
     for s in services:
         DBAS.setup_service(services[s])
 
-    # DBAS.initialise()
+    DBAS.initialise()
 
 
     if (instance_name != '') and (instance_name != 'all'):

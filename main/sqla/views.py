@@ -919,7 +919,7 @@ class MyModelView(ModelView):
 
     @expose('/admin/deletetable')
     def deletetable(self):
-        if not current_user.is_authorised(service_name=self.application_name, is_admin_only_page=True):
+        if not current_user.is_authorised(service_name=self.svc_group, is_admin_only_page=True):
             return abort(403)
 
         dbbindkey = "project_" + self.svc_group + "_db"

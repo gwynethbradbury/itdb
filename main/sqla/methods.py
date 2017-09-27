@@ -562,7 +562,6 @@ class DBAS():
         pass
 
     def get_services(self, id=-1):
-        iaas_main_db = self.app.config['SQLALCHEMY_DATABASE_URI']
 
         controlDB = DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password,
                               dbconfig.db_hostname, 3306, dbconfig.db_name)
@@ -613,7 +612,17 @@ class DBAS():
         return S
 
     def setup_service(self, svc_info):
-        pass
+
+        if len(svc_info.db) > 0:
+            for d in svc_info.db:
+                classesdict, my_db = classes.initialise(self.db, [d.dbname], [d.__str__()])
+                self.db_details_dict = {}
+                self.db_details_dict[d.dbname] = d
+                try:
+                    self.add_collection_of_views(d.dbname, classesdict, class_db_dict={}, svc_group=svc_info.svc_name,
+                                                 db_details=d)
+                except Exception as e:
+                    print(e)
 
     def setup(self):
         self.SQLALCHEMY_BINDS, self.class_db_dict, self.db_list, self.schema_ids, self.db_strings, self.db_details_dict, self.svc_groups = self.get_binds()
@@ -632,7 +641,7 @@ class DBAS():
 
         # put the database views in
         self.set_iaas_admin_console(self.class_db_dict, self.classesdict)
-        self.dbas_admin_pages_setup(self.db_list, self.classesdict, self.class_db_dict, self.svc_groups)
+        # self.dbas_admin_pages_setup(self.db_list, self.classesdict, self.class_db_dict, self.svc_groups)
 
     def init_login(self):
         login_manager = login.LoginManager()

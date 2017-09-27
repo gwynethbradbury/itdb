@@ -487,6 +487,70 @@ class DBDetails():
                                              self.host,
                                              self.dbname)
 
+class NextCloud():
+    link = ""
+    ip = ""
+
+    def __init__(self, link, ip):
+        self.ip = ip
+        self.link = link
+
+
+class VirtualMachine():
+    name = ""
+    owned_by = ""
+    ip = ""
+
+    def __init__(self, name, ip, owned_by):
+        self.name = name
+        self.owned_by = owned_by
+        self.ip = ip
+
+
+class WebApp():
+    name = ""
+    homepage = ""
+
+    def __init__(self, homepage, name):
+        self.name = name
+        self.homepage = homepage
+
+
+class SvcDetails():
+    nc = []
+    db = []
+    wa = []
+    vm = []
+
+    svc_id = -1
+    svc_name = ""
+
+    def __init__(self, svc_id, svc_name,
+                 _list_of_dbs, _list_of_ncs, _list_of_vms, _list_of_was):
+        self.svc_id = svc_id
+        self.svc_name = svc_name
+
+        self.nc = []
+        self.db = []
+        self.wa = []
+        self.vm = []
+        for d in _list_of_dbs:
+            DBD = DBDetails(engine_type=d[0], username=d[1],
+                                     passwd=d[2], host=d[3], port=d[4],
+                                     dbname=d[5])
+            self.db.append(DBD)
+
+            SQLALCHEMY_BINDS[DBD.dbname] = DBD.__str__()
+
+        for n in _list_of_ncs:
+            self.nc.append(NextCloud(n[0], n[1]))
+
+        for v in _list_of_vms:
+            self.vm.append(VirtualMachine(v[0], v[1], v[2]))
+
+        for w in _list_of_was:
+            self.wa.append(NextCloud(w[0], w[1]))
+
 
 class DBAS():
     def __init__(self, _app, _db):
@@ -498,7 +562,55 @@ class DBAS():
         pass
 
     def get_services(self, id=-1):
-        return []
+        iaas_main_db = self.app.config['SQLALCHEMY_DATABASE_URI']
+
+        controlDB = DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password,
+                              dbconfig.db_hostname, 3306, dbconfig.db_name)
+
+        list_of_services, msg, ret = controlDB.ConnectAndExecute("SELECT id, instance_identifier from svc_instances")
+
+        S = {}
+        for r in list_of_services:
+            if r[1] is not None and (id == -1 or id == int(r[0])):
+                list_of_was = []
+                list_of_vms = []
+                list_of_ncs = []
+                list_of_dbs = []
+
+                list_of_dbs_tmp, msg, ret = controlDB.ConnectAndExecute(
+                    "SELECT engine_type, username, password_if_secure, ip_address, port, database_name "
+                    "FROM database_instances "
+                    "WHERE svc_inst = '{}';".format(int(r[0])))
+                list_of_dbs = []
+                for i in range(len(list_of_dbs_tmp)):
+                    d = list_of_dbs_tmp[i]
+                    engine_type, msg, ret = controlDB.ConnectAndExecute("SELECT connection_string "
+                                                                        "FROM database_engine "
+                                                                        "WHERE id = '{}';"
+                                                                        .format((d[0])))
+                    L = list(d)
+                    L[0] = engine_type[0][0]
+                    list_of_dbs.append(L)
+
+                list_of_ncs, msg, ret = controlDB.ConnectAndExecute("SELECT link, ip_address "
+                                                                    "FROM nextcloud_instances "
+                                                                    "WHERE svc_inst_id = '{}';"
+                                                                    .format(int(r[0])))
+                list_of_vms, msg, ret = controlDB.ConnectAndExecute("SELECT name, ip_address, owned_by "
+                                                                    "FROM virtual_machines "
+                                                                    "WHERE svc_inst = '{}';"
+                                                                    .format(int(r[0])))
+                list_of_was, msg, ret = controlDB.ConnectAndExecute("SELECT name, homepage, name "
+                                                                    "FROM web_apps "
+                                                                    "WHERE svc_inst = '{}';"
+                                                                    .format(int(r[0])))
+                S[r[1]] = SvcDetails(int(r[0]), r[1],
+                                     _list_of_was=list_of_was,
+                                     _list_of_vms=list_of_vms,
+                                     _list_of_ncs=list_of_ncs,
+                                     _list_of_dbs=list_of_dbs)
+
+        return S
 
     def setup_service(self, svc_info):
         pass

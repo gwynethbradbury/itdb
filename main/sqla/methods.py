@@ -566,7 +566,6 @@ class DBAS():
         self.app = _app
         self.db = _db
         self.schema_ids = {}
-        self.SQLALCHEMY_BINDS = {}
 
     def initialise(self):
         self.setup()
@@ -754,7 +753,7 @@ class DBAS():
 
 
         if db_details == None:
-            db_string = self.SQLALCHEMY_BINDS[d]
+            db_string = SQLALCHEMY_BINDS[d]
         else:
             db_string = db_details.__str__()
         proj_admin.add_hidden_view(DatabaseOps(name='Edit Database'.format(d),
@@ -800,7 +799,7 @@ class DBAS():
 
     def dbas_admin_pages_setup(self, db_list, classesdict, class_db_dict, svc_groups):
 
-        binds = self.SQLALCHEMY_BINDS
+        binds = SQLALCHEMY_BINDS
         for d in binds:
             print(d, binds[d])
 

@@ -494,6 +494,14 @@ class DBAS():
         self.db = _db
         self.setup()
         self.setup_pages()
+    def initialise(self):
+        pass
+
+    def get_services(self, id=-1):
+        return []
+
+    def setup_service(self, svc_info):
+        pass
 
     def setup(self):
         self.SQLALCHEMY_BINDS, self.class_db_dict, self.db_list, self.schema_ids, self.db_strings, self.db_details_dict, self.svc_groups = self.get_binds()

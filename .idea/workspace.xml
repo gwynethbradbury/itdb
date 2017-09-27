@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce4c93b2-95bc-4444-b569-e302376b0a7f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dbas.py" afterPath="$PROJECT_DIR$/dbas.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/app.py" afterPath="$PROJECT_DIR$/main/sqla/app.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/methods.py" afterPath="$PROJECT_DIR$/main/sqla/methods.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -104,7 +102,35 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="dbas.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="methods_new.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/main/sqla/methods_new.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="347">
+                  <caret line="624" column="38" lean-forward="true" selection-start-line="624" selection-start-column="4" selection-end-line="624" selection-end-column="38" />
+                  <folding>
+                    <element signature="e#0#12#0" expanded="true" />
+                    <element signature="e#21972#24892#0" expanded="false" />
+                    <element signature="e#24941#25455#0" expanded="false" />
+                    <marker date="1506512087000" expanded="true" signature="15562:15603" ph="SELECT ip_ad... database_instances" />
+                    <marker date="1506512087000" expanded="true" signature="15562:16198" ph="SELECT ip_ad... " />
+                    <marker date="1506512087000" expanded="true" signature="15764:15806" ph="SELECT ip_ad... nextcloud_instances" />
+                    <marker date="1506512087000" expanded="true" signature="15967:15998" ph="SELECT ip_ad... web_apps" />
+                    <marker date="1506512087000" expanded="true" signature="16159:16198" ph="SELECT ip_ad... virtual_machines" />
+                    <marker date="1506512087000" expanded="true" signature="16340:16387" ph="SELECT ip_ad... database_instances" />
+                    <marker date="1506512087000" expanded="true" signature="18486:18664" ph="SELECT Round... tables" />
+                    <marker date="1506512087000" expanded="true" signature="19192:19524" ph="SELECT CONST... KEY_COLUMN_USAGE" />
+                    <marker date="1506512087000" expanded="true" signature="22263:22312" ph="SELECT id, i... svc_instances" />
+                    <marker date="1506512087000" expanded="true" signature="22659:22832" ph="SELECT engin... database_instances" />
+                    <marker date="1506512087000" expanded="true" signature="23054:23261" ph="SELECT conne... database_engine" />
+                    <marker date="1506512087000" expanded="true" signature="23539:23750" ph="SELECT link,... nextcloud_instances" />
+                    <marker date="1506512087000" expanded="true" signature="23907:24122" ph="SELECT name,... virtual_machines" />
+                    <marker date="1506512087000" expanded="true" signature="24279:24480" ph="SELECT name,... web_apps" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="dbas.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/dbas.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="285">
@@ -181,18 +207,18 @@
           <file leaf-file-name="methods.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main/sqla/methods.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1463">
-                  <caret line="502" column="0" lean-forward="false" selection-start-line="502" selection-start-column="0" selection-end-line="502" selection-end-column="0" />
+                <state relative-caret-position="381">
+                  <caret line="503" column="12" lean-forward="false" selection-start-line="503" selection-start-column="12" selection-end-line="503" selection-end-column="12" />
                   <folding>
                     <element signature="e#0#12#0" expanded="true" />
-                    <marker date="1506512937000" expanded="true" signature="12250:12325" ph="update svc_i... " />
-                    <marker date="1506512937000" expanded="true" signature="16095:16136" ph="SELECT ip_ad... database_instances" />
-                    <marker date="1506512937000" expanded="true" signature="16095:16731" ph="SELECT ip_ad... " />
-                    <marker date="1506512937000" expanded="true" signature="16297:16339" ph="SELECT ip_ad... nextcloud_instances" />
-                    <marker date="1506512937000" expanded="true" signature="16500:16531" ph="SELECT ip_ad... web_apps" />
-                    <marker date="1506512937000" expanded="true" signature="16692:16731" ph="SELECT ip_ad... virtual_machines" />
-                    <marker date="1506512937000" expanded="true" signature="16873:16920" ph="SELECT ip_ad... database_instances" />
-                    <marker date="1506512937000" expanded="true" signature="19019:19197" ph="SELECT Round... tables" />
+                    <marker date="1506513150000" expanded="true" signature="12250:12325" ph="update svc_i... " />
+                    <marker date="1506513150000" expanded="true" signature="16095:16136" ph="SELECT ip_ad... database_instances" />
+                    <marker date="1506513150000" expanded="true" signature="16095:16731" ph="SELECT ip_ad... " />
+                    <marker date="1506513150000" expanded="true" signature="16297:16339" ph="SELECT ip_ad... nextcloud_instances" />
+                    <marker date="1506513150000" expanded="true" signature="16500:16531" ph="SELECT ip_ad... web_apps" />
+                    <marker date="1506513150000" expanded="true" signature="16692:16731" ph="SELECT ip_ad... virtual_machines" />
+                    <marker date="1506513150000" expanded="true" signature="16873:16920" ph="SELECT ip_ad... database_instances" />
+                    <marker date="1506513150000" expanded="true" signature="19019:19197" ph="SELECT Round... tables" />
                   </folding>
                 </state>
               </provider>
@@ -231,8 +257,8 @@
           <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main/sqla/app.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="558">
-                  <caret line="170" column="16" lean-forward="false" selection-start-line="170" selection-start-column="16" selection-end-line="170" selection-end-column="16" />
+                <state relative-caret-position="468">
+                  <caret line="164" column="4" lean-forward="false" selection-start-line="164" selection-start-column="4" selection-end-line="164" selection-end-column="4" />
                   <folding>
                     <element signature="e#1413#1440#0" expanded="false" />
                     <element signature="e#2852#4016#0" expanded="false" />
@@ -905,7 +931,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/main/sqla/templates/project/index.html" />
     <entry file="file://$PROJECT_DIR$/main/sqla/templates/projects/project_home.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1301,19 +1326,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/sqla/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="170" column="16" lean-forward="false" selection-start-line="170" selection-start-column="16" selection-end-line="170" selection-end-column="16" />
-          <folding>
-            <element signature="e#1413#1440#0" expanded="false" />
-            <element signature="e#2852#4016#0" expanded="false" />
-            <element signature="e#4123#4148#0" expanded="false" />
-            <element signature="e#5107#5130#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/sqla/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="258">
@@ -1354,20 +1366,59 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/sqla/methods.py">
+    <entry file="file://$PROJECT_DIR$/main/sqla/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1463">
-          <caret line="502" column="0" lean-forward="false" selection-start-line="502" selection-start-column="0" selection-end-line="502" selection-end-column="0" />
+        <state relative-caret-position="468">
+          <caret line="164" column="4" lean-forward="false" selection-start-line="164" selection-start-column="4" selection-end-line="164" selection-end-column="4" />
+          <folding>
+            <element signature="e#1413#1440#0" expanded="false" />
+            <element signature="e#2852#4016#0" expanded="false" />
+            <element signature="e#4123#4148#0" expanded="false" />
+            <element signature="e#5107#5130#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/sqla/methods_new.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="624" column="38" lean-forward="true" selection-start-line="624" selection-start-column="4" selection-end-line="624" selection-end-column="38" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
-            <marker date="1506512937000" expanded="true" signature="12250:12325" ph="update svc_i... " />
-            <marker date="1506512937000" expanded="true" signature="16095:16136" ph="SELECT ip_ad... database_instances" />
-            <marker date="1506512937000" expanded="true" signature="16095:16731" ph="SELECT ip_ad... " />
-            <marker date="1506512937000" expanded="true" signature="16297:16339" ph="SELECT ip_ad... nextcloud_instances" />
-            <marker date="1506512937000" expanded="true" signature="16500:16531" ph="SELECT ip_ad... web_apps" />
-            <marker date="1506512937000" expanded="true" signature="16692:16731" ph="SELECT ip_ad... virtual_machines" />
-            <marker date="1506512937000" expanded="true" signature="16873:16920" ph="SELECT ip_ad... database_instances" />
-            <marker date="1506512937000" expanded="true" signature="19019:19197" ph="SELECT Round... tables" />
+            <element signature="e#21972#24892#0" expanded="false" />
+            <element signature="e#24941#25455#0" expanded="false" />
+            <marker date="1506512087000" expanded="true" signature="15562:15603" ph="SELECT ip_ad... database_instances" />
+            <marker date="1506512087000" expanded="true" signature="15562:16198" ph="SELECT ip_ad... " />
+            <marker date="1506512087000" expanded="true" signature="15764:15806" ph="SELECT ip_ad... nextcloud_instances" />
+            <marker date="1506512087000" expanded="true" signature="15967:15998" ph="SELECT ip_ad... web_apps" />
+            <marker date="1506512087000" expanded="true" signature="16159:16198" ph="SELECT ip_ad... virtual_machines" />
+            <marker date="1506512087000" expanded="true" signature="16340:16387" ph="SELECT ip_ad... database_instances" />
+            <marker date="1506512087000" expanded="true" signature="18486:18664" ph="SELECT Round... tables" />
+            <marker date="1506512087000" expanded="true" signature="19192:19524" ph="SELECT CONST... KEY_COLUMN_USAGE" />
+            <marker date="1506512087000" expanded="true" signature="22263:22312" ph="SELECT id, i... svc_instances" />
+            <marker date="1506512087000" expanded="true" signature="22659:22832" ph="SELECT engin... database_instances" />
+            <marker date="1506512087000" expanded="true" signature="23054:23261" ph="SELECT conne... database_engine" />
+            <marker date="1506512087000" expanded="true" signature="23539:23750" ph="SELECT link,... nextcloud_instances" />
+            <marker date="1506512087000" expanded="true" signature="23907:24122" ph="SELECT name,... virtual_machines" />
+            <marker date="1506512087000" expanded="true" signature="24279:24480" ph="SELECT name,... web_apps" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/sqla/methods.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="503" column="12" lean-forward="false" selection-start-line="503" selection-start-column="12" selection-end-line="503" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+            <marker date="1506513150000" expanded="true" signature="12250:12325" ph="update svc_i... " />
+            <marker date="1506513150000" expanded="true" signature="16095:16136" ph="SELECT ip_ad... database_instances" />
+            <marker date="1506513150000" expanded="true" signature="16095:16731" ph="SELECT ip_ad... " />
+            <marker date="1506513150000" expanded="true" signature="16297:16339" ph="SELECT ip_ad... nextcloud_instances" />
+            <marker date="1506513150000" expanded="true" signature="16500:16531" ph="SELECT ip_ad... web_apps" />
+            <marker date="1506513150000" expanded="true" signature="16692:16731" ph="SELECT ip_ad... virtual_machines" />
+            <marker date="1506513150000" expanded="true" signature="16873:16920" ph="SELECT ip_ad... database_instances" />
+            <marker date="1506513150000" expanded="true" signature="19019:19197" ph="SELECT Round... tables" />
           </folding>
         </state>
       </provider>

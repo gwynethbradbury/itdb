@@ -635,7 +635,7 @@ class DBAS():
                     print(e)
 
     def setup(self):
-        self.get_schema_ids()
+        # self.get_schema_ids()
         self.SQLALCHEMY_BINDS, self.class_db_dict, self.db_list, self.schema_ids, self.db_strings, self.db_details_dict, self.svc_groups = self.get_binds()
 
         self.app.config['SQLALCHEMY_BINDS'] = self.SQLALCHEMY_BINDS
@@ -733,8 +733,9 @@ class DBAS():
 
         class_db_dict = {}
 
-        SQLALCHEMY_BINDS = {dbconfig.db_name: '{}://{}:{}@{}/{}'
-            .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname, dbconfig.db_name)}
+        SQLALCHEMY_BINDS2 = {dbconfig.db_name:
+                                 '{}://{}:{}@{}/{}'
+                                     .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname, dbconfig.db_name)}
 
         db_list = []
         db_string_list = []
@@ -780,7 +781,7 @@ class DBAS():
 
             db_string_list.append(db_string.__str__())
 
-            SQLALCHEMY_BINDS["{}".format(svc_inst[1])] = db_string.__str__()
+            SQLALCHEMY_BINDS2["{}".format(svc_inst[1])] = db_string.__str__()
             svc_groups["{}".format(svc_inst[1])] = svc_inst[2]
 
             project_dba = devmodels.DatabaseAssistant(db_string.__str__(), svc_inst[1], svc_inst[1])
@@ -793,7 +794,7 @@ class DBAS():
                 print(e)
                 print "failed - authentication?"
 
-        return SQLALCHEMY_BINDS, class_db_dict, db_list, schema_ids, db_string_list, db_details_dict, svc_groups
+        return SQLALCHEMY_BINDS2, class_db_dict, db_list, schema_ids, db_string_list, db_details_dict, svc_groups
 
     def _add_a_view(self, proj_admin, c, db_name, svc_group):
         proj_admin.add_view(

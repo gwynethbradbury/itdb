@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce4c93b2-95bc-4444-b569-e302376b0a7f" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dbas.py" afterPath="$PROJECT_DIR$/dbas.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/app.py" afterPath="$PROJECT_DIR$/main/sqla/app.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/methods.py" afterPath="$PROJECT_DIR$/main/sqla/methods.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -13,7 +15,7 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/dbas_dev$wsgi.coverage" NAME="wsgi Coverage Results" MODIFIED="1506015649580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/dbas_dev$dbas.coverage" NAME="dbas Coverage Results" MODIFIED="1506511907746" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/dbas_dev$dbas.coverage" NAME="dbas Coverage Results" MODIFIED="1506512676621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -68,11 +70,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main/sqla/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="18">
-                  <caret line="193" column="14" lean-forward="true" selection-start-line="193" selection-start-column="14" selection-end-line="193" selection-end-column="14" />
+                <state relative-caret-position="258">
+                  <caret line="209" column="55" lean-forward="true" selection-start-line="209" selection-start-column="55" selection-end-line="209" selection-end-column="55" />
                   <folding>
                     <element signature="e#2744#2764#0" expanded="false" />
                     <element signature="e#3688#3708#0" expanded="false" />
@@ -102,7 +104,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="dbas.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="dbas.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/dbas.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="285">
@@ -179,25 +181,18 @@
           <file leaf-file-name="methods.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main/sqla/methods.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="280">
-                  <caret line="624" column="38" lean-forward="true" selection-start-line="624" selection-start-column="38" selection-end-line="624" selection-end-column="38" />
+                <state relative-caret-position="1463">
+                  <caret line="502" column="0" lean-forward="false" selection-start-line="502" selection-start-column="0" selection-end-line="502" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#12#0" expanded="true" />
-                    <element signature="e#21972#24892#0" expanded="false" />
-                    <marker date="1506512087000" expanded="true" signature="15562:15603" ph="SELECT ip_ad... database_instances" />
-                    <marker date="1506512087000" expanded="true" signature="15562:16198" ph="SELECT ip_ad... " />
-                    <marker date="1506512087000" expanded="true" signature="15764:15806" ph="SELECT ip_ad... nextcloud_instances" />
-                    <marker date="1506512087000" expanded="true" signature="15967:15998" ph="SELECT ip_ad... web_apps" />
-                    <marker date="1506512087000" expanded="true" signature="16159:16198" ph="SELECT ip_ad... virtual_machines" />
-                    <marker date="1506512087000" expanded="true" signature="16340:16387" ph="SELECT ip_ad... database_instances" />
-                    <marker date="1506512087000" expanded="true" signature="18486:18664" ph="SELECT Round... tables" />
-                    <marker date="1506512087000" expanded="true" signature="19192:19524" ph="SELECT CONST... KEY_COLUMN_USAGE" />
-                    <marker date="1506512087000" expanded="true" signature="22263:22312" ph="SELECT id, i... svc_instances" />
-                    <marker date="1506512087000" expanded="true" signature="22659:22832" ph="SELECT engin... database_instances" />
-                    <marker date="1506512087000" expanded="true" signature="23054:23261" ph="SELECT conne... database_engine" />
-                    <marker date="1506512087000" expanded="true" signature="23539:23750" ph="SELECT link,... nextcloud_instances" />
-                    <marker date="1506512087000" expanded="true" signature="23907:24122" ph="SELECT name,... virtual_machines" />
-                    <marker date="1506512087000" expanded="true" signature="24279:24480" ph="SELECT name,... web_apps" />
+                    <marker date="1506512937000" expanded="true" signature="12250:12325" ph="update svc_i... " />
+                    <marker date="1506512937000" expanded="true" signature="16095:16136" ph="SELECT ip_ad... database_instances" />
+                    <marker date="1506512937000" expanded="true" signature="16095:16731" ph="SELECT ip_ad... " />
+                    <marker date="1506512937000" expanded="true" signature="16297:16339" ph="SELECT ip_ad... nextcloud_instances" />
+                    <marker date="1506512937000" expanded="true" signature="16500:16531" ph="SELECT ip_ad... web_apps" />
+                    <marker date="1506512937000" expanded="true" signature="16692:16731" ph="SELECT ip_ad... virtual_machines" />
+                    <marker date="1506512937000" expanded="true" signature="16873:16920" ph="SELECT ip_ad... database_instances" />
+                    <marker date="1506512937000" expanded="true" signature="19019:19197" ph="SELECT Round... tables" />
                   </folding>
                 </state>
               </provider>
@@ -236,13 +231,13 @@
           <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main/sqla/app.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="528">
-                  <caret line="168" column="22" lean-forward="false" selection-start-line="168" selection-start-column="22" selection-end-line="168" selection-end-column="22" />
+                <state relative-caret-position="558">
+                  <caret line="170" column="16" lean-forward="false" selection-start-line="170" selection-start-column="16" selection-end-line="170" selection-end-column="16" />
                   <folding>
-                    <element signature="e#1443#2737#0" expanded="false" />
-                    <element signature="e#2779#3943#0" expanded="false" />
-                    <element signature="e#4050#4075#0" expanded="false" />
-                    <element signature="e#5034#5057#0" expanded="false" />
+                    <element signature="e#1413#1440#0" expanded="false" />
+                    <element signature="e#2852#4016#0" expanded="false" />
+                    <element signature="e#4123#4148#0" expanded="false" />
+                    <element signature="e#5107#5130#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -261,9 +256,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>newcolumn</find>
-      <find>createcolumn</find>
-      <find>Add</find>
       <find>ts\/\&lt;application_name\&gt;\/admin\/\&lt;tablename\&gt;\/createcolumn\&quot;\, methods\=\[\'GET\'\, \'POST\'\]\)\n    \# \@expose\(\'\/admin\/createcolumn\'\, methods\=\[\'GET\'\, \'POST\'\]\)\n    \# def createcolumn\(self\)\:\n    \#     if not current_user\.is_authorised\(service_name\=self\.svc_group\, is_admin_only_page\=True\)\:\n    \#         return abort\(403\)\n    \#\n    \#     colname\=request\.form\.get\(\&quot;newcolumnname\&quot;\)\n    \#     coltype\=request\.form\.get\(\&quot;datatypes\&quot;\)\n    \#     columnnames \= \[i\[0\] for i in self\.get_column_names\(self\.scaffold_list_columns\(\)\, \[\]\)\]\n    \#\n    \#\n    \#     \# dbbindkey \= \&quot;project_\&quot; \+ self\.svc_group \+ \&quot;_db\&quot;\n    \#     \# DBA \= devmodels\.DatabaseAssistant\(self\.db_string\, dbbindkey\, self\.svc_group\)  \# \, upload_folder\=uploadfolder\)\n    \#\n    \#     success \= 1\n    \#     ret \= \&quot;\&quot;\n    \#     columnnames \= \[i\[0\] for i in self\.get_column_names\(self\.scaffold_list_columns\(\)\, \[\]\)\]\n    \#\n    \#     \# check for no column name\n    \#     if request\.form\.get\(\&quot;newcolumnname\&quot;\) \=\= \&quot;\&quot;\:\n    \#         success \= 0\n    \#         ret \= \&quot;Enter column name\&quot;\n    \#\n    \#     \# check for existing table with this name\n    \#     elif request\.form\.get\(\&quot;newcolumnname\&quot;\) in columnnames\:\n    \#         success \= 0\n    \#         ret \= \&quot;Column \&quot; \+ request\.form\.get\(\&quot;newcolumnname\&quot;\) \+ \&quot; already exists\, try a new name\&quot;\n    \#\n    \#     elif colname in columnnames\:\n    \#             ret \= \(colname \+ \&quot; already exists in table\.\&quot;\)\n    \#             success \= 0\n    \#\n    \#     else\:\n    \#         data_type_formatted \= devmodels\.desc2formattedtype\(coltype\, 100\)\n    \#\n    \#         query \= \&quot;ALTER TABLE \{\} ADD COLUMN \{\} \{\}\;\&quot;\.format\(str\(self\.tablename\)\, colname\, data_type_formatted\)\n    \#\n    \#         res\, ret\, success \= self\.db_details\.ConnectAndExecute\(query\)\n    \#\n    \#\n    \#\n    \#\n    \#     listofdatatypes \= listOfColumnTypesByName\n    \#     \# redirects to the same page\n    \#     if success \=\= 1\:\n    \#         self\.trigger_reload\(\)\n    \#         flash\(ret\,\'info\'\)\n    \#         return self\.render\(\&quot;projects\/add_column\.html\&quot;\,\n    \#                            message\=\&quot;Column \&quot; \+\n    \#                                    request\.form\.get\(\&quot;newcolumnname\&quot;\) \+ \&quot; created successfully\!\\n\&quot; \+ ret\,\n    \#                            listofdatatypes\=listofdatatypes\,\n    \#                            pname\=self\.svc_group\)\n    \#\n    \#     else\:\n    \#         flash\(ret\,\'error\'\)\n    \#         return self\.render\(\&quot;projects\/add_column\.html\&quot;\,\n    \#                            error\=\&quot;Creation of column \&quot; \+ request\.form\.get\(\&quot;newcolumnname\&quot;\) \+\n    \#                                  \&quot; failed\!\&lt;br\/\&gt;Error\: \&quot; \+ ret\,\n    \#                            listofdatatypes\=listofdatatypes\,\n    \#                            pname\=self\.svc_group\)</find>
       <find>Add Column</find>
       <find>remcolumn</find>
@@ -291,6 +283,9 @@
       <find>class</find>
       <find>cs_</find>
       <find>cls_</find>
+      <find>i</find>
+      <find>iaas</find>
+      <find>get_db_creds</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/flask_admin/templates/foundation</dir>
@@ -353,8 +348,8 @@
         <option value="$PROJECT_DIR$/main/web_apps_examples/online_learning/views.py" />
         <option value="$PROJECT_DIR$/main/web_apps_examples/online_learning/__init__.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/dbas.py" />
         <option value="$PROJECT_DIR$/main/sqla/app.py" />
+        <option value="$PROJECT_DIR$/dbas.py" />
         <option value="$PROJECT_DIR$/main/sqla/methods.py" />
       </list>
     </option>
@@ -410,68 +405,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dbas-dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dbas-dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web_apps_examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dbas-dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dbas-dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web_apps_examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="map" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dbas-dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dbas-dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web_apps_examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="it_lending_log" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -934,7 +867,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main/sqla/methods.py</url>
-          <line>331</line>
+          <line>341</line>
           <option name="timeStamp" value="422" />
         </line-breakpoint>
       </breakpoints>
@@ -948,7 +881,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="430" />
+      <option name="time" value="432" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -1147,6 +1080,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="14" column="11" lean-forward="false" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1236,6 +1170,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="473">
           <caret line="98" column="36" lean-forward="false" selection-start-line="98" selection-start-column="36" selection-end-line="98" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#71#0" expanded="false" />
+            <element signature="e#1418#2568#0" expanded="false" />
+            <element signature="e#2760#3403#0" expanded="false" />
+            <element signature="e#3594#3965#0" expanded="false" />
+            <element signature="e#4144#4270#0" expanded="false" />
+            <element signature="e#4431#4551#0" expanded="false" />
+            <element signature="e#4745#5996#0" expanded="false" />
+            <element signature="e#6201#7095#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1260,14 +1204,6 @@
             <element signature="e#4109#4440#0" expanded="false" />
             <element signature="e#4590#6720#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/web_apps_examples/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="17" lean-forward="false" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1357,20 +1293,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dbas.py">
+    <entry file="file:///usr/local/lib/python2.7/site-packages/flask/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="32" lean-forward="false" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
+        <state relative-caret-position="261">
+          <caret line="945" column="0" lean-forward="false" selection-start-line="945" selection-start-column="0" selection-end-line="945" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/sqla/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="170" column="16" lean-forward="false" selection-start-line="170" selection-start-column="16" selection-end-line="170" selection-end-column="16" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#1413#1440#0" expanded="false" />
+            <element signature="e#2852#4016#0" expanded="false" />
+            <element signature="e#4123#4148#0" expanded="false" />
+            <element signature="e#5107#5130#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main/sqla/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="193" column="14" lean-forward="true" selection-start-line="193" selection-start-column="14" selection-end-line="193" selection-end-column="14" />
+        <state relative-caret-position="258">
+          <caret line="209" column="55" lean-forward="true" selection-start-line="209" selection-start-column="55" selection-end-line="209" selection-end-column="55" />
           <folding>
             <element signature="e#2744#2764#0" expanded="false" />
             <element signature="e#3688#3708#0" expanded="false" />
@@ -1389,48 +1336,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/flask/app.py">
+    <entry file="file://$PROJECT_DIR$/main/web_apps_examples/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="945" column="0" lean-forward="false" selection-start-line="945" selection-start-column="0" selection-end-line="945" selection-end-column="0" />
+        <state relative-caret-position="15">
+          <caret line="1" column="17" lean-forward="false" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/sqla/app.py">
+    <entry file="file://$PROJECT_DIR$/dbas.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="168" column="22" lean-forward="false" selection-start-line="168" selection-start-column="22" selection-end-line="168" selection-end-column="22" />
+        <state relative-caret-position="285">
+          <caret line="19" column="32" lean-forward="false" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
           <folding>
-            <element signature="e#1443#2737#0" expanded="false" />
-            <element signature="e#2779#3943#0" expanded="false" />
-            <element signature="e#4050#4075#0" expanded="false" />
-            <element signature="e#5034#5057#0" expanded="false" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main/sqla/methods.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="624" column="38" lean-forward="true" selection-start-line="624" selection-start-column="38" selection-end-line="624" selection-end-column="38" />
+        <state relative-caret-position="1463">
+          <caret line="502" column="0" lean-forward="false" selection-start-line="502" selection-start-column="0" selection-end-line="502" selection-end-column="0" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
-            <element signature="e#21972#24892#0" expanded="false" />
-            <marker date="1506512087000" expanded="true" signature="15562:15603" ph="SELECT ip_ad... database_instances" />
-            <marker date="1506512087000" expanded="true" signature="15562:16198" ph="SELECT ip_ad... " />
-            <marker date="1506512087000" expanded="true" signature="15764:15806" ph="SELECT ip_ad... nextcloud_instances" />
-            <marker date="1506512087000" expanded="true" signature="15967:15998" ph="SELECT ip_ad... web_apps" />
-            <marker date="1506512087000" expanded="true" signature="16159:16198" ph="SELECT ip_ad... virtual_machines" />
-            <marker date="1506512087000" expanded="true" signature="16340:16387" ph="SELECT ip_ad... database_instances" />
-            <marker date="1506512087000" expanded="true" signature="18486:18664" ph="SELECT Round... tables" />
-            <marker date="1506512087000" expanded="true" signature="19192:19524" ph="SELECT CONST... KEY_COLUMN_USAGE" />
-            <marker date="1506512087000" expanded="true" signature="22263:22312" ph="SELECT id, i... svc_instances" />
-            <marker date="1506512087000" expanded="true" signature="22659:22832" ph="SELECT engin... database_instances" />
-            <marker date="1506512087000" expanded="true" signature="23054:23261" ph="SELECT conne... database_engine" />
-            <marker date="1506512087000" expanded="true" signature="23539:23750" ph="SELECT link,... nextcloud_instances" />
-            <marker date="1506512087000" expanded="true" signature="23907:24122" ph="SELECT name,... virtual_machines" />
-            <marker date="1506512087000" expanded="true" signature="24279:24480" ph="SELECT name,... web_apps" />
+            <marker date="1506512937000" expanded="true" signature="12250:12325" ph="update svc_i... " />
+            <marker date="1506512937000" expanded="true" signature="16095:16136" ph="SELECT ip_ad... database_instances" />
+            <marker date="1506512937000" expanded="true" signature="16095:16731" ph="SELECT ip_ad... " />
+            <marker date="1506512937000" expanded="true" signature="16297:16339" ph="SELECT ip_ad... nextcloud_instances" />
+            <marker date="1506512937000" expanded="true" signature="16500:16531" ph="SELECT ip_ad... web_apps" />
+            <marker date="1506512937000" expanded="true" signature="16692:16731" ph="SELECT ip_ad... virtual_machines" />
+            <marker date="1506512937000" expanded="true" signature="16873:16920" ph="SELECT ip_ad... database_instances" />
+            <marker date="1506512937000" expanded="true" signature="19019:19197" ph="SELECT Round... tables" />
           </folding>
         </state>
       </provider>

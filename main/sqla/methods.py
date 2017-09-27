@@ -631,7 +631,7 @@ class DBAS():
                 try:
                     self.add_collection_of_views(d.dbname, classesdict, class_db_dict={}, svc_group=svc_info.svc_name,
                                                  db_details=d)
-                except Excepton as e:
+                except Exception as e:
                     print(e)
 
     def setup(self):

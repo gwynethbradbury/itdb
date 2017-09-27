@@ -551,14 +551,14 @@ class SvcDetails():
 
             SQLALCHEMY_BINDS[DBD.dbname] = DBD.__str__()
 
-        for n in _list_of_ncs:
-            self.nc.append(NextCloud(n[0], n[1]))
-
-        for v in _list_of_vms:
-            self.vm.append(VirtualMachine(v[0], v[1], v[2]))
-
-        for w in _list_of_was:
-            self.wa.append(NextCloud(w[0], w[1]))
+        # for n in _list_of_ncs:
+        #     self.nc.append(NextCloud(n[0], n[1]))
+        #
+        # for v in _list_of_vms:
+        #     self.vm.append(VirtualMachine(v[0], v[1], v[2]))
+        #
+        # for w in _list_of_was:
+        #     self.wa.append(NextCloud(w[0], w[1]))
 
 
 class DBAS():

@@ -659,7 +659,7 @@ class DBAS():
             # return db.session.query(User).get(user_id)
 
     def get_schema(self, prefix):
-        self.get_schema_ids()
+        # self.get_schema_ids()
         print "self.schema_ids"
         print self.schema_ids
         return self.schema_ids[prefix];

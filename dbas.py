@@ -17,7 +17,7 @@ from threading import Lock
 from werkzeug.wsgi import pop_path_info, extract_path_info, peek_path_info
 from main.sqla.app import create_app, get_user_for_prefix, get_current_schema_id
 
-app, schema_id = create_app('all')
+app, schema_id = create_app('map')
 
 from main.web_apps_examples import map, it_lending_log, online_learning
 map.init_app(app)

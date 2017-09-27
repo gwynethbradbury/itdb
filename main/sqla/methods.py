@@ -515,7 +515,7 @@ class WebApp():
         self.name = name
         self.homepage = homepage
 
-
+GLOBAL_SQLALCHEMY_BINDS={}
 class SvcDetails():
     nc = []
     db = []
@@ -540,7 +540,7 @@ class SvcDetails():
                                      dbname=d[5])
             self.db.append(DBD)
 
-            SQLALCHEMY_BINDS[DBD.dbname] = DBD.__str__()
+            GLOBAL_SQLALCHEMY_BINDS[DBD.dbname] = DBD.__str__()
 
         for n in _list_of_ncs:
             self.nc.append(NextCloud(n[0], n[1]))

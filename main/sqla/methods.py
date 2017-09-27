@@ -921,25 +921,25 @@ class DBAS():
     def dbas_admin_pages_setup(self, db_list, classesdict, class_db_dict, svc_groups):
 
         #
-        # for sss in self.services:
-        #     s = self.services[sss]
-        #     for d in s.db:
-        #         # self.classesdict, my_db = classes.initialise(self.db, [d.dbname], [d.__str__()])
-        #         # self.db_details_dict[d.dbname] = d
-        #         try:
-        #             self.add_collection_of_views(d.dbname, self.classesdict,
-        #                                          class_db_dict={}, svc_group=self.svc_groups[d.dbname],#svc_info.svc_id,
-        #                                          db_details=d)
-        #         except Exception as e:
-        #             print(e)
+        for sss in self.services:
+            s = self.services[sss]
+            for d in s.db:
+                # self.classesdict, my_db = classes.initialise(self.db, [d.dbname], [d.__str__()])
+                # self.db_details_dict[d.dbname] = d
+                try:
+                    self.add_collection_of_views(d.dbname, self.classesdict, class_db_dict=self.class_db_dict,
+                                                 svc_group=self.svc_groups[d.dbname])#,db_details=d)
+                except Exception as e:
+                    print(e)
 
 
 
-        binds = self.SQLALCHEMY_BINDS
-        for d in binds:
-            print(d, binds[d])
-
-            self.add_collection_of_views(d.__str__(), classesdict, class_db_dict, svc_group=svc_groups[d])
+        # binds = GLOBAL_SQLALCHEMY_BINDS
+        # for d in binds:
+        #     print(d, binds[d])
+        #
+        #     self.add_collection_of_views(d.__str__(), self.classesdict, self.class_db_dict,
+        #                                  svc_group=svc_groups[d])
 
 
 

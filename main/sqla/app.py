@@ -118,15 +118,7 @@ def create_app(instance_name):
     from methods import *
 
     app = Flask(__name__)
-    #    app.config.from_pyfile(config_filename)
 
-    #    from yourapplication.model import db
-    #    db.init_app(app)
-
-    #    from yourapplication.views.admin import admin
-    #    from yourapplication.views.frontend import frontend
-    #    app.register_blueprint(admin)
-    #    app.register_blueprint(frontend)
     # region GENERAL SETTINGS
 
     # Create dummy secrey key so we can use sessions
@@ -166,10 +158,9 @@ def create_app(instance_name):
         app.config["MAIL_DEFAULT_SENDER"] = dbconfig.mail_sender
 
     # endregion
+
     app.config['schema_id'] = -1
     db = SQLAlchemy(app)
-
-    # endregion
 
     DBAS = DBAS(app, db)
 
@@ -178,7 +169,6 @@ def create_app(instance_name):
         DBAS.setup_service(services[s])
 
     DBAS.initialise()
-
 
     if (instance_name != '') and (instance_name != 'all'):
         app.config['schema_id'] = DBAS.get_schema(instance_name)

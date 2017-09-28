@@ -933,13 +933,13 @@ class DBAS():
         #             print(e)
 
 
-
+        print(svc_groups)
         binds = GLOBAL_SQLALCHEMY_BINDS
         for d in binds:
             print(d, binds[d])
 
             self.add_collection_of_views(d.__str__(), self.classesdict, self.class_db_dict,
-                                         svc_group=svc_groups[d.dbname])
+                                         svc_group=svc_groups[d])
 
 
 

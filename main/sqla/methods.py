@@ -758,7 +758,7 @@ class DBAS():
                               db_string=self.db_details_dict[instance_id+"_"+db_name].__str__(), svc_group=svc_group,
                               db_details=self.db_details_dict[instance_id+"_"+db_name]))
 
-    def add_collection_of_views(self, d, instance_id, classesdict, class_db_dict, svc_group):
+    def add_collection_of_views(self, d, instance_id, svc_group):
         if d == dbconfig.db_name:
 
             print "CONNECTING TO IAAS ON " + self.SQLALCHEMY_BINDS[d]
@@ -775,7 +775,7 @@ class DBAS():
 
             proj_admin.add_hidden_view(IPAddressView(name="IP Addresses", endpoint="ip_addresses", category="Useage"))
 
-            print "ADDING IAAS CLASSES " + str(len(class_db_dict))
+            print "ADDING IAAS CLASSES " + str(len(self.class_db_dict))
 
 
         else:
@@ -808,13 +808,13 @@ class DBAS():
                              # ML('Export Data',url='/admin/ops/download'),
                              ML('Relationship Builder',
                                 url='/projects/{}/ops/relationshipbuilder'.format(d)))
-        for c in class_db_dict:
-            if d == class_db_dict[c]:
+        for c in self.class_db_dict:
+            if d == self.class_db_dict[c]:
                 if 'spatial_ref_sys' in c.lower():
                     continue
 
                 try:
-                    self._add_a_view(proj_admin, classesdict[c], db_name=d, instance_id=d, svc_group=svc_group)
+                    self._add_a_view(proj_admin, self.classesdict[c], db_name=d, instance_id=d, svc_group=svc_group)
                 except Exception as e:
                     print(e)
                     print("failed")
@@ -825,24 +825,23 @@ class DBAS():
 
     def dbas_admin_pages_setup(self):
 
-        binds = self.SQLALCHEMY_BINDS
-        for d in binds:
-            print(d, binds[d])
-
-            self.add_collection_of_views(d.__str__(),
-                                         instance_id=d, classesdict=self.classesdict,
-                                         class_db_dict=self.class_db_dict,
-                                         svc_group=d)
-
-
-        # print(self.svc_groups)
-        # for s in self.services:
-        #     for db in self.services[s].db:
-        #         d = db.dbname
+        # binds = self.SQLALCHEMY_BINDS
+        # for d in binds:
+        #     print(d, binds[d])
         #
-        #         self.add_collection_of_views(self.services[s].svc_name, self.classesdict, self.class_db_dict,
-        #                                      svc_group=self.services[s].svc_name,
-        #                                  instance_id=self.services[s].svc_name)
+        #     self.add_collection_of_views(d.__str__(),
+        #                                  instance_id=d,
+        #                                  svc_group=d)
+
+
+        print(self.svc_groups)
+        for s in self.services:
+            for db in self.services[s].db:
+                d = db.dbname
+
+                self.add_collection_of_views(self.services[s].svc_name,
+                                             svc_group=self.services[s].svc_name,
+                                         instance_id=self.services[s].svc_name)
 
 
 

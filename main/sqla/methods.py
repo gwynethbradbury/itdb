@@ -569,6 +569,7 @@ class DBAS():
         self.db = _db
 
         self.services = []
+        self.get_services(-1)
 
         self.setup()
         self.setup_pages()
@@ -618,7 +619,6 @@ class DBAS():
                                      _list_of_ncs=list_of_ncs,
                                      _list_of_dbs=list_of_dbs)
         self.services = S
-        return S
 
 
 

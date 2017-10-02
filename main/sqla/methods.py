@@ -574,7 +574,7 @@ class DBAS():
         self.db_list = []
         self.db_strings = []
         self.schema_ids = {}
-        self.db_details_dict = {"iaas_"+dbconfig.db_name: DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password,
+        self.db_details_dict = {dbconfig.db_name+"_"+dbconfig.db_name: DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password,
                                                            dbconfig.db_hostname, 3306, dbconfig.db_name)}
         self.svc_groups = {dbconfig.db_name: 'superusers'}
 
@@ -732,12 +732,12 @@ class DBAS():
                                   r[1],
                                   int(r[2]),
                                   svc_inst[1])
+            self.svc_groups["{}".format(svc_inst[1])] = svc_inst[2]
             self.db_details_dict[svc_inst[1]+"_"+r[6]] = db_string
 
             self.db_strings.append(db_string.__str__())
 
             self.SQLALCHEMY_BINDS["{}".format(svc_inst[1])] = db_string.__str__()
-            self.svc_groups["{}".format(svc_inst[1])] = svc_inst[2]
 
             project_dba = devmodels.DatabaseAssistant(db_string.__str__(), svc_inst[1], svc_inst[1])
             try:
@@ -751,18 +751,18 @@ class DBAS():
 
         return
 
-    def _add_a_view(self, proj_admin, c, db_name, svc_group):
+    def _add_a_view(self, proj_admin, c, db_name, svc_group, instance_id):
         proj_admin.add_view(
             views.MyModelView(c, self.db.session, name=c.__display_name__, databasename=proj_admin.database_name,
                               endpoint=proj_admin.database_name + "_" + c.__display_name__, category="Tables",
-                              db_string=self.db_details_dict[svc_group+"_"+db_name].__str__(), svc_group=svc_group,
-                              db_details=self.db_details_dict[svc_group+"_"+db_name]))
+                              db_string=self.db_details_dict[instance_id+"_"+db_name].__str__(), svc_group=svc_group,
+                              db_details=self.db_details_dict[instance_id+"_"+db_name]))
 
-    def add_collection_of_views(self, d, classesdict, class_db_dict, svc_group):
+    def add_collection_of_views(self, d, instance_id, classesdict, class_db_dict, svc_group):
         if d == dbconfig.db_name:
 
             print "CONNECTING TO IAAS ON " + self.SQLALCHEMY_BINDS[d]
-            proj_admin = MyIAASView(db_details=self.db_details_dict["iaas_"+d],
+            proj_admin = MyIAASView(db_details=self.db_details_dict[d+"_"+d],
                                     app=self.app, name='IAAS admin app', template_mode='foundation',
                                     endpoint=d, url="/projects/{}".format(d),
                                     base_template='my_master.html', database_name=d,
@@ -787,7 +787,7 @@ class DBAS():
                                         url="/projects/{}".format(d),
                                         base_template='my_master.html',
                                         database_name=d,
-                                        db_details=self.db_details_dict[svc_group+"_"+d],
+                                        db_details=self.db_details_dict[instance_id+"_"+d],
                                         svc_group=svc_group
                                         )
 
@@ -814,7 +814,7 @@ class DBAS():
                     continue
 
                 try:
-                    self._add_a_view(proj_admin, classesdict[c], db_name=d, svc_group=svc_group)
+                    self._add_a_view(proj_admin, classesdict[c], db_name=d, instance_id=d, svc_group=svc_group)
                 except Exception as e:
                     print(e)
                     print("failed")
@@ -829,7 +829,9 @@ class DBAS():
         for d in binds:
             print(d, binds[d])
 
-            self.add_collection_of_views(d.__str__(), self.classesdict, self.class_db_dict,
+            self.add_collection_of_views(d.__str__(),
+                                         instance_id=d, classesdict=self.classesdict,
+                                         class_db_dict=self.class_db_dict,
                                          svc_group=d)
 
 
@@ -839,7 +841,8 @@ class DBAS():
         #         d = db.dbname
         #
         #         self.add_collection_of_views(self.services[s].svc_name, self.classesdict, self.class_db_dict,
-        #                                      svc_group=self.services[s].svc_name)
+        #                                      svc_group=self.services[s].svc_name,
+        #                                  instance_id=self.services[s].svc_name)
 
 
 

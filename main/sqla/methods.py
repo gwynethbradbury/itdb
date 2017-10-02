@@ -530,7 +530,7 @@ class DBAS():
         views.set_nextcloud_views(self.app, self.nextcloud_names, self.nextcloud_identifiers)
 
         # put the database views in
-        self.set_iaas_admin_console(self.class_db_dict, self.classesdict)
+        # self.set_iaas_admin_console(self.class_db_dict, self.classesdict)
         self.dbas_admin_pages_setup(self.db_list, self.classesdict, self.class_db_dict, self.svc_groups)
 
     def init_login(self):
@@ -694,19 +694,48 @@ class DBAS():
 
     def add_collection_of_views(self, d, classesdict, class_db_dict, svc_group):
         if d == dbconfig.db_name:
-            return
 
-        # todo: change bootstrap3 back to foundation to use my templates
-        proj_admin = MyStandardView(self.app, name='{} admin'.format(d),
-                                    template_mode='foundation',
-                                    endpoint=d,
-                                    url="/projects/{}".format(d),
-                                    base_template='my_master.html',
-                                    database_name=d,
-                                    db_details=self.db_details_dict[d],
-                                    svc_group=svc_group
-                                    )
+            print "CONNECTING TO IAAS ON " + self.SQLALCHEMY_BINDS[d]
+            proj_admin = MyIAASView(db_details=self.db_details_dict[d],
+                                    app=self.app, name='IAAS admin app', template_mode='foundation',
+                                    endpoint=d, url="/projects/{}".format(d),
+                                    base_template='my_master.html', database_name=d,
+                                    svc_group='superusers')
 
+            proj_admin.add_links(ML('IPs in use', url='/projects/{}/ip_addresses/'.format(d),
+                                    category="Useage"),
+                                 ML('Ports in use', url='/projects/{}/ip_addresses/ports'.format(d),
+                                    category="Useage"))
+
+            proj_admin.add_hidden_view(IPAddressView(name="IP Addresses", endpoint="ip_addresses", category="Useage"))
+
+            # proj_admin.add_hidden_view(DatabaseOps(name='Edit Database',
+            #                                        endpoint='ops',
+            #                                        db_string=self.SQLALCHEMY_BINDS[d],
+            #                                        database_name=d,
+            #                                        svc_group='superusers',
+            #                                        db=self.db))
+
+            print "ADDING IAAS CLASSES " + str(len(class_db_dict))
+
+
+        else:
+
+            # todo: change bootstrap3 back to foundation to use my templates
+            proj_admin = MyStandardView(self.app, name='{} admin'.format(d),
+                                        template_mode='foundation',
+                                        endpoint=d,
+                                        url="/projects/{}".format(d),
+                                        base_template='my_master.html',
+                                        database_name=d,
+                                        db_details=self.db_details_dict[d],
+                                        svc_group=svc_group
+                                        )
+
+
+            proj_admin.add_links(ML('Application', url='/projects/{}/app'.format(d)))
+
+        # general
         proj_admin.add_hidden_view(DatabaseOps(name='Edit Database'.format(d),
                                                endpoint='{}_ops'.format(d),
                                                db_string=self.SQLALCHEMY_BINDS[d],
@@ -715,12 +744,11 @@ class DBAS():
                                                C=self.classesdict,
                                                svc_group=svc_group))
 
-        proj_admin.add_links(ML('New Table', url='/projects/{}/{}_ops/newtable'.format(d, d)),
-                             ML('Import Data', url='/projects/{}/{}_ops/upload'.format(d, d)),
-                             # ML('Export Data',url='/projects/{}/{}_ops/download'.format(d,d)),
-                             ML('Relationship Builder', url='/projects/{}/{}_ops/relationshipbuilder'.format(d, d)),
-                             ML('Application', url='/projects/{}/app'.format(d)))
-
+        proj_admin.add_links(ML('New Table', url='/projects/{}/ops/newtable'.format(d)),
+                             ML('Import Data', url='/projects/{}/ops/upload'.format(d)),
+                             # ML('Export Data',url='/admin/ops/download'),
+                             ML('Relationship Builder',
+                                url='/projects/{}/ops/relationshipbuilder'.format(d)))
         for c in class_db_dict:
             if d == class_db_dict[c]:
                 if 'spatial_ref_sys' in c.lower():

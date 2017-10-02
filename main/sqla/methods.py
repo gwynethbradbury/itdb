@@ -837,7 +837,7 @@ class DBAS():
             for db in self.services[s].db:
                 d = db.dbname
 
-                self.add_collection_of_views(d.__str__(), self.classesdict, self.class_db_dict,
+                self.add_collection_of_views(self.services[s].svc_name, self.classesdict, self.class_db_dict,
                                              svc_group=self.services[s].svc_name)
 
 

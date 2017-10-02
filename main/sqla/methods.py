@@ -830,7 +830,7 @@ class DBAS():
             print(d, binds[d])
 
             self.add_collection_of_views(d.__str__(), self.classesdict, self.class_db_dict,
-                                         svc_group=self.svc_groups[d])
+                                         svc_group=d)
 
 
         # print(self.svc_groups)

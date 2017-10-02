@@ -574,7 +574,7 @@ class DBAS():
         self.db_list = []
         self.db_strings = []
         self.schema_ids = {}
-        self.db_details_dict = {dbconfig.db_name: DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password,
+        self.db_details_dict = {"iaas_"+dbconfig.db_name: DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password,
                                                            dbconfig.db_hostname, 3306, dbconfig.db_name)}
         self.svc_groups = {dbconfig.db_name: 'superusers'}
 
@@ -696,7 +696,8 @@ class DBAS():
         result, list_of_databases = dba.retrieveDataFromDatabase("database_instances",
                                                                  ["svc_inst",
                                                                   "ip_address", "port",
-                                                                  "engine_type", "username", "password_if_secure"],
+                                                                  "engine_type", "username", "password_if_secure",
+                                                                  "database_name"],
                                                                  classes_loaded=False)
 
         for r in list_of_databases:
@@ -731,7 +732,7 @@ class DBAS():
                                   r[1],
                                   int(r[2]),
                                   svc_inst[1])
-            self.db_details_dict[svc_inst[1]] = db_string
+            self.db_details_dict[svc_inst[1]+"_"+r[6]] = db_string
 
             self.db_strings.append(db_string.__str__())
 
@@ -754,14 +755,14 @@ class DBAS():
         proj_admin.add_view(
             views.MyModelView(c, self.db.session, name=c.__display_name__, databasename=proj_admin.database_name,
                               endpoint=proj_admin.database_name + "_" + c.__display_name__, category="Tables",
-                              db_string=self.db_details_dict[db_name].__str__(), svc_group=svc_group,
-                              db_details=self.db_details_dict[db_name]))
+                              db_string=self.db_details_dict[svc_group+"_"+db_name].__str__(), svc_group=svc_group,
+                              db_details=self.db_details_dict[svc_group+"_"+db_name]))
 
     def add_collection_of_views(self, d, classesdict, class_db_dict, svc_group):
         if d == dbconfig.db_name:
 
             print "CONNECTING TO IAAS ON " + self.SQLALCHEMY_BINDS[d]
-            proj_admin = MyIAASView(db_details=self.db_details_dict[d],
+            proj_admin = MyIAASView(db_details=self.db_details_dict["iaas_"+d],
                                     app=self.app, name='IAAS admin app', template_mode='foundation',
                                     endpoint=d, url="/projects/{}".format(d),
                                     base_template='my_master.html', database_name=d,
@@ -786,7 +787,7 @@ class DBAS():
                                         url="/projects/{}".format(d),
                                         base_template='my_master.html',
                                         database_name=d,
-                                        db_details=self.db_details_dict[d],
+                                        db_details=self.db_details_dict[svc_group+"_"+d],
                                         svc_group=svc_group
                                         )
 

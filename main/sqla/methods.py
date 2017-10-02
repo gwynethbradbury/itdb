@@ -633,7 +633,6 @@ class DBAS():
 
 
     def setup(self):
-        # self.SQLALCHEMY_BINDS, self.class_db_dict, self.db_list, self.schema_ids, self.db_strings, self.db_details_dict, self.svc_groups = \
         self.get_binds()
 
         self.nextcloud_identifiers, self.nextcloud_names = self.get_nextclouds()
@@ -649,7 +648,7 @@ class DBAS():
         views.set_nextcloud_views(self.app, self.nextcloud_names, self.nextcloud_identifiers)
 
         # put the database views in
-        self.dbas_admin_pages_setup(self.db_list, self.classesdict, self.class_db_dict, self.svc_groups)
+        self.dbas_admin_pages_setup()
 
     def init_login(self):
         login_manager = login.LoginManager()
@@ -688,7 +687,6 @@ class DBAS():
         return identifiers, names
 
     def get_binds(self):
-        # self.SQLALCHEMY_BINDS, self.class_db_dict, self.db_list, self.schema_ids, self.db_strings, self.db_details_dict, self.svc_groups = self.get_binds()
 
         """checks the iaas db for dbas services and collects the db binds"""
 
@@ -701,19 +699,6 @@ class DBAS():
                                                                   "engine_type", "username", "password_if_secure"],
                                                                  classes_loaded=False)
 
-        # self.class_db_dict = {}
-        #
-        # self.SQLALCHEMY_BINDS = {dbconfig.db_name: '{}://{}:{}@{}/{}'
-        #     .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname, dbconfig.db_name)}
-        #
-        # self.db_list = []
-        # self.db_string_list = []
-        # self.schema_ids = {}
-        # self.db_details_dict = {}
-        # self.db_details_dict[dbconfig.db_name] = DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password,
-        #                                               dbconfig.db_hostname, 3306, dbconfig.db_name)
-        # self.svc_groups = {}
-        # self.svc_groups[dbconfig.db_name] = 'superusers'
         for r in list_of_databases:
 
             if r[5] == '':  # postgres or insecure password
@@ -764,7 +749,6 @@ class DBAS():
                 print "failed - authentication?"
 
         return
-        #SQLALCHEMY_BINDS, class_db_dict, db_list, schema_ids, db_string_list, db_details_dict, svc_groups
 
     def _add_a_view(self, proj_admin, c, db_name, svc_group):
         proj_admin.add_view(
@@ -838,13 +822,22 @@ class DBAS():
         classesdict, my_db = classes.initialise(self.db, self.db_list, self.db_strings)
         return classesdict, my_db
 
-    def dbas_admin_pages_setup(self, db_list, classesdict, class_db_dict, svc_groups):
+    def dbas_admin_pages_setup(self):
 
         binds = self.SQLALCHEMY_BINDS
         for d in binds:
             print(d, binds[d])
 
-            self.add_collection_of_views(d.__str__(), classesdict, class_db_dict, svc_group=svc_groups[d])
+            self.add_collection_of_views(d.__str__(), self.classesdict, self.class_db_dict,
+                                         svc_group=self.svc_groups[d])
+
+
+        for s in self.services:
+            for db in self.services[s].db:
+                d = db.dbname
+
+                self.add_collection_of_views(d.__str__(), self.classesdict, self.class_db_dict,
+                                             svc_group=self.svc_groups[d])
 
 
 

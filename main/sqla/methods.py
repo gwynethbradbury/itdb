@@ -529,6 +529,7 @@ class WebApp():
         self.name = name
         self.homepage = homepage
 
+GLOBAL_SQLALCHEMY_BINDS={}
 class SvcDetails():
 
     def __init__(self, svc_id=-1, svc_name="",

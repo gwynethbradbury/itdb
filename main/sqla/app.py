@@ -164,11 +164,11 @@ def create_app(instance_name):
 
     DBAS = DBAS(app, db)
 
-    services = DBAS.get_services()
-    for s in services:
-        DBAS.setup_service(services[s])
+    # services = DBAS.get_services()
+    # for s in services:
+    #     DBAS.setup_service(services[s])
 
-    DBAS.initialise()
+    # DBAS.initialise()
 
     if (instance_name != '') and (instance_name != 'all'):
         app.config['schema_id'] = DBAS.get_schema(instance_name)

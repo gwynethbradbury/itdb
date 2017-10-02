@@ -78,6 +78,7 @@ def make_app(prefix):
 
 application = PathDispatcher(NotFound(), make_app)
 
+
 ## from app.sqla import *
 #from main.sqla.app import app as application
 ## application = app

@@ -441,6 +441,25 @@ class DBDetails():
         except Exception as e:
             return [], e.__str__(), 0
 
+    def GetExistingKeys(self, foreign=True, primary=False):
+        P = ""
+        if primary and foreign:
+            P = ""
+        else:
+            if primary:
+                P = "AND CONSTRAINT_NAME = 'PRIMARY'"
+            elif foreign:
+                P = "AND NOT CONSTRAINT_NAME = 'PRIMARY'"
+
+        Q = self.ConnectAndExecute("SELECT CONSTRAINT_NAME,REFERENCED_TABLE_SCHEMA,"
+                                   "TABLE_NAME,COLUMN_NAME,"
+                                   "REFERENCED_TABLE_NAME,REFERENCED_COLUMN_NAME "
+                                   "FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE "
+                                   "WHERE TABLE_SCHEMA='{}' {};".format(self.dbname, P))
+
+        return Q
+
+
     def GetUseage(self):
         dbuseage = 0
         if self.engine_type == 'postgresql':

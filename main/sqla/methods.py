@@ -568,6 +568,16 @@ class DBAS():
         self.app = _app
         self.db = _db
 
+        self.class_db_dict = {}
+        self.SQLALCHEMY_BINDS = {dbconfig.db_name: '{}://{}:{}@{}/{}'
+            .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname, dbconfig.db_name)}
+        self.db_list = []
+        self.db_strings = []
+        self.schema_ids = {}
+        self.db_details_dict = {dbconfig.db_name: DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password,
+                                                           dbconfig.db_hostname, 3306, dbconfig.db_name)}
+        self.svc_groups = {dbconfig.db_name: 'superusers'}
+
         self.services = []
         self.get_services(-1)
 
@@ -623,7 +633,8 @@ class DBAS():
 
 
     def setup(self):
-        self.SQLALCHEMY_BINDS, self.class_db_dict, self.db_list, self.schema_ids, self.db_strings, self.db_details_dict, self.svc_groups = self.get_binds()
+        # self.SQLALCHEMY_BINDS, self.class_db_dict, self.db_list, self.schema_ids, self.db_strings, self.db_details_dict, self.svc_groups = \
+        self.get_binds()
 
         self.nextcloud_identifiers, self.nextcloud_names = self.get_nextclouds()
 
@@ -677,6 +688,8 @@ class DBAS():
         return identifiers, names
 
     def get_binds(self):
+        # self.SQLALCHEMY_BINDS, self.class_db_dict, self.db_list, self.schema_ids, self.db_strings, self.db_details_dict, self.svc_groups = self.get_binds()
+
         """checks the iaas db for dbas services and collects the db binds"""
 
         iaas_main_db = self.app.config['SQLALCHEMY_DATABASE_URI']
@@ -688,19 +701,19 @@ class DBAS():
                                                                   "engine_type", "username", "password_if_secure"],
                                                                  classes_loaded=False)
 
-        class_db_dict = {}
-
-        SQLALCHEMY_BINDS = {dbconfig.db_name: '{}://{}:{}@{}/{}'
-            .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname, dbconfig.db_name)}
-
-        db_list = []
-        db_string_list = []
-        schema_ids = {}
-        db_details_dict = {}
-        db_details_dict[dbconfig.db_name] = DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password,
-                                                      dbconfig.db_hostname, 3306, dbconfig.db_name)
-        svc_groups = {}
-        svc_groups[dbconfig.db_name] = 'superusers'
+        # self.class_db_dict = {}
+        #
+        # self.SQLALCHEMY_BINDS = {dbconfig.db_name: '{}://{}:{}@{}/{}'
+        #     .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname, dbconfig.db_name)}
+        #
+        # self.db_list = []
+        # self.db_string_list = []
+        # self.schema_ids = {}
+        # self.db_details_dict = {}
+        # self.db_details_dict[dbconfig.db_name] = DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password,
+        #                                               dbconfig.db_hostname, 3306, dbconfig.db_name)
+        # self.svc_groups = {}
+        # self.svc_groups[dbconfig.db_name] = 'superusers'
         for r in list_of_databases:
 
             if r[5] == '':  # postgres or insecure password
@@ -723,8 +736,8 @@ class DBAS():
             if not ((svc_inst[1] == self.app.config['db']) or (self.app.config['db'] == 'all')):
                 continue
 
-            schema_ids[svc_inst[1]] = svc_inst[3]
-            db_list.append(svc_inst[1])
+            self.schema_ids[svc_inst[1]] = svc_inst[3]
+            self.db_list.append(svc_inst[1])
             if r[2] == 'None':
                 r[2] = '0'
             db_string = DBDetails(engine_type,
@@ -733,24 +746,25 @@ class DBAS():
                                   r[1],
                                   int(r[2]),
                                   svc_inst[1])
-            db_details_dict[svc_inst[1]] = db_string
+            self.db_details_dict[svc_inst[1]] = db_string
 
-            db_string_list.append(db_string.__str__())
+            self.db_strings.append(db_string.__str__())
 
-            SQLALCHEMY_BINDS["{}".format(svc_inst[1])] = db_string.__str__()
-            svc_groups["{}".format(svc_inst[1])] = svc_inst[2]
+            self.SQLALCHEMY_BINDS["{}".format(svc_inst[1])] = db_string.__str__()
+            self.svc_groups["{}".format(svc_inst[1])] = svc_inst[2]
 
             project_dba = devmodels.DatabaseAssistant(db_string.__str__(), svc_inst[1], svc_inst[1])
             try:
                 tns, cns = project_dba.getTableAndColumnNames()
                 for t in tns:
-                    class_db_dict['cls_{}_{}'.format(svc_inst[1], t)] = svc_inst[1]
+                    self.class_db_dict['cls_{}_{}'.format(svc_inst[1], t)] = svc_inst[1]
             except Exception as e:
                 # flash(e,'error')
                 print(e)
                 print "failed - authentication?"
 
-        return SQLALCHEMY_BINDS, class_db_dict, db_list, schema_ids, db_string_list, db_details_dict, svc_groups
+        return
+        #SQLALCHEMY_BINDS, class_db_dict, db_list, schema_ids, db_string_list, db_details_dict, svc_groups
 
     def _add_a_view(self, proj_admin, c, db_name, svc_group):
         proj_admin.add_view(

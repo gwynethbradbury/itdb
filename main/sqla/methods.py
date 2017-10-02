@@ -579,7 +579,6 @@ class DBAS():
         self.setup()
         self.setup_pages()
 
-
     def get_services(self, id=-1):
 
         controlDB = DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password,
@@ -627,9 +626,6 @@ class DBAS():
         self.services = S
         return S
 
-
-
-
     def setup(self):
 
         self.get_binds()
@@ -648,7 +644,7 @@ class DBAS():
 
         # put the database views in
         self.set_iaas_admin_console(self.class_db_dict, self.classesdict)
-        self.dbas_admin_pages_setup(self.db_list, self.classesdict, self.class_db_dict, self.svc_groups)
+        self.dbas_admin_pages_setup()
 
     def init_login(self):
         login_manager = login.LoginManager()
@@ -802,7 +798,7 @@ class DBAS():
                               db_string=self.db_details_dict[db_name].__str__(), svc_group=svc_group,
                               db_details=self.db_details_dict[db_name]))
 
-    def add_collection_of_views(self, d, classesdict, class_db_dict, svc_group):
+    def add_collection_of_views(self, d, svc_group):
         if d == dbconfig.db_name:
             return
 
@@ -831,13 +827,13 @@ class DBAS():
                              ML('Relationship Builder', url='/projects/{}/{}_ops/relationshipbuilder'.format(d, d)),
                              ML('Application', url='/projects/{}/app'.format(d)))
 
-        for c in class_db_dict:
-            if d == class_db_dict[c]:
+        for c in self.class_db_dict:
+            if d == self.class_db_dict[c]:
                 if 'spatial_ref_sys' in c.lower():
                     continue
 
                 try:
-                    self._add_a_view(proj_admin, classesdict[c], db_name=d, svc_group=svc_group)
+                    self._add_a_view(proj_admin, self.classesdict[c], db_name=d, svc_group=svc_group)
                 except Exception as e:
                     print(e)
                     print("failed")
@@ -846,15 +842,17 @@ class DBAS():
         classesdict, my_db = classes.initialise(self.db, self.db_list, self.db_strings)
         return classesdict, my_db
 
-    def dbas_admin_pages_setup(self, db_list, classesdict, class_db_dict, svc_groups):
+    def dbas_admin_pages_setup(self):
+        # binds = self.SQLALCHEMY_BINDS
+        # for d in binds:
+        #     print(d, binds[d])
+        #
+        #     self.add_collection_of_views(d.__str__(), svc_group=self.svc_groups[d])
 
-        binds = self.SQLALCHEMY_BINDS
-        for d in binds:
-            print(d, binds[d])
-
-            self.add_collection_of_views(d.__str__(), classesdict, class_db_dict, svc_group=svc_groups[d])
-
-
+        for s in self.services:
+            for d in self.services[s].db:
+                print(self.services[s].svc_name, d.dbname)
+                self.add_collection_of_views(d.dbname,svc_group=self.svc_groups[d.dbname])
 
 
 

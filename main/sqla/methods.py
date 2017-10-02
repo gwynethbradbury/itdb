@@ -409,6 +409,7 @@ class MyIAASView(MyStandardView):
             query="SELECT ip_address, port from database_instances;")
         return instances
 
+GLOBAL_SQLALCHEMY_BINDS={}
 
 class DBDetails():
     def __init__(self, engine_type, username, passwd, host, port, dbname):
@@ -506,13 +507,120 @@ class DBDetails():
                                              self.host,
                                              self.dbname)
 
+class NextCloud():
+
+    def __init__(self, link, ip):
+        self.ip = ip
+        self.link = link
+
+class VirtualMachine():
+
+    def __init__(self, name, ip, owned_by):
+        self.name = name
+        self.owned_by = owned_by
+        self.ip = ip
+
+class WebApp():
+
+    def __init__(self, homepage, name):
+        self.name = name
+        self.homepage = homepage
+
+class SvcDetails():
+    nc = []
+    db = []
+    wa = []
+    vm = []
+
+    svc_id = -1
+    svc_name = ""
+
+    def __init__(self, svc_id, svc_name,
+                 _list_of_dbs, _list_of_ncs, _list_of_vms, _list_of_was):
+        self.svc_id = svc_id
+        self.svc_name = svc_name
+
+        self.nc = []
+        self.db = []
+        self.wa = []
+        self.vm = []
+        for d in _list_of_dbs:
+            DBD = DBDetails(engine_type=d[0], username=d[1],
+                                     passwd=d[2], host=d[3], port=d[4],
+                                     dbname=d[5])
+            self.db.append(DBD)
+
+            GLOBAL_SQLALCHEMY_BINDS[DBD.dbname] = DBD.__str__()
+
+        for n in _list_of_ncs:
+            self.nc.append(NextCloud(n[0], n[1]))
+
+        for v in _list_of_vms:
+            self.vm.append(VirtualMachine(v[0], v[1], v[2]))
+
+        for w in _list_of_was:
+            self.wa.append(NextCloud(w[0], w[1]))
+global_class_db_dict={}
+global_classes_dict={}
 
 class DBAS():
     def __init__(self, _app, _db):
         self.app = _app
         self.db = _db
+
+        self.services = []
+
         self.setup()
         self.setup_pages()
+
+    def get_services(self, id=-1):
+
+        controlDB = DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password,
+                              dbconfig.db_hostname, 3306, dbconfig.db_name)
+
+        list_of_services, msg, ret = controlDB.ConnectAndExecute("SELECT id, instance_identifier "
+                                                                 "FROM svc_instances;")
+
+        S = {}
+        for r in list_of_services:
+            if r[1] is not None and (id == -1 or id == int(r[0])):
+
+                list_of_dbs_tmp, msg, ret = controlDB.ConnectAndExecute(
+                    "SELECT engine_type, username, password_if_secure, ip_address, port, database_name "
+                    "FROM database_instances "
+                    "WHERE svc_inst = '{}';".format(int(r[0])))
+                list_of_dbs = []
+                for i in range(len(list_of_dbs_tmp)):
+                    d = list_of_dbs_tmp[i]
+                    engine_type, msg, ret = controlDB.ConnectAndExecute("SELECT connection_string "
+                                                                        "FROM database_engine "
+                                                                        "WHERE id = '{}';"
+                                                                        .format((d[0])))
+                    L = list(d)
+                    L[0] = engine_type[0][0]
+                    list_of_dbs.append(L)
+
+                list_of_ncs, msg, ret = controlDB.ConnectAndExecute("SELECT link, ip_address "
+                                                                    "FROM nextcloud_instances "
+                                                                    "WHERE svc_inst_id = '{}';"
+                                                                    .format(int(r[0])))
+                list_of_vms, msg, ret = controlDB.ConnectAndExecute("SELECT name, ip_address, owned_by "
+                                                                    "FROM virtual_machines "
+                                                                    "WHERE svc_inst = '{}';"
+                                                                    .format(int(r[0])))
+                list_of_was, msg, ret = controlDB.ConnectAndExecute("SELECT name, homepage, name "
+                                                                    "FROM web_apps "
+                                                                    "WHERE svc_inst = '{}';"
+                                                                    .format(int(r[0])))
+                S[r[1]] = SvcDetails(int(r[0]), r[1],
+                                     _list_of_was=list_of_was,
+                                     _list_of_vms=list_of_vms,
+                                     _list_of_ncs=list_of_ncs,
+                                     _list_of_dbs=list_of_dbs)
+        self.services = S
+        return S
+
+
 
     def setup(self):
         self.SQLALCHEMY_BINDS, self.class_db_dict, self.db_list, self.schema_ids, self.db_strings, self.db_details_dict, self.svc_groups = self.get_binds()
@@ -530,7 +638,6 @@ class DBAS():
         views.set_nextcloud_views(self.app, self.nextcloud_names, self.nextcloud_identifiers)
 
         # put the database views in
-        # self.set_iaas_admin_console(self.class_db_dict, self.classesdict)
         self.dbas_admin_pages_setup(self.db_list, self.classesdict, self.class_db_dict, self.svc_groups)
 
     def init_login(self):
@@ -645,46 +752,6 @@ class DBAS():
 
         return SQLALCHEMY_BINDS, class_db_dict, db_list, schema_ids, db_string_list, db_details_dict, svc_groups
 
-    def set_iaas_admin_console(self, class_db_dict, classesdict):
-        """set up the admin console, depnds on predefined classes"""
-
-        # endregion
-        # Create admin
-        # todo: change bootstrap3 back to foundation to use my templates
-        print "CONNECTING TO IAAS ON " + self.SQLALCHEMY_BINDS[dbconfig.db_name]
-        iaas_admin = MyIAASView(db_details=self.db_details_dict[dbconfig.db_name],
-                                app=self.app, name='IAAS admin app', template_mode='foundation',
-                                endpoint=dbconfig.db_name, url="/projects/{}".format(dbconfig.db_name),
-                                base_template='my_master.html', database_name=dbconfig.db_name, svc_group='superusers')
-
-        # example adding links:
-        #     iaas_admin.add_links(ML('Test Internal Link', endpoint='applicationhome'),
-        #                          ML('Test External Link', url='http://python.org/'))
-        #
-        iaas_admin.add_links(ML('New Table', url='/projects/{}/ops/newtable'.format(dbconfig.db_name)),
-                             ML('Import Data', url='/projects/{}/ops/upload'.format(dbconfig.db_name)),
-                             # ML('Export Data',url='/admin/ops/download'),
-                             ML('Relationship Builder',
-                                url='/projects/{}/ops/relationshipbuilder'.format(dbconfig.db_name)),
-                             ML('IPs in use', url='/projects/{}/ip_addresses/'.format(dbconfig.db_name),
-                                category="Useage"),
-                             ML('Ports in use', url='/projects/{}/ip_addresses/ports'.format(dbconfig.db_name),
-                                category="Useage"))
-
-        iaas_admin.add_hidden_view(DatabaseOps(name='Edit Database', endpoint='ops',
-                                               db_string=self.SQLALCHEMY_BINDS[dbconfig.db_name],
-                                               database_name=dbconfig.db_name, svc_group='superusers',
-                                               db=self.db))
-
-        iaas_admin.add_hidden_view(IPAddressView(name="IP Addresses", endpoint="ip_addresses", category="Useage"))
-        print "ADDING IAAS CLASSES " + str(len(class_db_dict))
-        for c in class_db_dict:
-            print c + " " + class_db_dict[c]
-
-            if dbconfig.db_name == class_db_dict[c]:
-                print c
-                self._add_a_view(iaas_admin, classesdict[c], db_name=dbconfig.db_name, svc_group='superusers')
-
     def _add_a_view(self, proj_admin, c, db_name, svc_group):
         proj_admin.add_view(
             views.MyModelView(c, self.db.session, name=c.__display_name__, databasename=proj_admin.database_name,
@@ -708,13 +775,6 @@ class DBAS():
                                     category="Useage"))
 
             proj_admin.add_hidden_view(IPAddressView(name="IP Addresses", endpoint="ip_addresses", category="Useage"))
-
-            # proj_admin.add_hidden_view(DatabaseOps(name='Edit Database',
-            #                                        endpoint='ops',
-            #                                        db_string=self.SQLALCHEMY_BINDS[d],
-            #                                        database_name=d,
-            #                                        svc_group='superusers',
-            #                                        db=self.db))
 
             print "ADDING IAAS CLASSES " + str(len(class_db_dict))
 

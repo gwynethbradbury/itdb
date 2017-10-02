@@ -413,6 +413,8 @@ class MyIAASView(MyStandardView):
         return instances
 
 
+GLOBAL_SQLALCHEMY_BINDS={}
+
 class DBDetails():
     def __init__(self, engine_type, username, passwd, host, port, dbname):
         self.engine_type = engine_type
@@ -537,7 +539,6 @@ class WebApp():
         self.name = name
         self.homepage = homepage
 
-GLOBAL_SQLALCHEMY_BINDS={}
 class SvcDetails():
     nc = []
     db = []

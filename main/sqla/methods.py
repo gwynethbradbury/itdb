@@ -843,16 +843,16 @@ class DBAS():
         return classesdict, my_db
 
     def dbas_admin_pages_setup(self):
-        binds = self.SQLALCHEMY_BINDS
-        for d in binds:
-            print(d, binds[d])
+        # binds = self.SQLALCHEMY_BINDS
+        # for d in binds:
+        #     print(d, binds[d])
+        #
+        #     self.add_collection_of_views(d.__str__(), svc_group=self.svc_groups[d])
 
-            self.add_collection_of_views(d.__str__(), svc_group=self.svc_groups[d])
-
-        # for s in self.services:
-        #     for d in self.services[s].db:
-        #         print(self.services[s].svc_name, d.dbname)
-        #         self.add_collection_of_views(d.dbname,svc_group=self.svc_groups[d.dbname])
+        for s in self.services:
+            for d in self.services[s].db:
+                print(self.services[s].svc_name, d.dbname)
+                self.add_collection_of_views(d.dbname,svc_group=self.services[s].svc_name)
 
 
 

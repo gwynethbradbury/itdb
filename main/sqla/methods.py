@@ -832,6 +832,7 @@ class DBAS():
         #                                  svc_group=self.svc_groups[d])
 
 
+        print(self.svc_groups)
         for s in self.services:
             for db in self.services[s].db:
                 d = db.dbname

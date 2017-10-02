@@ -840,7 +840,7 @@ class DBAS():
                 d = db.dbname
 
                 self.add_collection_of_views(d,
-                                             svc_group=self.svc_groups[s],
+                                             svc_group=self.svc_groups[d],
                                          instance_id=self.services[s].svc_name)
 
 

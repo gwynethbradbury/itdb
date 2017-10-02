@@ -938,8 +938,13 @@ class DBAS():
         for d in binds:
             print(d, binds[d])
 
-            self.add_collection_of_views(d.__str__(), self.classesdict, self.class_db_dict,
-                                         svc_group=svc_groups[d])
+            try:
+
+                self.add_collection_of_views(d.__str__(), self.classesdict, self.class_db_dict,
+                                             svc_group=svc_groups[d])
+            except Exception as e:
+                print(e)
+                print("could not add views for {}".format(d))
 
 
 

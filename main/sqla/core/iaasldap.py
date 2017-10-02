@@ -203,11 +203,11 @@ class LDAPUser():
     caveat: if this is an admin-only page, _admin is added to the group name
     '''
     def is_authorised(self, service_name, is_admin_only_page=False):
+        usersgroups = self.get_groups()
+        if "superusers" in usersgroups:
+            return True
         if is_admin_only_page:
             service_name = service_name + "_admin"
-        usersgroups = self.get_groups()
         if service_name in usersgroups:
-            return True
-        if "superusers" in usersgroups:
             return True
         return False

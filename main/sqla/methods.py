@@ -797,6 +797,7 @@ class DBAS():
                               endpoint=proj_admin.database_name + "_" + c.__display_name__, category="Tables",
                               db_string=self.db_details_dict[db_name].__str__(), svc_group=svc_group,
                               db_details=self.db_details_dict[db_name]))
+        print("VIEW ADDED AT " + proj_admin.database_name + "_" + c.__display_name__)
 
     def add_collection_of_views(self, d, svc_group):
         if d == dbconfig.db_name:
@@ -812,6 +813,7 @@ class DBAS():
                                     db_details=self.db_details_dict[d],
                                     svc_group=svc_group
                                     )
+        print("VIEW ADDED AT " + "/projects/{}".format(d))
 
         proj_admin.add_hidden_view(DatabaseOps(name='Edit Database'.format(d),
                                                endpoint='{}_ops'.format(d),

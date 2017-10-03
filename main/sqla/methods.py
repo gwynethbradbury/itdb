@@ -887,7 +887,7 @@ class DBAS():
         for d in binds:
             print(d, binds[d])
 
-            self.add_collection_of_views(d.__str__(), classesdict, class_db_dict, svc_group=svc_groups[d])
+            self.add_collection_of_views(d.__str__(), classesdict, class_db_dict, svc_group=d)
 
 
 

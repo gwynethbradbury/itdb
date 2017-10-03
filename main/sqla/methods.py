@@ -564,7 +564,7 @@ class DBAS():
         self.db = _db
         self.class_db_dict = {}
 
-        GLOBAL_SQLALCHEMY_BINDS = {}
+        self.SQLALCHEMY_BINDS = {}
         self.db_list = []
         self.db_strings = []
         self.schema_ids = {}
@@ -587,7 +587,7 @@ class DBAS():
 
         self.nextcloud_identifiers, self.nextcloud_names = self.get_nextclouds()
 
-        self.app.config['SQLALCHEMY_BINDS'] = GLOBAL_SQLALCHEMY_BINDS
+        self.app.config['SQLALCHEMY_BINDS'] = self.SQLALCHEMY_BINDS
 
         self.classesdict, self.my_db = self.init_classes(self.db_list, self.class_db_dict)
 
@@ -715,7 +715,7 @@ class DBAS():
 
         self.class_db_dict = {}
 
-        GLOBAL_SQLALCHEMY_BINDS = {dbconfig.db_name: '{}://{}:{}@{}/{}'
+        self.SQLALCHEMY_BINDS = {dbconfig.db_name: '{}://{}:{}@{}/{}'
             .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname, dbconfig.db_name)}
 
         self.db_list = []
@@ -762,7 +762,7 @@ class DBAS():
 
             self.db_strings.append(db_string.__str__())
 
-            GLOBAL_SQLALCHEMY_BINDS["{}".format(svc_inst[1])] = db_string.__str__()
+            self.SQLALCHEMY_BINDS["{}".format(svc_inst[1])] = db_string.__str__()
             self.svc_groups["{}".format(svc_inst[1])] = svc_inst[2]
 
             project_dba = devmodels.DatabaseAssistant(db_string.__str__(), svc_inst[1], svc_inst[1])
@@ -784,7 +784,7 @@ class DBAS():
         # endregion
         # Create admin
         # todo: change bootstrap3 back to foundation to use my templates
-        print "CONNECTING TO IAAS ON " + GLOBAL_SQLALCHEMY_BINDS[dbconfig.db_name]
+        print "CONNECTING TO IAAS ON " + self.SQLALCHEMY_BINDS[dbconfig.db_name]
         iaas_admin = MyIAASView(db_details=self.db_details_dict[dbconfig.db_name],
                                 app=self.app, name='IAAS admin app', template_mode='foundation',
                                 endpoint=dbconfig.db_name, url="/projects/{}".format(dbconfig.db_name),
@@ -805,7 +805,7 @@ class DBAS():
                                 category="Useage"))
 
         iaas_admin.add_hidden_view(DatabaseOps(name='Edit Database', endpoint='ops',
-                                               db_string=GLOBAL_SQLALCHEMY_BINDS[dbconfig.db_name],
+                                               db_string=self.SQLALCHEMY_BINDS[dbconfig.db_name],
                                                database_name=dbconfig.db_name, svc_group='superusers',
                                                db=self.db))
 
@@ -828,7 +828,7 @@ class DBAS():
     def add_collection_of_views(self, d, classesdict, class_db_dict, svc_group):
         if d == dbconfig.db_name:
 
-            print "CONNECTING TO IAAS ON " + GLOBAL_SQLALCHEMY_BINDS[d]
+            print "CONNECTING TO IAAS ON " + self.SQLALCHEMY_BINDS[d]
             proj_admin = MyIAASView(db_details=self.db_details_dict[d],
                                     app=self.app, name='IAAS admin app', template_mode='foundation',
                                     endpoint=d, url="/projects/{}".format(d),
@@ -871,7 +871,7 @@ class DBAS():
         # general
         proj_admin.add_hidden_view(DatabaseOps(name='Edit Database'.format(d),
                                                endpoint='{}_ops'.format(d),
-                                               db_string=GLOBAL_SQLALCHEMY_BINDS[d],
+                                               db_string=self.SQLALCHEMY_BINDS[d],
                                                database_name=d,
                                                db=self.db,
                                                C=self.classesdict,
@@ -899,7 +899,7 @@ class DBAS():
 
     def dbas_admin_pages_setup(self, db_list, classesdict, class_db_dict, svc_groups):
 
-        binds = GLOBAL_SQLALCHEMY_BINDS
+        binds = self.SQLALCHEMY_BINDS
         for d in binds:
             print(d, binds[d])
 

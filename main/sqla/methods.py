@@ -593,7 +593,7 @@ class DBAS():
 
         self.nextcloud_identifiers, self.nextcloud_names = self.get_nextclouds()
 
-        self.app.config['SQLALCHEMY_BINDS'] = self.SQLALCHEMY_BINDS
+        self.app.config['SQLALCHEMY_BINDS'] = self.SQLALCHEMY_BINDS2
 
         self.classesdict, self.my_db = self.init_classes(self.db_list, self.class_db_dict)
 

@@ -732,7 +732,15 @@ class DBAS():
                                                       dbconfig.db_hostname, 3306, dbconfig.db_name)
         # self.svc_groups = {}
         self.svc_groups[dbconfig.db_name] = 'superusers'
-        for r in list_of_databases:
+
+        controlDB = DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password,
+                              dbconfig.db_hostname, 3306, dbconfig.db_name)
+
+        list_of_dbs_tmp, msg, ret = controlDB.ConnectAndExecute(
+                                        "SELECT svc_inst, ip_address, port, engine_type, username, password_if_secure "
+                                        "FROM database_instances")
+
+        for r in list_of_dbs_tmp:
 
             if r[5] == '':  # postgres or insecure password
                 continue

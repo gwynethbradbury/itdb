@@ -527,16 +527,9 @@ class WebApp():
         self.homepage = homepage
 
 class SvcDetails():
-    nc = []
-    db = []
-    wa = []
-    vm = []
 
-    svc_id = -1
-    svc_name = ""
-
-    def __init__(self, svc_id, svc_name,
-                 _list_of_dbs, _list_of_ncs, _list_of_vms, _list_of_was):
+    def __init__(self, svc_id=-1, svc_name="",
+                 _list_of_dbs=[], _list_of_ncs=[], _list_of_vms=[], _list_of_was=[]):
         self.svc_id = svc_id
         self.svc_name = svc_name
 
@@ -550,7 +543,7 @@ class SvcDetails():
                                      dbname=d[5])
             self.db.append(DBD)
 
-            GLOBAL_SQLALCHEMY_BINDS[DBD.dbname] = DBD.__str__()
+            GLOBAL_SQLALCHEMY_BINDS[svc_name+"_"+DBD.dbname] = DBD.__str__()
 
         for n in _list_of_ncs:
             self.nc.append(NextCloud(n[0], n[1]))
@@ -560,6 +553,7 @@ class SvcDetails():
 
         for w in _list_of_was:
             self.wa.append(NextCloud(w[0], w[1]))
+
 global_class_db_dict={}
 global_classes_dict={}
 
@@ -569,7 +563,7 @@ class DBAS():
         self.db = _db
 
         self.class_db_dict = {}
-        self.SQLALCHEMY_BINDS = {dbconfig.db_name: '{}://{}:{}@{}/{}'
+        self.SQLALCHEMY_BINDS = {dbconfig.db_name+"_"+dbconfig.db_name: '{}://{}:{}@{}/{}'
             .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname, dbconfig.db_name)}
         self.db_list = []
         self.db_strings = []
@@ -695,8 +689,11 @@ class DBAS():
 
         result, list_of_databases = dba.retrieveDataFromDatabase("database_instances",
                                                                  ["svc_inst",
-                                                                  "ip_address", "port",
-                                                                  "engine_type", "username", "password_if_secure",
+                                                                  "ip_address",
+                                                                  "port",
+                                                                  "engine_type",
+                                                                  "username",
+                                                                  "password_if_secure",
                                                                   "database_name"],
                                                                  classes_loaded=False)
 
@@ -737,7 +734,7 @@ class DBAS():
 
             self.db_strings.append(db_string.__str__())
 
-            self.SQLALCHEMY_BINDS["{}".format(svc_inst[1])] = db_string.__str__()
+            self.SQLALCHEMY_BINDS["{}_{}".format(svc_inst[1],r[6])] = db_string.__str__()
 
             project_dba = devmodels.DatabaseAssistant(db_string.__str__(), svc_inst[1], svc_inst[1])
             try:
@@ -826,6 +823,7 @@ class DBAS():
     def dbas_admin_pages_setup(self):
 
         binds = GLOBAL_SQLALCHEMY_BINDS
+        binds = self.SQLALCHEMY_BINDS
         for d in binds:
             print(d, binds[d])
 

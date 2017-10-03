@@ -529,6 +529,7 @@ class WebApp():
         self.name = name
         self.homepage = homepage
 
+
 class SvcDetails():
 
     def __init__(self, svc_id=-1, svc_name="",
@@ -540,13 +541,14 @@ class SvcDetails():
         self.db = []
         self.wa = []
         self.vm = []
+        self.MY_SQLALCHEMY_BINDS={}
         for d in _list_of_dbs:
             DBD = DBDetails(engine_type=d[0], username=d[1],
-                                     passwd=d[2], host=d[3], port=d[4],
-                                     dbname=d[5])
+                            passwd=d[2], host=d[3], port=d[4],
+                            dbname=d[5])
             self.db.append(DBD)
 
-            GLOBAL_SQLALCHEMY_BINDS[DBD.dbname] = DBD.__str__()
+            self.MY_SQLALCHEMY_BINDS[DBD.dbname] = DBD.__str__()
 
         for n in _list_of_ncs:
             self.nc.append(NextCloud(n[0], n[1]))
@@ -557,14 +559,16 @@ class SvcDetails():
         for w in _list_of_was:
             self.wa.append(NextCloud(w[0], w[1]))
 
-
 class DBAS():
+
+
     def __init__(self, _app, _db):
         self.app = _app
         self.db = _db
         self.class_db_dict = {}
 
         self.SQLALCHEMY_BINDS = {}
+        self.SQLALCHEMY_BINDS2 = {}
         self.db_list = []
         self.db_strings = []
         self.schema_ids = {}
@@ -573,7 +577,9 @@ class DBAS():
 
 
         self.services = self.get_services()
-
+        for s in self.services:
+            for d in self.services[s].MY_SQLALCHEMY_BINDS:
+                self.SQLALCHEMY_BINDS2[d] = self.services[s].MY_SQLALCHEMY_BINDS[d]
         self.setup()
         self.setup_pages()
 
@@ -899,10 +905,10 @@ class DBAS():
 
     def dbas_admin_pages_setup(self, db_list, classesdict, class_db_dict, svc_groups):
 
-        binds = self.SQLALCHEMY_BINDS
+        binds = self.SQLALCHEMY_BINDS2
         print("LHLASHDFJLASDFHAJSDFHAJSDF")
-        print(GLOBAL_SQLALCHEMY_BINDS is self.SQLALCHEMY_BINDS)
-        print(self.SQLALCHEMY_BINDS==GLOBAL_SQLALCHEMY_BINDS)
+        print(self.SQLALCHEMY_BINDS2 is self.SQLALCHEMY_BINDS)
+        print(self.SQLALCHEMY_BINDS==self.SQLALCHEMY_BINDS2)
         for d in binds:
             print(d, binds[d])
 

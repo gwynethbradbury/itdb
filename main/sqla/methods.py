@@ -738,7 +738,7 @@ class DBAS():
 
         list_of_dbs_tmp, msg, ret = controlDB.ConnectAndExecute(
                                         "SELECT svc_inst, ip_address, port, engine_type, username, password_if_secure "
-                                        "FROM database_instances")
+                                        "FROM database_instances;")
 
         for r in list_of_dbs_tmp:
 
@@ -913,7 +913,7 @@ class DBAS():
 
     def dbas_admin_pages_setup(self, db_list, classesdict, class_db_dict, svc_groups):
 
-        binds = self.SQLALCHEMY_BINDS2
+        binds = self.SQLALCHEMY_BINDS
         print("LHLASHDFJLASDFHAJSDFHAJSDF")
         print(self.SQLALCHEMY_BINDS2 is self.SQLALCHEMY_BINDS)
         print(self.SQLALCHEMY_BINDS==self.SQLALCHEMY_BINDS2)

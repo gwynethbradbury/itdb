@@ -207,7 +207,7 @@ class MyModelView(ModelView):
 
         super(MyModelView, self).__init__(c,session, name=name,endpoint=endpoint,category=category)
         self.tablename = c.__table__
-        print "VIEW CREATED FOR " + str(self.tablename)
+        # print "VIEW CREATED FOR " + str(self.tablename)
         self.svc_group=svc_group
         self.db_string = db_string
         self.db_details = db_details

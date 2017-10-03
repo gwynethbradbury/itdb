@@ -567,6 +567,10 @@ class DBAS():
         self.setup()
         self.setup_pages()
 
+        print("BINDS")
+        print(self.SQLALCHEMY_BINDS)
+        print(GLOBAL_SQLALCHEMY_BINDS)
+
     def setup(self):
         self.SQLALCHEMY_BINDS, self.class_db_dict, self.db_list, self.schema_ids, self.db_strings, self.db_details_dict, self.svc_groups = self.get_binds()
 

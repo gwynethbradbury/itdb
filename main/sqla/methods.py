@@ -887,7 +887,7 @@ class DBAS():
 
     def dbas_admin_pages_setup(self, db_list, classesdict, class_db_dict, svc_groups):
 
-        binds = GLOBAL_SQLALCHEMY_BINDS
+        binds = self.SQLALCHEMY_BINDS
         for d in binds:
             print(d, binds[d])
 

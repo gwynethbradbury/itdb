@@ -825,19 +825,26 @@ class DBAS():
 
     def dbas_admin_pages_setup(self):
 
-        binds = self.SQLALCHEMY_BINDS
-        for d in binds:
-            print(d, binds[d])
-
-            self.add_collection_of_views(d.__str__(),
-                                         instance_id=d,
-                                         svc_group=d)
+        # binds = GLOBAL_SQLALCHEMY_BINDS
+        # for d in binds:
+        #     print(d, binds[d])
+        #
+        #     self.add_collection_of_views(d.__str__(),
+        #                                  instance_id=d,
+        #                                  svc_group=d)
 
 
         # print(self.svc_groups)
-        # for s in self.services:
-        #     for db in self.services[s].db:
-        #         d = db.dbname
+        for s in self.services:
+            for db in self.services[s].db:
+                # GLOBAL_SQLALCHEMY_BINDS[DBD.dbname] = DBD.__str__()
+                d = db.dbname
+
+                self.add_collection_of_views(d.__str__(),
+                                             instance_id=d,
+                                             svc_group=d)
+
+                #         d = db.dbname
         #
         #         self.add_collection_of_views(d,
         #                                      svc_group=self.svc_groups[d],

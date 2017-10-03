@@ -4,7 +4,7 @@ import importlib
 
 
 
-def initialise(db, db_list=['map'], dbstring_list=["mysql+pymysql://root:***@localhost/map"]):
+def initialise(db, db_list=[], dbstring_list=[]):
     classesdict = {}
     my_db = {}
     for i in range(len(db_list)):

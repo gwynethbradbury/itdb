@@ -27,4 +27,4 @@ online_learning.init_app(app)
 if __name__ == '__main__':
     # app_dir = op.realpath(os.path.dirname(__file__))
     #app.run()
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5500, debug=True)

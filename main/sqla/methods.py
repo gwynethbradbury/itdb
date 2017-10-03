@@ -859,7 +859,7 @@ class DBAS():
 
 
         else:
-
+            print("ASHDIASDJKL",self.db_details_dict)
             # todo: change bootstrap3 back to foundation to use my templates
             proj_admin = MyStandardView(self.app, name='{} admin'.format(d),
                                         template_mode='foundation',

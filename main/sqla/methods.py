@@ -503,10 +503,11 @@ class DBDetails():
                                                 self.dbname)
         else:
 
-            return '{}://{}:{}@{}/{}'.format(self.engine_type,
+            return '{}://{}:{}@{}:{}/{}'.format(self.engine_type,
                                              self.username,
                                              self.passwd,
                                              self.host,
+                                             self.port,
                                              self.dbname)
 
 class NextCloud():
@@ -882,7 +883,7 @@ class DBAS():
 
     def dbas_admin_pages_setup(self, db_list, classesdict, class_db_dict, svc_groups):
 
-        binds = self.SQLALCHEMY_BINDS
+        binds = GLOBAL_SQLALCHEMY_BINDS
         for d in binds:
             print(d, binds[d])
 

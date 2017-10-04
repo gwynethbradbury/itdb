@@ -731,15 +731,12 @@ class DBAS():
         return identifiers, names
 
     def get_binds(self):
+        #todo: strip down
         """checks the iaas db for dbas services and collects the db binds"""
 
         iaas_main_db = self.app.config['SQLALCHEMY_DATABASE_URI']
         dba = devmodels.DatabaseAssistant(iaas_main_db, dbconfig.db_name, dbconfig.db_name)
 
-
-
-        # self.SQLALCHEMY_BINDS = {dbconfig.db_name: '{}://{}:{}@{}/{}'
-        #     .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname, dbconfig.db_name)}
 
         self.db_details_dict[dbconfig.db_name] = DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password,
                                                       dbconfig.db_hostname, 3306, dbconfig.db_name)
@@ -806,45 +803,6 @@ class DBAS():
 
         return
 
-    # def set_iaas_admin_console(self, class_db_dict, classesdict):
-    #     """set up the admin console, depnds on predefined classes"""
-    #
-    #     # endregion
-    #     # Create admin
-    #     # todo: change bootstrap3 back to foundation to use my templates
-    #     print "CONNECTING TO IAAS ON " + self.SQLALCHEMY_BINDS[dbconfig.db_name]
-    #     iaas_admin = MyIAASView(db_details=self.db_details_dict[dbconfig.db_name],
-    #                             app=self.app, name='IAAS admin app', template_mode='foundation',
-    #                             endpoint=dbconfig.db_name, url="/projects/{}".format(dbconfig.db_name),
-    #                             base_template='my_master.html', database_name=dbconfig.db_name, svc_group='superusers')
-    #
-    #     # example adding links:
-    #     #     iaas_admin.add_links(ML('Test Internal Link', endpoint='applicationhome'),
-    #     #                          ML('Test External Link', url='http://python.org/'))
-    #     #
-    #     iaas_admin.add_links(ML('New Table', url='/projects/{}/ops/newtable'.format(dbconfig.db_name)),
-    #                          ML('Import Data', url='/projects/{}/ops/upload'.format(dbconfig.db_name)),
-    #                          # ML('Export Data',url='/admin/ops/download'),
-    #                          ML('Relationship Builder',
-    #                             url='/projects/{}/ops/relationshipbuilder'.format(dbconfig.db_name)),
-    #                          ML('IPs in use', url='/projects/{}/ip_addresses/'.format(dbconfig.db_name),
-    #                             category="Useage"),
-    #                          ML('Ports in use', url='/projects/{}/ip_addresses/ports'.format(dbconfig.db_name),
-    #                             category="Useage"))
-    #
-    #     iaas_admin.add_hidden_view(DatabaseOps(name='Edit Database', endpoint='ops',
-    #                                            db_string=self.SQLALCHEMY_BINDS[dbconfig.db_name],
-    #                                            database_name=dbconfig.db_name, svc_group='superusers',
-    #                                            db=self.db))
-    #
-    #     iaas_admin.add_hidden_view(IPAddressView(name="IP Addresses", endpoint="ip_addresses", category="Useage"))
-    #     print "ADDING IAAS CLASSES " + str(len(class_db_dict))
-    #     for c in class_db_dict:
-    #         print c + " " + class_db_dict[c]
-    #
-    #         if dbconfig.db_name == class_db_dict[c]:
-    #             print c
-    #             self._add_a_view(iaas_admin, classesdict[c], db_name=dbconfig.db_name, svc_group='superusers')
 
     def _add_a_view(self, proj_admin, c, db_name, svc_group):
         proj_admin.add_view(
@@ -869,13 +827,6 @@ class DBAS():
                                     category="Useage"))
 
             proj_admin.add_hidden_view(IPAddressView(name="IP Addresses", endpoint="ip_addresses", category="Useage"))
-
-            # proj_admin.add_hidden_view(DatabaseOps(name='Edit Database',
-            #                                        endpoint='ops',
-            #                                        db_string=self.SQLALCHEMY_BINDS[d],
-            #                                        database_name=d,
-            #                                        svc_group='superusers',
-            #                                        db=self.db))
 
             print "ADDING IAAS CLASSES " + str(len(class_db_dict))
 
@@ -927,60 +878,4 @@ class DBAS():
 
 
 
-
-
-
-
-            # # Create customized index view class that handles login & registration
-            # class MyAdminIndexView(admin.AdminIndexView):
-            #
-            #     @expose('/')
-            #     def index(self):
-            #         # if not login.current_user.is_authenticated:
-            #         if not current_user.is_authenticated:
-            #             return "user not authenticatedr" #edirect(url_for('.login_view'))
-            #         return super(MyAdminIndexView, self).index()
-            #
-            #     # @expose('/login/', methods=('GET', 'POST'))
-            #     # def login_view(self):
-            #     #     # handle user login
-            #     #     form = LoginForm(request.form)
-            #     #     if helpers.validate_form_on_submit(form):
-            #     #         user = form.get_user()
-            #     #         login.login_user(user)
-            #     #
-            #     #     if login.current_user.is_authenticated:
-            #     #         return redirect(url_for('.index'))
-            #     #     link = '<p>Don\'t have an account? <a href="' + url_for(
-            #     #         '.register_view') + '">Click here to register.</a></p>'
-            #     #     self._template_args['form'] = form
-            #     #     self._template_args['link'] = link
-            #     #     return super(MyAdminIndexView, self).index()
-            #
-            #     # @expose('/register/', methods=('GET', 'POST'))
-            #     # def register_view(self):
-            #     #     form = RegistrationForm(request.form)
-            #     #     if helpers.validate_form_on_submit(form):
-            #     #         user = User()
-            #     #
-            #     #         form.populate_obj(user)
-            #     #         # we hash the users password to avoid saving it as plaintext in the db,
-            #     #         # remove to use plain text:
-            #     #         user.password = generate_password_hash(form.password.data)
-            #     #
-            #     #         db.session.add(user)
-            #     #         db.session.commit()
-            #     #
-            #     #         login.login_user(user)
-            #     #         return redirect(url_for('.index'))
-            #     #     link = '<p>Already have an account? <a href="' + url_for(
-            #     #         '.login_view') + '">Click here to log in.</a></p>'
-            #     #     self._template_args['form'] = form
-            #     #     self._template_args['link'] = link
-            #     #     return super(MyAdminIndexView, self).index()
-            #
-            #     # @expose('/logout/')
-            #     # def logout_view(self):
-            #     #     login.logout_user()
-            #     #     return redirect(url_for('.index'))
 

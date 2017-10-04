@@ -578,7 +578,8 @@ class DBAS():
 
         self.services = self.get_services()
         for s in self.services:
-            if self.services[s].svc_name==self.app.config['dispatched_app']:
+            if self.services[s].svc_name==self.app.config['dispatched_app'] \
+                    or self.services[s].svc_name.startswith('iaas'):
                 for d in self.services[s].MY_SQLALCHEMY_BINDS:
                     self.SQLALCHEMY_BINDS2[d] = self.services[s].MY_SQLALCHEMY_BINDS[d]
         self.setup()

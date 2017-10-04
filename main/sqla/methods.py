@@ -574,7 +574,7 @@ class DBAS():
         self.db = _db
         self.class_db_dict = {}
 
-        self.SQLALCHEMY_BINDS = {}
+        # self.SQLALCHEMY_BINDS = {}
         self.SQLALCHEMY_BINDS2 = {}
         self.db_list = []
         self.db_strings = []
@@ -593,7 +593,6 @@ class DBAS():
                     self.SQLALCHEMY_BINDS2[d] = self.services[s].MY_SQLALCHEMY_BINDS[d]
 
 
-        self.setup2()
         self.setup_pages()
 
 
@@ -603,38 +602,29 @@ class DBAS():
                     or self.app.config['dispatched_app']=='all':
                 self.setup_service(self.services[s])
 
-        self.setup_pages2()
 
 
         print("BINDS")
-        print(self.SQLALCHEMY_BINDS)
+        # print(self.SQLALCHEMY_BINDS)
         print(self.SQLALCHEMY_BINDS2)
 
     def setup(self):
         self.init_login()
 
-        # self.SQLALCHEMY_BINDS, self.class_db_dict, self.db_list, self.schema_ids, self.db_strings, self.db_details_dict, self.svc_groups = \
         self.get_binds()
 
         self.nextcloud_identifiers, self.nextcloud_names = self.get_nextclouds()
         self.init_classes()
 
-    def setup2(self):
-        self.app.config['SQLALCHEMY_BINDS'] = self.SQLALCHEMY_BINDS2
 
 
     def setup_pages(self):
+        self.app.config['SQLALCHEMY_BINDS'] = self.SQLALCHEMY_BINDS2
         # Initialize flask-login
         views.set_views(self.app)
         views.set_nextcloud_views(self.app, self.nextcloud_names, self.nextcloud_identifiers)
 
-    def setup_pages2(self):
 
-        # put the database views in
-        try:
-            self.dbas_admin_pages_setup(self.db_list, self.classesdict, self.class_db_dict)
-        except Exception as e:
-            print(e)
 
     def get_services(self, id=-1):
 
@@ -746,21 +736,11 @@ class DBAS():
         iaas_main_db = self.app.config['SQLALCHEMY_DATABASE_URI']
         dba = devmodels.DatabaseAssistant(iaas_main_db, dbconfig.db_name, dbconfig.db_name)
 
-        result, list_of_databases = dba.retrieveDataFromDatabase("database_instances",
-                                                                 ["svc_inst",
-                                                                  "ip_address", "port",
-                                                                  "engine_type", "username", "password_if_secure"],
-                                                                 classes_loaded=False)
 
-        # self.class_db_dict = {}
 
-        self.SQLALCHEMY_BINDS = {dbconfig.db_name: '{}://{}:{}@{}/{}'
-            .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname, dbconfig.db_name)}
+        # self.SQLALCHEMY_BINDS = {dbconfig.db_name: '{}://{}:{}@{}/{}'
+        #     .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname, dbconfig.db_name)}
 
-        # self.db_list = []
-        # self.db_strings = []
-        # self.schema_ids = {}
-        # self.db_details_dict = {}
         self.db_details_dict[dbconfig.db_name] = DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password,
                                                       dbconfig.db_hostname, 3306, dbconfig.db_name)
         # self.svc_groups = {}
@@ -810,7 +790,7 @@ class DBAS():
 
             self.db_strings.append(db_string.__str__())
 
-            self.SQLALCHEMY_BINDS["{}".format(svc_inst[1])] = db_string.__str__()
+            # self.SQLALCHEMY_BINDS["{}".format(svc_inst[1])] = db_string.__str__()
             self.svc_groups["{}".format(svc_inst[1])] = svc_inst[2]
 
             project_dba = devmodels.DatabaseAssistant(db_string.__str__(), svc_inst[1], svc_inst[1])
@@ -876,7 +856,7 @@ class DBAS():
     def add_collection_of_views(self, d, classesdict, class_db_dict, svc_group):
         if d == dbconfig.db_name:
 
-            print "CONNECTING TO IAAS ON " + self.SQLALCHEMY_BINDS[d]
+            print "CONNECTING TO IAAS ON " + self.SQLALCHEMY_BINDS2[d]
             proj_admin = MyIAASView(db_details=self.db_details_dict[d],
                                     app=self.app, name='IAAS admin app', template_mode='foundation',
                                     endpoint=d, url="/projects/{}".format(d),
@@ -919,7 +899,7 @@ class DBAS():
         # general
         proj_admin.add_hidden_view(DatabaseOps(name='Edit Database'.format(d),
                                                endpoint='{}_ops'.format(d),
-                                               db_string=self.SQLALCHEMY_BINDS[d],
+                                               db_string=self.SQLALCHEMY_BINDS2[d],
                                                database_name=d,
                                                db=self.db,
                                                C=self.classesdict,
@@ -944,17 +924,6 @@ class DBAS():
     def init_classes(self):
         self.classesdict, self.my_db = classes.initialise(self.db, self.db_list, self.db_strings)
         return
-
-    def dbas_admin_pages_setup(self, db_list, classesdict, class_db_dict):
-
-        binds = self.SQLALCHEMY_BINDS2
-        print("LHLASHDFJLASDFHAJSDFHAJSDF")
-        print(self.SQLALCHEMY_BINDS2 is self.SQLALCHEMY_BINDS)
-        print(self.SQLALCHEMY_BINDS==self.SQLALCHEMY_BINDS2)
-        for d in binds:
-            print(d, binds[d])
-
-            self.add_collection_of_views(d.__str__(), classesdict, class_db_dict, svc_group=d)
 
 
 

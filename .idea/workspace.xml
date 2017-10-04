@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce4c93b2-95bc-4444-b569-e302376b0a7f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/methods.py" afterPath="$PROJECT_DIR$/main/sqla/methods.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/app.py" afterPath="$PROJECT_DIR$/main/sqla/app.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -72,7 +73,7 @@
             <entry file="file://$PROJECT_DIR$/main/sqla/views.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="440">
-                  <caret line="218" column="34" lean-forward="true" selection-start-line="218" selection-start-column="34" selection-end-line="218" selection-end-column="34" />
+                  <caret line="218" column="34" lean-forward="false" selection-start-line="218" selection-start-column="34" selection-end-line="218" selection-end-column="34" />
                   <folding>
                     <element signature="e#3688#3708#0" expanded="false" />
                     <element signature="e#4109#4129#0" expanded="false" />
@@ -104,7 +105,7 @@
             <entry file="file://$PROJECT_DIR$/main/sqla/methods_new.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="151">
-                  <caret line="576" column="24" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1007" selection-end-column="0" />
+                  <caret line="576" column="24" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1007" selection-end-column="0" />
                   <folding>
                     <marker date="1507054549000" expanded="true" signature="12841:12916" ph="update svc_i... " />
                     <marker date="1507054549000" expanded="true" signature="16876:16917" ph="SELECT ip_ad... database_instances" />
@@ -203,8 +204,8 @@
           <file leaf-file-name="methods.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main/sqla/methods.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="15">
-                  <caret line="595" column="67" lean-forward="true" selection-start-line="595" selection-start-column="67" selection-end-line="595" selection-end-column="67" />
+                <state relative-caret-position="717">
+                  <caret line="595" column="3" lean-forward="true" selection-start-line="595" selection-start-column="3" selection-end-line="595" selection-end-column="3" />
                   <folding>
                     <element signature="e#0#12#0" expanded="true" />
                     <element signature="e#730#908#0" expanded="false" />
@@ -239,16 +240,6 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-            <entry file="file:///usr/local/lib/python2.7/site-packages/flask_sqlalchemy/__init__.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="86">
-                  <caret line="874" column="0" lean-forward="false" selection-start-line="874" selection-start-column="0" selection-end-line="874" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file leaf-file-name="base.py" pinned="false" current-in-tab="false">
             <entry file="file://$USER_HOME$/Library/Python/2.7/lib/python/site-packages/flask_admin/base.py">
               <provider selected="true" editor-type-id="text-editor">
@@ -263,7 +254,7 @@
             <entry file="file://$PROJECT_DIR$/dbconfig.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="375">
-                  <caret line="25" column="20" lean-forward="true" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
+                  <caret line="25" column="20" lean-forward="false" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
                   <folding />
                 </state>
               </provider>
@@ -272,8 +263,8 @@
           <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main/sqla/app.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="539">
-                  <caret line="164" column="0" lean-forward="false" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
+                <state relative-caret-position="515">
+                  <caret line="164" column="14" lean-forward="false" selection-start-line="164" selection-start-column="14" selection-end-line="164" selection-end-column="14" />
                   <folding />
                 </state>
               </provider>
@@ -344,12 +335,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>flash</find>
-      <find>&quot;iaas</find>
-      <find>m</find>
-      <find>'ma</find>
-      <find>'</find>
-      <find>we</find>
       <find>web_app</find>
       <find>map</find>
       <find>'map</find>
@@ -373,6 +358,12 @@
       <find>map'</find>
       <find>'map'</find>
       <find>db_details_dict</find>
+      <find>app.config[&quot;db&quot;]</find>
+      <find>get</find>
+      <find>get_current</find>
+      <find>get_current_</find>
+      <find>get_current_s</find>
+      <find>get_current_sc</find>
       <find>SQLALCHEMY_BINDS</find>
     </findStrings>
     <dirStrings>
@@ -435,10 +426,10 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/dbas.wsgi" />
         <option value="$PROJECT_DIR$/main/sqla/core/iaasldap.py" />
-        <option value="$PROJECT_DIR$/main/sqla/app.py" />
         <option value="$PROJECT_DIR$/dbas.py" />
         <option value="$PROJECT_DIR$/main/sqla/methods_new.py" />
         <option value="$PROJECT_DIR$/main/sqla/methods.py" />
+        <option value="$PROJECT_DIR$/main/sqla/app.py" />
       </list>
     </option>
   </component>
@@ -1065,14 +1056,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/Library/Python/2.7/lib/python/site-packages/flask_admin/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="462" column="20" lean-forward="false" selection-start-line="462" selection-start-column="20" selection-end-line="462" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Library/Python/2.7/lib/python/site-packages/flask_admin/model/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="386">
@@ -1231,7 +1214,7 @@
     <entry file="file://$PROJECT_DIR$/dbconfig.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
-          <caret line="25" column="20" lean-forward="true" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
+          <caret line="25" column="20" lean-forward="false" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -1342,14 +1325,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/flask/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="945" column="0" lean-forward="false" selection-start-line="945" selection-start-column="0" selection-end-line="945" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/web_apps_examples/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -1386,7 +1361,7 @@
     <entry file="file://$PROJECT_DIR$/main/sqla/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
-          <caret line="218" column="34" lean-forward="true" selection-start-line="218" selection-start-column="34" selection-end-line="218" selection-end-column="34" />
+          <caret line="218" column="34" lean-forward="false" selection-start-line="218" selection-start-column="34" selection-end-line="218" selection-end-column="34" />
           <folding>
             <element signature="e#3688#3708#0" expanded="false" />
             <element signature="e#4109#4129#0" expanded="false" />
@@ -1447,18 +1422,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/sqla/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="539">
-          <caret line="164" column="0" lean-forward="false" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/sqla/methods_new.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="151">
-          <caret line="576" column="24" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1007" selection-end-column="0" />
+          <caret line="576" column="24" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1007" selection-end-column="0" />
           <folding>
             <marker date="1507054549000" expanded="true" signature="12841:12916" ph="update svc_i... " />
             <marker date="1507054549000" expanded="true" signature="16876:16917" ph="SELECT ip_ad... database_instances" />
@@ -1513,10 +1480,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/flask_sqlalchemy/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="86">
+          <caret line="874" column="0" lean-forward="false" selection-start-line="874" selection-start-column="0" selection-end-line="874" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/flask/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="369" column="13" lean-forward="false" selection-start-line="369" selection-start-column="13" selection-end-line="369" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/sqla/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="515">
+          <caret line="164" column="14" lean-forward="false" selection-start-line="164" selection-start-column="14" selection-end-line="164" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main/sqla/methods.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="595" column="67" lean-forward="true" selection-start-line="595" selection-start-column="67" selection-end-line="595" selection-end-column="67" />
+        <state relative-caret-position="717">
+          <caret line="595" column="3" lean-forward="true" selection-start-line="595" selection-start-column="3" selection-end-line="595" selection-end-column="3" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
             <element signature="e#730#908#0" expanded="false" />

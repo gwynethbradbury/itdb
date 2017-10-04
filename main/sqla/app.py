@@ -123,7 +123,7 @@ def create_app(instance_name):
 
     # Create dummy secrey key so we can use sessions
     app.config['SECRET_KEY'] = '123456790'
-    app.config["db"] = instance_name
+    app.config["db"] = dbconfig.db_name#instance_name
     app.config["db_user"] = dbconfig.db_user
     app.config["db_pass"] = dbconfig.db_password
     app.config["db_hostname"] = dbconfig.db_hostname

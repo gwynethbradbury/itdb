@@ -578,8 +578,9 @@ class DBAS():
 
         self.services = self.get_services()
         for s in self.services:
-            for d in self.services[s].MY_SQLALCHEMY_BINDS:
-                self.SQLALCHEMY_BINDS2[d] = self.services[s].MY_SQLALCHEMY_BINDS[d]
+            if self.services[s].svc_name==self.app.config['dispatched_app']:
+                for d in self.services[s].MY_SQLALCHEMY_BINDS:
+                    self.SQLALCHEMY_BINDS2[d] = self.services[s].MY_SQLALCHEMY_BINDS[d]
         self.setup()
         self.setup_pages()
 
@@ -755,10 +756,10 @@ class DBAS():
                                                              "schema_id", "priv_user", "priv_pass", "db_ip"],
                                                             wherefield="id", whereval=r[0],
                                                             classes_loaded=False)
-            svc_inst = svc_inst[0]
-            # if not ((svc_inst[1] == self.app.config['dispatched_app'])
-            #         or (self.app.config['dispatched_app'] == 'all')):
-            #     continue
+            # svc_inst = svc_inst[0]
+            # # if not ((svc_inst[1] == self.app.config['dispatched_app'])
+            # #         or (self.app.config['dispatched_app'] == 'all')):
+            # #     continue
 
             self.schema_ids[svc_inst[1]] = svc_inst[3]
             self.db_list.append(svc_inst[1])

@@ -914,7 +914,7 @@ class DBAS():
 
     def dbas_admin_pages_setup(self, db_list, classesdict, class_db_dict, svc_groups):
 
-        binds = self.SQLALCHEMY_BINDS2
+        binds = self.SQLALCHEMY_BINDS
         print("LHLASHDFJLASDFHAJSDFHAJSDF")
         print(self.SQLALCHEMY_BINDS2 is self.SQLALCHEMY_BINDS)
         print(self.SQLALCHEMY_BINDS==self.SQLALCHEMY_BINDS2)

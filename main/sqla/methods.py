@@ -538,10 +538,11 @@ class WebApp():
 
 class SvcDetails():
 
-    def __init__(self, svc_id=-1, svc_name="",
+    def __init__(self, svc_id=-1, svc_name="",svc_access_group="",
                  _list_of_dbs=[], _list_of_ncs=[], _list_of_vms=[], _list_of_was=[]):
         self.svc_id = svc_id
         self.svc_name = svc_name
+        self.svc_access_group=svc_access_group
 
         self.nc = []
         self.db = []
@@ -580,46 +581,67 @@ class DBAS():
         self.schema_ids = {}
         self.db_details_dict = {}
         self.svc_groups = {}
+        self.setup()
 
 
         self.services = self.get_services()
         for s in self.services:
             if self.services[s].svc_name==self.app.config['dispatched_app'] \
-                    or self.services[s].svc_name.startswith('iaas'):
+                    or self.services[s].svc_name.startswith('iaas')\
+                    or self.app.config['dispatched_app']=='all':
                 for d in self.services[s].MY_SQLALCHEMY_BINDS:
                     self.SQLALCHEMY_BINDS2[d] = self.services[s].MY_SQLALCHEMY_BINDS[d]
-        self.setup()
+
+
+        self.setup2()
         self.setup_pages()
+
+
+        for s in self.services:
+            if self.services[s].svc_name==self.app.config['dispatched_app'] \
+                    or self.services[s].svc_name.startswith('iaas')\
+                    or self.app.config['dispatched_app']=='all':
+                self.setup_service(self.services[s])
+
+        self.setup_pages2()
+
 
         print("BINDS")
         print(self.SQLALCHEMY_BINDS)
         print(self.SQLALCHEMY_BINDS2)
 
     def setup(self):
+        self.init_login()
+
         # self.SQLALCHEMY_BINDS, self.class_db_dict, self.db_list, self.schema_ids, self.db_strings, self.db_details_dict, self.svc_groups = \
         self.get_binds()
 
         self.nextcloud_identifiers, self.nextcloud_names = self.get_nextclouds()
-
-        self.app.config['SQLALCHEMY_BINDS'] = self.SQLALCHEMY_BINDS
-
         self.init_classes()
+
+    def setup2(self):
+        self.app.config['SQLALCHEMY_BINDS'] = self.SQLALCHEMY_BINDS2
+
 
     def setup_pages(self):
         # Initialize flask-login
-        self.init_login()
         views.set_views(self.app)
         views.set_nextcloud_views(self.app, self.nextcloud_names, self.nextcloud_identifiers)
 
+    def setup_pages2(self):
+
         # put the database views in
-        self.dbas_admin_pages_setup(self.db_list, self.classesdict, self.class_db_dict, self.svc_groups)
+        try:
+            self.dbas_admin_pages_setup(self.db_list, self.classesdict, self.class_db_dict)
+        except Exception as e:
+            print(e)
 
     def get_services(self, id=-1):
 
         controlDB = DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password,
                               dbconfig.db_hostname, 3306, dbconfig.db_name)
 
-        list_of_services, msg, ret = controlDB.ConnectAndExecute("SELECT id, instance_identifier "
+        list_of_services, msg, ret = controlDB.ConnectAndExecute("SELECT id, instance_identifier, group_id "
                                                                  "FROM svc_instances;")
 
         S = {}
@@ -654,24 +676,30 @@ class DBAS():
                                                                     "FROM web_apps "
                                                                     "WHERE svc_inst = '{}';"
                                                                     .format(int(r[0])))
+
+                group, msg, ret = controlDB.ConnectAndExecute("SELECT ldap_name "
+                                                              "FROM groups "
+                                                              "WHERE id={};".format(r[2]))
                 S[r[1]] = SvcDetails(int(r[0]), r[1],
                                      _list_of_was=list_of_was,
                                      _list_of_vms=list_of_vms,
                                      _list_of_ncs=list_of_ncs,
-                                     _list_of_dbs=list_of_dbs)
+                                     _list_of_dbs=list_of_dbs,
+                                     svc_access_group=group[0][0])
+                # todo: update so group of groups have access to the service
+
         self.services = S
         return S
 
     def setup_service(self, svc_info):
-        return
         if len(svc_info.db) > 0:
             for d in svc_info.db:
-                self.classesdict, my_db = classes.initialise(self.db, [d.dbname], [d.__str__()])
+                # self.classesdict, my_db = classes.initialise(self.db, [d.dbname], [d.__str__()])
                 self.db_details_dict[d.dbname] = d
                 try:
                     self.add_collection_of_views(d.dbname, self.classesdict,
-                                                 class_db_dict={}, svc_group=self.svc_groups[d.dbname],#svc_info.svc_id,
-                                                 db_details=d)
+                                                 class_db_dict=self.class_db_dict,
+                                                 svc_group=d.dbname)#svc_info.svc_access_group)
                 except Exception as e:
                     print(e)
 
@@ -917,7 +945,7 @@ class DBAS():
         self.classesdict, self.my_db = classes.initialise(self.db, self.db_list, self.db_strings)
         return
 
-    def dbas_admin_pages_setup(self, db_list, classesdict, class_db_dict, svc_groups):
+    def dbas_admin_pages_setup(self, db_list, classesdict, class_db_dict):
 
         binds = self.SQLALCHEMY_BINDS2
         print("LHLASHDFJLASDFHAJSDFHAJSDF")

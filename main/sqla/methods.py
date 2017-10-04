@@ -585,7 +585,7 @@ class DBAS():
 
         print("BINDS")
         print(self.SQLALCHEMY_BINDS)
-        print(GLOBAL_SQLALCHEMY_BINDS)
+        print(self.SQLALCHEMY_BINDS2)
 
     def setup(self):
         # self.SQLALCHEMY_BINDS, self.class_db_dict, self.db_list, self.schema_ids, self.db_strings, self.db_details_dict, self.svc_groups = \

@@ -595,7 +595,7 @@ class DBAS():
 
         self.app.config['SQLALCHEMY_BINDS'] = self.SQLALCHEMY_BINDS
 
-        self.classesdict, self.my_db = self.init_classes(self.db_list, self.class_db_dict)
+        self.init_classes()
 
     def setup_pages(self):
         # Initialize flask-login
@@ -759,7 +759,8 @@ class DBAS():
                                                             wherefield="id", whereval=r[0],
                                                             classes_loaded=False)
             svc_inst = svc_inst[0]
-            if not ((svc_inst[1] == self.app.config['db']) or (self.app.config['db'] == 'all')):
+            if not ((svc_inst[1] == self.app.config['dispatched_app']) or
+                        (self.app.config['dispatched_app'] == 'all')):
                 continue
 
             self.schema_ids[svc_inst[1]] = svc_inst[3]
@@ -907,9 +908,9 @@ class DBAS():
                     print(e)
                     print("failed")
 
-    def init_classes(self, db_list, class_db_dict):
-        classesdict, my_db = classes.initialise(self.db, self.db_list, self.db_strings)
-        return classesdict, my_db
+    def init_classes(self):
+        self.classesdict, self.my_db = classes.initialise(self.db, self.db_list, self.db_strings)
+        return
 
     def dbas_admin_pages_setup(self, db_list, classesdict, class_db_dict, svc_groups):
 

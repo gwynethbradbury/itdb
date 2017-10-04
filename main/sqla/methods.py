@@ -617,15 +617,12 @@ class DBAS():
         S = {}
         for r in list_of_services:
             if r[1] is not None and (id == -1 or id == int(r[0])):
-                list_of_was = []
-                list_of_vms = []
-                list_of_ncs = []
-                list_of_dbs = []
 
                 list_of_dbs_tmp, msg, ret = controlDB.ConnectAndExecute(
                     "SELECT engine_type, username, password_if_secure, ip_address, port, database_name "
                     "FROM database_instances "
                     "WHERE svc_inst = '{}';".format(int(r[0])))
+
                 list_of_dbs = []
                 for i in range(len(list_of_dbs_tmp)):
                     d = list_of_dbs_tmp[i]
@@ -759,8 +756,8 @@ class DBAS():
                                                             wherefield="id", whereval=r[0],
                                                             classes_loaded=False)
             svc_inst = svc_inst[0]
-            if not ((svc_inst[1] == self.app.config['dispatched_app']) or
-                        (self.app.config['dispatched_app'] == 'all')):
+            if not ((svc_inst[1] == self.app.config['dispatched_app']):
+                    # or (self.app.config['dispatched_app'] == 'all')):
                 continue
 
             self.schema_ids[svc_inst[1]] = svc_inst[3]

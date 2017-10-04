@@ -502,13 +502,19 @@ class DBDetails():
                                                 self.port,
                                                 self.dbname)
         else:
-
-            return '{}://{}:{}@{}:{}/{}'.format(self.engine_type,
-                                             self.username,
-                                             self.passwd,
-                                             self.host,
-                                             self.port,
-                                             self.dbname)
+            if self.port=='':
+                return '{}://{}:{}@{}/{}'.format(self.engine_type,
+                                                 self.username,
+                                                 self.passwd,
+                                                 self.host,
+                                                 self.dbname)
+            else:
+                return '{}://{}:{}@{}:{}/{}'.format(self.engine_type,
+                                                 self.username,
+                                                 self.passwd,
+                                                 self.host,
+                                                 self.port,
+                                                 self.dbname)
 
 class NextCloud():
 
@@ -913,7 +919,7 @@ class DBAS():
 
     def dbas_admin_pages_setup(self, db_list, classesdict, class_db_dict, svc_groups):
 
-        binds = self.SQLALCHEMY_BINDS
+        binds = self.SQLALCHEMY_BINDS2
         print("LHLASHDFJLASDFHAJSDFHAJSDF")
         print(self.SQLALCHEMY_BINDS2 is self.SQLALCHEMY_BINDS)
         print(self.SQLALCHEMY_BINDS==self.SQLALCHEMY_BINDS2)

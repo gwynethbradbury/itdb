@@ -756,9 +756,9 @@ class DBAS():
                                                             wherefield="id", whereval=r[0],
                                                             classes_loaded=False)
             svc_inst = svc_inst[0]
-            if not ((svc_inst[1] == self.app.config['dispatched_app']):
-                    # or (self.app.config['dispatched_app'] == 'all')):
-                continue
+            # if not ((svc_inst[1] == self.app.config['dispatched_app'])
+            #         or (self.app.config['dispatched_app'] == 'all')):
+            #     continue
 
             self.schema_ids[svc_inst[1]] = svc_inst[3]
             self.db_list.append(svc_inst[1])

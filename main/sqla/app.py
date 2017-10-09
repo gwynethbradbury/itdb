@@ -1,53 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-
-## region Create application
-# app = Flask(__name__)
-#
-## region GENERAL SETTINGS
-#
-## Create dummy secrey key so we can use sessions
-# app.config['SECRET_KEY'] = '123456790'
-#
-## Create in-memory database
-## app.config['DATABASE_FILE'] = 'sample_db.sqlite'
-#
-## app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + app.config['DATABASE_FILE']
-# app.config['SQLALCHEMY_DATABASE_URI'] ='{}://{}:{}@{}/{}'\
-#    .format(dbconfig.db_engine,dbconfig.db_user,dbconfig.db_password, dbconfig.db_hostname,dbconfig.db_name)
-#
-#
-#
-#
-# app.config.update(
-#    DEBUG=dbconfig.debug
-# )
-## endregion
-#
-## region EMAIL SETTINGS
-#
-# app.secret_key = dbconfig.mail_secret_key
-# app.config["MAIL_SERVER"] = dbconfig.mail_server
-# app.config["MAIL_PORT"] = dbconfig.mail_port
-# app.config["MAIL_USE_SSL"] = dbconfig.mail_use_ssl
-# app.config["MAIL_USERNAME"] = dbconfig.mail_username
-# if not dbconfig.is_server_version:  # personal machine
-#    app.config["AAAS_MAIL_SENDER"] = dbconfig.mail_username
-#    app.config["MAIL_PASSWORD"] = dbconfig.mail_password
-# else:  # server
-#    app.config["AAAS_MAIL_SENDER"] = dbconfig.mail_sender
-#    app.config["MAIL_DEFAULT_SENDER"] = dbconfig.mail_sender
-#
-## endregion
-#
-# db = SQLAlchemy(app)
-#
-## endregion
-#
-#
-# DBAS = DBAS(app,db)
-#
 def start_app():
     pass
 
@@ -56,34 +9,6 @@ def get_user_for_prefix(prefix):
     return prefix
 
 
-# def get_db_creds(prefix):
-#     import dev.models as devmodels
-#     import dbconfig
-#     iaas_main_db = '{}://{}:{}@{}/{}' \
-#         .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname, dbconfig.db_name)
-#
-#     dba = devmodels.DatabaseAssistant(iaas_main_db, dbconfig.db_name,dbconfig.db_name)
-#
-#     result, list_of_projects = dba.retrieveDataFromDatabase("svc_instances",
-#                                                             ["project_display_name", "instance_identifier",
-#                                                              "svc_type_id",
-#                                                              "group_id", "schema_id", "priv_user", "priv_pass",
-#                                                              "db_ip"],
-#                                                             classes_loaded=False)
-#     schema_ids = {}
-#     priv_users = {}
-#     priv_pass = {}
-#     db_ip = {}
-#     for r in list_of_projects:
-#         print "checking schema_id for " + r[1]
-#         if (r[1] == prefix):
-#             if not (r[2] == '1' or r[2] == '4'):  # then this is a database project
-#                 continue
-#             schema_ids[r[1]] = r[4]
-#             priv_users[r[1]] = r[5]
-#             priv_pass[r[1]] = r[6]
-#             db_ip[r[1]] = r[7]
-#     return priv_users[prefix], priv_pass[prefix], db_ip[prefix]
 
 
 def get_current_schema_id(prefix):

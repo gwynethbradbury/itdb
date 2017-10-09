@@ -7,6 +7,8 @@ from flask_sqlalchemy import SQLAlchemy
 import views
 
 def init_app(app):
+    db = SQLAlchemy(app)
+
     views.assignroutes(app)
 
 

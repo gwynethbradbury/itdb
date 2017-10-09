@@ -58,7 +58,7 @@ class PathDispatcher(object):
         return app(environ, start_response)
 
 
-#from main.web_apps_examples import *
+from main.web_apps_examples import *
 
 from werkzeug.exceptions import NotFound
 

@@ -550,12 +550,9 @@ class SvcDetails():
         self.vm = []
         self.MY_SQLALCHEMY_BINDS={}
         for d in _list_of_dbs:
-            DBD = DBDetails(engine_type=d[0], username=d[1],
-                            passwd=d[2], host=d[3], port=d[4],
-                            dbname=d[5])
-            self.db.append(DBD)
+            self.db.append(d)
 
-            self.MY_SQLALCHEMY_BINDS[DBD.dbname] = DBD.__str__()
+            self.MY_SQLALCHEMY_BINDS[d.dbname] = d.__str__()
 
         for n in _list_of_ncs:
             self.nc.append(NextCloud(n[0], n[1]))
@@ -585,12 +582,12 @@ class DBAS():
 
 
         self.services = self.get_services()
-        for s in self.services:
-            if self.services[s].svc_name==self.app.config['dispatched_app'] \
-                    or self.services[s].svc_name.startswith('iaas')\
-                    or self.app.config['dispatched_app']=='all':
-                for d in self.services[s].MY_SQLALCHEMY_BINDS:
-                    self.SQLALCHEMY_BINDS2[d] = self.services[s].MY_SQLALCHEMY_BINDS[d]
+        # for s in self.services:
+        #     if self.services[s].svc_name==self.app.config['dispatched_app'] \
+        #             or self.services[s].svc_name.startswith('iaas')\
+        #             or self.app.config['dispatched_app']=='all':
+        #         for d in self.services[s].MY_SQLALCHEMY_BINDS:
+        #             self.SQLALCHEMY_BINDS2[d] = self.services[s].MY_SQLALCHEMY_BINDS[d]
 
 
         self.setup_pages()
@@ -605,7 +602,6 @@ class DBAS():
 
 
         print("BINDS")
-        # print(self.SQLALCHEMY_BINDS)
         print(self.SQLALCHEMY_BINDS2)
 
     def setup(self):
@@ -652,7 +648,12 @@ class DBAS():
                                                                         .format((d[0])))
                     L = list(d)
                     L[0] = engine_type[0][0]
-                    list_of_dbs.append(L)
+
+                    DBD = DBDetails(engine_type=L[0], username=L[1],
+                                    passwd=L[2], host=L[3], port=L[4],
+                                    dbname=L[5])
+                    list_of_dbs.append(DBD)
+                    self.SQLALCHEMY_BINDS2[DBD.dbname] = DBD.__str__()
 
                 list_of_ncs, msg, ret = controlDB.ConnectAndExecute("SELECT link, ip_address "
                                                                     "FROM nextcloud_instances "
@@ -678,6 +679,10 @@ class DBAS():
                                      svc_access_group=group[0][0])
                 # todo: update so group of groups have access to the service
 
+                if S[r[1]].svc_name==self.app.config['dispatched_app'] \
+                        or S[r[1]].svc_name.startswith('iaas')\
+                        or self.app.config['dispatched_app']=='all':
+                    self.setup_service(S[r[1]])
         self.services = S
         return S
 

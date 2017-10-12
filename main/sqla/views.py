@@ -92,6 +92,22 @@ def set_views(app):
                     iaas_db_name=dbconfig.db_name
                     )
 
+    @app.route('/account')
+    def account():
+        if current_user.is_authenticated():
+            instances=[]
+            groups = current_user.get_groups()
+            for g in groups:
+                instances.append(AH.get_projects_for_group(g))
+
+            try:
+                return render_template("account.html",groups=groups,instances=instances)
+            except TemplateNotFound:
+                abort(404)
+        else:
+            abort(403)
+
+
     # region Flask views
     @app.route('/group/<group_name>')
     def show_groups(group_name):
@@ -113,7 +129,6 @@ def set_views(app):
         except TemplateNotFound:
             abort(404)
 
-        return '<a href="/admin/">Click me to get to Admin!</a>'
 
 
 

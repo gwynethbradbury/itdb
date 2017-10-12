@@ -1,0 +1,38 @@
+{% extends "console.html" %}
+
+
+{% block servicename %}
+    My Account
+{% endblock %}
+
+	
+{% block consolecontent %}
+{#    {% if instances|length>0 %}#}
+
+    <h3>My Groups</h3>
+        <ul>
+                {% for g in groups %}
+
+                    <h4>Group '{{ g }}' </h4>
+                    {% for instance in instances[loop.index0] %}
+                        <li><a href="{{ dbas_url }}/{% if instance[2]=='nc' %}nextcloud{% else %}projects{% endif %}/{{instance[0]}}">{{instance[1]}}</a> ({{ instance[2] }})</li>
+                    {% endfor %}
+                {% endfor %}
+        </ul>
+
+
+{#    {% else %}#}
+{##}
+{#        You are not authorised to view any projects for this group, or none exist.#}
+{##}
+{#    {% endif %}#}
+    <h3>Change Password</h3>
+    <form>
+    <label for="current_password">Current Password: </label><input type="password"/>
+    <label for="new_password">Current Password: </label><input type="password"/>
+    <label for="repeat_password">Current Password: </label><input type="password"/>
+    </form>
+{% endblock %}
+
+
+

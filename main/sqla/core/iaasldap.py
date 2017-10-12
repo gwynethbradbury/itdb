@@ -182,13 +182,9 @@ class LDAPUser():
     '''
     check whether this user is authorised against the given project
     '''
-    def is_authenticated(self,project_name):
-        if "development_uid" == self.uid_trim():
-            return True
-        elif project_name in self.get_groups():
-            return True
+    def is_authenticated(self):
         #todo: complete authentication rules
-        return False
+        return True
 
     def is_active(self):
         return True
@@ -203,6 +199,9 @@ class LDAPUser():
     caveat: if this is an admin-only page, _admin is added to the group name
     '''
     def is_authorised(self, service_name, is_admin_only_page=False):
+        if "development_uid" == self.uid_trim():
+            return True
+
         usersgroups = self.get_groups()
         if "superusers" in usersgroups:
             return True

@@ -92,7 +92,7 @@ def set_views(app):
                     iaas_db_name=dbconfig.db_name
                     )
 
-    @app.route('/account')
+    @app.route('/account', methods=["GET", "POST"])
     def account():
         if current_user.is_authenticated():
             instances=[]
@@ -100,10 +100,27 @@ def set_views(app):
             for g in groups:
                 instances.append(AH.get_projects_for_group(g))
 
+
+            from core.auth.forms import ChangePWForm
+            form = ChangePWForm()
+            if form.validate_on_submit():
+                user=current_user
+                # user = User(username=form.username.data,
+                #             email=form.username.data,
+                #             password=form.password.data)
+                success,ret = current_user.change_password(form.oldpw,form.password,form.password2)
+                if success:
+                    flash(ret,category='message')
+                else:
+                    flash(ret,category="error")
+
+                # return redirect(url_for('index'))
+
             try:
-                return render_template("account.html",groups=groups,instances=instances)
+                return render_template("account.html",groups=groups,instances=instances, form=form)
             except TemplateNotFound:
                 abort(404)
+
         else:
             abort(403)
 

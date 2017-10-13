@@ -15,7 +15,7 @@ class LDAPUser():
     '''
     def uid_trim(self):
         if ldapconfig.test:
-            return "development_uid"
+            return "cenv0594"
         else:
             import string
             uid = request.remote_user
@@ -210,3 +210,80 @@ class LDAPUser():
         if service_name in usersgroups:
             return True
         return False
+
+    def change_password(self,old_password,new_password,repeat_password):
+        success=0
+        msg="Could not change password. "
+        if self.is_correct_password(old_password):
+            if new_password==repeat_password:
+                # change the password
+                self._set_password(self.uid_trim(),old_password,new_password)
+                msg="Password changed successfully"
+                success=1
+            else:
+                msg=msg+"New password inconsistent."
+        else:
+            msg=msg+"Old password does not match."
+
+        return success, msg
+
+
+    # @password.setter
+    def _set_password(self, uid, oldpw,newpw):
+        #todo
+        # pass
+
+        if ldapconfig.test:
+            return
+
+        import ldap
+
+        suffix = self.uid_suffix()
+        if (suffix == "ox.ac.uk"):
+            # searchFilter = "(&(objectClass=user)(sAMAccountName=%s))" % uid
+            # searchAttribute = ["displayName"]
+            # searchScope = ldap.SCOPE_SUBTREE
+            l = ldap.initialize(ldapconfig.ldaphost_ad)
+            l.protocol_version = ldap.VERSION3
+            try:
+                l.simple_bind_s(ldapconfig.username_ad, ldapconfig.password_ad)
+            except Exception, error:
+                print error
+
+            try:
+                l.passwd_s(uid, oldpw, newpw)
+
+            except ldap.LDAPError, e:
+                return 'An Error Occurred (AD)'
+            l.unbind_s()
+
+
+
+        else:
+            # searchFilter = "(&(uid=%s)(objectClass=posixAccount))" % uid
+            # searchAttribute = ["cn"]
+            # searchScope = ldap.SCOPE_SUBTREE
+            l = ldap.initialize(ldapconfig.ldaphost)
+            l.protocol_version = ldap.VERSION3
+            try:
+                l.simple_bind_s(ldapconfig.username, ldapconfig.password)
+            except Exception, error:
+                print error
+
+            try:
+                l.passwd_s(uid, oldpw, newpw)
+
+            except ldap.LDAPError, e:
+                return 'An Error Occurred (AD)'
+            l.unbind_s()
+
+
+
+
+        # self._password = bcrypt.generate_password_hash(plaintext)
+
+    def is_correct_password(self, plaintext):
+        # todo:
+        return True
+        # return bcrypt.check_password_hash(self._password, plaintext)
+

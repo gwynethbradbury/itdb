@@ -1,4 +1,6 @@
 {% extends "console.html" %}
+{% import 'admin/layout.html' as layout with context -%}
+{% import 'admin/static.html' as admin_static with context %}
 
 
 {% block servicename %}
@@ -27,12 +29,42 @@
 {##}
 {#    {% endif %}#}
     <h3>Change Password</h3>
-    <form>
-    <label for="current_password">Current Password: </label><input type="password"/>
-    <label for="new_password">Current Password: </label><input type="password"/>
-    <label for="repeat_password">Current Password: </label><input type="password"/>
-    </form>
+{#    <form>#}
+{#    <label for="current_password">Current Password: </label><input type="password"/>#}
+{#    <label for="new_password">Current Password: </label><input type="password"/>#}
+{#    <label for="repeat_password">Current Password: </label><input type="password"/>#}
+{#    </form>#}
+
+    <div class="large-4 medium-4 columns callout primary pull-left" >
+{#large-push-1 medium-push-1#}
+        <form action="{{ url_for('account') }}"  method="POST" >
+{#            <div class="form-group">#}
+{#                {{ form.user.label }} {{ form.user }}<br>#}
+{#            </div>#}
+            <div class="form-group">
+                {{ form.oldpw.label }} {{ form.oldpw }}
+            </div>
+            <div class="form-group">
+                {{ form.password.label }}{{ form.password }}
+            </div>
+            <div class="form-group">
+                {{ form.password2.label }} {{ form.password2 }}
+            </div>
+            {{ form.csrf_token }}
+            {{ form.submit }}
+    {#        <button type="submit" class="btn btn-default">Go</button>#}
+        </form>
+<br/>
+              {% block messages %}
+              {{ layout.messages() }}
+              {% endblock %}
+
+    </div>
+    </div>
+<div>
 {% endblock %}
+
+
 
 
 

@@ -26,9 +26,9 @@ class ActivateForm(FlaskForm):
     submit = SubmitField('Activate Account')
 
 class ChangePWForm(FlaskForm):
-    user = StringField('Username', validators=[Required(), Length(1, 10)])
-    oldpw = PasswordField ('Old Password', validators=[Required(), Length(7,15)])
+    # user = StringField('Username', validators=[Required()])#, Length(1, 10)])
+    oldpw = PasswordField ('Old Password', validators=[Required()])#, Length(7,15)])
     password = PasswordField('New Password', validators=[
-        Required(), Length(7,15), EqualTo('password2', message='Passwords must match.')])
+        Required()])#, Length(7,15), EqualTo('password2', message='Passwords must match.')])
     password2 = PasswordField('Confirm password', validators=[Required()])
     submit = SubmitField('Change Password')

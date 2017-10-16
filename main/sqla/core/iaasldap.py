@@ -228,7 +228,6 @@ class LDAPUser():
         return success, msg
 
 
-    # @password.setter
     def _set_password(self, uid, oldpw,newpw):
         #todo
         # pass

@@ -1,0 +1,3 @@
+[submodule "main/auth"]
+	path = main/auth
+	url = https://gitlab.ouce.ox.ac.uk/cso/dbas_auth.git

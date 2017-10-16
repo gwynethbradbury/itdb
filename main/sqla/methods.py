@@ -1,12 +1,10 @@
-import views
-import dev.models as devmodels
-import classes
 import flask_login as login
-import flask_admin as admin
-from flask_admin import Admin as ImpAdmin
 from flask_admin.menu import MenuLink as ML
 
+import classes
 import dbconfig
+import dev.models as devmodels
+import views
 
 if dbconfig.test:
     from core.mock_access_helper import MockAccessHelper as AccessHelper
@@ -15,7 +13,7 @@ else:
 AH = AccessHelper()
 
 from flask_admin import BaseView, expose
-from main.sqla.core.iaasldap import LDAPUser as LDAPUser
+from main.auth.iaasldap import LDAPUser as LDAPUser
 
 current_user = LDAPUser()
 from flask import abort, request, flash

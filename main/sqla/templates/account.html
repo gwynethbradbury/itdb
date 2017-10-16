@@ -9,7 +9,6 @@
 
 	
 {% block consolecontent %}
-{#    {% if instances|length>0 %}#}
 
     <h3>My Groups</h3>
         <ul>
@@ -23,45 +22,10 @@
         </ul>
 
 
-{#    {% else %}#}
-{##}
-{#        You are not authorised to view any projects for this group, or none exist.#}
-{##}
-{#    {% endif %}#}
-    <h3>Change Password</h3>
-{#    <form>#}
-{#    <label for="current_password">Current Password: </label><input type="password"/>#}
-{#    <label for="new_password">Current Password: </label><input type="password"/>#}
-{#    <label for="repeat_password">Current Password: </label><input type="password"/>#}
-{#    </form>#}
 
-    <div class="large-4 medium-4 columns callout primary pull-left" >
-{#large-push-1 medium-push-1#}
-        <form action="{{ url_for('account') }}"  method="POST" >
-{#            <div class="form-group">#}
-{#                {{ form.user.label }} {{ form.user }}<br>#}
-{#            </div>#}
-            <div class="form-group">
-                {{ form.oldpw.label }} {{ form.oldpw }}
-            </div>
-            <div class="form-group">
-                {{ form.password.label }}{{ form.password }}
-            </div>
-            <div class="form-group">
-                {{ form.password2.label }} {{ form.password2 }}
-            </div>
-            {{ form.csrf_token }}
-            {{ form.submit }}
-    {#        <button type="submit" class="btn btn-default">Go</button>#}
-        </form>
-<br/>
-              {% block messages %}
-              {{ layout.messages() }}
-              {% endblock %}
+    <a href="/changepassword"><button>Change Password</button></a>
 
-    </div>
-    </div>
-<div>
+
 {% endblock %}
 
 

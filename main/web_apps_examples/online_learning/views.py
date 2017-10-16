@@ -1,19 +1,8 @@
-from flask import render_template, redirect, url_for, request,send_file
 # from ...sqla.app import app as map
-import json
 # from .models import pages
-import os
-import csv
-import sqlalchemy as sqAl
-from main.sqla.dev.models import DatabaseAssistant
 
 
-from sqlalchemy import *
-from sqlalchemy.orm import sessionmaker
-
-from werkzeug.utils import secure_filename
 # from . import uploadfolder
-from datetime import datetime
 
 import dbconfig
 if dbconfig.test:
@@ -22,12 +11,8 @@ else:
     from dbhelper import DBHelper
 
 from main.sqla.dev import *
-from main.sqla.core.iaasldap import LDAPUser as iaasldap
+from main.auth.iaasldap import LDAPUser as iaasldap
 iaasldap = iaasldap()
-
-import dataset
-
-
 
 
 def assignroutes(application):

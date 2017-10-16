@@ -1,21 +1,11 @@
 import os
-import os.path as op
 
-from flask import Flask, redirect, url_for, request, flash
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Date, DateTime, ForeignKey, Integer, String, Text, Time, text
-from sqlalchemy.orm import relationship
-
-import flask_admin as admin
-from flask_admin.contrib.sqla import ModelView
-from flask_admin import helpers, expose
-import flask_login as login
-from wtforms import form, fields, validators
-
-from werkzeug.security import generate_password_hash, check_password_hash
-
-from jinja2 import TemplateNotFound
+from flask import redirect, url_for, request, flash
 from flask import render_template, abort
+from flask_admin import expose
+from flask_admin.contrib.sqla import ModelView
+from jinja2 import TemplateNotFound
+
 import dbconfig
 
 if dbconfig.test:
@@ -24,17 +14,15 @@ else:
     from core.access_helper import AccessHelper
 AH = AccessHelper()
 
-from main.sqla.core.iaasldap import LDAPUser as LDAPUser
+from main.auth.iaasldap import LDAPUser as LDAPUser
 current_user = LDAPUser()
 
+from ..auth import views as authviews
 
 import dev.models as devmodels
 
 
 from core.email import send_email_simple as send_email
-
-from werkzeug.utils import secure_filename
-from datetime import datetime
 
 # todo: move thissomewhere:
 from dev.models import listOfColumnTypesByName
@@ -69,6 +57,19 @@ def TriggerReload(application_name):
 # create views:
 
 def set_nextcloud_views(app, names,nc_identifiers):
+
+
+
+    @app.context_processor
+    def inject_paths():
+        return dict(iaas_url=dbconfig.iaas_route,
+                    dbas_url=dbconfig.dbas_route,
+                    LDAPUser=LDAPUser(),
+                    iaas_db_name=dbconfig.db_name
+                    )
+
+
+
     @app.route('/nextcloud/<nc_identifier>')
     def show_cloud_details(nc_identifier):
         if nc_identifier in nc_identifiers:
@@ -92,6 +93,10 @@ def set_views(app):
                     iaas_db_name=dbconfig.db_name
                     )
 
+
+    authviews.set_auth_views(app)
+
+
     @app.route('/account', methods=["GET", "POST"])
     def account():
         if current_user.is_authenticated():
@@ -101,28 +106,15 @@ def set_views(app):
                 instances.append(AH.get_projects_for_group(g))
 
 
-            from core.auth.forms import ChangePWForm
-            form = ChangePWForm()
-            if form.validate_on_submit():
-                user=current_user
-                # user = User(username=form.username.data,
-                #             email=form.username.data,
-                #             password=form.password.data)
-                success,ret = current_user.change_password(form.oldpw,form.password,form.password2)
-                if success:
-                    flash(ret,category='message')
-                else:
-                    flash(ret,category="error")
 
-                # return redirect(url_for('index'))
 
             try:
-                return render_template("account.html",groups=groups,instances=instances, form=form)
+                return render_template("account.html",groups=groups,instances=instances)
             except TemplateNotFound:
                 abort(404)
 
         else:
-            abort(403)
+            abort(403)\
 
 
     # region Flask views

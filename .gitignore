@@ -5,4 +5,4 @@ main/sqla/reload.py
 *.swp
 *.DS_Store
 .idea*
-static
+#static

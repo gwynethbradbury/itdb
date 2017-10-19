@@ -19,10 +19,10 @@ from main.sqla.app import create_app, get_user_for_prefix, get_current_schema_id
 
 app, schema_id = create_app('all')
 
-from main.web_apps_examples import map, it_lending_log, online_learning
-map.init_app(app)
-it_lending_log.init_app(app)
-online_learning.init_app(app)
+# from main.web_apps_examples import map, it_lending_log, online_learning
+# map.init_app(app)
+# it_lending_log.init_app(app)
+# online_learning.init_app(app)
 
 if __name__ == '__main__':
     # app_dir = op.realpath(os.path.dirname(__file__))

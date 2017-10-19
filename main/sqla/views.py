@@ -133,10 +133,42 @@ def set_views(app):
     @app.route('/')
     def index():
         try:
-            instances = AH.get_projects('dbas')
-            return render_template("index.html", instances=instances)
+            news = AH.get_news()
+            return render_template("index.html", news_articles=news)
         except TemplateNotFound:
             abort(404)
+
+    @app.route('/dbas')
+    def dbas_home():
+        try:
+            instances = AH.get_projects('dbas')
+            return render_template("dbas.html", instances=instances)
+        except TemplateNotFound:
+            abort(404)
+
+    @app.route('/nextcloud')
+    def nc_home():
+        try:
+            instances = AH.get_projects('nc')
+            return render_template("nextcloud.html", instances=instances)
+        except TemplateNotFound:
+            abort(404)
+
+    @app.route('/waas')
+    def waas_home():
+        try:
+            instances = AH.get_projects('waas')
+            return render_template("waas.html", instances=instances)
+        except TemplateNotFound:
+            abort(404)
+
+    # @app.route('/iam')
+    # def nc_home():
+    #     try:
+    #         instances = AH.get_projects('iam')
+    #         return render_template("iam.html", instances=instances)
+    #     except TemplateNotFound:
+    #         abort(404)
 
 
 

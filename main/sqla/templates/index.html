@@ -1,43 +1,66 @@
-{% extends "service.html" %}
+{% extends "base_template_foundation.html" %}
 
-{% block title %}My Services{% endblock %}
-
-{% block scripts %}
-<!--define scripts for home here-->
-{% endblock %}
+{% block mainpage %}
 
 
 
+          <div class="callout">
+            <div class="row column">
+		<h1><img src="/static/img/ox-brand.png" /> SoGE IT Infrastructure Services</h1>
+	    </div>
+	    <br/>
+            <div class="row column">
+              <p class="lead">A common platform for providing services of benefit to research and teaching using SoGE hardware in accordance with open standards.</p>
+            </div>
+          </div>
 
 
 
-{% block bodycalls %}
-{% endblock %}
+	  <div class="row small-up-3 medium-up-6 ">
+            <div class="column">
+              <a href="{{ url_for('show', page='iam') }}"><img class="thumbnail" src="/static/img/pineapple.jpg">
+              <h5>Identity and Access Management</h5></a>
+            </div>
+            <div class="column">
+              <a href="{{ url_for('show', page='nextcloud') }}"><img class="thumbnail" src="/static/img/Limes.jpg">
+              <h5>NextCloud Service</h5></a>
+            </div>
+            <div class="column">
+              <a href="{{ url_for('show', page='dbas') }}"><img class="thumbnail" src="/static/img/Dragon-Fruit.jpg">
+              <h5>DataBases as a Service</h5></a>
+            </div>
+            <div class="column">
+              <a href="{{ url_for('show', page='waas') }}"><img class="thumbnail" src="/static/img/passionfruit.jpg">
+              <h5>Web App as a Service</h5></a>
+            </div>
+            <div class="column">
+              <a href="{{ url_for('show', page='ci') }}"><img class="thumbnail" src="/static/img/coconut.jpg">
+              <h5>Continuous Integration</h5></a>
+            </div>
+            <div class="column">
+              <a href="{{ url_for('show', page='events') }}"><img class="thumbnail" src="/static/img/calendar.jpg">
+              <h5>Events</h5></a>
+            </div>
 
+          </div>
+<hr>
+	<div class="row">
+		<div class="column">
+			<br/>
+			<h3>News</h3>
+			<br/>
 
-
-
-
-
-{% block body2 %}
-
-
-    {% if instances|length>0 %}
-
-        <ul>
-            {% for instance in instances %}
-
-                <li><a href="/{% if instance[2]=='dbas' %}projects{% else %}nextcloud{% endif %}/{{instance[0]}}">{{instance[1]}}</a> ({{ instance[2] }})</li>
+            {% for news_article in news_articles %}
+                <div>
+                    <h4>{{news_article[0]}}</h4>
+                    <p>{{news_article[1]|safe}}<p>
+                    <p><i>Updated: {{ news_article[2] }} {{ news_article[3] }} </i></p>
+                </div>
+                <hr>
             {% endfor %}
-        </ul>
 
-    {% else %}
 
-        No projects are currently available to you.
-
-        <br/>
-        <a href="{{ url_for('show', page='projects/map') }}">Example map application</a>
-
-    {% endif %}
+		</div>
+	</div>
 
 {% endblock %}

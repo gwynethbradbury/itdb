@@ -1,0 +1,103 @@
+{% extends "service.html" %}
+
+{% block title %}
+    {% if nowevents|length>0 %}Today's Events
+    {% else %}Upcoming Events
+    {% endif %}
+{% endblock %}
+
+{% block body2 %}
+
+
+
+    {% if nowevents|length>0 %}
+        {% for event in nowevents %}
+            <article class="event">
+
+                <div class="event-date">
+                <p class="event-monthtoday">{{event[4]}}</p>
+                <p class="event-day">{{event[5]}}</p>
+                </div>
+
+                <div class="event-desc">
+                <h4 class="event-desc-header">{{event[0]}}</h4>
+                <p class="event-desc-detail"><span class="event-desc-time">{{event[1]}}</span></p>
+                <p>{{event[2]}}<br/>{{event[3]}}, {{event[6]}}-{{event[7]}}</p>
+                  <!--<a href="#" class="rsvp button">RSVP &amp; Details</a>-->
+                </div>
+            </article>
+
+            {% if nowevents|length>1 %}
+                <hr>
+            {% endif %}
+        {% endfor %}
+
+
+        <br/>
+        <h3>Upcoming Events</h3>
+    {% endif %}
+
+	{% for event in futureevents %}
+        <article class="event">
+
+            <div class="event-date">
+            <p class="event-month">{{event[4]}}</p>
+            <p class="event-day">{{event[5]}}</p>
+            </div>
+
+            <div class="event-desc">
+            <h4 class="event-desc-header">{{event[0]}}</h4>
+            <p class="event-desc-detail"><span class="event-desc-time">{{event[1]}}</span></p>
+            <p>{{event[2]}}<br/>{{event[3]}}, {{event[6]}}-{{event[7]}}</p>
+              <!--<a href="#" class="rsvp button">RSVP &amp; Details</a>-->
+            </div>
+        </article>
+
+        {% if futureevents|length>1 %}
+            <hr>
+        {% endif %}
+	{% endfor %}
+
+
+
+
+
+    {% if pastevents|length>0 %}
+        <br/>
+
+        <h3>Past Events</h3>
+
+        {% for event in pastevents %}
+            <article class="event">
+
+                <div class="event-date">
+                <p class="event-monthpast">{{event[4]}}</p>
+                <p class="event-day">{{event[5]}}</p>
+                </div>
+
+                <div class="event-desc">
+                <h4 class="event-desc-header">{{event[0]}}</h4>
+                <p class="event-desc-detail"><span class="event-desc-time">{{event[1]}}</span></p>
+                <p>{{event[2]}}<br/>{{event[3]}}, {{event[6]}}-{{event[7]}}</p>
+                  <!--<a href="#" class="rsvp button">RSVP &amp; Details</a>-->
+                </div>
+            </article>
+
+            {% if pastevents|length>1 %}
+                <hr>
+            {% endif %}
+        {% endfor %}
+        <br/>
+    {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

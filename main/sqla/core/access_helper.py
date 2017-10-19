@@ -62,8 +62,8 @@ class AccessHelper:
             usersgroups = iaasldap.get_groups()
             print("user {} is in groups {}".format(iaasldap.uid_trim(),
                                                    usersgroups))
-            if 'superusers' in usersgroups:
-                usersgroups=['superusers',]
+            # if 'superusers' in usersgroups:
+            #     usersgroups=['superusers',]
 
             for g in usersgroups:
                 IX = self.get_projects_for_group(g,svc_type)
@@ -96,9 +96,16 @@ class AccessHelper:
             #     if svc_type >= 0:
             #         query = query + " WHERE svc_type_id='{}' ".format(str(svc_type))
             # else:
-            query = query + " WHERE group_id='{}'".format(str(g_id))
+
+            if not group == 'superusers' or svc_type>=0:
+                query = query + " WHERE "
+
+            if not group==u'superusers':
+                query=query+"group_id='{}'".format(str(g_id))
+                if svc_type>=0:
+                    query=query+" AND "
             if svc_type>=0:
-                query=query+" AND svc_type_id='{}' ".format(str(svc_type))
+                query=query+"svc_type_id='{}'".format(str(svc_type))
 
             query = query + ";"
 

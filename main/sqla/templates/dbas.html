@@ -1,0 +1,52 @@
+{% extends "console.html" %}
+
+{% block servicename %}My Database Services{% endblock %}
+
+{% block scripts %}
+<!--define scripts for home here-->
+{% endblock %}
+
+
+
+
+
+
+{% block bodycalls %}
+{% endblock %}
+
+
+
+
+
+
+{% block consolecontent %}
+
+
+    {% if instances|length>0 %}
+
+        <ul>
+            {% for instance in instances %}
+
+                <li><a href="/{% if instance[2]=='dbas' %}projects{% else %}nextcloud{% endif %}/{{instance[0]}}">{{instance[1]}}</a> ({{ instance[2] }})</li>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+
+        No projects are currently available to you.
+
+        <br/>
+        <a href="{{ url_for('show', page='projects/map') }}">Example map application</a>
+
+    {% endif %}
+        <hr>
+
+{% endblock %}
+
+{% block serviceinfo %}
+<h3>Information</h3>
+<p>We offer a database management service where users can access their databases from any device.
+Data can be added, viewed, and extracted using the web interface.
+Get in touch if you have questions or are interested in access for your project.</p>
+<p>If you have access as to any project databases, they will appear above.</p>
+{% endblock %}

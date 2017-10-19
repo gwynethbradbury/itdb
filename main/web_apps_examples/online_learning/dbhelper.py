@@ -11,9 +11,9 @@ class DBHelper:
         self.mydatabase = dbname
 
     def connect(self, database=""):
-        return pymysql.connect(host='localhost',
-                               user=dbconfig.db_user,
-                               passwd=dbconfig.db_password,
+        return pymysql.connect(host='IAAS-gateway.ouce.ox.ac.uk:1564',
+                               user='cenv0594',
+                               passwd='keVRN7tVkP4DxR2sAlqq',
                                db=self.mydatabase)
 
     def getAllPages(self,topic_id=""):

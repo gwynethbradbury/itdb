@@ -64,6 +64,10 @@ from werkzeug.exceptions import NotFound
 
 schema_ids={}
 
+from main.web_apps_examples import map, it_lending_log, online_learning
+map.init_app(app)
+it_lending_log.init_app(app)
+online_learning.init_app(app)
 
 def make_app(prefix):
     print prefix

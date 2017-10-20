@@ -15,6 +15,24 @@ Base = db.Model
 metadata = Base.metadata
 
 
+class permitted_svc(Base):
+    __tablename__ = 'permitted_svc'
+    __bind_key__ = dbconfig.db_name
+    __display_name__ = 'Permitted Service'
+    id = Column(Integer, primary_key=True)
+    group_id = Column(ForeignKey(u'groups.id'), nullable=False, index=True)
+    svc_id = Column(ForeignKey(u'svc_instances.id'), nullable=False, index=True)
+    instance_quota = Column(Integer)
+
+
+    svc_inst = relationship(u'SvcInstance')
+    group = relationship(u'Group')
+
+    def __str__(self):
+        return self.id
+
+    def __repr__(self):
+        return self.__str__()
 
 class DatabaseEngine(Base):
     __tablename__ = 'database_engine'
@@ -183,6 +201,10 @@ class SvcInstance(Base):
     group = relationship(u'Group')
     svc_type = relationship(u'Service')
 
+    # group = relationship("Group",
+    #                     secondary=permitted_svc.__table__,
+    #                     backref="services")
+
     def __str__(self):
         return self.project_display_name
 
@@ -247,24 +269,6 @@ class News(Base):
     def __repr__(self):
         return self.__str__()
 
-class permitted_svc(Base):
-    __tablename__ = 'permitted_svc'
-    __bind_key__ = dbconfig.db_name
-    __display_name__ = 'Permitted Service'
-    id = Column(Integer, primary_key=True)
-    group_id = Column(ForeignKey(u'groups.id'), nullable=False, index=True)
-    svc_id = Column(ForeignKey(u'svc_instances.id'), nullable=False, index=True)
-    instance_quota = Column(Integer)
-
-
-    svc_inst = relationship(u'SvcInstance')
-    group = relationship(u'Group')
-
-    def __str__(self):
-        return self.id
-
-    def __repr__(self):
-        return self.__str__()
 
 class comment(Base):
     __tablename__ = 'comment'

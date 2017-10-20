@@ -16,6 +16,38 @@ Base = db.Model
 metadata = Base.metadata
 
 
+
+
+class Group(Base):
+    __tablename__ = 'groups'
+    # __bind_key__ = dbconfig.db_name
+    __display_name__ = 'Groups'
+
+    id = Column(Integer, primary_key=True)
+    ldap_name = Column(String(70))
+    name = Column(String(70), nullable=False, server_default=text("'-'"))
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return self.__str__()
+
+
+class Service(Base):
+    __tablename__ = 'services'
+    # __bind_key__ = dbconfig.db_name
+    __display_name__ = 'Services'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250), nullable=False)
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return self.__str__()
+
 class permitted_svc(Base):
     __tablename__ = 'permitted_svc'
     # __bind_key__ = dbconfig.db_name
@@ -46,6 +78,44 @@ class DatabaseEngine(Base):
 
     def __str__(self):
         return self.name
+
+    def __repr__(self):
+        return self.__str__()
+
+
+class SvcInstance(Base):
+    __tablename__ = 'svc_instances'
+    # __bind_key__ = dbconfig.db_name
+    __display_name__ = 'Service Instances'
+
+    id = Column(Integer, primary_key=True)
+    project_display_name = Column(String(30))
+    instance_identifier = Column(String(70))
+    svc_type_id = Column(ForeignKey(u'services.id'), nullable=False, index=True, server_default=text("'2'"))
+    group_id = Column(ForeignKey(u'groups.id'), nullable=False, index=True, server_default=text("'3'"))
+    priv_user = Column(String(15))
+    priv_pass = Column(String(30))
+    db_ip = Column(String(100))
+    schema_id = Column(Integer)
+
+    group = relationship(u'Group')
+    svc_type = relationship(u'Service')
+
+    # group = relationship("Group",
+    #                     secondary=permitted_svc.__table__,
+    #                     backref="services")
+
+    def myDBs(self):
+        return DatabaseInstance.query.filter_by(svc_inst=self.id).all()
+    def myWAs(self):
+        return WebApp.query.filter_by(svc_inst=self.id).all()
+    def myNCs(self):
+        return NextcloudInstance.query.filter_by(svc_inst=self.id).all()
+    def myVMs(self):
+        return VirtualMachine.query.filter_by(svc_inst=self.id).all()
+
+    def __str__(self):
+        return self.project_display_name
 
     def __repr__(self):
         return self.__str__()
@@ -166,25 +236,24 @@ class DatabaseInstance(Base):
                                                  self.database_name)
 
 
+    def __init__(self,project_owner="IT",ip_address="localhost",port=3306,username="iaas",
+                 password_if_secure="",project_maintainer="IT",description="",
+                 database_name="",database_engine=DatabaseEngine.query.first(),
+                 svc_inst=SvcInstance.query.first()):
+        self.project_owner=project_owner
+        self.ip_address = ip_address
+        self.svc_inst=svc_inst
+        self.port = port
+        self.username = username
+        self.password_if_secure=password_if_secure
+        self.project_maintainer=project_maintainer
+        self.description=description
+        self.database_engine=database_engine
+        self.database_name=database_name
+
 
     def __str__(self):
         return self.database_name
-
-    def __repr__(self):
-        return self.__str__()
-
-
-class Group(Base):
-    __tablename__ = 'groups'
-    # __bind_key__ = dbconfig.db_name
-    __display_name__ = 'Groups'
-
-    id = Column(Integer, primary_key=True)
-    ldap_name = Column(String(70))
-    name = Column(String(70), nullable=False, server_default=text("'-'"))
-
-    def __str__(self):
-        return self.name
 
     def __repr__(self):
         return self.__str__()
@@ -249,21 +318,6 @@ class Role(Base):
         return self.__str__()
 
 
-class Service(Base):
-    __tablename__ = 'services'
-    # __bind_key__ = dbconfig.db_name
-    __display_name__ = 'Services'
-
-    id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
-
-    def __str__(self):
-        return self.name
-
-    def __repr__(self):
-        return self.__str__()
-
-
 class Subscriber(Base):
     __tablename__ = 'subscribers'
     # __bind_key__ = dbconfig.db_name
@@ -275,44 +329,6 @@ class Subscriber(Base):
 
     def __str__(self):
         return self.name
-
-    def __repr__(self):
-        return self.__str__()
-
-
-class SvcInstance(Base):
-    __tablename__ = 'svc_instances'
-    # __bind_key__ = dbconfig.db_name
-    __display_name__ = 'Service Instances'
-
-    id = Column(Integer, primary_key=True)
-    project_display_name = Column(String(30))
-    instance_identifier = Column(String(70))
-    svc_type_id = Column(ForeignKey(u'services.id'), nullable=False, index=True, server_default=text("'2'"))
-    group_id = Column(ForeignKey(u'groups.id'), nullable=False, index=True, server_default=text("'3'"))
-    priv_user = Column(String(15))
-    priv_pass = Column(String(30))
-    db_ip = Column(String(100))
-    schema_id = Column(Integer)
-
-    group = relationship(u'Group')
-    svc_type = relationship(u'Service')
-
-    # group = relationship("Group",
-    #                     secondary=permitted_svc.__table__,
-    #                     backref="services")
-
-    def myDBs(self):
-        return DatabaseInstance.query.filter_by(svc_inst=self.id).all()
-    def myWAs(self):
-        return WebApp.query.filter_by(svc_inst=self.id).all()
-    def myNCs(self):
-        return NextcloudInstance.query.filter_by(svc_inst=self.id).all()
-    def myVMs(self):
-        return VirtualMachine.query.filter_by(svc_inst=self.id).all()
-
-    def __str__(self):
-        return self.project_display_name
 
     def __repr__(self):
         return self.__str__()

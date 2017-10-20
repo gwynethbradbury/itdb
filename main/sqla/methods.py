@@ -413,155 +413,6 @@ class MyIAASView(MyStandardView):
             query="SELECT ip_address, port from database_instances;")
         return instances
 
-class DBDetails():
-    def __init__(self, engine_type, username, passwd, host, port, dbname):
-        self.engine_type = engine_type
-        self.username = username
-        self.passwd = passwd
-        self.host = host
-        self.port = port
-        self.dbname = dbname
-
-    def ConnectAndExecute(self, query):
-        try:
-            conn = pymysql.connect(host=self.host,
-                                   port=self.port,
-                                   user=self.username,
-                                   passwd=self.passwd,
-                                   db=self.dbname)
-
-            cur = conn.cursor()
-
-            cur.execute(query)
-
-            instances = []
-            for inst in cur:
-                instances.append(inst)
-            cur.close()
-            conn.close()
-
-            return instances, "", 1
-        except Exception as e:
-            return [], e.__str__(), 0
-
-    def GetExistingKeys(self, foreign=True, primary=False):
-        P = ""
-        if primary and foreign:
-            P = ""
-        else:
-            if primary:
-                P = "AND CONSTRAINT_NAME = 'PRIMARY'"
-            elif foreign:
-                P = "AND NOT CONSTRAINT_NAME = 'PRIMARY'"
-
-        Q = self.ConnectAndExecute("SELECT CONSTRAINT_NAME,REFERENCED_TABLE_SCHEMA,"
-                                   "TABLE_NAME,COLUMN_NAME,"
-                                   "REFERENCED_TABLE_NAME,REFERENCED_COLUMN_NAME "
-                                   "FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE "
-                                   "WHERE TABLE_SCHEMA='{}' {};".format(self.dbname, P))
-
-        return Q
-
-
-    def GetUseage(self):
-        dbuseage = 0
-        if self.engine_type == 'postgresql':
-            # try:
-            #     r = self.ConnectAndExecute("SELECT table_name, pg_size_pretty(total_bytes) AS total "
-            #                            "FROM("
-            #                            "SELECT *, total_bytes - index_bytes - COALESCE(toast_bytes, 0) AS table_bytes "
-            #                            "FROM("
-            #                            "SELECT c.oid, nspname AS table_schema, relname AS TABLE_NAME, c.reltuples AS row_estimate, pg_total_relation_size(c.oid) AS total_bytes, pg_indexes_size(c.oid) AS index_bytes, pg_total_relation_size(reltoastrelid) AS toast_bytes "
-            #                            "FROM pg_class c LEFT JOIN pg_namespace n ON n.oid = c.relnamespace WHERE relkind = 'r' and nspname = 'public'"
-            #                            ") a"
-            #                            ") a;")
-            # except Exception as e:
-            #     print(e)
-
-            return 0
-        else:
-            try:
-                instances, msg, success = self.ConnectAndExecute(
-                    "SELECT Round(Sum(data_length + index_length) / 1024 / 1024, 1) 'db_size_mb' "
-                    "FROM information_schema.tables "
-                    "WHERE table_schema = '{}';".format(self.dbname))
-
-                for inst in instances:
-                    dbuseage = inst[0]
-            except Exception as e:
-                print(e)
-
-        return dbuseage
-
-    def __str__(self):
-        if self.engine_type == 'postgresql':
-            return '{}://{}:{}@{}:{}/{}'.format(self.engine_type,
-                                                self.username,
-                                                self.passwd,
-                                                self.host,
-                                                self.port,
-                                                self.dbname)
-        else:
-            if self.port=='':
-                return '{}://{}:{}@{}/{}'.format(self.engine_type,
-                                                 self.username,
-                                                 self.passwd,
-                                                 self.host,
-                                                 self.dbname)
-            else:
-                return '{}://{}:{}@{}:{}/{}'.format(self.engine_type,
-                                                 self.username,
-                                                 self.passwd,
-                                                 self.host,
-                                                 self.port,
-                                                 self.dbname)
-
-class NextCloud():
-
-    def __init__(self, link, ip):
-        self.ip = ip
-        self.link = link
-
-class VirtualMachine():
-
-    def __init__(self, name, ip, owned_by):
-        self.name = name
-        self.owned_by = owned_by
-        self.ip = ip
-
-class WebApp():
-
-    def __init__(self, homepage, name):
-        self.name = name
-        self.homepage = homepage
-
-
-class SvcDetails():
-
-    def __init__(self, svc_id=-1, svc_name="",svc_access_group="",
-                 _list_of_dbs=[], _list_of_ncs=[], _list_of_vms=[], _list_of_was=[]):
-        self.svc_id = svc_id
-        self.svc_name = svc_name
-        self.svc_access_group=svc_access_group
-
-        self.nc = []
-        self.db = []
-        self.wa = []
-        self.vm = []
-        self.MY_SQLALCHEMY_BINDS={}
-        for d in _list_of_dbs:
-            self.db.append(d)
-
-            self.MY_SQLALCHEMY_BINDS[d.dbname] = d.__str__()
-
-        for n in _list_of_ncs:
-            self.nc.append(NextCloud(n[0], n[1]))
-
-        for v in _list_of_vms:
-            self.vm.append(VirtualMachine(v[0], v[1], v[2]))
-
-        for w in _list_of_was:
-            self.wa.append(WebApp(w[0], w[1]))
 
 class DBAS():
 
@@ -631,62 +482,10 @@ class DBAS():
 
         list_of_services = iaas.iaas.SvcInstance.query.all()
 
-
-        # controlDB = DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password,
-        #                       dbconfig.db_hostname, 3306, dbconfig.db_name)
-        #
-        # list_of_services, msg, ret = controlDB.ConnectAndExecute("SELECT id, instance_identifier, group_id "
-        #                                                          "FROM svc_instances;")
-
         S = {}
         for r in list_of_services:
             if r.instance_identifier is not None and (id == -1 or id == r.id):
 
-
-                # # list_of_dbs_tmp, msg, ret = controlDB.ConnectAndExecute(
-                # #     "SELECT engine_type, username, password_if_secure, ip_address, port, database_name "
-                # #     "FROM database_instances "
-                # #     "WHERE svc_inst = '{}';".format(int(r[0])))
-                #
-                # list_of_dbs = []
-                # for i in range(len(list_of_dbs_tmp)):
-                #     d = list_of_dbs_tmp[i]
-                #     engine_type, msg, ret = controlDB.ConnectAndExecute("SELECT connection_string "
-                #                                                         "FROM database_engine "
-                #                                                         "WHERE id = '{}';"
-                #                                                         .format((d[0])))
-                #     L = list(d)
-                #     L[0] = engine_type[0][0]
-                #
-                #     DBD = DBDetails(engine_type=L[0], username=L[1],
-                #                     passwd=L[2], host=L[3], port=L[4],
-                #                     dbname=L[5])
-                #     list_of_dbs.append(DBD)
-                #     self.SQLALCHEMY_BINDS2[DBD.dbname] = DBD.__str__()
-                #
-                # list_of_ncs, msg, ret = controlDB.ConnectAndExecute("SELECT link, ip_address "
-                #                                                     "FROM nextcloud_instances "
-                #                                                     "WHERE svc_inst_id = '{}';"
-                #                                                     .format(int(r[0])))
-                # list_of_vms, msg, ret = controlDB.ConnectAndExecute("SELECT name, ip_address, owned_by "
-                #                                                     "FROM virtual_machines "
-                #                                                     "WHERE svc_inst = '{}';"
-                #                                                     .format(int(r[0])))
-                # list_of_was, msg, ret = controlDB.ConnectAndExecute("SELECT name, homepage, name "
-                #                                                     "FROM web_apps "
-                #                                                     "WHERE svc_inst = '{}';"
-                #                                                     .format(int(r[0])))
-                #
-                # group, msg, ret = controlDB.ConnectAndExecute("SELECT ldap_name "
-                #                                               "FROM groups "
-                #                                               "WHERE id={};".format(r[2]))
-                # S[r[1]] = SvcDetails(int(r[0]), r[1],
-                #                      _list_of_was=list_of_was,
-                #                      _list_of_vms=list_of_vms,
-                #                      _list_of_ncs=list_of_ncs,
-                #                      _list_of_dbs=list_of_dbs,
-                #                      svc_access_group=group[0][0])
-                # # todo: update so group of groups have access to the service
 
                 if r.instance_identifier==self.app.config['dispatched_app'] \
                         or self.app.config['dispatched_app']=='all':
@@ -771,67 +570,48 @@ class DBAS():
         """checks the iaas db for dbas services and collects the db binds"""
 
         iaas_main_db = self.app.config['SQLALCHEMY_DATABASE_URI']
-        dba = devmodels.DatabaseAssistant(iaas_main_db, dbconfig.db_name, dbconfig.db_name)
+        # dba = devmodels.DatabaseAssistant(iaas_main_db, dbconfig.db_name, dbconfig.db_name)
 
-
-        self.db_details_dict[dbconfig.db_name] = DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password,
-                                                      dbconfig.db_hostname, 3306, dbconfig.db_name)
+        x = iaas.iaas.DatabaseEngine.query.filter_by(connection_string=dbconfig.db_engine).first()
+        self.db_details_dict[dbconfig.db_name] = iaas.iaas.DatabaseInstance(database_engine=x,
+                                                                            username=dbconfig.db_user,
+                                                                            password_if_secure=dbconfig.db_password,
+                                                                            ip_address=dbconfig.db_hostname,
+                                                                            port=3306,
+                                                                            database_name=dbconfig.db_name)
         # self.svc_groups = {}
         self.svc_groups[dbconfig.db_name] = 'superusers'
 
-        controlDB = DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password,
-                              dbconfig.db_hostname, 3306, dbconfig.db_name)
 
-        list_of_dbs_tmp, msg, ret = controlDB.ConnectAndExecute(
-                                        "SELECT svc_inst, ip_address, port, engine_type, username, password_if_secure "
-                                        "FROM database_instances;")
+        list_of_dbs_tmp = iaas.iaas.DatabaseInstance.query.all()
 
         for r in list_of_dbs_tmp:
 
-            if r[5] == '':  # postgres or insecure password
+            if r.password_if_secure == '':  # insecure password
                 continue
 
-            result, engine_type = dba.retrieveDataFromDatabase("database_engine",
-                                                               ["connection_string"],
-                                                               wherefield="id", whereval=r[3],
-                                                               classes_loaded=False)
-            engine_type = engine_type[0][0]
-
-            result, svc_inst = dba.retrieveDataFromDatabase("svc_instances",
-                                                            ["project_display_name",
-                                                             "instance_identifier",
-                                                             "group_id",
-                                                             "schema_id", "priv_user", "priv_pass", "db_ip"],
-                                                            wherefield="id", whereval=r[0],
-                                                            classes_loaded=False)
-            svc_inst = svc_inst[0]
-            if not ((svc_inst[1] == self.app.config['dispatched_app'])
+            svc_inst = r.svc_instance
+            if not ((svc_inst.instance_identifier == self.app.config['dispatched_app'])
                     or (self.app.config['dispatched_app'] == 'all')):
-                    # or svc_inst[1]=='iaas':
                 continue
 
-            self.schema_ids[svc_inst[1]] = svc_inst[3]
-            self.db_list.append(svc_inst[1])
-            if r[2] == 'None':
-                r[2] = '0'
-            db_string = DBDetails(engine_type,
-                                  r[4],
-                                  r[5],
-                                  r[1],
-                                  int(r[2]),
-                                  svc_inst[1])
-            self.db_details_dict[svc_inst[1]] = db_string
+            self.schema_ids[svc_inst.instance_identifier] = svc_inst.schema_id
+            self.db_list.append(svc_inst.instance_identifier)
+            if r.port == 'None':
+                r.port = '0'
+            db_string =r.GetConnectionString()
 
-            self.db_strings.append(db_string.__str__())
+            self.db_details_dict[svc_inst.instance_identifier] = r
 
-            # self.SQLALCHEMY_BINDS["{}".format(svc_inst[1])] = db_string.__str__()
-            self.svc_groups["{}".format(svc_inst[1])] = svc_inst[2]
+            self.db_strings.append(db_string)
 
-            project_dba = devmodels.DatabaseAssistant(db_string.__str__(), svc_inst[1], svc_inst[1])
+            self.svc_groups["{}".format(svc_inst.instance_identifier)] = svc_inst.group_id
+
+            project_dba = devmodels.DatabaseAssistant(db_string, svc_inst.instance_identifier, svc_inst.instance_identifier)
             try:
                 tns, cns = project_dba.getTableAndColumnNames()
                 for t in tns:
-                    self.class_db_dict['cls_{}_{}'.format(svc_inst[1], t)] = svc_inst[1]
+                    self.class_db_dict['cls_{}_{}'.format(svc_inst.instance_identifier, t)] = svc_inst.instance_identifier
             except Exception as e:
                 # flash(e,'error')
                 print(e)
@@ -845,7 +625,7 @@ class DBAS():
         proj_admin.add_view(
             views.MyModelView(c, self.db.session, name=c.__display_name__, databasename=proj_admin.database_name,
                               endpoint=proj_admin.database_name + "_" + c.__display_name__, category="Tables",
-                              db_string=self.db_details_dict[db_name].__str__(), svc_group=svc_group,
+                              db_string=self.db_details_dict[db_name].GetConnectionString, svc_group=svc_group,
                               db_details=self.db_details_dict[db_name]))
 
     def add_iaas_views(self,d):

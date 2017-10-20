@@ -25,7 +25,7 @@ class PathDispatcher(object):
         with self.lock:
             app = self.instances.get(prefix)
             if app is None:
-                app = self.create_app(prefix)
+                app, schema_id, db = self.create_app(prefix)
                 if app is not None:
                     self.instances[prefix] = app
             return app
@@ -33,7 +33,7 @@ class PathDispatcher(object):
     def reload_app(self, prefix):
         print "auto_reloading: "+prefix
         with self.lock:
-            app = self.create_app(prefix)
+            app, schema_id, db = self.create_app(prefix)
             self.instances[prefix] = app
             return app
 

@@ -25,6 +25,12 @@ class DatabaseEngine(Base):
     connection_string = Column(String(100))
     name = Column(String(100), nullable=False, server_default=text("'-'"))
 
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return self.__str__()
+
 
 class DatabaseInstance(Base):
     __tablename__ = 'database_instances'
@@ -46,6 +52,12 @@ class DatabaseInstance(Base):
     database_engine = relationship(u'DatabaseEngine')
     svc_instance = relationship(u'SvcInstance')
 
+    def __str__(self):
+        return self.database_name
+
+    def __repr__(self):
+        return self.__str__()
+
 
 class Group(Base):
     __tablename__ = 'groups'
@@ -55,6 +67,12 @@ class Group(Base):
     id = Column(Integer, primary_key=True)
     ldap_name = Column(String(70))
     name = Column(String(70), nullable=False, server_default=text("'-'"))
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return self.__str__()
 
 
 class IaasEvent(Base):
@@ -70,6 +88,12 @@ class IaasEvent(Base):
     eventdate = Column(Date)
     starttime = Column(Time)
     endtime = Column(Time)
+
+    def __str__(self):
+        return self.title
+
+    def __repr__(self):
+        return self.__str__()
 
 
 class NextcloudInstance(Base):
@@ -87,6 +111,12 @@ class NextcloudInstance(Base):
 
     svc_instance = relationship(u'SvcInstance')
 
+    def __str__(self):
+        return self.svc_instance.name
+
+    def __repr__(self):
+        return self.__str__()
+
 
 class Role(Base):
     __tablename__ = 'roles'
@@ -97,6 +127,12 @@ class Role(Base):
     name = Column(String(250))
     description = Column(String(250))
 
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return self.__str__()
+
 
 class Service(Base):
     __tablename__ = 'services'
@@ -105,6 +141,12 @@ class Service(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return self.__str__()
 
 
 class Subscriber(Base):
@@ -115,6 +157,12 @@ class Subscriber(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
     email = Column(String(60))
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return self.__str__()
 
 
 class SvcInstance(Base):
@@ -135,6 +183,12 @@ class SvcInstance(Base):
     group = relationship(u'Group')
     svc_type = relationship(u'Service')
 
+    def __str__(self):
+        return self.project_display_name
+
+    def __repr__(self):
+        return self.__str__()
+
 
 class VirtualMachine(Base):
     __tablename__ = 'virtual_machines'
@@ -149,6 +203,11 @@ class VirtualMachine(Base):
 
     svc_instance = relationship(u'SvcInstance')
 
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return self.__str__()
 
 class WebApp(Base):
     __tablename__ = 'web_apps'
@@ -165,6 +224,12 @@ class WebApp(Base):
     database_instance = relationship(u'DatabaseInstance')
     svc_inst = relationship(u'SvcInstance')
 
+    def __str__(self):
+        return self.news.title
+
+    def __repr__(self):
+        return self.__str__()
+
 class News(Base):
     __tablename__ = 'news'
     __bind_key__ = dbconfig.db_name
@@ -175,6 +240,12 @@ class News(Base):
     body = Column(Text)
     created_on = Column(DateTime)
     updated_on = Column(DateTime)
+
+    def __str__(self):
+        return self.title
+
+    def __repr__(self):
+        return self.__str__()
 
 class permitted_svc(Base):
     __tablename__ = 'permitted_svc'
@@ -189,6 +260,12 @@ class permitted_svc(Base):
     svc_inst = relationship(u'SvcInstance')
     group = relationship(u'Group')
 
+    def __str__(self):
+        return self.id
+
+    def __repr__(self):
+        return self.__str__()
+
 class comment(Base):
     __tablename__ = 'comment'
     __bind_key__ = dbconfig.db_name
@@ -200,6 +277,14 @@ class comment(Base):
     visible = Column(Boolean)
     created_on = Column(DateTime)
 
-
     news = relationship(u'News')
+
+    def __str__(self):
+        return self.news.title
+
+    def __repr__(self):
+        return self.__str__()
+
+    def __repr__(self):
+        return self.__str__()
 

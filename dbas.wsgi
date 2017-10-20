@@ -71,7 +71,7 @@ def make_app(prefix):
     user = get_user_for_prefix(prefix)
     if user is None:
        return NotFound()
-    app, schema_id = create_app(user)
+    app, schema_id, db = create_app(user)
     if user!='':
        schema_ids[user]=schema_id
     return app

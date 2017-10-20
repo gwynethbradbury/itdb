@@ -99,15 +99,6 @@ def create_app(instance_name):
     if (instance_name != '') and (instance_name != 'all'):
         app.config['schema_id'] = DBAS.get_schema(instance_name)
 
-    if instance_name=='map' or instance_name=='all':
-        from main.web_apps_examples import map
-        map.init_app(app)
-    if instance_name=='online_learning' or instance_name=='all':
-        from main.web_apps_examples import it_lending_log
-        it_lending_log.init_app(app)
-    if instance_name=='online_learning' or instance_name=='all':
-        from main.web_apps_examples import online_learning
-        online_learning.init_app(app)
 
 
-    return app, app.config['schema_id']
+    return app, app.config['schema_id'], db

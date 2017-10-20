@@ -14,11 +14,15 @@ def ClassStr(self):
     if hasattr(self, 'name'):
         return self.name
     for d in self.__dict__:
+        x=''
         if 'name' in d.lower():
-            return getattr(self,d)
+            x=d
+            if not 'username' in d.lower():
+                return getattr(self,x)
     for d in self.__dict__:
         if 'title' in d.lower():
             return getattr(self,d)
+
     if hasattr(self, 'id'):
         return str(self.id)
 

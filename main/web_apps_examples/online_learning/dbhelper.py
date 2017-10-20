@@ -11,7 +11,8 @@ class DBHelper:
         self.mydatabase = dbname
 
     def connect(self, database=""):
-        return pymysql.connect(host='IAAS-gateway.ouce.ox.ac.uk:1564',
+        return pymysql.connect(host='IAAS-gateway.ouce.ox.ac.uk',
+                               port=1562,
                                user='cenv0594',
                                passwd='keVRN7tVkP4DxR2sAlqq',
                                db=self.mydatabase)

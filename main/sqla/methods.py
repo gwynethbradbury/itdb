@@ -5,6 +5,7 @@ import classes
 import dbconfig
 import dev.models as devmodels
 import views
+import main.iaas as iaas
 
 if dbconfig.test:
     from core.mock_access_helper import MockAccessHelper as AccessHelper
@@ -38,7 +39,7 @@ class DatabaseOps(BaseView):
     can_export = True
 
     def __init__(self, name, endpoint, database_name, db_string, svc_group,
-                 menu_class_name=None, db=None, C=None):
+                 menu_class_name=None, db=None, C=None, dbinfo=None):
         super(DatabaseOps, self).__init__(name,
                                           endpoint=endpoint,
                                           menu_class_name=menu_class_name)
@@ -47,6 +48,7 @@ class DatabaseOps(BaseView):
         self.db_string = db_string
         self.db = db
         self.classes = C
+        self.dbinfo = dbinfo
 
     @expose('/')
     def index(self):
@@ -170,7 +172,7 @@ class DatabaseOps(BaseView):
                 flash(ret, "error")
 
         tablenames, columnnames = DBA.getTableAndColumnNames()
-        keys = DBA.getExistingKeys(True, True)
+        keys = self.dbinfo.GetExistingKeys(True, True)
 
         return self.render("projects/project_relationship_builder.html",
                            tablenames=tablenames, columnnames=columnnames,
@@ -559,7 +561,7 @@ class SvcDetails():
             self.vm.append(VirtualMachine(v[0], v[1], v[2]))
 
         for w in _list_of_was:
-            self.wa.append(NextCloud(w[0], w[1]))
+            self.wa.append(WebApp(w[0], w[1]))
 
 class DBAS():
 
@@ -580,22 +582,23 @@ class DBAS():
 
 
         self.services = self.get_services()
-        # for s in self.services:
-        #     if self.services[s].svc_name==self.app.config['dispatched_app'] \
-        #             or self.services[s].svc_name.startswith('iaas')\
-        #             or self.app.config['dispatched_app']=='all':
-        #         for d in self.services[s].MY_SQLALCHEMY_BINDS:
-        #             self.SQLALCHEMY_BINDS2[d] = self.services[s].MY_SQLALCHEMY_BINDS[d]
-
-
-        self.setup_pages()
-
-
         for s in self.services:
             if self.services[s].svc_name==self.app.config['dispatched_app'] \
                     or self.services[s].svc_name.startswith('iaas')\
                     or self.app.config['dispatched_app']=='all':
-                self.setup_service(self.services[s])
+                for d in self.services[s].MY_SQLALCHEMY_BINDS:
+                    self.SQLALCHEMY_BINDS2[d] = self.services[s].MY_SQLALCHEMY_BINDS[d]
+
+
+        self.setup_pages()
+
+        self.setup_iaas()
+
+        # for s in self.services:
+        #     if self.services[s].svc_name==self.app.config['dispatched_app'] \
+        #             or self.services[s].svc_name.startswith('iaas')\
+        #             or self.app.config['dispatched_app']=='all':
+        #         self.setup_service(self.services[s])
 
 
 
@@ -680,11 +683,18 @@ class DBAS():
                 if S[r[1]].svc_name==self.app.config['dispatched_app'] \
                         or S[r[1]].svc_name.startswith('iaas')\
                         or self.app.config['dispatched_app']=='all':
+                    pass
                     self.setup_service(S[r[1]])
         self.services = S
         return S
 
+    def setup_iaas(self):
+        self.add_iaas_views(dbconfig.db_name)
+
+
     def setup_service(self, svc_info):
+        if svc_info.svc_name.startswith('iaas'):
+            return
         if len(svc_info.db) > 0:
             for d in svc_info.db:
                 # self.classesdict, my_db = classes.initialise(self.db, [d.dbname], [d.__str__()])
@@ -695,6 +705,20 @@ class DBAS():
                                                  svc_group=d.dbname)#svc_info.svc_access_group)
                 except Exception as e:
                     print(e)
+
+            for w in svc_info.wa:
+
+                if w.name == 'map' or w.name == 'all':
+                    from main.web_apps_examples import map
+                    map.init_app(self.app)
+                if w.name == 'it_lending_log' or w.name == 'all':
+                    from main.web_apps_examples import it_lending_log
+                    it_lending_log.init_app(self.app)
+                if w.name == 'online_learning' or w.name == 'all':
+                    from main.web_apps_examples import online_learning
+                    online_learning.init_app(self.app)
+
+                pass
 
 
     def init_login(self):
@@ -774,6 +798,7 @@ class DBAS():
             svc_inst = svc_inst[0]
             if not ((svc_inst[1] == self.app.config['dispatched_app'])
                     or (self.app.config['dispatched_app'] == 'all')):
+                    # or svc_inst[1]=='iaas':
                 continue
 
             self.schema_ids[svc_inst[1]] = svc_inst[3]
@@ -814,6 +839,54 @@ class DBAS():
                               db_string=self.db_details_dict[db_name].__str__(), svc_group=svc_group,
                               db_details=self.db_details_dict[db_name]))
 
+    def add_iaas_views(self,d):
+        iaas_admin = MyIAASView(db_details=self.db_details_dict[d],
+                                app=self.app, name='IAAS admin app', template_mode='foundation',
+                                endpoint=d, url="/admin",
+                                base_template='my_master.html', database_name=d,
+                                svc_group='superusers')
+
+        iaas_admin.add_links(ML('IPs in use', url='/admin/ip_addresses/'.format(d),
+                                category="Useage"),
+                             ML('Ports in use', url='/admin/ip_addresses/ports'.format(d),
+                                category="Useage"))
+
+        iaas_admin.add_hidden_view(IPAddressView(name="IP Addresses", endpoint="ip_addresses", category="Useage"))
+
+
+        # general
+        iaas_admin.add_hidden_view(DatabaseOps(name='Edit Database'.format(d),
+                                               endpoint='db_ops'.format(d),
+                                               db_string= iaas.iaas_uri,#self.SQLALCHEMY_BINDS2[d],
+                                               database_name=d,
+                                               db=self.db,
+                                               C=self.classesdict,
+                                               svc_group='superusers',
+                                               dbinfo=self.db_details_dict[d]))
+
+        iaas_admin.add_links(ML('New Table', url='/admin/db_ops/newtable'.format(d,d)),
+                             ML('Import Data', url='/admin/db_ops/upload'.format(d,d)),
+                             # ML('Export Data',url='/admin/ops_download'),
+                             ML('Relationship Builder',
+                                url='/admin/db_ops/relationshipbuilder'.format(d,d)))
+
+
+        self._add_a_view(iaas_admin, iaas.iaas.DatabaseEngine, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.DatabaseInstance, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.Group, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.IaasEvent, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.NextcloudInstance, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.Role, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.Service, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.Subscriber, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.SvcInstance, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.VirtualMachine, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.WebApp, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.News, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.permitted_svc, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.comment, db_name=d, svc_group='superusers')
+
+        pass
     def add_collection_of_views(self, d, classesdict, class_db_dict, svc_group):
         if d == dbconfig.db_name:
 
@@ -857,13 +930,14 @@ class DBAS():
                                                database_name=d,
                                                db=self.db,
                                                C=self.classesdict,
-                                               svc_group=svc_group))
+                                               svc_group=svc_group,
+                                               dbinfo=self.db_details_dict[d]))
 
-        proj_admin.add_links(ML('New Table', url='/projects/{}/ops/newtable'.format(d)),
-                             ML('Import Data', url='/projects/{}/ops/upload'.format(d)),
-                             # ML('Export Data',url='/admin/ops/download'),
+        proj_admin.add_links(ML('New Table', url='/projects/{}/{}_ops/newtable'.format(d,d)),
+                             ML('Import Data', url='/projects/{}/{}_ops/upload'.format(d,d)),
+                             # ML('Export Data',url='/admin/ops_download'),
                              ML('Relationship Builder',
-                                url='/projects/{}/ops/relationshipbuilder'.format(d)))
+                                url='/projects/{}/{}_ops/relationshipbuilder'.format(d,d)))
         for c in class_db_dict:
             if d == class_db_dict[c]:
                 if 'spatial_ref_sys' in c.lower():

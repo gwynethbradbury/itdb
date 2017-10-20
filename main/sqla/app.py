@@ -101,4 +101,4 @@ def create_app(instance_name):
 
 
 
-    return app, app.config['schema_id'], db
+    return app, app.config['schema_id']

@@ -2,6 +2,7 @@ from sqlalchemy import Column, Date, DateTime, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
 # from sqlalchemy.ext.declarative import declarative_base
 # from main.sqla.app import db
+import pymysql
 
 
 import dbconfig
@@ -17,7 +18,7 @@ metadata = Base.metadata
 
 class permitted_svc(Base):
     __tablename__ = 'permitted_svc'
-    __bind_key__ = dbconfig.db_name
+    # __bind_key__ = dbconfig.db_name
     __display_name__ = 'Permitted Service'
     id = Column(Integer, primary_key=True)
     group_id = Column(ForeignKey(u'groups.id'), nullable=False, index=True)
@@ -36,7 +37,7 @@ class permitted_svc(Base):
 
 class DatabaseEngine(Base):
     __tablename__ = 'database_engine'
-    __bind_key__ = dbconfig.db_name
+    # __bind_key__ = dbconfig.db_name
     __display_name__ = 'Database Engine'
 
     id = Column(Integer, primary_key=True)
@@ -52,7 +53,7 @@ class DatabaseEngine(Base):
 
 class DatabaseInstance(Base):
     __tablename__ = 'database_instances'
-    __bind_key__ = dbconfig.db_name
+    # __bind_key__ = dbconfig.db_name
     __display_name__ = 'Database Instances'
 
     id = Column(Integer, primary_key=True)
@@ -70,6 +71,102 @@ class DatabaseInstance(Base):
     database_engine = relationship(u'DatabaseEngine')
     svc_instance = relationship(u'SvcInstance')
 
+
+    def ConnectAndExecute(self, query):
+        try:
+            conn = pymysql.connect(host=self.ip_address,
+                                   port=self.port,
+                                   user=self.username,
+                                   passwd=self.password_if_secure,
+                                   db=self.database_name)
+
+            cur = conn.cursor()
+
+            cur.execute(query)
+
+            instances = []
+            for inst in cur:
+                instances.append(inst)
+            cur.close()
+            conn.close()
+
+            return instances, "", 1
+        except Exception as e:
+            return [], e.__str__(), 0
+
+    def GetExistingKeys(self, foreign=True, primary=False):
+        P = ""
+        if primary and foreign:
+            P = ""
+        else:
+            if primary:
+                P = "AND CONSTRAINT_NAME = 'PRIMARY'"
+            elif foreign:
+                P = "AND NOT CONSTRAINT_NAME = 'PRIMARY'"
+
+        Q = self.ConnectAndExecute("SELECT CONSTRAINT_NAME,REFERENCED_TABLE_SCHEMA,"
+                                   "TABLE_NAME,COLUMN_NAME,"
+                                   "REFERENCED_TABLE_NAME,REFERENCED_COLUMN_NAME "
+                                   "FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE "
+                                   "WHERE TABLE_SCHEMA='{}' {};".format(self.dbname, P))
+
+        return Q
+
+    def GetUseage(self):
+        dbuseage = 0
+        if self.engine_type == 'postgresql':
+            # try:
+            #     r = self.ConnectAndExecute("SELECT table_name, pg_size_pretty(total_bytes) AS total "
+            #                            "FROM("
+            #                            "SELECT *, total_bytes - index_bytes - COALESCE(toast_bytes, 0) AS table_bytes "
+            #                            "FROM("
+            #                            "SELECT c.oid, nspname AS table_schema, relname AS TABLE_NAME, c.reltuples AS row_estimate, pg_total_relation_size(c.oid) AS total_bytes, pg_indexes_size(c.oid) AS index_bytes, pg_total_relation_size(reltoastrelid) AS toast_bytes "
+            #                            "FROM pg_class c LEFT JOIN pg_namespace n ON n.oid = c.relnamespace WHERE relkind = 'r' and nspname = 'public'"
+            #                            ") a"
+            #                            ") a;")
+            # except Exception as e:
+            #     print(e)
+
+            return 0
+        else:
+            try:
+                instances, msg, success = self.ConnectAndExecute(
+                    "SELECT Round(Sum(data_length + index_length) / 1024 / 1024, 1) 'db_size_mb' "
+                    "FROM information_schema.tables "
+                    "WHERE table_schema = '{}';".format(self.dbname))
+
+                for inst in instances:
+                    dbuseage = inst[0]
+            except Exception as e:
+                print(e)
+
+        return dbuseage
+
+    def GetConnectionString(self):
+        if self.database_engine.name == 'postgresql':
+            return '{}://{}:{}@{}:{}/{}'.format(self.database_engine.connection_string,
+                                                self.username,
+                                                self.password_if_secure,
+                                                self.ip_address,
+                                                self.port,
+                                                self.database_name)
+        else:
+            if self.port=='':
+                return '{}://{}:{}@{}/{}'.format(self.database_engine.connection_string,
+                                                 self.username,
+                                                 self.password_if_secure,
+                                                 self.ip_address,
+                                                 self.database_name)
+            else:
+                return '{}://{}:{}@{}:{}/{}'.format(self.database_engine.connection_string,
+                                                 self.username,
+                                                 self.password_if_secure,
+                                                 self.ip_address,
+                                                 self.port,
+                                                 self.database_name)
+
+
+
     def __str__(self):
         return self.database_name
 
@@ -79,7 +176,7 @@ class DatabaseInstance(Base):
 
 class Group(Base):
     __tablename__ = 'groups'
-    __bind_key__ = dbconfig.db_name
+    # __bind_key__ = dbconfig.db_name
     __display_name__ = 'Groups'
 
     id = Column(Integer, primary_key=True)
@@ -95,7 +192,7 @@ class Group(Base):
 
 class IaasEvent(Base):
     __tablename__ = 'iaas_events'
-    __bind_key__ = dbconfig.db_name
+    # __bind_key__ = dbconfig.db_name
     __display_name__ = 'IAAS Events'
 
     id = Column(Integer, primary_key=True)
@@ -116,7 +213,7 @@ class IaasEvent(Base):
 
 class NextcloudInstance(Base):
     __tablename__ = 'nextcloud_instances'
-    __bind_key__ = dbconfig.db_name
+    # __bind_key__ = dbconfig.db_name
     __display_name__ = 'Nextcloud Instances'
 
     id = Column(Integer, primary_key=True)
@@ -138,7 +235,7 @@ class NextcloudInstance(Base):
 
 class Role(Base):
     __tablename__ = 'roles'
-    __bind_key__ = dbconfig.db_name
+    # __bind_key__ = dbconfig.db_name
     __display_name__ = 'Roles'
 
     id = Column(Integer, primary_key=True)
@@ -154,7 +251,7 @@ class Role(Base):
 
 class Service(Base):
     __tablename__ = 'services'
-    __bind_key__ = dbconfig.db_name
+    # __bind_key__ = dbconfig.db_name
     __display_name__ = 'Services'
 
     id = Column(Integer, primary_key=True)
@@ -169,7 +266,7 @@ class Service(Base):
 
 class Subscriber(Base):
     __tablename__ = 'subscribers'
-    __bind_key__ = dbconfig.db_name
+    # __bind_key__ = dbconfig.db_name
     __display_name__ = 'Subscribers'
 
     id = Column(Integer, primary_key=True)
@@ -185,7 +282,7 @@ class Subscriber(Base):
 
 class SvcInstance(Base):
     __tablename__ = 'svc_instances'
-    __bind_key__ = dbconfig.db_name
+    # __bind_key__ = dbconfig.db_name
     __display_name__ = 'Service Instances'
 
     id = Column(Integer, primary_key=True)
@@ -205,6 +302,15 @@ class SvcInstance(Base):
     #                     secondary=permitted_svc.__table__,
     #                     backref="services")
 
+    def myDBs(self):
+        return DatabaseInstance.query.filter_by(svc_inst=self.id).all()
+    def myWAs(self):
+        return WebApp.query.filter_by(svc_inst=self.id).all()
+    def myNCs(self):
+        return NextcloudInstance.query.filter_by(svc_inst=self.id).all()
+    def myVMs(self):
+        return VirtualMachine.query.filter_by(svc_inst=self.id).all()
+
     def __str__(self):
         return self.project_display_name
 
@@ -214,7 +320,7 @@ class SvcInstance(Base):
 
 class VirtualMachine(Base):
     __tablename__ = 'virtual_machines'
-    __bind_key__ = dbconfig.db_name
+    # __bind_key__ = dbconfig.db_name
     __display_name__ = 'Virtual Machines'
 
     id = Column(Integer, primary_key=True)
@@ -233,7 +339,7 @@ class VirtualMachine(Base):
 
 class WebApp(Base):
     __tablename__ = 'web_apps'
-    __bind_key__ = dbconfig.db_name
+    # __bind_key__ = dbconfig.db_name
     __display_name__ = 'Web Apps'
 
     id = Column(Integer, primary_key=True)
@@ -254,7 +360,7 @@ class WebApp(Base):
 
 class News(Base):
     __tablename__ = 'news'
-    __bind_key__ = dbconfig.db_name
+    # __bind_key__ = dbconfig.db_name
     __display_name__ = 'News'
 
     id = Column(Integer, primary_key=True)
@@ -272,7 +378,7 @@ class News(Base):
 
 class comment(Base):
     __tablename__ = 'comment'
-    __bind_key__ = dbconfig.db_name
+    # __bind_key__ = dbconfig.db_name
     __display_name__ = 'Comment'
     id = Column(Integer, primary_key=True)
     news_id = Column(ForeignKey(u'news.id'), nullable=False, index=True)

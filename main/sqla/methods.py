@@ -336,7 +336,7 @@ class MyStandardView(Admin2):
         self.svc_group = svc_group
         self.db_string = db_details.__str__()
         self.db_details = db_details
-        self.setDBEngine(self.database_name)
+        # self.setDBEngine(self.database_name)
 
     @expose('/')
     def home(self):
@@ -581,29 +581,33 @@ class DBAS():
         self.setup()
 
 
-        self.services = self.get_services()
+        self.get_services()
         for s in self.services:
-            if self.services[s].svc_name==self.app.config['dispatched_app'] \
-                    or self.services[s].svc_name.startswith('iaas')\
+            if s.instance_identifier==self.app.config['dispatched_app'] \
+                    or s.instance_identifier.startswith('iaas')\
                     or self.app.config['dispatched_app']=='all':
-                for d in self.services[s].MY_SQLALCHEMY_BINDS:
-                    self.SQLALCHEMY_BINDS2[d] = self.services[s].MY_SQLALCHEMY_BINDS[d]
+                for d in s.myDBs():
+                    self.SQLALCHEMY_BINDS2[d.database_name] = d.GetConnectionString()
 
 
         self.setup_pages()
 
         self.setup_iaas()
 
-        # for s in self.services:
-        #     if self.services[s].svc_name==self.app.config['dispatched_app'] \
-        #             or self.services[s].svc_name.startswith('iaas')\
-        #             or self.app.config['dispatched_app']=='all':
-        #         self.setup_service(self.services[s])
+        for s in self.services:
+            if s.instance_identifier==self.app.config['dispatched_app'] \
+                    or s.instance_identifier.startswith('iaas')\
+                    or self.app.config['dispatched_app']=='all':
+                self.setup_service(s)
 
 
 
         print("BINDS")
         print(self.SQLALCHEMY_BINDS2)
+
+
+        return
+
 
     def setup(self):
         self.init_login()
@@ -625,100 +629,105 @@ class DBAS():
 
     def get_services(self, id=-1):
 
-        controlDB = DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password,
-                              dbconfig.db_hostname, 3306, dbconfig.db_name)
+        list_of_services = iaas.iaas.SvcInstance.query.all()
 
-        list_of_services, msg, ret = controlDB.ConnectAndExecute("SELECT id, instance_identifier, group_id "
-                                                                 "FROM svc_instances;")
+
+        # controlDB = DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password,
+        #                       dbconfig.db_hostname, 3306, dbconfig.db_name)
+        #
+        # list_of_services, msg, ret = controlDB.ConnectAndExecute("SELECT id, instance_identifier, group_id "
+        #                                                          "FROM svc_instances;")
 
         S = {}
         for r in list_of_services:
-            if r[1] is not None and (id == -1 or id == int(r[0])):
+            if r.instance_identifier is not None and (id == -1 or id == r.id):
 
-                list_of_dbs_tmp, msg, ret = controlDB.ConnectAndExecute(
-                    "SELECT engine_type, username, password_if_secure, ip_address, port, database_name "
-                    "FROM database_instances "
-                    "WHERE svc_inst = '{}';".format(int(r[0])))
 
-                list_of_dbs = []
-                for i in range(len(list_of_dbs_tmp)):
-                    d = list_of_dbs_tmp[i]
-                    engine_type, msg, ret = controlDB.ConnectAndExecute("SELECT connection_string "
-                                                                        "FROM database_engine "
-                                                                        "WHERE id = '{}';"
-                                                                        .format((d[0])))
-                    L = list(d)
-                    L[0] = engine_type[0][0]
+                # # list_of_dbs_tmp, msg, ret = controlDB.ConnectAndExecute(
+                # #     "SELECT engine_type, username, password_if_secure, ip_address, port, database_name "
+                # #     "FROM database_instances "
+                # #     "WHERE svc_inst = '{}';".format(int(r[0])))
+                #
+                # list_of_dbs = []
+                # for i in range(len(list_of_dbs_tmp)):
+                #     d = list_of_dbs_tmp[i]
+                #     engine_type, msg, ret = controlDB.ConnectAndExecute("SELECT connection_string "
+                #                                                         "FROM database_engine "
+                #                                                         "WHERE id = '{}';"
+                #                                                         .format((d[0])))
+                #     L = list(d)
+                #     L[0] = engine_type[0][0]
+                #
+                #     DBD = DBDetails(engine_type=L[0], username=L[1],
+                #                     passwd=L[2], host=L[3], port=L[4],
+                #                     dbname=L[5])
+                #     list_of_dbs.append(DBD)
+                #     self.SQLALCHEMY_BINDS2[DBD.dbname] = DBD.__str__()
+                #
+                # list_of_ncs, msg, ret = controlDB.ConnectAndExecute("SELECT link, ip_address "
+                #                                                     "FROM nextcloud_instances "
+                #                                                     "WHERE svc_inst_id = '{}';"
+                #                                                     .format(int(r[0])))
+                # list_of_vms, msg, ret = controlDB.ConnectAndExecute("SELECT name, ip_address, owned_by "
+                #                                                     "FROM virtual_machines "
+                #                                                     "WHERE svc_inst = '{}';"
+                #                                                     .format(int(r[0])))
+                # list_of_was, msg, ret = controlDB.ConnectAndExecute("SELECT name, homepage, name "
+                #                                                     "FROM web_apps "
+                #                                                     "WHERE svc_inst = '{}';"
+                #                                                     .format(int(r[0])))
+                #
+                # group, msg, ret = controlDB.ConnectAndExecute("SELECT ldap_name "
+                #                                               "FROM groups "
+                #                                               "WHERE id={};".format(r[2]))
+                # S[r[1]] = SvcDetails(int(r[0]), r[1],
+                #                      _list_of_was=list_of_was,
+                #                      _list_of_vms=list_of_vms,
+                #                      _list_of_ncs=list_of_ncs,
+                #                      _list_of_dbs=list_of_dbs,
+                #                      svc_access_group=group[0][0])
+                # # todo: update so group of groups have access to the service
 
-                    DBD = DBDetails(engine_type=L[0], username=L[1],
-                                    passwd=L[2], host=L[3], port=L[4],
-                                    dbname=L[5])
-                    list_of_dbs.append(DBD)
-                    self.SQLALCHEMY_BINDS2[DBD.dbname] = DBD.__str__()
-
-                list_of_ncs, msg, ret = controlDB.ConnectAndExecute("SELECT link, ip_address "
-                                                                    "FROM nextcloud_instances "
-                                                                    "WHERE svc_inst_id = '{}';"
-                                                                    .format(int(r[0])))
-                list_of_vms, msg, ret = controlDB.ConnectAndExecute("SELECT name, ip_address, owned_by "
-                                                                    "FROM virtual_machines "
-                                                                    "WHERE svc_inst = '{}';"
-                                                                    .format(int(r[0])))
-                list_of_was, msg, ret = controlDB.ConnectAndExecute("SELECT name, homepage, name "
-                                                                    "FROM web_apps "
-                                                                    "WHERE svc_inst = '{}';"
-                                                                    .format(int(r[0])))
-
-                group, msg, ret = controlDB.ConnectAndExecute("SELECT ldap_name "
-                                                              "FROM groups "
-                                                              "WHERE id={};".format(r[2]))
-                S[r[1]] = SvcDetails(int(r[0]), r[1],
-                                     _list_of_was=list_of_was,
-                                     _list_of_vms=list_of_vms,
-                                     _list_of_ncs=list_of_ncs,
-                                     _list_of_dbs=list_of_dbs,
-                                     svc_access_group=group[0][0])
-                # todo: update so group of groups have access to the service
-
-                if S[r[1]].svc_name==self.app.config['dispatched_app'] \
-                        or S[r[1]].svc_name.startswith('iaas')\
+                if r.instance_identifier==self.app.config['dispatched_app'] \
                         or self.app.config['dispatched_app']=='all':
                     pass
-                    self.setup_service(S[r[1]])
-        self.services = S
-        return S
+                    # self.setup_service(S[r[1]])
+                    # self.setup_service(r)
+        self.services = list_of_services
+        # return list_of_services
 
     def setup_iaas(self):
         self.add_iaas_views(dbconfig.db_name)
 
 
     def setup_service(self, svc_info):
-        if svc_info.svc_name.startswith('iaas'):
+        if svc_info.instance_identifier.startswith('iaas'):
             return
-        if len(svc_info.db) > 0:
-            for d in svc_info.db:
-                # self.classesdict, my_db = classes.initialise(self.db, [d.dbname], [d.__str__()])
-                self.db_details_dict[d.dbname] = d
-                try:
-                    self.add_collection_of_views(d.dbname, self.classesdict,
-                                                 class_db_dict=self.class_db_dict,
-                                                 svc_group=d.dbname)#svc_info.svc_access_group)
-                except Exception as e:
-                    print(e)
 
-            for w in svc_info.wa:
+        # if len(svc_info.myDBs()) > 0:
+        for d in svc_info.myDBs():
+            # self.classesdict, my_db = classes.initialise(self.db, [d.dbname], [d.__str__()])
+            self.db_details_dict[d.database_name] = d
+            try:
+                self.add_collection_of_views(d.database_name, self.classesdict,
+                                             class_db_dict=self.class_db_dict,
+                                             svc_group=d.database_name)#svc_info.svc_access_group)
+            except Exception as e:
+                print(e)
 
-                if w.name == 'map' or w.name == 'all':
-                    from main.web_apps_examples import map
-                    map.init_app(self.app)
-                if w.name == 'it_lending_log' or w.name == 'all':
-                    from main.web_apps_examples import it_lending_log
-                    it_lending_log.init_app(self.app)
-                if w.name == 'online_learning' or w.name == 'all':
-                    from main.web_apps_examples import online_learning
-                    online_learning.init_app(self.app)
+        # for w in svc_info.wa:
+        #
+        #     if w.name == 'map' or w.name == 'all':
+        #         from main.web_apps_examples import map
+        #         map.init_app(self.app)
+        #     if w.name == 'it_lending_log' or w.name == 'all':
+        #         from main.web_apps_examples import it_lending_log
+        #         it_lending_log.init_app(self.app)
+        #     if w.name == 'online_learning' or w.name == 'all':
+        #         from main.web_apps_examples import online_learning
+        #         online_learning.init_app(self.app)
 
-                pass
+        pass
 
 
     def init_login(self):
@@ -864,11 +873,12 @@ class DBAS():
                                                svc_group='superusers',
                                                dbinfo=self.db_details_dict[d]))
 
-        iaas_admin.add_links(ML('New Table', url='/admin/db_ops/newtable'.format(d,d)),
-                             ML('Import Data', url='/admin/db_ops/upload'.format(d,d)),
-                             # ML('Export Data',url='/admin/ops_download'),
-                             ML('Relationship Builder',
-                                url='/admin/db_ops/relationshipbuilder'.format(d,d)))
+        # this isnt a good idea with a fixed schema as used in iaas now
+        # iaas_admin.add_links(ML('New Table', url='/admin/db_ops/newtable'.format(d,d)),
+        #                      ML('Import Data', url='/admin/db_ops/upload'.format(d,d)),
+        #                      # ML('Export Data',url='/admin/ops_download'),
+        #                      ML('Relationship Builder',
+        #                         url='/admin/db_ops/relationshipbuilder'.format(d,d)))
 
 
         self._add_a_view(iaas_admin, iaas.iaas.DatabaseEngine, db_name=d, svc_group='superusers')
@@ -886,42 +896,23 @@ class DBAS():
         self._add_a_view(iaas_admin, iaas.iaas.permitted_svc, db_name=d, svc_group='superusers')
         self._add_a_view(iaas_admin, iaas.iaas.comment, db_name=d, svc_group='superusers')
 
-        pass
+
     def add_collection_of_views(self, d, classesdict, class_db_dict, svc_group):
-        if d == dbconfig.db_name:
 
-            print "CONNECTING TO IAAS ON " + self.SQLALCHEMY_BINDS2[d]
-            proj_admin = MyIAASView(db_details=self.db_details_dict[d],
-                                    app=self.app, name='IAAS admin app', template_mode='foundation',
-                                    endpoint=d, url="/projects/{}".format(d),
-                                    base_template='my_master.html', database_name=d,
-                                    svc_group='superusers')
-
-            proj_admin.add_links(ML('IPs in use', url='/projects/{}/ip_addresses/'.format(d),
-                                    category="Useage"),
-                                 ML('Ports in use', url='/projects/{}/ip_addresses/ports'.format(d),
-                                    category="Useage"))
-
-            proj_admin.add_hidden_view(IPAddressView(name="IP Addresses", endpoint="ip_addresses", category="Useage"))
-
-            print "ADDING IAAS CLASSES " + str(len(class_db_dict))
+        print("ASHDIASDJKL",self.db_details_dict)
+        # todo: change bootstrap3 back to foundation to use my templates
+        proj_admin = MyStandardView(self.app, name='{} admin'.format(d),
+                                    template_mode='foundation',
+                                    endpoint=d,
+                                    url="/projects/{}".format(d),
+                                    base_template='my_master.html',
+                                    database_name=d,
+                                    db_details=self.db_details_dict[d],
+                                    svc_group=svc_group
+                                    )
 
 
-        else:
-            print("ASHDIASDJKL",self.db_details_dict)
-            # todo: change bootstrap3 back to foundation to use my templates
-            proj_admin = MyStandardView(self.app, name='{} admin'.format(d),
-                                        template_mode='foundation',
-                                        endpoint=d,
-                                        url="/projects/{}".format(d),
-                                        base_template='my_master.html',
-                                        database_name=d,
-                                        db_details=self.db_details_dict[d],
-                                        svc_group=svc_group
-                                        )
-
-
-            proj_admin.add_links(ML('Application', url='/projects/{}/app'.format(d)))
+        proj_admin.add_links(ML('Application', url='/projects/{}/app'.format(d)))
 
         # general
         proj_admin.add_hidden_view(DatabaseOps(name='Edit Database'.format(d),

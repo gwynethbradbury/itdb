@@ -514,17 +514,24 @@ class DBAS():
             except Exception as e:
                 print(e)
 
-        # for w in svc_info.wa:
-        #
-        #     if w.name == 'map' or w.name == 'all':
-        #         from main.web_apps_examples import map
-        #         map.init_app(self.app)
-        #     if w.name == 'it_lending_log' or w.name == 'all':
-        #         from main.web_apps_examples import it_lending_log
-        #         it_lending_log.init_app(self.app)
-        #     if w.name == 'online_learning' or w.name == 'all':
-        #         from main.web_apps_examples import online_learning
-        #         online_learning.init_app(self.app)
+        for w in svc_info.webapps:
+            import importlib
+
+            try:
+                i = importlib.import_module("main.web_apps_examples."+w.svc_inst.instance_identifier)
+                i.init_app(self.app)
+            except Exception as e:
+                print(e)
+
+            # if w.name == 'map' or w.name == 'all':
+            #     from main.web_apps_examples import map
+            #     map.init_app(self.app)
+            # elif w.name == 'it_lending_log' or w.name == 'all':
+            #     from main.web_apps_examples import it_lending_log
+            #     it_lending_log.init_app(self.app)
+            # elif w.name == 'online_learning' or w.name == 'all':
+            #     from main.web_apps_examples import online_learning
+            #     online_learning.init_app(self.app)
 
         pass
 
@@ -573,7 +580,7 @@ class DBAS():
         # dba = devmodels.DatabaseAssistant(iaas_main_db, dbconfig.db_name, dbconfig.db_name)
 
         x = iaas.iaas.DatabaseEngine.query.filter_by(connection_string=dbconfig.db_engine).first()
-        self.db_details_dict[dbconfig.db_name] = iaas.iaas.DatabaseInstance(database_engine=x,
+        self.db_details_dict[dbconfig.db_name] = iaas.iaas.DatabaseInstance(svc_inst=0,database_engine=x,
                                                                             username=dbconfig.db_user,
                                                                             password_if_secure=dbconfig.db_password,
                                                                             ip_address=dbconfig.db_hostname,

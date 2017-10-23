@@ -23,7 +23,7 @@ class DBHelper:
         tags=[]
         try:
             connection = self.connect()
-            query = "SELECT name,text,topic_id,id FROM pages"
+            query = "SELECT title,text,topic_id,id FROM pages"
 
             if topic_id:
                 query=query+" WHERE topic_id={}".format(str(topic_id))

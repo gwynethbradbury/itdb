@@ -5,6 +5,7 @@ import pymysql
 import dbconfig
 from ...auth.iaasldap import LDAPUser as iaasldap
 from . import dict1, dict2
+from ...iaas.iaas import SvcInstance,DatabaseInstance,NextcloudInstance,WebApp,Group
 
 iaasldap = iaasldap()
 
@@ -27,95 +28,48 @@ class AccessHelper:
         if group_name == "":  # and dbconfig.test:
             return 0
 
-        connection = self.connect()
-        group_id = 0
-        try:
-            # print("about to query...")
-            usersgroups = iaasldap.get_groups()
-            print("user {} is in groups {}".format(iaasldap.uid_trim(),
-                                                   usersgroups))
-            for g in usersgroups:
 
-                query = "SELECT id " \
-                        "FROM groups " \
-                        "WHERE ldap_name='{}';" \
-                    .format(group_name)
 
-                with connection.cursor() as cursor:
-                    cursor.execute(query)
+        inst = Group.query.filter_by(ldap_name=group_name).first
+        group_id = inst.id
 
-                for inst in cursor:
-                    instance = inst[0]
-                    group_id = instance
-            return group_id
-        except Exception as e:
-            print(e)
-            return group_id
-        finally:
-            connection.close()
+        return group_id
 
     def get_projects(self, svc_type):
         instances = []
-        connection = self.connect()
-        svc_type = dict1[svc_type]
-        try:
-            usersgroups = iaasldap.get_groups()
-            print("user {} is in groups {}".format(iaasldap.uid_trim(),
-                                                   usersgroups))
-            # if 'superusers' in usersgroups:
-            #     usersgroups=['superusers',]
+        usersgroups = iaasldap.get_groups()
 
-            for g in usersgroups:
-                IX = self.get_projects_for_group(g,svc_type)
-                for I in IX:
-                    instances.append(I)
+        for g in usersgroups:
+            if svc_type=='dbas':
+                p= DatabaseInstance.query.filter_by(group_id=g).all()
+                instance = [p.svc_instance.instance_identifier, p.svc_instance.project_display_name, dict2[p.svc_instance.svc_type_id]]
+                instances.append(instance)
+            elif svc_type=='nc':
+                p= NextcloudInstance.query.filter_by(group_id=g).all()
+                instance = [p.svc_instance.instance_identifier, p.svc_instance.project_display_name, dict2[p.svc_instance.svc_type_id]]
+                instances.append(instance)
+            elif svc_type=='waas':
+                p= WebApp.query.filter_by(group_id=g).all()
+                instance = [p.svc_inst.instance_identifier, p.svc_inst.project_display_name, dict2[p.svc_inst.svc_type_id]]
+                instances.append(instance)
 
-            return instances
-        except Exception as e:
-            print(e)
-            instance = ['brokenlink', 'broken']
-            instances.append(instance)
-            for inst in instances:
-                print(inst)
-            return instances
-        finally:
-            connection.close()
+        return instances
 
-    def get_projects_for_group(self, group, svc_type=-1):
+
+    def get_projects_for_group(self, group):
         instances = []
         connection = self.connect()
         try:
-            print("about to query...")
-            usersgroups = iaasldap.get_groups()
-            print("user {} is in groups {}".format(iaasldap.uid_trim(),
-                                                   usersgroups))
             g_id = self.get_group_id(group)
-            query = "SELECT instance_identifier,project_display_name,svc_type_id " \
-                    "FROM svc_instances"
-            # if iaasldap.has_role('superusers'):
-            #     if svc_type >= 0:
-            #         query = query + " WHERE svc_type_id='{}' ".format(str(svc_type))
-            # else:
-
-            if not group == 'superusers' or svc_type>=0:
-                query = query + " WHERE "
-
-            if not group==u'superusers':
-                query=query+"group_id='{}'".format(str(g_id))
-                if svc_type>=0:
-                    query=query+" AND "
-            if svc_type>=0:
-                query=query+"svc_type_id='{}'".format(str(svc_type))
-
-            query = query + ";"
-
-            with connection.cursor() as cursor:
-                cursor.execute(query)
-            for inst in cursor:
-                # if inst[0]=='iaas':
-                #     continue
-                instance = [inst[0], inst[1], dict2[inst[2]]]
+            if not group == 'superusers':# or svc_type>=0:
+                projects = SvcInstance.query.filter_by(group_id=g_id).all()
+            else:
+                projects = SvcInstance.query.all()
+            for p in projects:
+                instance = [p.instance_identifier, p.project_display_name, dict2[p.svc_type_id]]
                 instances.append(instance)
+
+
             return instances
         except Exception as e:
             print(e)

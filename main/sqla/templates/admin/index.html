@@ -5,18 +5,22 @@
     <div class="column">
 {#    {{  dbinfo}}#}
 {#    {{  current_user }}#}
-{{ admin_view.admin.getDBInfo() }}
+{#{{ admin_view.admin.getDBInfo() }}#}
 {#        {{ admin_view.admin.database_name }}#}
-        <h2>Database Info.</h2>
+
+
+        [{% for d in admin_view.admin.svc_info.databases %}
+        <h2>Database Info.: {{ d.database_name }}</h2>
 
         <h4>Database type:</h4>
-        {{ admin_view.admin.engine_type }}
+        {{ d.database_engine }}
 
         <h4>Database owner:</h4>
-        This database is owned by the group <i>{{ admin_view.admin.project_owner }}</i> and maintained by <i>{{ admin_view.admin.project_maintainer }}</i>.
+        This database is owned by the group <i>{{ d.project_owner }}</i> and maintained by <i>{{ d.project_maintainer }}</i>.
 
         <h4>Database connection string:</h4>
-                {{ admin_view.admin.engine_string }}://{{ admin_view.admin.username }}:********@{{ admin_view.admin.ip_address }}:{{ admin_view.admin.port }}
+{#        {{ d.GetConnectionString() }} #}
+                {{ d.database_engine.connection_string }}://{{ d.username }}:********@{{ d.ip_address }}:{{ d.port }}
 
 
 
@@ -24,9 +28,20 @@
 
 
         <h4>Database capacity:</h4>
-        You are using <i>{{ admin_view.admin.getDatabaseUseage() }} MB / {{ admin_view.admin.dbquota }}</i>
+        You are using <i>{{ d.GetUseage() }} MB / {{ d.GetDatabaseQuota() }}</i>
 
         <h4>Description</h4>
-        <i>{{ admin_view.admin.description }}</i>
+        <i>{{ d.description }}</i>
+
+        {% endfor %}]
+
+        [{% for w in admin_view.admin.svc_info.webapps %}
+        {{ w.name }} {{ w.homepage }}
+        {% endfor %}]
+        [{% for n in admin_view.admin.svc_info.nextclouds %}
+        {{ n }}
+            Your nextcloud instance can be found at <a href="https://nextcloud-{{ nc_identifier }}.ouce.ox.ac.uk">{{ nc_name }}</a>
+
+        {% endfor %}]
     </div></div>
 {% endblock body %}

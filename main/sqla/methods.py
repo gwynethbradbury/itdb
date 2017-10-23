@@ -17,12 +17,16 @@ from flask_admin import BaseView, expose
 from main.auth.iaasldap import LDAPUser as LDAPUser
 
 current_user = LDAPUser()
-from flask import abort, request, flash
+from flask import abort, request, flash, render_template
 from werkzeug.utils import secure_filename
 from datetime import datetime
 import os
 from flask_admin.base import Admin as Admin2
 import pymysql
+
+import importlib
+
+from ..iaas.iaas import SvcInstance
 
 
 class IPAddressView(BaseView):
@@ -328,7 +332,8 @@ class MyStandardView(Admin2):
     def __init__(self, app, name, endpoint, url, database_name, svc_group,
                  db_details,
                  template_mode='foundation',
-                 base_template='my_master.html'):
+                 base_template='my_master.html',
+                 svc_info=None):
         super(MyStandardView, self).__init__(app, name, template_mode=template_mode,
                                              url=url,
                                              endpoint=endpoint, base_template=base_template)
@@ -336,6 +341,7 @@ class MyStandardView(Admin2):
         self.svc_group = svc_group
         self.db_string = db_details.__str__()
         self.db_details = db_details
+        self.svc_info=svc_info
         # self.setDBEngine(self.database_name)
 
     @expose('/')
@@ -346,25 +352,7 @@ class MyStandardView(Admin2):
         else:
             abort(403)
 
-    def getDBInfo(self):
-        self.project_owner, self.project_maintainer, self.ip_address, self.svc_inst, self.port, self.username, self.password_if_secure, self.description, self.engine_type, self.engine_string = \
-            AH.getDatabaseConnectionString(self.database_name)
-        return ""
 
-    def getDatabaseQuota(self):
-        self.dbquota = 0
-
-    def getDatabaseUseage(self):
-        self.dbuseage = 0
-        return self.db_details.GetUseage()
-
-    def setDBEngine(self, application_name):
-        dbbindkey = "project_" + application_name + "_db"
-
-        self.DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey,
-                                               application_name)  # , upload_folder=uploadfolder)
-
-        R = self.getDatabaseUseage()
 
     def add_hidden_view(self, view):
         """
@@ -431,18 +419,18 @@ class DBAS():
         self.svc_groups = {}
         self.setup()
 
+        views.set_views(self.app)
 
         self.get_services()
         for s in self.services:
             if s.instance_identifier==self.app.config['dispatched_app'] \
                     or s.instance_identifier.startswith('iaas')\
                     or self.app.config['dispatched_app']=='all':
-                for d in s.myDBs():
+                for d in s.databases:
                     self.SQLALCHEMY_BINDS2[d.database_name] = d.GetConnectionString()
 
 
         self.setup_pages()
-
         self.setup_iaas()
 
         for s in self.services:
@@ -473,8 +461,6 @@ class DBAS():
     def setup_pages(self):
         self.app.config['SQLALCHEMY_BINDS'] = self.SQLALCHEMY_BINDS2
         # Initialize flask-login
-        views.set_views(self.app)
-        views.set_nextcloud_views(self.app, self.nextcloud_names, self.nextcloud_identifiers)
 
 
 
@@ -504,34 +490,24 @@ class DBAS():
             return
 
         # if len(svc_info.myDBs()) > 0:
-        for d in svc_info.myDBs():
+        for d in svc_info.databases:
             # self.classesdict, my_db = classes.initialise(self.db, [d.dbname], [d.__str__()])
             self.db_details_dict[d.database_name] = d
             try:
-                self.add_collection_of_views(d.database_name, self.classesdict,
+                self.add_collection_of_views(svc_info.instance_identifier, d.database_name, self.classesdict,
                                              class_db_dict=self.class_db_dict,
-                                             svc_group=d.database_name)#svc_info.svc_access_group)
+                                             svc_group=d.database_name,
+                                             svc_info=svc_info)#svc_info.svc_access_group)
             except Exception as e:
                 print(e)
 
         for w in svc_info.webapps:
-            import importlib
 
             try:
-                i = importlib.import_module("main.web_apps_examples."+w.svc_inst.instance_identifier)
-                i.init_app(self.app)
+                i = importlib.import_module("main.web_apps_examples."+w.name)
+                i.init_app(self.app,"/projects/{}/app/{}/".format(w.svc_inst.instance_identifier,w.name))
             except Exception as e:
                 print(e)
-
-            # if w.name == 'map' or w.name == 'all':
-            #     from main.web_apps_examples import map
-            #     map.init_app(self.app)
-            # elif w.name == 'it_lending_log' or w.name == 'all':
-            #     from main.web_apps_examples import it_lending_log
-            #     it_lending_log.init_app(self.app)
-            # elif w.name == 'online_learning' or w.name == 'all':
-            #     from main.web_apps_examples import online_learning
-            #     online_learning.init_app(self.app)
 
         pass
 
@@ -684,22 +660,23 @@ class DBAS():
         self._add_a_view(iaas_admin, iaas.iaas.comment, db_name=d, svc_group='superusers')
 
 
-    def add_collection_of_views(self, d, classesdict, class_db_dict, svc_group):
+    def add_collection_of_views(self, identifier, d, classesdict, class_db_dict, svc_group, svc_info=None):
 
         print("ASHDIASDJKL",self.db_details_dict)
         # todo: change bootstrap3 back to foundation to use my templates
         proj_admin = MyStandardView(self.app, name='{} admin'.format(d),
                                     template_mode='foundation',
                                     endpoint=d,
-                                    url="/projects/{}".format(d),
+                                    url="/projects/{}/databases/{}".format(identifier,d),
                                     base_template='my_master.html',
                                     database_name=d,
                                     db_details=self.db_details_dict[d],
-                                    svc_group=svc_group
+                                    svc_group=svc_group,
+                                    svc_info=svc_info
                                     )
 
 
-        proj_admin.add_links(ML('Application', url='/projects/{}/app'.format(d)))
+        proj_admin.add_links(ML('Application', url='/projects/{}/databases/{}/app'.format(identifier,d)))
 
         # general
         proj_admin.add_hidden_view(DatabaseOps(name='Edit Database'.format(d),
@@ -711,11 +688,11 @@ class DBAS():
                                                svc_group=svc_group,
                                                dbinfo=self.db_details_dict[d]))
 
-        proj_admin.add_links(ML('New Table', url='/projects/{}/{}_ops/newtable'.format(d,d)),
-                             ML('Import Data', url='/projects/{}/{}_ops/upload'.format(d,d)),
+        proj_admin.add_links(ML('New Table', url='/projects/{}/databases/{}/{}_ops/newtable'.format(identifier,d,d)),
+                             ML('Import Data', url='/projects/{}/databases/{}/{}_ops/upload'.format(identifier,d,d)),
                              # ML('Export Data',url='/admin/ops_download'),
                              ML('Relationship Builder',
-                                url='/projects/{}/{}_ops/relationshipbuilder'.format(d,d)))
+                                url='/projects/{}/databases/{}/{}_ops/relationshipbuilder'.format(identifier,d,d)))
         for c in class_db_dict:
             if d == class_db_dict[c]:
                 if 'spatial_ref_sys' in c.lower():

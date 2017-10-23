@@ -48,7 +48,7 @@ def TriggerReload(application_name):
         connection.close()
     return 'reloaded'
 
-
+from ..iaas.iaas import SvcInstance
 
 
 
@@ -56,32 +56,7 @@ def TriggerReload(application_name):
 
 # create views:
 
-def set_nextcloud_views(app, names,nc_identifiers):
 
-
-
-    @app.context_processor
-    def inject_paths():
-        return dict(iaas_url=dbconfig.iaas_route,
-                    dbas_url=dbconfig.dbas_route,
-                    LDAPUser=LDAPUser(),
-                    iaas_db_name=dbconfig.db_name
-                    )
-
-
-
-    @app.route('/nextcloud/<nc_identifier>')
-    def show_cloud_details(nc_identifier):
-        if nc_identifier in nc_identifiers:
-            nc_name = names[nc_identifiers.index(nc_identifier)]
-            return render_template("nextcloud_instance.html", nc_name=nc_name,nc_identifier=nc_identifier)
-        else:
-            flash("Not a valid nextcloud name.",category="error")
-            return abort(404)
-
-
-def set_webapp_views(app):
-    pass
 
 def set_views(app):
 
@@ -169,6 +144,21 @@ def set_views(app):
     #         return render_template("iam.html", instances=instances)
     #     except TemplateNotFound:
     #         abort(404)
+    #
+
+
+    @app.route('/projects/<project_name>')
+    @app.route('/projects/<project_name>/')
+    def project_home(project_name):
+        try:
+            if SvcInstance.query.filter_by(instance_identifier=project_name).count()>0:
+                project = SvcInstance.query.filter_by(instance_identifier=project_name).first()
+                return render_template("project_homepage.html", project=project)
+            else:
+                abort(404)
+        except Exception as e:
+            abort(404)
+
 
 
 
@@ -179,6 +169,7 @@ def set_views(app):
             return render_template("%s.html" % page)
         except TemplateNotFound:
             abort(404)
+
 
     # endregion
 

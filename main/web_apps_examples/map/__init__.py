@@ -15,8 +15,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 import views
 
-def init_app(app):
-    views.assignroutes(app)
+def init_app(app,root):
+    views.assignroutes(app,root)
 
 # from app.admin import register_crud
 

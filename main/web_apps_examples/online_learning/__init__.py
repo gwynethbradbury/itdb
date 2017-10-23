@@ -7,8 +7,8 @@
 import views
 
 
-def init_app(app):
-    views.assignroutes(app)
+def init_app(app,root):
+    views.assignroutes(app, root)
 
 
 

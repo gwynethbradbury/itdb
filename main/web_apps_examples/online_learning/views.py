@@ -15,8 +15,8 @@ from main.auth.iaasldap import LDAPUser as iaasldap
 iaasldap = iaasldap()
 
 
-def assignroutes(application):
-    approute = "/projects/online_learning/app/"
+def assignroutes(application, root):
+    approute = root
     shortapproute = "/online_learning/"
     templateroute = "online_learning/"
 

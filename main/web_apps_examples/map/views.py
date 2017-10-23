@@ -29,8 +29,8 @@ from main.sqla.dev import *
 #     except Exception as E:#TemplateNotFound:
 #         abort(404)
 
-def assignroutes(application):
-    approute = "/projects/"+"map"+"/app/"
+def assignroutes(application,root):
+    approute = root
     shortapproute = "/"+"map"+"/"
     templateroute = "projects/"+"map"+"/"
 

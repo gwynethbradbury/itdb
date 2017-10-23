@@ -159,6 +159,9 @@ class DatabaseInstance(Base):
 
         return dbuseage
 
+    def GetDatabaseQuota(self):
+        return 0
+
     def GetConnectionString(self):
         if self.database_engine.name == 'postgresql':
             return '{}://{}:{}@{}:{}/{}'.format(self.database_engine.connection_string,
@@ -213,7 +216,7 @@ class WebApp(Base):
     name = Column(String(70))
     homepage = Column(String(100))
     ip_address = Column(String(100))
-    assoc_db = Column(ForeignKey(u'database_instances.id'), nullable=False, index=True)
+    assoc_db = Column(ForeignKey(u'database_instances.id'), nullable=True, index=True)
 
     database_instance = relationship(u'DatabaseInstance')
 
@@ -221,7 +224,29 @@ class WebApp(Base):
     svc_inst = relationship(u'SvcInstance', back_populates=u'webapps')
 
     def __str__(self):
-        return self.news.title
+        return self.name
+
+    def __repr__(self):
+        return self.__str__()
+
+class NextcloudInstance(Base):
+    __tablename__ = 'nextcloud_instances'
+    # __bind_key__ = dbconfig.db_name
+    __display_name__ = 'Nextcloud Instances'
+
+    id = Column(Integer, primary_key=True)
+    # svc_inst = Column(ForeignKey(u'svc_instances.id'), nullable=False, index=True)
+    ip_address = Column(String(100))
+    project_owner = Column(String(100))
+    project_maintainer = Column(String(100))
+    svc_inst_id = Column(Integer)
+    link = Column(String(100))
+
+    svc_inst = Column(ForeignKey(u'svc_instances.id'), nullable=False, index=True)
+    svc_instance = relationship(u'SvcInstance', back_populates=u'nextclouds')
+
+    def __str__(self):
+        return self.svc_instance.instance_identifier
 
     def __repr__(self):
         return self.__str__()
@@ -246,15 +271,12 @@ class SvcInstance(Base):
 
     webapps=relationship(u'WebApp', back_populates=u'svc_inst')
     databases=relationship(u'DatabaseInstance', back_populates=u'svc_instance')
+    nextclouds=relationship(u'NextcloudInstance', back_populates=u'svc_instance')
 
     # group = relationship("Group",
     #                     secondary=permitted_svc.__table__,
     #                     backref="services")
 
-    def myDBs(self):
-        return DatabaseInstance.query.filter_by(svc_inst=self.id).all()
-    def myWAs(self):
-        return WebApp.query.filter_by(svc_inst_id=self.id).all()
     def myNCs(self):
         return NextcloudInstance.query.filter_by(svc_inst=self.id).all()
     def myVMs(self):
@@ -307,27 +329,6 @@ class IaasEvent(Base):
     def __repr__(self):
         return self.__str__()
 
-
-class NextcloudInstance(Base):
-    __tablename__ = 'nextcloud_instances'
-    # __bind_key__ = dbconfig.db_name
-    __display_name__ = 'Nextcloud Instances'
-
-    id = Column(Integer, primary_key=True)
-    svc_inst = Column(ForeignKey(u'svc_instances.id'), nullable=False, index=True)
-    ip_address = Column(String(100))
-    project_owner = Column(String(100))
-    project_maintainer = Column(String(100))
-    svc_inst_id = Column(Integer)
-    link = Column(String(100))
-
-    svc_instance = relationship(u'SvcInstance')
-
-    def __str__(self):
-        return self.svc_instance.name
-
-    def __repr__(self):
-        return self.__str__()
 
 
 class Role(Base):

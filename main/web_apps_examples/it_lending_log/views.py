@@ -16,13 +16,13 @@ from dbhelper import DBHelper
 from main.sqla.dev import *
 
 
-def assignroutes(application):
-    approute = "/projects/it_lending_log/app/"
+def assignroutes(application,root):
+    approute = root
     shortapproute = "/it_lending_log/"
     templateroute = "projects/it_lending_log/"
     dbbb = 'mysql+pymysql://{}:{}@localhost/{}'.format(dbconfig.db_user,
                                                        dbconfig.db_password,
-                                                       'it_lending_log')#map.name)
+                                                       'it_lending_log')
     # db2 = dataset.connect(dbbb, row_type=pages)
     dbbindkey="project_online_learning_db"
     appname="it_lending_log"

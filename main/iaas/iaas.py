@@ -33,7 +33,7 @@ class Group(Base):
     def __repr__(self):
         return self.__str__()
 
-    def __init__(self,ldap_name,name):
+    def __init__(self,ldap_name="",name=""):
         self.ldap_name=ldap_name
         self.name=name
 

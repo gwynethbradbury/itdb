@@ -15,7 +15,7 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/dbas_dev$manage_db.coverage" NAME="migrate db Coverage Results" MODIFIED="1508773143802" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/dbas_dev$wsgi.coverage" NAME="wsgi Coverage Results" MODIFIED="1506943841754" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/dbas_dev$dbas.coverage" NAME="dbas Coverage Results" MODIFIED="1508846233818" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/dbas_dev$dbas.coverage" NAME="dbas Coverage Results" MODIFIED="1508848138768" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/dbas_dev$upgrade_db.coverage" NAME="upgrade db Coverage Results" MODIFIED="1508773150947" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/dbas_dev$setup_db.coverage" NAME="setup_db Coverage Results" MODIFIED="1508846401174" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
@@ -117,26 +117,25 @@
           <file leaf-file-name="iaas.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main/iaas/iaas.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="482">
-                  <caret line="182" column="35" lean-forward="false" selection-start-line="182" selection-start-column="35" selection-end-line="182" selection-end-column="35" />
+                <state relative-caret-position="525">
+                  <caret line="35" column="42" lean-forward="false" selection-start-line="35" selection-start-column="42" selection-end-line="35" selection-end-column="42" />
                   <folding>
                     <element signature="e#0#100#0" expanded="true" />
-                    <element signature="e#909#1410#0" expanded="false" />
-                    <element signature="e#2398#3006#0" expanded="false" />
-                    <element signature="e#3076#3725#0" expanded="false" />
-                    <element signature="e#3760#5252#0" expanded="false" />
-                    <element signature="e#5347#6657#0" expanded="false" />
-                    <element signature="e#7435#8087#0" expanded="false" />
-                    <element signature="e#8124#8854#0" expanded="false" />
-                    <element signature="e#10270#10802#0" expanded="false" />
-                    <element signature="e#10832#11303#0" expanded="false" />
-                    <element signature="e#11329#11638#0" expanded="false" />
-                    <element signature="e#11669#11983#0" expanded="false" />
-                    <element signature="e#12018#12515#0" expanded="false" />
-                    <element signature="e#12540#12903#0" expanded="false" />
-                    <element signature="e#12931#13412#0" expanded="false" />
-                    <marker date="1508847937000" expanded="true" signature="3347:3679" ph="SELECT CONST... KEY_COLUMN_USAGE" />
-                    <marker date="1508847937000" expanded="true" signature="4887:5065" ph="SELECT Round... tables" />
+                    <element signature="e#915#1416#0" expanded="false" />
+                    <element signature="e#2404#3012#0" expanded="false" />
+                    <element signature="e#3082#3731#0" expanded="false" />
+                    <element signature="e#3766#5258#0" expanded="false" />
+                    <element signature="e#5353#6663#0" expanded="false" />
+                    <element signature="e#7441#8093#0" expanded="false" />
+                    <element signature="e#8130#8860#0" expanded="false" />
+                    <element signature="e#10838#11309#0" expanded="false" />
+                    <element signature="e#11335#11644#0" expanded="false" />
+                    <element signature="e#11675#11989#0" expanded="false" />
+                    <element signature="e#12024#12521#0" expanded="false" />
+                    <element signature="e#12546#12909#0" expanded="false" />
+                    <element signature="e#12937#13418#0" expanded="false" />
+                    <marker date="1508848715000" expanded="true" signature="3353:3685" ph="SELECT CONST... KEY_COLUMN_USAGE" />
+                    <marker date="1508848715000" expanded="true" signature="4893:5071" ph="SELECT Round... tables" />
                   </folding>
                 </state>
               </provider>
@@ -146,7 +145,7 @@
             <entry file="file://$PROJECT_DIR$/main/sqla/models.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="90">
-                  <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+                  <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -236,7 +235,7 @@
             <entry file="file://$PROJECT_DIR$/main/sqla/templates/project_homepage.html">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="360">
-                  <caret line="24" column="16" lean-forward="true" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
+                  <caret line="24" column="16" lean-forward="false" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
                   <folding />
                 </state>
               </provider>
@@ -256,7 +255,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>pname</find>
       <find>pro</find>
       <find>bluepr</find>
       <find>bluepri</find>
@@ -286,6 +284,7 @@
       <find>svc_type_</find>
       <find>svc_type_id</find>
       <find>dbname</find>
+      <find>Group</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/flask_admin/templates/foundation</dir>
@@ -462,7 +461,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.setup_db">
+  <component name="RunManager" selected="Python.dbas">
     <configuration default="false" name="dbas" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -1328,7 +1327,7 @@
     <entry file="file://$PROJECT_DIR$/main/sqla/templates/project_homepage.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
-          <caret line="24" column="16" lean-forward="true" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
+          <caret line="24" column="16" lean-forward="false" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
           <folding />
         </state>
       </provider>
@@ -1457,7 +1456,7 @@
     <entry file="file://$PROJECT_DIR$/main/sqla/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
-          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1487,26 +1486,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main/iaas/iaas.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="482">
-          <caret line="182" column="35" lean-forward="false" selection-start-line="182" selection-start-column="35" selection-end-line="182" selection-end-column="35" />
+        <state relative-caret-position="525">
+          <caret line="35" column="42" lean-forward="false" selection-start-line="35" selection-start-column="42" selection-end-line="35" selection-end-column="42" />
           <folding>
             <element signature="e#0#100#0" expanded="true" />
-            <element signature="e#909#1410#0" expanded="false" />
-            <element signature="e#2398#3006#0" expanded="false" />
-            <element signature="e#3076#3725#0" expanded="false" />
-            <element signature="e#3760#5252#0" expanded="false" />
-            <element signature="e#5347#6657#0" expanded="false" />
-            <element signature="e#7435#8087#0" expanded="false" />
-            <element signature="e#8124#8854#0" expanded="false" />
-            <element signature="e#10270#10802#0" expanded="false" />
-            <element signature="e#10832#11303#0" expanded="false" />
-            <element signature="e#11329#11638#0" expanded="false" />
-            <element signature="e#11669#11983#0" expanded="false" />
-            <element signature="e#12018#12515#0" expanded="false" />
-            <element signature="e#12540#12903#0" expanded="false" />
-            <element signature="e#12931#13412#0" expanded="false" />
-            <marker date="1508847937000" expanded="true" signature="3347:3679" ph="SELECT CONST... KEY_COLUMN_USAGE" />
-            <marker date="1508847937000" expanded="true" signature="4887:5065" ph="SELECT Round... tables" />
+            <element signature="e#915#1416#0" expanded="false" />
+            <element signature="e#2404#3012#0" expanded="false" />
+            <element signature="e#3082#3731#0" expanded="false" />
+            <element signature="e#3766#5258#0" expanded="false" />
+            <element signature="e#5353#6663#0" expanded="false" />
+            <element signature="e#7441#8093#0" expanded="false" />
+            <element signature="e#8130#8860#0" expanded="false" />
+            <element signature="e#10838#11309#0" expanded="false" />
+            <element signature="e#11335#11644#0" expanded="false" />
+            <element signature="e#11675#11989#0" expanded="false" />
+            <element signature="e#12024#12521#0" expanded="false" />
+            <element signature="e#12546#12909#0" expanded="false" />
+            <element signature="e#12937#13418#0" expanded="false" />
+            <marker date="1508848715000" expanded="true" signature="3353:3685" ph="SELECT CONST... KEY_COLUMN_USAGE" />
+            <marker date="1508848715000" expanded="true" signature="4893:5071" ph="SELECT Round... tables" />
           </folding>
         </state>
       </provider>

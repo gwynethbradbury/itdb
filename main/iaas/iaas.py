@@ -188,7 +188,7 @@ class DatabaseInstance(Base):
 
     def __init__(self,svc_inst,project_owner="IT",ip_address="localhost",port=3306,username="iaas",
                  password_if_secure="",project_maintainer="IT",description="",
-                 database_name="",database_engine=DatabaseEngine.query.first()):
+                 database_name="",database_engine=None):
         self.project_owner=project_owner
         self.ip_address = ip_address
         self.svc_inst_id=svc_inst

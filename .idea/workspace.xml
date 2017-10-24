@@ -3,20 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ce4c93b2-95bc-4444-b569-e302376b0a7f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/auth" afterPath="$PROJECT_DIR$/main/auth" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/iaas/iaas.py" afterPath="$PROJECT_DIR$/main/iaas/iaas.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/classes/__init__.py" afterPath="$PROJECT_DIR$/main/sqla/classes/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/core/access_helper.py" afterPath="$PROJECT_DIR$/main/sqla/core/access_helper.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/methods.py" afterPath="$PROJECT_DIR$/main/sqla/methods.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/templates/admin/index.html" afterPath="$PROJECT_DIR$/main/sqla/templates/admin/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/views.py" afterPath="$PROJECT_DIR$/main/sqla/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/web_apps_examples/it_lending_log/__init__.py" afterPath="$PROJECT_DIR$/main/web_apps_examples/it_lending_log/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/web_apps_examples/it_lending_log/views.py" afterPath="$PROJECT_DIR$/main/web_apps_examples/it_lending_log/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/web_apps_examples/map/__init__.py" afterPath="$PROJECT_DIR$/main/web_apps_examples/map/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/web_apps_examples/map/dbhelper.py" afterPath="$PROJECT_DIR$/main/web_apps_examples/map/dbhelper.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/web_apps_examples/map/views.py" afterPath="$PROJECT_DIR$/main/web_apps_examples/map/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/web_apps_examples/online_learning/__init__.py" afterPath="$PROJECT_DIR$/main/web_apps_examples/online_learning/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/web_apps_examples/online_learning/views.py" afterPath="$PROJECT_DIR$/main/web_apps_examples/online_learning/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/app.py" afterPath="$PROJECT_DIR$/main/sqla/app.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -90,7 +77,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main/sqla/templates/admin/index.html">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="375">
@@ -100,11 +87,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="app.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main/sqla/app.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="501">
-                  <caret line="35" column="33" lean-forward="false" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
+                <state relative-caret-position="433">
+                  <caret line="35" column="21" lean-forward="true" selection-start-line="34" selection-start-column="21" selection-end-line="35" selection-end-column="21" />
                   <folding />
                 </state>
               </provider>
@@ -349,7 +336,6 @@
         <option value="$PROJECT_DIR$/dbconfig.py" />
         <option value="$PROJECT_DIR$/main/sqla/core/access_helper.py" />
         <option value="$PROJECT_DIR$/main/sqla/templates/groupprojects.html" />
-        <option value="$PROJECT_DIR$/main/sqla/app.py" />
         <option value="$PROJECT_DIR$/main/sqla/templates/admin/index.html" />
         <option value="$PROJECT_DIR$/main/iaas/iaas.py" />
         <option value="$PROJECT_DIR$/main/web_apps_examples/online_learning/views.py" />
@@ -361,6 +347,7 @@
         <option value="$PROJECT_DIR$/main/sqla/views.py" />
         <option value="$PROJECT_DIR$/main/sqla/classes/__init__.py" />
         <option value="$PROJECT_DIR$/main/sqla/methods.py" />
+        <option value="$PROJECT_DIR$/main/sqla/app.py" />
       </list>
     </option>
   </component>
@@ -1365,14 +1352,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/sqla/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="35" column="33" lean-forward="false" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/web_apps_examples/it_lending_log/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -1514,6 +1493,14 @@
             <marker date="1508860007000" expanded="true" signature="15933:15972" ph="SELECT ip_ad... virtual_machines" />
             <marker date="1508860007000" expanded="true" signature="16114:16161" ph="SELECT ip_ad... database_instances" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/sqla/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="433">
+          <caret line="35" column="21" lean-forward="true" selection-start-line="34" selection-start-column="21" selection-end-line="35" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>

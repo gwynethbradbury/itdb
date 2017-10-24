@@ -32,8 +32,8 @@ def get_current_schema_id(prefix):
             # if not (r[2] == '1' or r[2] == '4'):  # then this is a database project
             #     continue
             schema_ids[r[1]] = r[3]
-            priv_users[r[1]] = r[4]
-            priv_pass[r[1]] = r[5]
+            # priv_users[r[1]] = r[4]
+            # priv_pass[r[1]] = r[5]
     try:
         return schema_ids[prefix]
     except Exception as e:

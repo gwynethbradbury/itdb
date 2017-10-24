@@ -6,10 +6,10 @@ from flask_sqlalchemy import SQLAlchemy
 
 import views
 
-def init_app(app,root):
+def init_app(app,root,uri):
     db = SQLAlchemy(app)
 
-    views.assignroutes(app,root)
+    views.assignroutes(app,root,uri)
 
 
 

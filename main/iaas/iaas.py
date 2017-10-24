@@ -119,7 +119,7 @@ class DatabaseInstance(Base):
                                    "TABLE_NAME,COLUMN_NAME,"
                                    "REFERENCED_TABLE_NAME,REFERENCED_COLUMN_NAME "
                                    "FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE "
-                                   "WHERE TABLE_SCHEMA='{}' {};".format(self.dbname, P))
+                                   "WHERE TABLE_SCHEMA='{}' {};".format(self.database_name, P))
 
         return Q
 
@@ -144,7 +144,7 @@ class DatabaseInstance(Base):
                 instances, msg, success = self.ConnectAndExecute(
                     "SELECT Round(Sum(data_length + index_length) / 1024 / 1024, 1) 'db_size_mb' "
                     "FROM information_schema.tables "
-                    "WHERE table_schema = '{}';".format(self.dbname))
+                    "WHERE table_schema = '{}';".format(self.database_name))
 
                 for inst in instances:
                     dbuseage = inst[0]

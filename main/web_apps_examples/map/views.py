@@ -29,14 +29,14 @@ from main.sqla.dev import *
 #     except Exception as E:#TemplateNotFound:
 #         abort(404)
 
-def assignroutes(application,root):
+def assignroutes(application,root, db_uri):
     approute = root
     shortapproute = "/"+"map"+"/"
     templateroute = "projects/"+"map"+"/"
 
-    dbbb = 'mysql+pymysql://{}:{}@localhost/{}'.format(dbconfig.db_user,
-                                                       dbconfig.db_password,
-                                                       'map')  # map.name)
+    dbbb = db_uri#'mysql+pymysql://{}:{}@localhost/{}'.format(dbconfig.db_user,
+                                                       # dbconfig.db_password,
+                                                       # 'map')  # map.name)
     dbbindkey = "project_" + "map" + "_db"
     appname = "map"
     DBA = DatabaseAssistant(dbbb, dbbindkey, appname)

@@ -332,17 +332,12 @@ class MyStandardView(Admin2):
     def __init__(self, app, name, endpoint, url, database_name, svc_group,
                  db_details,
                  template_mode='foundation',
-                 base_template='my_master.html',
-                 svc_info=None):
+                 base_template='my_master.html'):
         super(MyStandardView, self).__init__(app, name, template_mode=template_mode,
                                              url=url,
                                              endpoint=endpoint, base_template=base_template)
-        self.database_name = database_name
         self.svc_group = svc_group
-        self.db_string = db_details.__str__()
         self.db_details = db_details
-        self.svc_info=svc_info
-        # self.setDBEngine(self.database_name)
 
     @expose('/')
     def home(self):
@@ -414,6 +409,7 @@ class DBAS():
         self.SQLALCHEMY_BINDS2 = {}
         self.db_list = []
         self.db_strings = []
+        self.db_identifiers = []
         self.schema_ids = {}
         self.db_details_dict = {}
         self.svc_groups = {}
@@ -441,8 +437,8 @@ class DBAS():
 
 
 
-        print("BINDS")
-        print(self.SQLALCHEMY_BINDS2)
+        # print("BINDS")
+        # print(self.SQLALCHEMY_BINDS2)
 
 
         return
@@ -504,8 +500,14 @@ class DBAS():
         for w in svc_info.webapps:
 
             try:
+                d=''
+                try:
+                    d = w.database_instance.GetConnectionString()
+                except Exception as e:
+                    print(e)
+
                 i = importlib.import_module("main.web_apps_examples."+w.name)
-                i.init_app(self.app,"/projects/{}/app/{}/".format(w.svc_inst.instance_identifier,w.name))
+                i.init_app(self.app,"/projects/{}/app/{}/".format(w.svc_inst.instance_identifier,w.name),d)
             except Exception as e:
                 print(e)
 
@@ -575,28 +577,30 @@ class DBAS():
             if r.password_if_secure == '':  # insecure password
                 continue
 
-            svc_inst = r.svc_instance
-            if not ((svc_inst.instance_identifier == self.app.config['dispatched_app'])
+            # svc_inst = r.svc_instance
+            if not ((r.svc_instance.instance_identifier == self.app.config['dispatched_app'])
                     or (self.app.config['dispatched_app'] == 'all')):
                 continue
 
-            self.schema_ids[svc_inst.instance_identifier] = svc_inst.schema_id
-            self.db_list.append(svc_inst.instance_identifier)
+            self.schema_ids[r.svc_instance.instance_identifier] = r.svc_instance.schema_id
+            self.db_list.append(r.database_name)
             if r.port == 'None':
                 r.port = '0'
             db_string =r.GetConnectionString()
 
-            self.db_details_dict[svc_inst.instance_identifier] = r
+            self.db_details_dict[r.svc_instance.instance_identifier] = r
 
             self.db_strings.append(db_string)
 
-            self.svc_groups["{}".format(svc_inst.instance_identifier)] = svc_inst.group_id
+            self.db_identifiers.append(r.svc_instance.instance_identifier)
 
-            project_dba = devmodels.DatabaseAssistant(db_string, svc_inst.instance_identifier, svc_inst.instance_identifier)
+            self.svc_groups["{}".format(r.svc_instance.instance_identifier)] = r.svc_instance.group_id
+
+            project_dba = devmodels.DatabaseAssistant(db_string, r.svc_instance.instance_identifier, r.svc_instance.instance_identifier)
             try:
                 tns, cns = project_dba.getTableAndColumnNames()
                 for t in tns:
-                    self.class_db_dict['cls_{}_{}'.format(svc_inst.instance_identifier, t)] = svc_inst.instance_identifier
+                    self.class_db_dict['cls_{}_{}_{}'.format(r.svc_instance.instance_identifier,r.database_name, t)] = r.svc_instance.instance_identifier+"_"+r.database_name
             except Exception as e:
                 # flash(e,'error')
                 print(e)
@@ -607,11 +611,12 @@ class DBAS():
 
 
     def _add_a_view(self, proj_admin, c, db_name, svc_group):
-        proj_admin.add_view(
-            views.MyModelView(c, self.db.session, name=c.__display_name__, databasename=proj_admin.database_name,
-                              endpoint=proj_admin.database_name + "_" + c.__display_name__, category="Tables",
-                              db_string=self.db_details_dict[db_name].GetConnectionString, svc_group=svc_group,
-                              db_details=self.db_details_dict[db_name]))
+        v= views.MyModelView(c, self.db.session, name=c.__display_name__,
+                              endpoint=proj_admin.db_details.database_name + "_" + c.__display_name__, category="Tables",
+                              svc_group=svc_group,
+                              db_details=self.db_details_dict[db_name])
+        proj_admin.add_view(v)
+        pass
 
     def add_iaas_views(self,d):
         iaas_admin = MyIAASView(db_details=self.db_details_dict[d],
@@ -664,7 +669,7 @@ class DBAS():
 
     def add_collection_of_views(self, identifier, d, classesdict, class_db_dict, svc_group, svc_info=None):
 
-        print("ASHDIASDJKL",self.db_details_dict)
+        # print("ASHDIASDJKL",self.db_details_dict)
         # todo: change bootstrap3 back to foundation to use my templates
         proj_admin = MyStandardView(self.app, name='{} admin'.format(d),
                                     template_mode='foundation',
@@ -674,11 +679,10 @@ class DBAS():
                                     database_name=d,
                                     db_details=self.db_details_dict[d],
                                     svc_group=svc_group,
-                                    svc_info=svc_info
                                     )
 
 
-        proj_admin.add_links(ML('Application', url='/projects/{}/databases/{}/app'.format(identifier,d)))
+        # proj_admin.add_links(ML('Application', url='/projects/{}/databases/{}/app'.format(identifier,d)))
 
         # general
         proj_admin.add_hidden_view(DatabaseOps(name='Edit Database'.format(d),
@@ -696,7 +700,7 @@ class DBAS():
                              ML('Relationship Builder',
                                 url='/projects/{}/databases/{}/{}_ops/relationshipbuilder'.format(identifier,d,d)))
         for c in class_db_dict:
-            if d == class_db_dict[c]:
+            if (identifier+"_"+d) == class_db_dict[c]:
                 if 'spatial_ref_sys' in c.lower():
                     continue
 
@@ -707,7 +711,7 @@ class DBAS():
                     print("failed")
 
     def init_classes(self):
-        self.classesdict, self.my_db = classes.initialise(self.db, self.db_list, self.db_strings)
+        self.classesdict, self.my_db = classes.initialise(self.db, self.db_list, self.db_strings,self.db_identifiers)
         return
 
 

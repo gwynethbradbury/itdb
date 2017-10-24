@@ -248,7 +248,7 @@ class MyModelView(ModelView):
 
     def __init__(self,
                  c,
-                 session, name,databasename,db_string,
+                 session, name,
                  endpoint, svc_group, db_details,
                  category = "Tables"):
 
@@ -256,7 +256,6 @@ class MyModelView(ModelView):
         self.tablename = c.__table__
         # print "VIEW CREATED FOR " + str(self.tablename)
         self.svc_group=svc_group
-        self.db_string = db_string
         self.db_details = db_details
 
     '''test that this project is accessible to the user'''
@@ -421,7 +420,7 @@ class MyModelView(ModelView):
 
         dbbindkey = "project_" + self.svc_group + "_db"
 
-        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, self.svc_group)  # , upload_folder=uploadfolder)
+        DBA = devmodels.DatabaseAssistant(self.db_details.GetConnectionString, dbbindkey, self.svc_group)  # , upload_folder=uploadfolder)
 
         # admin_pages_setup()
         DBA.deleteTable(self.tablename)
@@ -442,7 +441,7 @@ class MyModelView(ModelView):
             return abort(403)
         dbbindkey = "project_" + self.svc_group + "_db"
 
-        DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, self.svc_group)
+        DBA = devmodels.DatabaseAssistant(self.db_details.GetConnectionString, dbbindkey, self.svc_group)
 
         DBA.clearTable(self.tablename)
 

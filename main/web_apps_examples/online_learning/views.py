@@ -15,14 +15,14 @@ from main.auth.iaasldap import LDAPUser as iaasldap
 iaasldap = iaasldap()
 
 
-def assignroutes(application, root):
+def assignroutes(application, root, db_uri):
     approute = root
     shortapproute = "/online_learning/"
     templateroute = "online_learning/"
 
-    dbbb = 'mysql+pymysql://{}:{}@localhost/{}'.format(dbconfig.db_user,
-                                                       dbconfig.db_password,
-                                                       'online_learning')#map.name)
+    dbbb = db_uri#'mysql+pymysql://{}:{}@127.0.0.1:3306/{}'.format(dbconfig.db_user,
+                                                       # dbconfig.db_password,
+                                                       # 'online_learning')#map.name)
     # db2 = dataset.connect(dbbb, row_type=pages)
     dbbindkey="project_online_learning_db"
     appname="online_learning"

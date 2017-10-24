@@ -75,8 +75,8 @@ class AccessHelper:
             print(e)
             instance = ['brokenlink', 'broken']
             instances.append(instance)
-            for inst in instances:
-                print(inst)
+            # for inst in instances:
+            #     print(inst)
             return instances
         finally:
             connection.close()
@@ -87,7 +87,7 @@ class AccessHelper:
         nowevents = []
         try:
             connection = self.connect()
-            print("about to query...")
+            # print("about to query...")
             query = "SELECT title,subtitle,description,room,eventdate,starttime,endtime " \
                     "FROM iaas_events;"
             with connection.cursor() as cursor:
@@ -95,7 +95,7 @@ class AccessHelper:
             for ev in cursor:
                 event = [ev[0], ev[1], ev[2], ev[3], datetime.strftime(ev[4], '%B'), datetime.strftime(ev[4], '%d'),
                          ev[5], ev[6]]
-                print(datetime.now())
+                # print(datetime.now())
                 if datetime.now().date() < ev[4]:
                     futureevents.append(event)
                 elif datetime.now().date() > ev[4]:
@@ -114,14 +114,14 @@ class AccessHelper:
         articles = []
         try:
             connection = self.connect()
-            print("about to query...")
+            # print("about to query...")
             query = "SELECT title,body,updated_on FROM news;"
             with connection.cursor() as cursor:
                 cursor.execute(query)
             for ev in cursor:
                 article = [ev[0], ev[1], datetime.strftime(ev[2], '%B'), datetime.strftime(ev[2], '%d')]
                 articles.append(article)
-                print(ev[0])
+                # print(ev[0])
             articles.reverse()
             return articles
         except Exception as e:
@@ -134,14 +134,14 @@ class AccessHelper:
         subscribers = []
         try:
             connection = self.connect()
-            print("about to query...")
+            # print("about to query...")
             query = "SELECT email FROM subscribers;"
             with connection.cursor() as cursor:
                 cursor.execute(query)
             for ev in cursor:
                 subscriber = ev[0]
                 subscribers.append(subscriber)
-                print(ev[0])
+                # print(ev[0])
             return subscribers
         except Exception as e:
             print(e)
@@ -152,7 +152,7 @@ class AccessHelper:
     def add_subscriber(self, name, email):
         try:
             connection = self.connect()
-            print("adding {} ({}) to subscriber list".format(name, email))
+            # print("adding {} ({}) to subscriber list".format(name, email))
             query = "INSERT INTO subscribers (name, email) VALUES ('{}', '{}');".format(name, email)
             with connection.cursor() as cursor:
                 cursor.execute(query)

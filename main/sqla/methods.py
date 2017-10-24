@@ -453,7 +453,7 @@ class DBAS():
 
         self.get_binds()
 
-        self.nextcloud_identifiers, self.nextcloud_names = self.get_nextclouds()
+        # self.nextcloud_identifiers, self.nextcloud_names = self.get_nextclouds()
         self.init_classes()
 
 
@@ -537,17 +537,16 @@ class DBAS():
 
         result, list_of_projects = dba.retrieveDataFromDatabase("svc_instances",
                                                                 ["project_display_name", "instance_identifier",
-                                                                 "svc_type_id",
                                                                  "group_id", "schema_id", "priv_user", "priv_pass",
                                                                  "db_ip"],
                                                                 classes_loaded=False)
 
         identifiers = []
         names = []
-        for r in list_of_projects:
-            if (r[2] == '2'):  # then this is a database project
-                identifiers.append(r[1])
-                names.append(r[0])
+        # for r in list_of_projects:
+        #     if (r[2] == '2'):  # then this is a database project
+        #         identifiers.append(r[1])
+        #         names.append(r[0])
 
         return identifiers, names
 

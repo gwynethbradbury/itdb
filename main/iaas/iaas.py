@@ -38,20 +38,6 @@ class Group(Base):
         self.name=name
 
 
-# class Service(Base):
-#     __tablename__ = 'services'
-#     # __bind_key__ = dbconfig.db_name
-#     __display_name__ = 'Services'
-#
-#     id = Column(Integer, primary_key=True)
-#     name = Column(String(250), nullable=False)
-#
-#     def __str__(self):
-#         return self.name
-#
-#     def __repr__(self):
-#         return self.__str__()
-
 
 class DatabaseEngine(Base):
     __tablename__ = 'database_engine'

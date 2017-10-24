@@ -21,7 +21,6 @@ def get_current_schema_id(prefix):
 
     result, list_of_projects = dba.retrieveDataFromDatabase("svc_instances",
                                                             ["project_display_name", "instance_identifier",
-                                                             "svc_type_id",
                                                              "group_id", "schema_id", "priv_user", "priv_pass"],
                                                             classes_loaded=False)
     schema_ids = {}
@@ -30,8 +29,8 @@ def get_current_schema_id(prefix):
     for r in list_of_projects:
         print "checking schema_id for " + r[1]
         if (r[1] == prefix):
-            if not (r[2] == '1' or r[2] == '4'):  # then this is a database project
-                continue
+            # if not (r[2] == '1' or r[2] == '4'):  # then this is a database project
+            #     continue
             schema_ids[r[1]] = r[4]
             priv_users[r[1]] = r[5]
             priv_pass[r[1]] = r[6]

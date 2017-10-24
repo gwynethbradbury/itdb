@@ -35,7 +35,10 @@ def get_current_schema_id(prefix):
             schema_ids[r[1]] = r[4]
             priv_users[r[1]] = r[5]
             priv_pass[r[1]] = r[6]
-    return schema_ids[prefix]
+    try:
+        return schema_ids[prefix]
+    except Exception as e:
+        return 0
 
 
 def create_app(instance_name):

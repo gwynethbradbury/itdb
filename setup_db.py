@@ -17,4 +17,4 @@ d.append(iaas.Group('nextcloud_soge','SOGE Nextcloud User'))
 for i in d:
     iaas.db.session.add(i)
 
-iaas.db.session.commit
+iaas.db.session.commit()

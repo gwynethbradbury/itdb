@@ -33,20 +33,24 @@ class Group(Base):
     def __repr__(self):
         return self.__str__()
 
+    def __init__(self,ldap_name,name):
+        self.ldap_name=ldap_name
+        self.name=name
 
-class Service(Base):
-    __tablename__ = 'services'
-    # __bind_key__ = dbconfig.db_name
-    __display_name__ = 'Services'
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
-
-    def __str__(self):
-        return self.name
-
-    def __repr__(self):
-        return self.__str__()
+# class Service(Base):
+#     __tablename__ = 'services'
+#     # __bind_key__ = dbconfig.db_name
+#     __display_name__ = 'Services'
+#
+#     id = Column(Integer, primary_key=True)
+#     name = Column(String(250), nullable=False)
+#
+#     def __str__(self):
+#         return self.name
+#
+#     def __repr__(self):
+#         return self.__str__()
 
 
 class DatabaseEngine(Base):
@@ -63,6 +67,10 @@ class DatabaseEngine(Base):
 
     def __repr__(self):
         return self.__str__()
+
+    def __init__(self,connection_string,name):
+        self.connection_string=connection_string
+        self.name = name
 
 
 
@@ -259,7 +267,7 @@ class SvcInstance(Base):
     id = Column(Integer, primary_key=True)
     project_display_name = Column(String(30))
     instance_identifier = Column(String(70))
-    svc_type_id = Column(ForeignKey(u'services.id'), nullable=False, index=True, server_default=text("'2'"))
+    # svc_type_id = Column(ForeignKey(u'services.id'), nullable=False, index=True, server_default=text("'2'"))
     group_id = Column(ForeignKey(u'groups.id'), nullable=False, index=True, server_default=text("'3'"))
     priv_user = Column(String(15))
     priv_pass = Column(String(30))
@@ -267,7 +275,7 @@ class SvcInstance(Base):
     schema_id = Column(Integer)
 
     group = relationship(u'Group')
-    svc_type = relationship(u'Service')
+    # svc_type = relationship(u'Service')
 
     webapps=relationship(u'WebApp', back_populates=u'svc_inst')
     databases=relationship(u'DatabaseInstance', back_populates=u'svc_instance')

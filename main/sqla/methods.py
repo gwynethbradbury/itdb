@@ -525,7 +525,10 @@ class DBAS():
     def get_schema(self, prefix):
         print "self.schema_ids"
         print self.schema_ids
-        return self.schema_ids[prefix];
+        try:
+            return self.schema_ids[prefix];
+        except Exception as e:
+            return 0
 
     def get_nextclouds(self):
 
@@ -650,7 +653,7 @@ class DBAS():
         self._add_a_view(iaas_admin, iaas.iaas.IaasEvent, db_name=d, svc_group='superusers')
         self._add_a_view(iaas_admin, iaas.iaas.NextcloudInstance, db_name=d, svc_group='superusers')
         self._add_a_view(iaas_admin, iaas.iaas.Role, db_name=d, svc_group='superusers')
-        self._add_a_view(iaas_admin, iaas.iaas.Service, db_name=d, svc_group='superusers')
+        # self._add_a_view(iaas_admin, iaas.iaas.Service, db_name=d, svc_group='superusers')
         self._add_a_view(iaas_admin, iaas.iaas.Subscriber, db_name=d, svc_group='superusers')
         self._add_a_view(iaas_admin, iaas.iaas.SvcInstance, db_name=d, svc_group='superusers')
         self._add_a_view(iaas_admin, iaas.iaas.VirtualMachine, db_name=d, svc_group='superusers')

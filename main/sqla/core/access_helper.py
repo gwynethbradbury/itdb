@@ -30,7 +30,7 @@ class AccessHelper:
 
 
 
-        inst = Group.query.filter_by(ldap_name=group_name).first
+        inst = Group.query.filter_by(ldap_name=group_name).first()
         group_id = inst.id
 
         return group_id

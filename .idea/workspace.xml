@@ -38,19 +38,18 @@
           <file leaf-file-name="access_helper.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main/sqla/core/access_helper.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="389">
-                  <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+                <state relative-caret-position="639">
+                  <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#29#0" expanded="true" />
-                    <element signature="e#1055#1997#0" expanded="false" />
-                    <element signature="e#2053#2845#0" expanded="false" />
-                    <marker date="1508775210000" expanded="true" signature="3059:3167" ph="SELECT title... iaas_events" />
-                    <marker date="1508775210000" expanded="true" signature="4146:4184" ph="SELECT title... news" />
-                    <marker date="1508775210000" expanded="true" signature="4836:4865" ph="SELECT email... subscribers" />
-                    <marker date="1508775210000" expanded="true" signature="5450:5507" ph="INSERT INTO subscribers... " />
-                    <marker date="1508775210000" expanded="true" signature="6505:6626" ph="SELECT id,sv... svc_instances" />
-                    <marker date="1508775210000" expanded="true" signature="7063:7306" ph="SELECT proje... database_instances" />
-                    <marker date="1508775210000" expanded="true" signature="7815:7930" ph="SELECT conne... database_engine" />
+                    <element signature="e#1057#1999#0" expanded="false" />
+                    <marker date="1508835887000" expanded="true" signature="3061:3169" ph="SELECT title... iaas_events" />
+                    <marker date="1508835887000" expanded="true" signature="4148:4186" ph="SELECT title... news" />
+                    <marker date="1508835887000" expanded="true" signature="4838:4867" ph="SELECT email... subscribers" />
+                    <marker date="1508835887000" expanded="true" signature="5452:5509" ph="INSERT INTO subscribers... " />
+                    <marker date="1508835887000" expanded="true" signature="6507:6628" ph="SELECT id,sv... svc_instances" />
+                    <marker date="1508835887000" expanded="true" signature="7065:7308" ph="SELECT proje... database_instances" />
+                    <marker date="1508835887000" expanded="true" signature="7817:7932" ph="SELECT conne... database_engine" />
                   </folding>
                 </state>
               </provider>
@@ -887,7 +886,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="627" />
+      <option name="time" value="629" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -1408,19 +1407,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main/sqla/core/access_helper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+        <state relative-caret-position="639">
+          <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
-            <element signature="e#1055#1997#0" expanded="false" />
-            <element signature="e#2053#2845#0" expanded="false" />
-            <marker date="1508775210000" expanded="true" signature="3059:3167" ph="SELECT title... iaas_events" />
-            <marker date="1508775210000" expanded="true" signature="4146:4184" ph="SELECT title... news" />
-            <marker date="1508775210000" expanded="true" signature="4836:4865" ph="SELECT email... subscribers" />
-            <marker date="1508775210000" expanded="true" signature="5450:5507" ph="INSERT INTO subscribers... " />
-            <marker date="1508775210000" expanded="true" signature="6505:6626" ph="SELECT id,sv... svc_instances" />
-            <marker date="1508775210000" expanded="true" signature="7063:7306" ph="SELECT proje... database_instances" />
-            <marker date="1508775210000" expanded="true" signature="7815:7930" ph="SELECT conne... database_engine" />
+            <element signature="e#1057#1999#0" expanded="false" />
+            <marker date="1508835887000" expanded="true" signature="3061:3169" ph="SELECT title... iaas_events" />
+            <marker date="1508835887000" expanded="true" signature="4148:4186" ph="SELECT title... news" />
+            <marker date="1508835887000" expanded="true" signature="4838:4867" ph="SELECT email... subscribers" />
+            <marker date="1508835887000" expanded="true" signature="5452:5509" ph="INSERT INTO subscribers... " />
+            <marker date="1508835887000" expanded="true" signature="6507:6628" ph="SELECT id,sv... svc_instances" />
+            <marker date="1508835887000" expanded="true" signature="7065:7308" ph="SELECT proje... database_instances" />
+            <marker date="1508835887000" expanded="true" signature="7817:7932" ph="SELECT conne... database_engine" />
           </folding>
         </state>
       </provider>

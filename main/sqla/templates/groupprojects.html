@@ -12,7 +12,7 @@
 
         <ul>
                 {% for instance in instances %}
-                        <li><a href="{{ dbas_url }}/{% if instance[2]=='nc' %}nextcloud{% else %}projects{% endif %}/{{instance[0]}}">{{instance[1]}}</a> ({{ instance[2] }})</li>
+                        <li><a href="{{ dbas_url }}/projects/{{instance[0]}}">{{instance[1]}}</a></li>
                 {% endfor %}
         </ul>
 

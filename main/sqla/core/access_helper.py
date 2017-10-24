@@ -42,15 +42,15 @@ class AccessHelper:
         for g in usersgroups:
             if svc_type=='dbas':
                 p= DatabaseInstance.query.filter_by(group_id=g).all()
-                instance = [p.svc_instance.instance_identifier, p.svc_instance.project_display_name, dict2[p.svc_instance.svc_type_id]]
+                instance = [p.svc_instance.instance_identifier, p.svc_instance.project_display_name]
                 instances.append(instance)
             elif svc_type=='nc':
                 p= NextcloudInstance.query.filter_by(group_id=g).all()
-                instance = [p.svc_instance.instance_identifier, p.svc_instance.project_display_name, dict2[p.svc_instance.svc_type_id]]
+                instance = [p.svc_instance.instance_identifier, p.svc_instance.project_display_name]
                 instances.append(instance)
             elif svc_type=='waas':
                 p= WebApp.query.filter_by(group_id=g).all()
-                instance = [p.svc_inst.instance_identifier, p.svc_inst.project_display_name, dict2[p.svc_inst.svc_type_id]]
+                instance = [p.svc_inst.instance_identifier, p.svc_inst.project_display_name]
                 instances.append(instance)
 
         return instances
@@ -66,7 +66,7 @@ class AccessHelper:
             else:
                 projects = SvcInstance.query.all()
             for p in projects:
-                instance = [p.instance_identifier, p.project_display_name, dict2[p.svc_type_id]]
+                instance = [p.instance_identifier, p.project_display_name]
                 instances.append(instance)
 
 

@@ -15,7 +15,7 @@ from main.iaas import db
 Base = db.Model
 metadata = Base.metadata
 
-
+from datetime import datetime
 
 
 class Group(Base):
@@ -245,6 +245,9 @@ class NextcloudInstance(Base):
     def __repr__(self):
         return self.__str__()
 
+    def group_id(self):
+        return self.svc_inst.group_id
+
 class SvcInstance(Base):
     __tablename__ = 'svc_instances'
     # __bind_key__ = dbconfig.db_name
@@ -323,6 +326,15 @@ class IaasEvent(Base):
     def __repr__(self):
         return self.__str__()
 
+    # event = [ev[0], ev[1], ev[2], ev[3], datetime.strftime(ev[4], '%B'), datetime.strftime(ev[4], '%d'),
+    #          ev[5], ev[6]]
+
+    def eventdate_str(self):
+        return datetime.strftime(self.eventdate, '%B')
+
+    def eventday_str(self):
+        return datetime.strftime(self.eventdate, '%d')
+
 
 
 class Role(Base):
@@ -355,6 +367,12 @@ class Subscriber(Base):
 
     def __repr__(self):
         return self.__str__()
+
+    def __init__(self,name,email):
+        self.email = email
+        self.name=name
+
+
 
 
 class VirtualMachine(Base):

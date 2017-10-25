@@ -15,14 +15,14 @@
             <article class="event">
 
                 <div class="event-date">
-                <p class="event-monthtoday">{{event[4]}}</p>
-                <p class="event-day">{{event[5]}}</p>
+                <p class="event-monthpast">{{event.eventdate_str()}}</p>
+                <p class="event-day">{{ event.eventday_str() }}</p>
                 </div>
 
                 <div class="event-desc">
-                <h4 class="event-desc-header">{{event[0]}}</h4>
-                <p class="event-desc-detail"><span class="event-desc-time">{{event[1]}}</span></p>
-                <p>{{event[2]}}<br/>{{event[3]}}, {{event[6]}}-{{event[7]}}</p>
+                <h4 class="event-desc-header">{{event.title}}</h4>
+                <p class="event-desc-detail"><span class="event-desc-time">{{event.subtitle}}</span></p>
+                <p>{{eventdescription}}<br/>{{event.room}}, {{event.starttime}}-{{event.endtime}}</p>
                   <!--<a href="#" class="rsvp button">RSVP &amp; Details</a>-->
                 </div>
             </article>
@@ -40,15 +40,15 @@
 	{% for event in futureevents %}
         <article class="event">
 
-            <div class="event-date">
-            <p class="event-month">{{event[4]}}</p>
-            <p class="event-day">{{event[5]}}</p>
-            </div>
+                <div class="event-date">
+                <p class="event-monthpast">{{event.eventdate_str()}}</p>
+                <p class="event-day">{{ event.eventday_str() }}</p>
+                </div>
 
-            <div class="event-desc">
-            <h4 class="event-desc-header">{{event[0]}}</h4>
-            <p class="event-desc-detail"><span class="event-desc-time">{{event[1]}}</span></p>
-            <p>{{event[2]}}<br/>{{event[3]}}, {{event[6]}}-{{event[7]}}</p>
+                <div class="event-desc">
+                <h4 class="event-desc-header">{{event.title}}</h4>
+                <p class="event-desc-detail"><span class="event-desc-time">{{event.subtitle}}</span></p>
+                <p>{{eventdescription}}<br/>{{event.room}}, {{event.starttime}}-{{event.endtime}}</p>
               <!--<a href="#" class="rsvp button">RSVP &amp; Details</a>-->
             </div>
         </article>
@@ -71,14 +71,14 @@
             <article class="event">
 
                 <div class="event-date">
-                <p class="event-monthpast">{{event[4]}}</p>
-                <p class="event-day">{{event[5]}}</p>
+                <p class="event-monthpast">{{event.eventdate_str()}}</p>
+                <p class="event-day">{{ event.eventday_str() }}</p>
                 </div>
 
                 <div class="event-desc">
-                <h4 class="event-desc-header">{{event[0]}}</h4>
-                <p class="event-desc-detail"><span class="event-desc-time">{{event[1]}}</span></p>
-                <p>{{event[2]}}<br/>{{event[3]}}, {{event[6]}}-{{event[7]}}</p>
+                <h4 class="event-desc-header">{{event.title}}</h4>
+                <p class="event-desc-detail"><span class="event-desc-time">{{event.subtitle}}</span></p>
+                <p>{{eventdescription}}<br/>{{event.room}}, {{event.starttime}}-{{event.endtime}}</p>
                   <!--<a href="#" class="rsvp button">RSVP &amp; Details</a>-->
                 </div>
             </article>

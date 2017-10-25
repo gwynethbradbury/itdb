@@ -28,4 +28,4 @@ db = SQLAlchemy(app)
 if __name__ == '__main__':
     # app_dir = op.realpath(os.path.dirname(__file__))
     #app.run()
-    app.run(host="0.0.0.0", port=5400, debug=True)
+    app.run(host="0.0.0.0", port=5300, debug=True)

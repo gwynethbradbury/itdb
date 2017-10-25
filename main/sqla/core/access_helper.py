@@ -5,7 +5,7 @@ import pymysql
 import dbconfig
 from ...auth.iaasldap import LDAPUser as iaasldap
 from . import dict1, dict2
-from ...iaas.iaas import SvcInstance,DatabaseInstance,NextcloudInstance,WebApp,Group
+from ...iaas.iaas import SvcInstance,DatabaseInstance,NextcloudInstance,WebApp,Group,News,Subscriber,IaasEvent,db
 
 iaasldap = iaasldap()
 
@@ -38,20 +38,22 @@ class AccessHelper:
     def get_projects(self, svc_type):
         instances = []
         usersgroups = iaasldap.get_groups()
-
-        for g in usersgroups:
-            if svc_type=='dbas':
-                p= DatabaseInstance.query.filter_by(group_id=g).all()
-                instance = [p.svc_instance.instance_identifier, p.svc_instance.project_display_name]
-                instances.append(instance)
-            elif svc_type=='nc':
-                p= NextcloudInstance.query.filter_by(group_id=g).all()
-                instance = [p.svc_instance.instance_identifier, p.svc_instance.project_display_name]
-                instances.append(instance)
-            elif svc_type=='waas':
-                p= WebApp.query.filter_by(group_id=g).all()
-                instance = [p.svc_inst.instance_identifier, p.svc_inst.project_display_name]
-                instances.append(instance)
+        for group in usersgroups:
+            g = (Group.query.filter_by(ldap_name=group).first()).id
+            svcs = SvcInstance.query.filter_by(group_id=g)
+            for s in svcs:
+                if svc_type=='dbas':
+                    for p in s.databases:
+                        instance = [s.instance_identifier, "{} ({})".format(s.project_display_name,p.database_name)]
+                        instances.append(instance)
+                elif svc_type=='nc':
+                    for p in s.nextclouds:
+                        instance = ["/projects/"+s.instance_identifier, s.project_display_name +" (NextCloud)"]
+                        instances.append(instance)
+                elif svc_type=='waas':
+                    for p in s.webapps:
+                        instance = [s.instance_identifier, "{} ({})".format(s.project_display_name,p.name)]
+                        instances.append(instance)
 
         return instances
 
@@ -82,35 +84,26 @@ class AccessHelper:
             connection.close()
 
     def get_events(self):
+        events = IaasEvent.query.order_by(IaasEvent.eventdate.asc()).all()
         pastevents = []
         futureevents = []
         nowevents = []
-        try:
-            connection = self.connect()
-            # print("about to query...")
-            query = "SELECT title,subtitle,description,room,eventdate,starttime,endtime " \
-                    "FROM iaas_events;"
-            with connection.cursor() as cursor:
-                cursor.execute(query)
-            for ev in cursor:
-                event = [ev[0], ev[1], ev[2], ev[3], datetime.strftime(ev[4], '%B'), datetime.strftime(ev[4], '%d'),
-                         ev[5], ev[6]]
-                # print(datetime.now())
-                if datetime.now().date() < ev[4]:
-                    futureevents.append(event)
-                elif datetime.now().date() > ev[4]:
-                    pastevents.append(event)
-                elif datetime.now().date() == ev[4]:
-                    nowevents.append(event)
+        for e in events:
+            if e.eventdate<datetime.now().date():
+                pastevents.append(e)
+            elif e.eventdate>datetime.now().date():
+                futureevents.append(e)
+            else:
+                nowevents.append(e)
 
-            return [pastevents, nowevents, futureevents]
-        except Exception as e:
-            print(e)
-            return [pastevents, nowevents, futureevents]
-        finally:
-            connection.close()
+
+        return [pastevents, nowevents, futureevents]
+
+
 
     def get_news(self):
+        articles = News.query.order_by(News.created_on.asc()).all()
+        return articles
         articles = []
         try:
             connection = self.connect()
@@ -131,36 +124,21 @@ class AccessHelper:
             connection.close()
 
     def get_mailing_list(self):
-        subscribers = []
-        try:
-            connection = self.connect()
-            # print("about to query...")
-            query = "SELECT email FROM subscribers;"
-            with connection.cursor() as cursor:
-                cursor.execute(query)
-            for ev in cursor:
-                subscriber = ev[0]
-                subscribers.append(subscriber)
-                # print(ev[0])
-            return subscribers
-        except Exception as e:
-            print(e)
-            return subscribers
-        finally:
-            connection.close()
+        subscribers = Subscriber.query.all()
+        s_list=[]
+        for s in subscribers:
+            s_list.append(s.email)
+        return s_list
 
     def add_subscriber(self, name, email):
         try:
-            connection = self.connect()
-            # print("adding {} ({}) to subscriber list".format(name, email))
-            query = "INSERT INTO subscribers (name, email) VALUES ('{}', '{}');".format(name, email)
-            with connection.cursor() as cursor:
-                cursor.execute(query)
-                connection.commit()
+            s = Subscriber(name,email)
+            db.session.add(s)
+            db.session.commit()
+            return True
         except Exception as e:
-            print(e)
-        finally:
-            connection.close()
+            return False
+
 
     # def getDatabaseConnectionString(self, db_name):
     #     # todo:remove this conditional once tested

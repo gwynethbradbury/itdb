@@ -113,6 +113,14 @@ def set_views(app):
         except TemplateNotFound:
             abort(404)
 
+    @app.route('/events')
+    def events():
+        try:
+            [pastevents,curr,futureevents] = AH.get_events()
+            return render_template("events.html", nowevents=curr,futureevents=futureevents,pastevents=pastevents)
+        except TemplateNotFound:
+            abort(404)
+
     @app.route('/dbas')
     def dbas_home():
         try:

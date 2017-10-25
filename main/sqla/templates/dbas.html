@@ -27,7 +27,7 @@
         <ul>
             {% for instance in instances %}
 
-                <li><a href="/{% if instance[2]=='dbas' %}projects{% else %}nextcloud{% endif %}/{{instance[0]}}">{{instance[1]}}</a> ({{ instance[2] }})</li>
+                <li><a href="/{% if instance[2]=='dbas' %}projects{% else %}nextcloud{% endif %}/{{instance[0]}}">{{instance[1]}}</a></li>
             {% endfor %}
         </ul>
 

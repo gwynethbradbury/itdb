@@ -52,11 +52,11 @@
 
             {% for news_article in news_articles %}
                 <div>
-                    <h4>{{news_article[0]}}</h4>
-                    <p>{{news_article[1]|safe}}<p>
-                    <p><i>Updated: {{ news_article[2] }} {{ news_article[3] }} </i></p>
+                    <h4>{{news_article.title}}</h4>
+                    <p>{{news_article.body|safe}}<p>
+                    <p><i>Published: {{ news_article.created_on }} (Updated: {{ news_article.updated_on }}) </i></p>
                 </div>
-                <hr>
+                {% if news_articles|count>1 %}<hr>{% endif %}
             {% endfor %}
 
 

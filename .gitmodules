@@ -1,0 +1,6 @@
+[submodule "main/auth"]
+	path = main/auth
+	url = https://gitlab.ouce.ox.ac.uk/cso/dbas_auth.git
+[submodule "main/sqla/static"]
+	path = main/sqla/static
+	url = https://gitlab.ouce.ox.ac.uk/cso/dbas_static.git

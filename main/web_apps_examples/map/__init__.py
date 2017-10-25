@@ -1,5 +1,5 @@
 from flask import Blueprint
-from main.sqla.app import app
+# from ... import app
 # from app.admin import *
 import os
 # from app.dev.models import DatabaseAssistant
@@ -11,11 +11,12 @@ from flask_sqlalchemy import SQLAlchemy
 #
 # print(uploadfolder)
 
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 
 import views
 
-views.assignroutes(app)
+def init_app(app,root,uri):
+    views.assignroutes(app,root,uri)
 
 # from app.admin import register_crud
 

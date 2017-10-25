@@ -4,6 +4,7 @@ main/sqla/reload.py
 *.pyc
 *.swp
 *.DS_Store
-.idea*
-main/sqla/reload.py
-static
+.idea/*
+.idea
+#static
+migrations

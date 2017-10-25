@@ -4,7 +4,8 @@ from flask import request, redirect, render_template
 from jinja2 import TemplateNotFound
 
 import dbconfig
-import iaasldap.LDAPUser as iaasldap
+from main.auth import iaasldap as iaasldap
+
 iaasldap = iaasldap()
 from home import app as home
 from .email import send_email_simple as send_email

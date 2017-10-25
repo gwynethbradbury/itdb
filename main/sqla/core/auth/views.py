@@ -1,14 +1,14 @@
 from flask import render_template, redirect, request, url_for, flash
-from flask_login import login_user, logout_user, login_required#, \
-    # current_user
+from flask_login import login_required  # , \
+
+from main.auth import iaasldap
+# current_user
 from . import auth
-from .. import db
-from ..models import User
-from ..email import send_email
 from .forms import RescueReqForm, ActivateForm, ChangePWForm
+from .. import db
+from ..email import send_email
+from ..models import User
 
-
-from .. import iaasldap
 current_user = iaasldap.LDAPUser()
 
 @auth.before_app_request

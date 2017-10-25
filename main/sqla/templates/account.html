@@ -1,0 +1,34 @@
+{% extends "console.html" %}
+{% import 'admin/layout.html' as layout with context -%}
+{% import 'admin/static.html' as admin_static with context %}
+
+
+{% block servicename %}
+    My Account
+{% endblock %}
+
+	
+{% block consolecontent %}
+
+    <h3>My Groups</h3>
+        <ul>
+                {% for g in groups %}
+
+                    <h4>Group '{{ g }}' </h4>
+                    {% for instance in instances[loop.index0] %}
+                        <li><a href="{{ dbas_url }}/{% if instance[2]=='nc' %}nextcloud{% else %}projects{% endif %}/{{instance[0]}}">{{instance[1]}}</a> ({{ instance[2] }})</li>
+                    {% endfor %}
+                {% endfor %}
+        </ul>
+
+
+
+    <a href="/changepassword" class="btn btn-warning">Change Password</a>
+
+
+{% endblock %}
+
+
+
+
+

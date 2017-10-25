@@ -1,0 +1,34 @@
+{% extends "console.html" %}
+
+
+{% block servicename %}
+Web Applications
+{% endblock %}
+
+
+{% block consolecontent %}
+
+    {% if instances|length>0 %}
+
+        My web applications:
+
+        <ul>
+                {% for instance in instances %}
+                        <li><a href="{{instance[0]}}">{{instance[1]}}</a></li>
+                {% endfor %}
+        </ul>
+
+
+    {% else %}
+
+    If you have any existing web applications, they should be displayed here.
+
+    {% endif %}
+        <hr>
+{% endblock %}
+
+{% block serviceinfo %}
+<h3>Information</h3>
+<p>This service allows users to create and manage web apps for viewing their data.
+If you have access as to the IAM console for any projects, they will appear above.</p>
+{% endblock %}

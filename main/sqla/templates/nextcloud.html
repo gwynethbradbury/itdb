@@ -1,0 +1,42 @@
+{% extends "console.html" %}
+
+
+{% block servicename %}
+NextCloud
+{% endblock %}
+
+	
+{% block consolecontent %}
+    {#<a href="https://192.168.0.82/index.php/login">NextCloud Dev server</a> --#}
+    {#<a href="https://192.168.0.82/index.php/settings/users">(If admin) Manage Users</a>#}
+
+    {#<br/>#}
+    {% if instances|length>0 %}
+        My NextCloud Services:
+
+        <ul>
+                {% for instance in instances %}
+                        <li><a href="{{instance[0]}}">{{instance[1]}}</a></li>
+                {% endfor %}
+        </ul>
+
+
+    {% else %}
+
+    If you have any existing Nextcloud services, they should be displayed here.
+
+
+
+    {% endif %}
+        <hr>
+{% endblock %}
+
+
+{% block serviceinfo %}
+<h3>Information</h3>
+<p>We offer a file storage service similar to Dropbox where users can access their files from any device. 
+We don't recommend that this service is used for backing up scripts, code, or other plain text files (such as Latex files), 
+but it's great for keeping shared resources such as images and reports! 
+Get in touch if you have questions or are interested in access for your project.</p>
+<p>If you have access as to NextCloud for any projects, they will appear above.</p>
+{% endblock %}

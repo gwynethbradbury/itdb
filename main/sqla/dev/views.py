@@ -1,14 +1,10 @@
-from . import *
 # from ..app import app as application
 # from app import dictionary_of_databases
-from flask import render_template, redirect, url_for, request, send_file
-import json, os
-from wtforms.ext.sqlalchemy.orm import model_form
-from sqlalchemy.orm import sessionmaker
-from datetime import datetime
-from werkzeug.utils import secure_filename
+from flask import render_template
 
-from ..core.iaasldap import LDAPUser as iaasldap
+from main.auth.iaasldap import LDAPUser as iaasldap
+from . import *
+
 iaasldap=iaasldap()
 
 templateroute = "/projects/"

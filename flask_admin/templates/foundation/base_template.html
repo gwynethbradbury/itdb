@@ -9,9 +9,10 @@
         <div class="row">
             <div class="top-bar-left">
                 <ul class="dropdown menu" data-dropdown-menu>
-                    <li class="menu-text">Welcome, {{ LDAPUser.get_fullname() }}</li>
-                    <li class="has-submenu">
-                        <a href="#">My Account</a>
+                    <li class="menu-text has-submenu">Welcome, {{ LDAPUser.get_fullname() }}
+{#                    </li>#}
+{#                    <li class="has-submenu">#}
+{#                        <a href="#">My Account</a>#}
                         <ul class="submenu menu vertical" data-submenu>
                             <li><a href="{{ iaas_url }}/iam">IAM management Console</a></li>
                             <li><a href="{{ iaas_url }}/nextcloud">NextCloud Services Console</a></li>

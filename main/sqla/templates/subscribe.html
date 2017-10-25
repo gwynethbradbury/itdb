@@ -1,0 +1,24 @@
+{% extends "console.html" %}
+
+
+{% block servicename %}
+Subscribe to our mailing list to get email updates
+{% endblock %}
+
+
+
+
+
+{% block serviceinfo %}
+    <form action="addemail" method="post" name="addemail">
+        <label for="Name">
+            Name
+            <textarea name="Name" placeholder="Enter your name"></textarea>
+        </label>
+        <label for="Email">
+            Email
+            <textarea name="Email" placeholder="Enter your email"></textarea>
+        </label>
+        <input type="submit" class="button expanded" value="Submit">
+    </form>
+{% endblock %}

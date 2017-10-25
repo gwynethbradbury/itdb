@@ -218,7 +218,7 @@
                             </ul>
                             <hr>
                             {% if 'superusers' in LDAPUser.get_groups() %}
-                                <h4><a href="{{ url_for('show', page='projects/'+iaas_db_name) }}" title="Admin">Admin ({{ iaas_db_name }})</a></h4>
+                                <h4><a href="{{ url_for('show', page='admin') }}" title="Admin">Admin ({{ iaas_db_name }})</a></h4>
                             {% endif %}
                         </div>
                     </div>

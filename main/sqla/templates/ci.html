@@ -1,0 +1,34 @@
+{% extends "console.html" %}
+
+
+{% block servicename %}
+Git and Continuous Integration
+{% endblock %}
+
+
+{% block consolecontent %}
+
+    {% if instances|length>0 %}
+
+        My version control services services:
+
+        <ul>
+                {% for instance in instances %}
+                        <li><a href="{{instance[0]}}">{{instance[1]}}</a></li>
+                {% endfor %}
+        </ul>
+
+
+    {% else %}
+
+    If you have any existing version control services, they should be displayed here.
+
+    {% endif %}
+        <hr>
+{% endblock %}
+
+{% block serviceinfo %}
+<h3>Information</h3>
+<p>This service provides version control and continuous integration from collaborative coding projects.
+If you have access as to the IAM console for any projects, they will appear above.</p>
+{% endblock %}

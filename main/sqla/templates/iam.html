@@ -1,0 +1,35 @@
+{% extends "console.html" %}
+
+
+{% block servicename %}
+Identity And Access Management
+{% endblock %}
+
+	
+{% block consolecontent %}
+
+    {% if instances|length>0 %}
+
+        My access management services:
+
+        <ul>
+                {% for instance in instances %}
+                        <li><a href="{{instance[0]}}">{{instance[1]}}</a></li>
+                {% endfor %}
+        </ul>
+
+
+    {% else %}
+
+    If you have any existing access management services, they should be displayed here.
+
+    {% endif %}
+        <hr>
+{% endblock %}
+
+{% block serviceinfo %}
+<h3>Information</h3>
+<p>This service allows administrator users control over access to project datasets. 
+Use this service to create, unlock, and adjust accounts. 
+If you have access as to the IAM console for any projects, they will appear above.</p>
+{% endblock %}

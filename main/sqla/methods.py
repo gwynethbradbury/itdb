@@ -1,12 +1,11 @@
-import views
-import dev.models as devmodels
-import classes
 import flask_login as login
-import flask_admin as admin
-from flask_admin import Admin as ImpAdmin
 from flask_admin.menu import MenuLink as ML
 
+import classes
 import dbconfig
+import dev.models as devmodels
+import views
+import main.iaas as iaas
 
 if dbconfig.test:
     from core.mock_access_helper import MockAccessHelper as AccessHelper
@@ -15,15 +14,19 @@ else:
 AH = AccessHelper()
 
 from flask_admin import BaseView, expose
-from main.sqla.core.iaasldap import LDAPUser as LDAPUser
+from main.auth.iaasldap import LDAPUser as LDAPUser
 
 current_user = LDAPUser()
-from flask import abort, request, flash
+from flask import abort, request, flash, render_template
 from werkzeug.utils import secure_filename
 from datetime import datetime
 import os
 from flask_admin.base import Admin as Admin2
 import pymysql
+
+import importlib
+
+from ..iaas.iaas import SvcInstance
 
 
 class IPAddressView(BaseView):
@@ -40,7 +43,7 @@ class DatabaseOps(BaseView):
     can_export = True
 
     def __init__(self, name, endpoint, database_name, db_string, svc_group,
-                 menu_class_name=None, db=None, C=None):
+                 menu_class_name=None, db=None, C=None, dbinfo=None):
         super(DatabaseOps, self).__init__(name,
                                           endpoint=endpoint,
                                           menu_class_name=menu_class_name)
@@ -49,8 +52,7 @@ class DatabaseOps(BaseView):
         self.db_string = db_string
         self.db = db
         self.classes = C
-
-
+        self.dbinfo = dbinfo
 
     @expose('/')
     def index(self):
@@ -61,9 +63,7 @@ class DatabaseOps(BaseView):
         if not current_user.is_authorised(service_name=self.svc_group, is_admin_only_page=True):
             return abort(403)
 
-
         if request.method == 'GET':
-
             dbbindkey = "project_" + self.database_name + "_db"
 
             DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey,
@@ -75,8 +75,6 @@ class DatabaseOps(BaseView):
                                tablenames=tablenames,
                                columnnames=columnnames,
                                pname=self.database_name)
-
-
 
         dbbindkey = "project_" + self.database_name + "_db"
 
@@ -178,7 +176,7 @@ class DatabaseOps(BaseView):
                 flash(ret, "error")
 
         tablenames, columnnames = DBA.getTableAndColumnNames()
-        keys = DBA.getExistingKeys(True, True)
+        keys = self.dbinfo.GetExistingKeys(True, True)
 
         return self.render("projects/project_relationship_builder.html",
                            tablenames=tablenames, columnnames=columnnames,
@@ -282,20 +280,21 @@ class DatabaseOps(BaseView):
     def trigger_reload(self):
 
         import pymysql
-        current_url = str.split(self.admin.url,'/')
+        current_url = str.split(self.admin.url, '/')
         application_name = self.database_name
-        print "Triggering reload: "+application_name
+        print "Triggering reload: " + application_name
         # update svc_instance set schema_id=schema_id+1 where project_display_name=self-config['db']
 
         try:
 
             connection = pymysql.connect(host=dbconfig.db_hostname,
-                               user=dbconfig.db_user,
-                               passwd=dbconfig.db_password,
-                               db=dbconfig.db_name)
+                                         user=dbconfig.db_user,
+                                         passwd=dbconfig.db_password,
+                                         db=dbconfig.db_name)
 
             with connection.cursor() as cursor:
-                cursor.execute("update svc_instances set schema_id=schema_id+1 where instance_identifier=%s",(str(application_name),))
+                cursor.execute("update svc_instances set schema_id=schema_id+1 where instance_identifier=%s",
+                               (str(application_name),))
                 connection.commit()
         except Exception as e:
             print(e)
@@ -313,7 +312,7 @@ class DatabaseOps(BaseView):
             return False
 
         # check project authentication
-        if current_user.is_authorised(self.svc_group,is_admin_only_page=True):
+        if current_user.is_authorised(self.svc_group, is_admin_only_page=True):
             return True
 
         return False
@@ -337,42 +336,16 @@ class MyStandardView(Admin2):
         super(MyStandardView, self).__init__(app, name, template_mode=template_mode,
                                              url=url,
                                              endpoint=endpoint, base_template=base_template)
-        self.database_name = database_name
         self.svc_group = svc_group
-        self.db_string = db_details.__str__()
         self.db_details = db_details
-        self.setDBEngine(self.database_name)
-
-
 
     @expose('/')
     def home(self):
-        if current_user.is_authorised(self.svc_group,False):
+        if current_user.is_authorised(self.svc_group, False):
 
             return self.render('index.html')
         else:
             abort(403)
-
-    def getDBInfo(self):
-        self.project_owner, self.project_maintainer, self.ip_address, self.svc_inst, self.port, self.username, self.password_if_secure, self.description, self.engine_type, self.engine_string = \
-            AH.getDatabaseConnectionString(self.database_name)
-        return ""
-
-    def getDatabaseQuota(self):
-        self.dbquota = 0
-
-    def getDatabaseUseage(self):
-        self.dbuseage = 0
-        return self.db_details.GetUseage()
-
-
-    def setDBEngine(self, application_name):
-        dbbindkey = "project_" + application_name + "_db"
-
-        self.DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey,
-                                               application_name)  # , upload_folder=uploadfolder)
-
-        R = self.getDatabaseUseage()
 
 
 
@@ -394,135 +367,152 @@ class MyStandardView(Admin2):
             # pass
 
 
+GLOBAL_SQLALCHEMY_BINDS={}
+# global_class_db_dict={}
+# global_classes_dict={}
+
 class MyIAASView(MyStandardView):
     def __init__(self, db_details,
                  app, name, template_mode, svc_group,
                  endpoint, url, base_template, database_name):
-        super(MyIAASView, self).__init__(app=app, name=name, db_details=db_details, svc_group=svc_group, template_mode=template_mode,
-                                         endpoint=endpoint, url=url,base_template=base_template,
+        super(MyIAASView, self).__init__(app=app, name=name, db_details=db_details, svc_group=svc_group,
+                                         template_mode=template_mode,
+                                         endpoint=endpoint, url=url, base_template=base_template,
                                          database_name=database_name)
         self.db_details = db_details
 
     def getIPAddresses(self):
-        instances,msg,success =  self.db_details.ConnectAndExecute(query="SELECT ip_address FROM database_instances "
-                                      "UNION "
-                                      "SELECT ip_address from nextcloud_instances "
-                                      "UNION "
-                                      "SELECT ip_address from web_apps "
-                                      "UNION "
-                                      "SELECT ip_address from virtual_machines;")
+        instances, msg, success = self.db_details.ConnectAndExecute(query="SELECT ip_address FROM database_instances "
+                                                                          "UNION "
+                                                                          "SELECT ip_address from nextcloud_instances "
+                                                                          "UNION "
+                                                                          "SELECT ip_address from web_apps "
+                                                                          "UNION "
+                                                                          "SELECT ip_address from virtual_machines;")
         return instances
-
-
-
 
     def getPorts(self):
-        instances, msg, success = self.db_details.ConnectAndExecute(query="SELECT ip_address, port from database_instances;")
+        instances, msg, success = self.db_details.ConnectAndExecute(
+            query="SELECT ip_address, port from database_instances;")
         return instances
 
 
-class DBDetails():
-    def __init__(self, engine_type,username,passwd,host,port,dbname):
-        self.engine_type=engine_type
-        self.username=username
-        self.passwd=passwd
-        self.host=host
-        self.port=port
-        self.dbname=dbname
-
-    def ConnectAndExecute(self, query):
-        try:
-            conn = pymysql.connect(host=self.host,
-                                   port=self.port,
-                                   user=self.username,
-                                   passwd=self.passwd,
-                                   db=self.dbname)
-
-            cur = conn.cursor()
-
-            cur.execute(query)
-
-            instances = []
-            for inst in cur:
-                instances.append(inst)
-            cur.close()
-            conn.close()
-
-            return instances, "", 1
-        except Exception as e:
-            return [], e.__str__(), 0
-
-    def GetUseage(self):
-        dbuseage=0
-        if self.engine_type == 'postgresql':
-            # try:
-            #     r = self.ConnectAndExecute("SELECT table_name, pg_size_pretty(total_bytes) AS total "
-            #                            "FROM("
-            #                            "SELECT *, total_bytes - index_bytes - COALESCE(toast_bytes, 0) AS table_bytes "
-            #                            "FROM("
-            #                            "SELECT c.oid, nspname AS table_schema, relname AS TABLE_NAME, c.reltuples AS row_estimate, pg_total_relation_size(c.oid) AS total_bytes, pg_indexes_size(c.oid) AS index_bytes, pg_total_relation_size(reltoastrelid) AS toast_bytes "
-            #                            "FROM pg_class c LEFT JOIN pg_namespace n ON n.oid = c.relnamespace WHERE relkind = 'r' and nspname = 'public'"
-            #                            ") a"
-            #                            ") a;")
-            # except Exception as e:
-            #     print(e)
-
-            return 0
-        else:
-            try:
-                instances, msg, success = self.ConnectAndExecute(
-                    "SELECT Round(Sum(data_length + index_length) / 1024 / 1024, 1) 'db_size_mb' "
-                    "FROM information_schema.tables "
-                    "WHERE table_schema = '{}';".format(self.dbname))
-
-                for inst in instances:
-                    dbuseage = inst[0]
-            except Exception as e:
-                print(e)
-
-        return dbuseage
-
-    def __str__(self):
-        if self.engine_type=='postgresql':
-            return '{}://{}:{}@{}:{}/{}'.format(self.engine_type,
-                                                 self.username,
-                                                 self.passwd,
-                                                 self.host,
-                                                 self.port,
-                                                 self.dbname)
-        else:
-
-            return '{}://{}:{}@{}/{}'.format(self.engine_type,
-                                             self.username,
-                                             self.passwd,
-                                             self.host,
-                                             self.dbname)
-
 class DBAS():
+
+
     def __init__(self, _app, _db):
         self.app = _app
         self.db = _db
+        self.class_db_dict = {}
+
+        # self.SQLALCHEMY_BINDS = {}
+        self.SQLALCHEMY_BINDS2 = {}
+        self.db_list = []
+        self.db_strings = []
+        self.db_identifiers = []
+        self.schema_ids = {}
+        self.db_details_dict = {}
+        self.svc_groups = {}
         self.setup()
+
+        views.set_views(self.app)
+
+        self.get_services()
+        for s in self.services:
+            if s.instance_identifier==self.app.config['dispatched_app'] \
+                    or s.instance_identifier.startswith('iaas')\
+                    or self.app.config['dispatched_app']=='all':
+                for d in s.databases:
+                    self.SQLALCHEMY_BINDS2[d.database_name] = d.GetConnectionString()
+
+
         self.setup_pages()
+        self.setup_iaas()
+
+        for s in self.services:
+            if s.instance_identifier==self.app.config['dispatched_app'] \
+                    or s.instance_identifier.startswith('iaas')\
+                    or self.app.config['dispatched_app']=='all':
+                self.setup_service(s)
+
+
+
+        # print("BINDS")
+        # print(self.SQLALCHEMY_BINDS2)
+
+
+        return
+
 
     def setup(self):
-        self.SQLALCHEMY_BINDS, self.class_db_dict, self.db_list, self.schema_ids, self.db_strings, self.db_details_dict, self.svc_groups = self.get_binds()
+        self.init_login()
 
-        self.nextcloud_identifiers, self.nextcloud_names = self.get_nextclouds()
+        self.get_binds()
 
-        self.app.config['SQLALCHEMY_BINDS'] = self.SQLALCHEMY_BINDS
+        # self.nextcloud_identifiers, self.nextcloud_names = self.get_nextclouds()
+        self.init_classes()
 
-        self.classesdict, self.my_db = self.init_classes(self.db_list, self.class_db_dict)
+
 
     def setup_pages(self):
+        self.app.config['SQLALCHEMY_BINDS'] = self.SQLALCHEMY_BINDS2
         # Initialize flask-login
-        self.init_login()
-        views.set_views(self.app)
-        views.set_nextcloud_views(self.app, self.nextcloud_names, self.nextcloud_identifiers)
 
-        # put the database views in
-        self.set_iaas_admin_console(self.class_db_dict, self.classesdict)
-        self.dbas_admin_pages_setup(self.db_list, self.classesdict, self.class_db_dict, self.svc_groups)
+
+
+    def get_services(self, id=-1):
+
+        list_of_services = iaas.iaas.SvcInstance.query.all()
+
+        S = {}
+        for r in list_of_services:
+            if r.instance_identifier is not None and (id == -1 or id == r.id):
+
+
+                if r.instance_identifier==self.app.config['dispatched_app'] \
+                        or self.app.config['dispatched_app']=='all':
+                    pass
+                    # self.setup_service(S[r[1]])
+                    # self.setup_service(r)
+        self.services = list_of_services
+        # return list_of_services
+
+    def setup_iaas(self):
+        self.add_iaas_views(dbconfig.db_name)
+
+
+    def setup_service(self, svc_info):
+        if svc_info.instance_identifier.startswith('iaas'):
+            return
+
+        # if len(svc_info.myDBs()) > 0:
+        for d in svc_info.databases:
+            # self.classesdict, my_db = classes.initialise(self.db, [d.dbname], [d.__str__()])
+            self.db_details_dict[d.database_name] = d
+            try:
+                self.add_collection_of_views(svc_info.instance_identifier, d.database_name, self.classesdict,
+                                             class_db_dict=self.class_db_dict,
+                                             svc_group=d.database_name,
+                                             svc_info=svc_info)#svc_info.svc_access_group)
+            except Exception as e:
+                print(e)
+
+        for w in svc_info.webapps:
+
+            try:
+                d=''
+                try:
+                    d = w.database_instance.GetConnectionString()
+                except Exception as e:
+                    print(e)
+
+                i = importlib.import_module("main.web_apps_examples."+w.name)
+                i.init_app(self.app,"/projects/{}/app/{}/".format(w.svc_inst.instance_identifier,w.name),d)
+            except Exception as e:
+                print(e)
+
+        pass
+
 
     def init_login(self):
         login_manager = login.LoginManager()
@@ -537,258 +527,193 @@ class DBAS():
     def get_schema(self, prefix):
         print "self.schema_ids"
         print self.schema_ids
-        return self.schema_ids[prefix];
+        try:
+            return self.schema_ids[prefix];
+        except Exception as e:
+            return 0
 
     def get_nextclouds(self):
-
 
         iaas_main_db = self.app.config['SQLALCHEMY_DATABASE_URI']
         dba = devmodels.DatabaseAssistant(iaas_main_db, dbconfig.db_name, dbconfig.db_name)
 
         result, list_of_projects = dba.retrieveDataFromDatabase("svc_instances",
                                                                 ["project_display_name", "instance_identifier",
-                                                                 "svc_type_id",
                                                                  "group_id", "schema_id", "priv_user", "priv_pass",
                                                                  "db_ip"],
                                                                 classes_loaded=False)
 
         identifiers = []
         names = []
-        for r in list_of_projects:
-            if (r[2] == '2'):  # then this is a database project
-                identifiers.append(r[1])
-                names.append(r[0])
+        # for r in list_of_projects:
+        #     if (r[2] == '2'):  # then this is a database project
+        #         identifiers.append(r[1])
+        #         names.append(r[0])
 
         return identifiers, names
 
     def get_binds(self):
+        #todo: strip down
         """checks the iaas db for dbas services and collects the db binds"""
 
         iaas_main_db = self.app.config['SQLALCHEMY_DATABASE_URI']
-        dba = devmodels.DatabaseAssistant(iaas_main_db, dbconfig.db_name, dbconfig.db_name)
+        # dba = devmodels.DatabaseAssistant(iaas_main_db, dbconfig.db_name, dbconfig.db_name)
 
-        result, list_of_databases = dba.retrieveDataFromDatabase("database_instances",
-                                                                 ["svc_inst",
-                                                                  "ip_address", "port",
-                                                                  "engine_type", "username", "password_if_secure"],
-                                                                 classes_loaded=False)
+        x = iaas.iaas.DatabaseEngine.query.filter_by(connection_string=dbconfig.db_engine).first()
+        self.db_details_dict[dbconfig.db_name] = iaas.iaas.DatabaseInstance(svc_inst=0,database_engine=x,
+                                                                            username=dbconfig.db_user,
+                                                                            password_if_secure=dbconfig.db_password,
+                                                                            ip_address=dbconfig.db_hostname,
+                                                                            port=3306,
+                                                                            database_name=dbconfig.db_name)
+        # self.svc_groups = {}
+        self.svc_groups[dbconfig.db_name] = 'superusers'
 
-        class_db_dict = {}
 
-        SQLALCHEMY_BINDS = {dbconfig.db_name: '{}://{}:{}@{}/{}'
-            .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname, dbconfig.db_name)}
+        list_of_dbs_tmp = iaas.iaas.DatabaseInstance.query.all()
 
-        db_list = []
-        db_string_list = []
-        schema_ids = {}
-        db_details_dict={}
-        db_details_dict[dbconfig.db_name] = DBDetails(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname, 3306, dbconfig.db_name)
-        svc_groups={}
-        svc_groups[dbconfig.db_name]='superusers'
-        for r in list_of_databases:
+        for r in list_of_dbs_tmp:
 
-            if  r[5]=='':# postgres or insecure password
+            if r.password_if_secure == '':  # insecure password
                 continue
 
-
-            result, engine_type = dba.retrieveDataFromDatabase("database_engine",
-                                                               ["connection_string"],
-                                                               wherefield="id", whereval=r[3],
-                                                               classes_loaded=False)
-            engine_type = engine_type[0][0]
-
-            result, svc_inst = dba.retrieveDataFromDatabase("svc_instances",
-                                                              ["project_display_name",
-                                                               "instance_identifier",
-                                                               "group_id",
-                                                               "schema_id","priv_user","priv_pass", "db_ip"],
-                                                                wherefield="id",whereval=r[0],
-                                                              classes_loaded=False)
-            svc_inst=svc_inst[0]
-            if not ((svc_inst[1] == self.app.config['db']) or (self.app.config['db'] == 'all')):
+            # svc_inst = r.svc_instance
+            if not ((r.svc_instance.instance_identifier == self.app.config['dispatched_app'])
+                    or (self.app.config['dispatched_app'] == 'all')):
                 continue
 
+            self.schema_ids[r.svc_instance.instance_identifier] = r.svc_instance.schema_id
+            self.db_list.append(r.database_name)
+            if r.port == 'None':
+                r.port = '0'
+            db_string =r.GetConnectionString()
 
-            schema_ids[svc_inst[1]] = svc_inst[3]
-            db_list.append(svc_inst[1])
-            if r[2]=='None':
-                r[2]='0'
-            db_string = DBDetails(engine_type,
-                                     r[4],
-                                     r[5],
-                                     r[1],
-                                     int(r[2]),
-                                     svc_inst[1])
-            db_details_dict[svc_inst[1]] = db_string
+            self.db_details_dict[r.svc_instance.instance_identifier] = r
 
-            db_string_list.append(db_string.__str__())
+            self.db_strings.append(db_string)
 
-            SQLALCHEMY_BINDS["{}".format(svc_inst[1])] = db_string.__str__()
-            svc_groups["{}".format(svc_inst[1])] = svc_inst[2]
+            self.db_identifiers.append(r.svc_instance.instance_identifier)
 
-            project_dba = devmodels.DatabaseAssistant(db_string.__str__(), svc_inst[1], svc_inst[1])
+            self.svc_groups["{}".format(r.svc_instance.instance_identifier)] = r.svc_instance.group_id
+
+            project_dba = devmodels.DatabaseAssistant(db_string, r.svc_instance.instance_identifier, r.svc_instance.instance_identifier)
             try:
                 tns, cns = project_dba.getTableAndColumnNames()
                 for t in tns:
-                    class_db_dict['cls_{}_{}'.format(svc_inst[1], t)] = svc_inst[1]
+                    self.class_db_dict['cls_{}_{}_{}'.format(r.svc_instance.instance_identifier,r.database_name, t)] = r.svc_instance.instance_identifier+"_"+r.database_name
             except Exception as e:
                 # flash(e,'error')
                 print(e)
                 print "failed - authentication?"
 
-        return SQLALCHEMY_BINDS, class_db_dict, db_list, schema_ids, db_string_list, db_details_dict, svc_groups
 
-    def set_iaas_admin_console(self, class_db_dict, classesdict):
-        """set up the admin console, depnds on predefined classes"""
+        return
 
-        # endregion
-        # Create admin
-        # todo: change bootstrap3 back to foundation to use my templates
-        print "CONNECTING TO IAAS ON " + self.SQLALCHEMY_BINDS[dbconfig.db_name]
-        iaas_admin = MyIAASView(db_details = self.db_details_dict[dbconfig.db_name],
-                                app=self.app, name='IAAS admin app', template_mode='foundation',
-                                endpoint=dbconfig.db_name, url="/projects/{}".format(dbconfig.db_name),
-                                base_template='my_master.html', database_name=dbconfig.db_name,svc_group='superusers')
-
-        # example adding links:
-        #     iaas_admin.add_links(ML('Test Internal Link', endpoint='applicationhome'),
-        #                          ML('Test External Link', url='http://python.org/'))
-        #
-        iaas_admin.add_links(ML('New Table', url='/projects/{}/ops/newtable'.format(dbconfig.db_name)),
-                             ML('Import Data', url='/projects/{}/ops/upload'.format(dbconfig.db_name)),
-                             # ML('Export Data',url='/admin/ops/download'),
-                             ML('Relationship Builder', url='/projects/{}/ops/relationshipbuilder'.format(dbconfig.db_name)),
-                             ML('IPs in use', url='/projects/{}/ip_addresses/'.format(dbconfig.db_name), category="Useage"),
-                             ML('Ports in use', url='/projects/{}/ip_addresses/ports'.format(dbconfig.db_name), category="Useage"))
-
-        iaas_admin.add_hidden_view(DatabaseOps(name='Edit Database', endpoint='ops',
-                                               db_string=self.SQLALCHEMY_BINDS[dbconfig.db_name],
-                                               database_name=dbconfig.db_name,svc_group='superusers',
-                                               db=self.db))
-
-        iaas_admin.add_hidden_view(IPAddressView(name="IP Addresses", endpoint="ip_addresses", category="Useage"))
-        print "ADDING IAAS CLASSES " + str(len(class_db_dict))
-        for c in class_db_dict:
-            print c + " "+ class_db_dict[c]
-            
-            if dbconfig.db_name == class_db_dict[c]:
-                print c
-                self._add_a_view(iaas_admin, classesdict[c],db_name=dbconfig.db_name,svc_group='superusers')
 
     def _add_a_view(self, proj_admin, c, db_name, svc_group):
-        proj_admin.add_view(
-            views.MyModelView(c, self.db.session, name=c.__display_name__, databasename=proj_admin.database_name,
-                              endpoint=proj_admin.database_name + "_" + c.__display_name__, category="Tables",
-                              db_string=self.db_details_dict[db_name].__str__(),svc_group=svc_group,
-                              db_details=self.db_details_dict[db_name]))
+        v= views.MyModelView(c, self.db.session, name=c.__display_name__,
+                              endpoint=proj_admin.db_details.database_name + "_" + c.__display_name__, category="Tables",
+                              svc_group=svc_group,
+                              db_details=self.db_details_dict[db_name])
+        proj_admin.add_view(v)
+        pass
 
-    def add_collection_of_views(self, d, classesdict, class_db_dict,svc_group):
-        if d == dbconfig.db_name:
-            return
+    def add_iaas_views(self,d):
+        iaas_admin = MyIAASView(db_details=self.db_details_dict[d],
+                                app=self.app, name='IAAS admin app', template_mode='foundation',
+                                endpoint=d, url="/admin",
+                                base_template='my_master.html', database_name=d,
+                                svc_group='superusers')
 
+        iaas_admin.add_links(ML('IPs in use', url='/admin/ip_addresses/'.format(d),
+                                category="Useage"),
+                             ML('Ports in use', url='/admin/ip_addresses/ports'.format(d),
+                                category="Useage"))
+
+        iaas_admin.add_hidden_view(IPAddressView(name="IP Addresses", endpoint="ip_addresses", category="Useage"))
+
+
+        # general
+        iaas_admin.add_hidden_view(DatabaseOps(name='Edit Database'.format(d),
+                                               endpoint='db_ops'.format(d),
+                                               db_string= iaas.iaas_uri,#self.SQLALCHEMY_BINDS2[d],
+                                               database_name=d,
+                                               db=self.db,
+                                               C=self.classesdict,
+                                               svc_group='superusers',
+                                               dbinfo=self.db_details_dict[d]))
+
+        # this isnt a good idea with a fixed schema as used in iaas now
+        # iaas_admin.add_links(ML('New Table', url='/admin/db_ops/newtable'.format(d,d)),
+        #                      ML('Import Data', url='/admin/db_ops/upload'.format(d,d)),
+        #                      # ML('Export Data',url='/admin/ops_download'),
+        #                      ML('Relationship Builder',
+        #                         url='/admin/db_ops/relationshipbuilder'.format(d,d)))
+
+
+        self._add_a_view(iaas_admin, iaas.iaas.DatabaseEngine, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.DatabaseInstance, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.Group, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.IaasEvent, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.NextcloudInstance, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.Role, db_name=d, svc_group='superusers')
+        # self._add_a_view(iaas_admin, iaas.iaas.Service, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.Subscriber, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.SvcInstance, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.VirtualMachine, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.WebApp, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.News, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.permitted_svc, db_name=d, svc_group='superusers')
+        self._add_a_view(iaas_admin, iaas.iaas.comment, db_name=d, svc_group='superusers')
+
+
+    def add_collection_of_views(self, identifier, d, classesdict, class_db_dict, svc_group, svc_info=None):
+
+        # print("ASHDIASDJKL",self.db_details_dict)
         # todo: change bootstrap3 back to foundation to use my templates
         proj_admin = MyStandardView(self.app, name='{} admin'.format(d),
                                     template_mode='foundation',
                                     endpoint=d,
-                                    url="/projects/{}".format(d),
+                                    url="/projects/{}/databases/{}".format(identifier,d),
                                     base_template='my_master.html',
                                     database_name=d,
                                     db_details=self.db_details_dict[d],
-                                    svc_group=svc_group
+                                    svc_group=svc_group,
                                     )
 
+
+        # proj_admin.add_links(ML('Application', url='/projects/{}/databases/{}/app'.format(identifier,d)))
+
+        # general
         proj_admin.add_hidden_view(DatabaseOps(name='Edit Database'.format(d),
                                                endpoint='{}_ops'.format(d),
-                                               db_string=self.SQLALCHEMY_BINDS[d],
+                                               db_string=self.SQLALCHEMY_BINDS2[d],
                                                database_name=d,
                                                db=self.db,
                                                C=self.classesdict,
-                                               svc_group=svc_group))
+                                               svc_group=svc_group,
+                                               dbinfo=self.db_details_dict[d]))
 
-        proj_admin.add_links(ML('New Table', url='/projects/{}/{}_ops/newtable'.format(d, d)),
-                             ML('Import Data', url='/projects/{}/{}_ops/upload'.format(d, d)),
-                             # ML('Export Data',url='/projects/{}/{}_ops/download'.format(d,d)),
-                             ML('Relationship Builder', url='/projects/{}/{}_ops/relationshipbuilder'.format(d, d)),
-                             ML('Application', url='/projects/{}/app'.format(d)))
-
+        proj_admin.add_links(ML('New Table', url='/projects/{}/databases/{}/{}_ops/newtable'.format(identifier,d,d)),
+                             ML('Import Data', url='/projects/{}/databases/{}/{}_ops/upload'.format(identifier,d,d)),
+                             # ML('Export Data',url='/admin/ops_download'),
+                             ML('Relationship Builder',
+                                url='/projects/{}/databases/{}/{}_ops/relationshipbuilder'.format(identifier,d,d)))
         for c in class_db_dict:
-            if d == class_db_dict[c]:
+            if (identifier+"_"+d) == class_db_dict[c]:
                 if 'spatial_ref_sys' in c.lower():
                     continue
 
                 try:
-                    self._add_a_view(proj_admin, classesdict[c],db_name=d,svc_group=svc_group)
+                    self._add_a_view(proj_admin, classesdict[c], db_name=d, svc_group=svc_group)
                 except Exception as e:
                     print(e)
                     print("failed")
 
-    def init_classes(self, db_list, class_db_dict):
-        classesdict, my_db = classes.initialise(self.db, self.db_list, self.db_strings)
-        return classesdict, my_db
-
-    def dbas_admin_pages_setup(self, db_list, classesdict, class_db_dict, svc_groups):
-
-        binds = self.SQLALCHEMY_BINDS
-        for d in binds:
-            print(d, binds[d])
-
-            self.add_collection_of_views(d.__str__(), classesdict, class_db_dict,svc_group=svc_groups[d])
+    def init_classes(self):
+        self.classesdict, self.my_db = classes.initialise(self.db, self.db_list, self.db_strings,self.db_identifiers)
+        return
 
 
 
 
-
-
-
-            # # Create customized index view class that handles login & registration
-            # class MyAdminIndexView(admin.AdminIndexView):
-            #
-            #     @expose('/')
-            #     def index(self):
-            #         # if not login.current_user.is_authenticated:
-            #         if not current_user.is_authenticated:
-            #             return "user not authenticatedr" #edirect(url_for('.login_view'))
-            #         return super(MyAdminIndexView, self).index()
-            #
-            #     # @expose('/login/', methods=('GET', 'POST'))
-            #     # def login_view(self):
-            #     #     # handle user login
-            #     #     form = LoginForm(request.form)
-            #     #     if helpers.validate_form_on_submit(form):
-            #     #         user = form.get_user()
-            #     #         login.login_user(user)
-            #     #
-            #     #     if login.current_user.is_authenticated:
-            #     #         return redirect(url_for('.index'))
-            #     #     link = '<p>Don\'t have an account? <a href="' + url_for(
-            #     #         '.register_view') + '">Click here to register.</a></p>'
-            #     #     self._template_args['form'] = form
-            #     #     self._template_args['link'] = link
-            #     #     return super(MyAdminIndexView, self).index()
-            #
-            #     # @expose('/register/', methods=('GET', 'POST'))
-            #     # def register_view(self):
-            #     #     form = RegistrationForm(request.form)
-            #     #     if helpers.validate_form_on_submit(form):
-            #     #         user = User()
-            #     #
-            #     #         form.populate_obj(user)
-            #     #         # we hash the users password to avoid saving it as plaintext in the db,
-            #     #         # remove to use plain text:
-            #     #         user.password = generate_password_hash(form.password.data)
-            #     #
-            #     #         db.session.add(user)
-            #     #         db.session.commit()
-            #     #
-            #     #         login.login_user(user)
-            #     #         return redirect(url_for('.index'))
-            #     #     link = '<p>Already have an account? <a href="' + url_for(
-            #     #         '.login_view') + '">Click here to log in.</a></p>'
-            #     #     self._template_args['form'] = form
-            #     #     self._template_args['link'] = link
-            #     #     return super(MyAdminIndexView, self).index()
-            #
-            #     # @expose('/logout/')
-            #     # def logout_view(self):
-            #     #     login.logout_user()
-            #     #     return redirect(url_for('.index'))

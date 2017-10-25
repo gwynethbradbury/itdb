@@ -111,11 +111,11 @@ class DBHelper:
                                           3: lambda s: str(s), 4: lambda s: str(s), 5: lambda s: str(s),
                                           6: lambda s: str(s), 7: lambda s: str(s)})
 
-            print(data)
+            # print(data)
             data = data.tolist()
-            print(data)
+            # print(data)
             for i in data:
-                print(i)
+                # print(i)
                 latitude = i[1]
                 longitude = i[2]
                 startdate=datetime.utcnow()
@@ -189,8 +189,8 @@ class DBHelper:
             for project in cursor:
                 thisp=[]
                 for p in project:
-                    print(p)
-                    print(thisp)
+                    # print(p)
+                    # print(thisp)
                     thisp.append(p)
                 projects.append(thisp)
             return projects

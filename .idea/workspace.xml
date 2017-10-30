@@ -4,9 +4,7 @@
     <list default="true" id="ce4c93b2-95bc-4444-b569-e302376b0a7f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/auth" afterPath="$PROJECT_DIR$/main/auth" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/sqla/static" afterPath="$PROJECT_DIR$/main/sqla/static" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/web_apps_examples/online_learning/__init__.py" afterPath="$PROJECT_DIR$/main/web_apps_examples/online_learning/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/web_apps_examples/online_learning/dbhelper.py" afterPath="$PROJECT_DIR$/main/web_apps_examples/online_learning/dbhelper.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main/web_apps_examples/online_learning/models.py" afterPath="$PROJECT_DIR$/main/web_apps_examples/online_learning/models.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,8 +16,8 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/dbas_dev$manage_db.coverage" NAME="migrate db Coverage Results" MODIFIED="1508773143802" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/dbas_dev$wsgi.coverage" NAME="wsgi Coverage Results" MODIFIED="1506943841754" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/dbas_dev$dbas.coverage" NAME="dbas Coverage Results" MODIFIED="1509378868642" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/dbas_dev$setup_db__1_.coverage" NAME="setup_db (1) Coverage Results" MODIFIED="1509379510921" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main/web_apps_examples/online_learning" />
+    <SUITE FILE_PATH="coverage/dbas_dev$dbas.coverage" NAME="dbas Coverage Results" MODIFIED="1509382506292" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/dbas_dev$setup_db__1_.coverage" NAME="setup_db (1) Coverage Results" MODIFIED="1509382479084" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main/web_apps_examples/online_learning" />
     <SUITE FILE_PATH="coverage/dbas_dev$upgrade_db.coverage" NAME="upgrade db Coverage Results" MODIFIED="1508773150947" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/dbas_dev$setup_db.coverage" NAME="setup_db Coverage Results" MODIFIED="1508846401174" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
@@ -40,11 +38,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.42976806">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main/web_apps_examples/online_learning/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1168">
-                  <caret line="116" column="0" lean-forward="true" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
+                <state relative-caret-position="630">
+                  <caret line="42" column="19" lean-forward="false" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
                   <folding>
                     <element signature="e#0#29#0" expanded="true" />
                   </folding>
@@ -55,14 +53,14 @@
           <file leaf-file-name="setup_db.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main/web_apps_examples/online_learning/setup_db.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="75">
-                  <caret line="5" column="25" lean-forward="true" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
+                <state relative-caret-position="0">
+                  <caret line="0" column="41" lean-forward="false" selection-start-line="0" selection-start-column="41" selection-end-line="0" selection-end-column="41" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="__init__.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main/web_apps_examples/online_learning/__init__.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="420">
@@ -100,10 +98,10 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="iaas.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="iaas.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main/iaas/iaas.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="322">
+                <state relative-caret-position="388">
                   <caret line="259" column="0" lean-forward="false" selection-start-line="259" selection-start-column="0" selection-end-line="260" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#100#0" expanded="true" />
@@ -149,8 +147,8 @@
           <file leaf-file-name="methods.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main/sqla/methods.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="416">
-                  <caret line="451" column="65" lean-forward="false" selection-start-line="451" selection-start-column="65" selection-end-line="451" selection-end-column="65" />
+                <state relative-caret-position="329">
+                  <caret line="419" column="27" lean-forward="true" selection-start-line="419" selection-start-column="27" selection-end-line="419" selection-end-column="27" />
                   <folding>
                     <element signature="e#0#27#0" expanded="true" />
                     <element signature="e#7254#9582#0" expanded="false" />
@@ -197,7 +195,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="article.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="article.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main/sqla/templates/online_learning/article.html">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="465">
@@ -221,10 +219,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>svc_type_id</find>
-      <find>.dbname</find>
-      <find>db</find>
-      <find>dbna</find>
       <find>p</find>
       <find>print(</find>
       <find>GetConnectionString</find>
@@ -248,9 +242,13 @@
       <find>SQLALCHEMY_B</find>
       <find>SQLALCHEMY_BI</find>
       <find>SQLALCHEMY_BIN</find>
-      <find>SQLALCHEMY_BINDS</find>
-      <find>comment</find>
       <find>online_learning.models</find>
+      <find>comment</find>
+      <find>SQLALCHEMY_BINDS</find>
+      <find>v</find>
+      <find>vi</find>
+      <find>video.</find>
+      <find>video.page</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/flask_admin/templates/foundation</dir>
@@ -313,9 +311,9 @@
         <option value="$PROJECT_DIR$/main/sqla/templates/online_learning/tag.html" />
         <option value="$PROJECT_DIR$/main/web_apps_examples/online_learning/views.py" />
         <option value="$PROJECT_DIR$/main/sqla/templates/online_learning/article.html" />
-        <option value="$PROJECT_DIR$/main/web_apps_examples/online_learning/models.py" />
         <option value="$PROJECT_DIR$/main/web_apps_examples/online_learning/dbhelper.py" />
         <option value="$PROJECT_DIR$/main/web_apps_examples/online_learning/__init__.py" />
+        <option value="$PROJECT_DIR$/main/web_apps_examples/online_learning/models.py" />
       </list>
     </option>
   </component>
@@ -872,8 +870,8 @@
     </list>
     <recent_temporary>
       <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Python.setup_db (1)" />
-        <item index="1" class="java.lang.String" itemvalue="Python.dbas" />
+        <item index="0" class="java.lang.String" itemvalue="Python.dbas" />
+        <item index="1" class="java.lang.String" itemvalue="Python.setup_db (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -1067,13 +1065,9 @@
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="svc_info.myWAs()" language="Python" />
-        <watch expression="WebApp.query.all()" language="Python" />
-        <watch expression="&quot;/projects/{}/app/{}/&quot;.format(w.svc_inst.instance_identifier,w.name)" language="Python" />
-        <watch expression="classesdict" language="Python" />
-        <watch expression="d" language="Python" />
-        <watch expression="c" language="Python" />
-        <watch expression="(Group.query.filter_by(ldap_name='superusers').first()).id" language="Python" />
+        <watch expression="models.db" language="Python" />
+        <watch expression="SQLAlchemy(onlinelearnapp)" language="Python" />
+        <watch expression="iaas_uri" language="Python" />
       </configuration>
     </watches-manager>
   </component>
@@ -1275,32 +1269,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/sqla/dev/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5700">
-          <caret line="388" column="46" lean-forward="false" selection-start-line="388" selection-start-column="46" selection-end-line="388" selection-end-column="46" />
-          <folding>
-            <marker date="1506421571000" expanded="true" signature="9491:9543" ph="ALTER TABLE missing_value... " />
-            <marker date="1506421571000" expanded="true" signature="9703:9738" ph="ALTER TABLE missing_value... " />
-            <marker date="1506421571000" expanded="true" signature="9883:9908" ph="ALTER TABLE missing_value... " />
-            <marker date="1506421571000" expanded="true" signature="10068:10080" ph="DELETE FROM " />
-            <marker date="1506421571000" expanded="true" signature="10249:10260" ph="DROP TABLE m... " />
-            <marker date="1506421571000" expanded="true" signature="11175:11272" ph="SELECT COLUM... columns" />
-            <marker date="1506421571000" expanded="true" signature="11530:11547" ph="SELECT missi... missing_value" />
-            <marker date="1506421571000" expanded="true" signature="12801:12832" ph="INSERT INTO missing_value... " />
-            <marker date="1506421571000" expanded="true" signature="13032:13047" ph="SELECT missi... missing_value" />
-            <marker date="1506421571000" expanded="true" signature="13233:13256" ph="INSERT INTO missing_value... " />
-            <marker date="1506421571000" expanded="true" signature="13441:13572" ph="SELECT IS_NU... columns" />
-            <marker date="1506421571000" expanded="true" signature="14121:14159" ph="UPDATE missi... " />
-            <marker date="1506421571000" expanded="true" signature="14282:14325" ph="ALTER TABLE missing_value... " />
-            <marker date="1506421571000" expanded="true" signature="14738:14899" ph="SELECT COLUM... columns" />
-            <marker date="1506421571000" expanded="true" signature="15305:15345" ph="UPDATE missi... " />
-            <marker date="1506421571000" expanded="true" signature="15514:15570" ph="ALTER TABLE missing_value... " />
-            <marker date="1506421571000" expanded="true" signature="15963:16029" ph="ALTER TABLE missing_value... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/sqla/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1275">
@@ -1408,28 +1376,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/iaas/iaas.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="259" column="0" lean-forward="false" selection-start-line="259" selection-start-column="0" selection-end-line="260" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#100#0" expanded="true" />
-            <element signature="e#944#1445#0" expanded="false" />
-            <element signature="e#1483#7458#0" expanded="false" />
-            <element signature="e#2433#3041#0" expanded="false" />
-            <element signature="e#3111#3767#0" expanded="false" />
-            <element signature="e#3802#5301#0" expanded="false" />
-            <element signature="e#5396#6706#0" expanded="false" />
-            <element signature="e#10382#10914#0" expanded="false" />
-            <element signature="e#10944#11721#0" expanded="false" />
-            <element signature="e#11747#12056#0" expanded="false" />
-            <element signature="e#12524#13021#0" expanded="false" />
-            <marker date="1508925639000" expanded="true" signature="3382:3714" ph="SELECT CONST... KEY_COLUMN_USAGE" />
-            <marker date="1508925639000" expanded="true" signature="4929:5107" ph="SELECT Round... tables" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/web_apps_examples/online_learning/mockdbhelper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -1443,29 +1389,6 @@
         <state relative-caret-position="15">
           <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/sqla/methods.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="451" column="65" lean-forward="false" selection-start-line="451" selection-start-column="65" selection-end-line="451" selection-end-column="65" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-            <element signature="e#7254#9582#0" expanded="false" />
-            <element signature="e#9666#11651#0" expanded="false" />
-            <element signature="e#11692#12887#0" expanded="false" />
-            <element signature="e#12926#13147#0" expanded="false" />
-            <element signature="e#13201#13372#0" expanded="false" />
-            <element signature="e#14702#16189#0" expanded="false" />
-            <marker date="1508860007000" expanded="true" signature="12322:12397" ph="update svc_i... " />
-            <marker date="1508860007000" expanded="true" signature="15336:15377" ph="SELECT ip_ad... database_instances" />
-            <marker date="1508860007000" expanded="true" signature="15336:15972" ph="SELECT ip_ad... " />
-            <marker date="1508860007000" expanded="true" signature="15538:15580" ph="SELECT ip_ad... nextcloud_instances" />
-            <marker date="1508860007000" expanded="true" signature="15741:15772" ph="SELECT ip_ad... web_apps" />
-            <marker date="1508860007000" expanded="true" signature="15933:15972" ph="SELECT ip_ad... virtual_machines" />
-            <marker date="1508860007000" expanded="true" signature="16114:16161" ph="SELECT ip_ad... database_instances" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1516,16 +1439,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/web_apps_examples/online_learning/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1168">
-          <caret line="116" column="0" lean-forward="true" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/web_apps_examples/online_learning/dbhelper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="776">
@@ -1544,10 +1457,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main/sqla/dev/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+          <folding>
+            <marker date="1506421571000" expanded="true" signature="9491:9543" ph="ALTER TABLE missing_value... " />
+            <marker date="1506421571000" expanded="true" signature="9703:9738" ph="ALTER TABLE missing_value... " />
+            <marker date="1506421571000" expanded="true" signature="9883:9908" ph="ALTER TABLE missing_value... " />
+            <marker date="1506421571000" expanded="true" signature="10068:10080" ph="DELETE FROM " />
+            <marker date="1506421571000" expanded="true" signature="10249:10260" ph="DROP TABLE m... " />
+            <marker date="1506421571000" expanded="true" signature="11175:11272" ph="SELECT COLUM... columns" />
+            <marker date="1506421571000" expanded="true" signature="11530:11547" ph="SELECT missi... missing_value" />
+            <marker date="1506421571000" expanded="true" signature="12801:12832" ph="INSERT INTO missing_value... " />
+            <marker date="1506421571000" expanded="true" signature="13032:13047" ph="SELECT missi... missing_value" />
+            <marker date="1506421571000" expanded="true" signature="13233:13256" ph="INSERT INTO missing_value... " />
+            <marker date="1506421571000" expanded="true" signature="13441:13572" ph="SELECT IS_NU... columns" />
+            <marker date="1506421571000" expanded="true" signature="14121:14159" ph="UPDATE missi... " />
+            <marker date="1506421571000" expanded="true" signature="14282:14325" ph="ALTER TABLE missing_value... " />
+            <marker date="1506421571000" expanded="true" signature="14738:14899" ph="SELECT COLUM... columns" />
+            <marker date="1506421571000" expanded="true" signature="15305:15345" ph="UPDATE missi... " />
+            <marker date="1506421571000" expanded="true" signature="15514:15570" ph="ALTER TABLE missing_value... " />
+            <marker date="1506421571000" expanded="true" signature="15963:16029" ph="ALTER TABLE missing_value... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main/web_apps_examples/online_learning/setup_db.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="25" lean-forward="true" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
+        <state relative-caret-position="0">
+          <caret line="0" column="41" lean-forward="false" selection-start-line="0" selection-start-column="41" selection-end-line="0" selection-end-column="41" />
           <folding />
         </state>
       </provider>
@@ -1558,6 +1497,61 @@
           <caret line="28" column="44" lean-forward="false" selection-start-line="28" selection-start-column="44" selection-end-line="28" selection-end-column="44" />
           <folding>
             <element signature="e#102#125#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/sqla/methods.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="419" column="27" lean-forward="true" selection-start-line="419" selection-start-column="27" selection-end-line="419" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+            <element signature="e#7254#9582#0" expanded="false" />
+            <element signature="e#9666#11651#0" expanded="false" />
+            <element signature="e#11692#12887#0" expanded="false" />
+            <element signature="e#12926#13147#0" expanded="false" />
+            <element signature="e#13201#13372#0" expanded="false" />
+            <element signature="e#14702#16189#0" expanded="false" />
+            <marker date="1508860007000" expanded="true" signature="12322:12397" ph="update svc_i... " />
+            <marker date="1508860007000" expanded="true" signature="15336:15377" ph="SELECT ip_ad... database_instances" />
+            <marker date="1508860007000" expanded="true" signature="15336:15972" ph="SELECT ip_ad... " />
+            <marker date="1508860007000" expanded="true" signature="15538:15580" ph="SELECT ip_ad... nextcloud_instances" />
+            <marker date="1508860007000" expanded="true" signature="15741:15772" ph="SELECT ip_ad... web_apps" />
+            <marker date="1508860007000" expanded="true" signature="15933:15972" ph="SELECT ip_ad... virtual_machines" />
+            <marker date="1508860007000" expanded="true" signature="16114:16161" ph="SELECT ip_ad... database_instances" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/iaas/iaas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="259" column="0" lean-forward="false" selection-start-line="259" selection-start-column="0" selection-end-line="260" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#100#0" expanded="true" />
+            <element signature="e#944#1445#0" expanded="false" />
+            <element signature="e#1483#7458#0" expanded="false" />
+            <element signature="e#2433#3041#0" expanded="false" />
+            <element signature="e#3111#3767#0" expanded="false" />
+            <element signature="e#3802#5301#0" expanded="false" />
+            <element signature="e#5396#6706#0" expanded="false" />
+            <element signature="e#10382#10914#0" expanded="false" />
+            <element signature="e#10944#11721#0" expanded="false" />
+            <element signature="e#11747#12056#0" expanded="false" />
+            <element signature="e#12524#13021#0" expanded="false" />
+            <marker date="1508925639000" expanded="true" signature="3382:3714" ph="SELECT CONST... KEY_COLUMN_USAGE" />
+            <marker date="1508925639000" expanded="true" signature="4929:5107" ph="SELECT Round... tables" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/web_apps_examples/online_learning/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="42" column="19" lean-forward="false" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>

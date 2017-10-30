@@ -20,7 +20,7 @@ class video(db.Model):
     __tablename__ = 'video'
 
     id = db.Column(db.Integer, primary_key=True)
-    link = db.Column(db.Text,default='#')
+    name = db.Column(db.Text,default='#')
 
     page_id = Column(ForeignKey(u'page.id'), nullable=False, index=True)
     page_inst = relationship(u'page', back_populates=u'videos')
@@ -30,7 +30,7 @@ class video(db.Model):
         self.page_inst=page_inst
 
     def __repr__(self):
-        return self.link
+        return self.name
 
 
 class tag(db.Model):
@@ -38,7 +38,7 @@ class tag(db.Model):
     __tablename__ = 'tag'
 
     id = db.Column(db.Integer, primary_key=True)
-    tag = db.Column(db.String(100),default='')
+    name = db.Column(db.String(100),default='')
 
     page_id = Column(ForeignKey(u'page.id'), nullable=True, index=True)
     page_inst = relationship(u'page', back_populates=u'tags')
@@ -47,7 +47,7 @@ class tag(db.Model):
         self.tag=tag
 
     def __repr__(self):
-        return self.tag
+        return self.name
 
 
 class topic(db.Model):
@@ -55,7 +55,7 @@ class topic(db.Model):
     __tablename__ = 'topic'
 
     id = db.Column(db.Integer, primary_key=True)
-    topic = db.Column(db.String(100),default='')
+    name = db.Column(db.String(100),default='')
 
     page_id = Column(ForeignKey(u'page.id'), nullable=True, index=True)
     page_inst = relationship(u'page', back_populates=u'topics')
@@ -64,7 +64,7 @@ class topic(db.Model):
         self.topic = topic
 
     def __repr__(self):
-        return self.topic
+        return self.name
 
 class comment(db.Model):
     __tablename__ = 'comment'
@@ -72,6 +72,7 @@ class comment(db.Model):
     __display_name__ = 'Comment'
     id = Column(Integer, primary_key=True)
     username = Column(String(20))
+    title = Column(String(100))
     comment = Column(Text)
     visible = Column(Boolean)
     created_on = Column(DateTime)

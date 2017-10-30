@@ -18,10 +18,10 @@ onlinelearnapp = Flask(__name__)
 onlinelearnapp.config['SECRET_KEY'] = '123456790'
 
 iaas_uri = '{}://{}:{}@{}/{}' \
-        .format(dbconfig.db_engine,
-                dbconfig.db_user,
-                dbconfig.db_password,
-                dbconfig.db_hostname,
+        .format('mysql+pymysql',
+                'cenv0594',
+                'keVRN7tVkP4DxR2sAlqq',
+                'IAAS-gateway.ouce.ox.ac.uk:1564',
                 'online_learning')
 
 onlinelearnapp.config['SQLALCHEMY_DATABASE_URI'] =iaas_uri

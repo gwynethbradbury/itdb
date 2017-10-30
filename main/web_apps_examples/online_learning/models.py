@@ -114,35 +114,3 @@ class page(db.Model):
     def __repr__(self):
         return self.title
 
-# class pages_videos(db.Model):
-#     # __bind_key__ = 'project_online_learning_db'
-#     __tablename__ = 'pages_videos'
-#
-#     fields=['id','video_id','page_id']
-#     id = db.Column(db.Integer, primary_key=True)
-#     video_id = db.Column(db.Integer,db.ForeignKey('video.id'))
-#     page_id = db.Column(db.Integer,db.ForeignKey('page.id'))
-#
-#     def __init__(self, ldap_name=""):
-#         self.ldap_name = ldap_name
-#
-#     def __repr__(self):
-#         return '<td>{}</td><td>{}</td><td>{}</td>'\
-#             .format(self.id,self.video_id,self.page_id)
-#
-#
-# class pages_tags(db.Model):
-#     # __bind_key__ = 'project_online_learning_db'
-#     __tablename__ = 'pages_tags'
-#
-#     fields=['id','page_id','tag_id']
-#     id = db.Column(db.Integer, primary_key=True)
-#     page_id = db.Column(db.Integer,db.ForeignKey('page.id'))
-#     tag_id = db.Column(db.Integer,db.ForeignKey('tag.id'))
-#
-#     def __init__(self, ldap_name=""):
-#         self.ldap_name = ldap_name
-#
-#     def __repr__(self):
-#         return '<td>{}</td><td>{}</td><td>{}</td>'\
-#             .format(self.id,self.page_id, self.tag_id)

@@ -112,6 +112,3 @@ class DBHelper:
 
     def getTags(self):
         return models.tag.query.all()
-
-
-

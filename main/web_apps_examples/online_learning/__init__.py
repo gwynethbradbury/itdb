@@ -25,6 +25,9 @@ iaas_uri = '{}://{}:{}@{}/{}' \
                 'online_learning')
 
 onlinelearnapp.config['SQLALCHEMY_DATABASE_URI'] =iaas_uri
+
+SQLALCHEMY_BINDS={'online_learning':iaas_uri}
+onlinelearnapp.config['SQLALCHEMY_BINDS'] =SQLALCHEMY_BINDS
 onlinelearningdb = SQLAlchemy(onlinelearnapp)
 
 import models

@@ -22,15 +22,18 @@
 
 {% block body2 %}
 
-
-    {% if instances|length>0 %}
+    {% if pages|count>0 %}
 
         <ul>
-            {% for instance in instances %}
-                <li><a class="button tag-colour{{ (4 * loop.index0 + 3) % 20 + 1 }}" href="/online_learning/topics/{{ topics[loop.index0] }}">{{ topics[loop.index0] }}</a> - <a href="/online_learning/article/{{instance[2]}}">{{instance[0]}}</a>
-                    <p>{{instance[1]|safe}}</p>
-                    {% for tag in tags[loop.index0] %}
-                        <a class="button tag-colour{{ (4 * loop.index0 + 1) % 20 + 1 }}" href="/online_learning/tags/{{ tag[1] }}">{{ tag[0] }}</a>
+            {% for p in pages %}
+                <li>
+                {% for topic in p.topics %}
+                    <a class="button tag-colour{{ (4 * loop.index0 + 3) % 20 + 1 }}" href="/online_learning/topics/{{ topic.topic }}">{{ topic.topic }}</a>
+                {% endfor %}
+                - <a href="/online_learning/article/{{p.id}}">{{p.title}}</a>
+                    <p>{{p.text|safe}}</p>
+                    {% for tag in p.tags %}
+                        <a class="button tag-colour{{ (4 * loop.index0 + 1) % 20 + 1 }}" href="/online_learning/tags/{{ tag.tag }}">{{ tag.tag }}</a>
                     {% endfor %}</li>
             {% endfor %}
         </ul>

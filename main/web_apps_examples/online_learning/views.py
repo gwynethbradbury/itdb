@@ -21,17 +21,8 @@ def assignroutes(application, root, db_uri):
     shortapproute = "/online_learning/"
     templateroute = "online_learning/"
 
-    dbbb = db_uri#'mysql+pymysql://{}:{}@127.0.0.1:3306/{}'.format(dbconfig.db_user,
-                                                       # dbconfig.db_password,
-                                                       # 'online_learning')#map.name)
-    # db2 = dataset.connect(dbbb, row_type=pages)
-    dbbindkey="project_online_learning_db"
-    appname="online_learning"
-    DBA = DatabaseAssistant(dbbb,dbbindkey,appname)
 
-    projects = []
-
-    DB = DBHelper("online_learning")#map.name)
+    DB = DBHelper()
 
     @application.route(approute)
     @application.route(shortapproute)
@@ -66,7 +57,7 @@ def assignroutes(application, root, db_uri):
     @application.route(shortapproute + "topics/<topic_id>")
     def list_pages_in_this_topic(topic_id):
         pages, tags, videos = DB.getTopicResources(topic_id)
-        topic = models.topic.query.filter_by(id=topic_id).first()
+        topic = models.Topic.query.filter_by(id=topic_id).first()
         return render_template(templateroute+"topic.html",
                                topic=topic,
                                videos=videos,
@@ -94,7 +85,7 @@ def assignroutes(application, root, db_uri):
     def list_pages_with_this_tag(tag):
         pages, videos, topics = DB.getTagResources(tag)
 
-        tag = models.tag.query.filter_by(id=tag).first()
+        tag = models.Tag.query.filter_by(id=tag).first()
 
         return render_template(templateroute+"tag.html",
                                tag=tag,

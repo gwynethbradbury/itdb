@@ -7,29 +7,32 @@ online_learning.onlinelearningdb.create_all()
 
 d=[]
 # GIS Machine Learning Python Flask Linux Image Processing
-d.append(online_learning.models.topic('GIS'))
-d.append(online_learning.models.topic('Machine Learning'))
-d.append(online_learning.models.topic('Python'))
-d.append(online_learning.models.topic('Flask'))
-d.append(online_learning.models.topic('Linux'))
-d.append(online_learning.models.topic('Image Processing'))
+d.append(online_learning.models.Topic('GIS'))
+d.append(online_learning.models.Topic('Machine Learning'))
+d.append(online_learning.models.Topic('Python'))
+d.append(online_learning.models.Topic('Flask'))
+d.append(online_learning.models.Topic('Linux'))
+d.append(online_learning.models.Topic('Image Processing'))
 
 
-d.append(online_learning.models.tag())
+d.append(online_learning.models.Tag())
 for i in d:
     online_learning.onlinelearningdb.session.add(i)
 online_learning.onlinelearningdb.session.commit()
 
-p=online_learning.models.page()
-p.tags=online_learning.models.tag.query.all()
-p.topics=online_learning.models.topic.query.all()
+p=online_learning.models.Article()
 online_learning.onlinelearningdb.session.add(p)
 online_learning.onlinelearningdb.session.commit()
-p = online_learning.models.page.query.first()
+c=online_learning.models.Comment(page_inst=p)
+online_learning.onlinelearningdb.session.add(c)
+online_learning.onlinelearningdb.session.commit()
+p.tags=online_learning.models.Tag.query.all()
+p.topics=online_learning.models.Topic.query.all()
+p = online_learning.models.Article.query.first()
 
 d=[]
-d.append(online_learning.models.comment(page_inst=p))
-d.append(online_learning.models.video(page_inst=p))
+d.append(online_learning.models.Comment(page_inst=p))
+d.append(online_learning.models.Video(page_inst=p))
 for i in d:
     online_learning.onlinelearningdb.session.add(i)
 online_learning.onlinelearningdb.session.commit()

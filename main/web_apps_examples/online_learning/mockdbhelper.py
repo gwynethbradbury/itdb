@@ -2,8 +2,8 @@ import json
 
 
 class MockDBHelper:
-    def __init__(self, dbname):
-        self.mydatabase = dbname
+    def __init__(self):
+        pass
 
     def connect(self, database=""):
         pass

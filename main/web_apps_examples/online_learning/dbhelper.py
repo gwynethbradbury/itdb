@@ -6,28 +6,26 @@ from numpy import genfromtxt
 import json
 
 import models
-from .import onlinelearnapp, onlinelearningdb
+from .import onlinelearnapp, onlinelearningdb as db
 from flask_sqlalchemy import SQLAlchemy
 
-db = onlinelearningdb
 
 
 class DBHelper:
-    def __init__(self, dbname):
-        self.mydatabase = dbname
-
+    def __init__(self):
+        pass
 
     def getAllPages(self):
-        pages = models.page.query.all()
-        topics= models.topic.query.all()
-        tags= models.tag.query.all()
+        pages = models.Article.query.all()
+        topics= models.Topic.query.all()
+        tags= models.Tag.query.all()
 
         return pages,topics,tags
 
     def getAllPagesByTag(self,tag_id):
-        pagestmp = models.page.query.all()
+        pagestmp = models.Article.query.all()
         pages=[]
-        tag = models.tag.query.filter_by(id=tag_id).first()
+        tag = models.Tag.query.filter_by(id=tag_id).first()
         for p in pagestmp:
             if tag in p.tags:
                 pages.append(p)
@@ -35,9 +33,9 @@ class DBHelper:
         return pages
 
     def getAllPagesByTopic(self,topic_id):
-        pagestmp = models.page.query.all()
+        pagestmp = models.Article.query.all()
         pages=[]
-        topic = models.topic.query.filter_by(id=topic_id).first()
+        topic = models.Topic.query.filter_by(id=topic_id).first()
         for p in pagestmp:
             if topic in p.topics:
                 pages.append(p)
@@ -45,36 +43,36 @@ class DBHelper:
         return pages
 
     def getTopicsByTag(self,tag_id):
-        pagestmp = models.page.query.all()
+        pagestmp = models.Article.query.all()
         topics=[]
-        tag = models.tag.query.filter_by(id=tag_id).first()
+        tag = models.Tag.query.filter_by(id=tag_id).first()
         for p in pagestmp:
             if tag in p.tags:
                 for t in p.topics:
                     topics.append(t)
         return topics
     def getTagsByTopic(self,topic_id):
-        pagestmp = models.page.query.all()
+        pagestmp = models.Article.query.all()
         tags=[]
-        topic = models.topic.query.filter_by(id=topic_id).first()
+        topic = models.Topic.query.filter_by(id=topic_id).first()
         for p in pagestmp:
             if topic in p.topics:
                 for t in p.tags:
                     tags.append(t)
         return tags
     def getVideosByTopic(self,topic_id):
-        pagestmp = models.page.query.all()
+        pagestmp = models.Article.query.all()
         videos=[]
-        topic = models.topic.query.filter_by(id=topic_id).first()
+        topic = models.Topic.query.filter_by(id=topic_id).first()
         for p in pagestmp:
             if topic in p.topics:
                 for v in p.videos:
                     videos.append(v)
         return videos
     def getVideosByTag(self,tag_id):
-        pagestmp = models.page.query.all()
+        pagestmp = models.Article.query.all()
         videos=[]
-        tag = models.tag.query.filter_by(id=tag_id).first()
+        tag = models.Tag.query.filter_by(id=tag_id).first()
         for p in pagestmp:
             if tag in p.tags:
                 for v in p.videos:
@@ -105,10 +103,10 @@ class DBHelper:
 
 
     def getArticle(self,page_id):
-        return models.page.query.filter_by(id=page_id).first()
+        return models.Article.query.filter_by(id=page_id).first()
 
     def getTopics(self):
-        return models.topic.query.all()
+        return models.Topic.query.all()
 
     def getTags(self):
-        return models.tag.query.all()
+        return models.Tag.query.all()

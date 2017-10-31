@@ -28,12 +28,12 @@
             {% for p in pages %}
                 <li>
                 {% for topic in p.topics %}
-                    <a class="button tag-colour{{ (4 * loop.index0 + 3) % 20 + 1 }}" href="/online_learning/topics/{{ topic.topic }}">{{ topic.topic }}</a>
+                    <a class="button tag-colour{{ (4 * loop.index0 + 3) % 20 + 1 }}" href="/online_learning/topics/{{ topic.id }}">{{ topic }}</a>
                 {% endfor %}
                 - <a href="/online_learning/article/{{p.id}}">{{p.title}}</a>
                     <p>{{p.text|safe}}</p>
                     {% for tag in p.tags %}
-                        <a class="button tag-colour{{ (4 * loop.index0 + 1) % 20 + 1 }}" href="/online_learning/tags/{{ tag.tag }}">{{ tag.tag }}</a>
+                        <a class="button tag-colour{{ (4 * loop.index0 + 1) % 20 + 1 }}" href="/online_learning/tags/{{ tag.id }}">{{ tag }}</a>
                     {% endfor %}</li>
             {% endfor %}
         </ul>

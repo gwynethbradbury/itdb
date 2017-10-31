@@ -24,7 +24,7 @@
 
     {% if tags|length>0 %}
         {% for t in tags %}
-            <a class="button tag-colour{{ (4 * loop.index0 + 1) % 20 + 1 }}" href="/online_learning/tags/{{ t.id }}">{{ t.tag }}</a>
+            <a class="button tag-colour{{ (4 * loop.index0 + 1) % 20 + 1 }}" href="/online_learning/tags/{{ t.id }}">{{ t }}</a>
         {% endfor %}
     {% else %}
 
@@ -72,11 +72,11 @@
         {% endif %}
 
 
-        {% if pages|length>0 %}
-            <h3>Articles ({{ pages|length }})</h3>
+        {% if tag.pagestags|length>0 %}
+            <h3>Articles ({{ tag.pagestags|length }})</h3>
 
             <ul>
-                {% for instance in pages %}
+                {% for instance in tag.pagestags %}
 
 
                     <div>

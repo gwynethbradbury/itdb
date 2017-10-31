@@ -56,13 +56,11 @@ def assignroutes(application, root, db_uri):
     @application.route(approute + "topics/<topic_id>")
     @application.route(shortapproute + "topics/<topic_id>")
     def list_pages_in_this_topic(topic_id):
-        pages, tags, videos = DB.getTopicResources(topic_id)
+        videos = DB.getTopicResources(topic_id)
         topic = models.Topic.query.filter_by(id=topic_id).first()
         return render_template(templateroute+"topic.html",
                                topic=topic,
-                               videos=videos,
-                               pages=pages,
-                               tags=tags)
+                               videos=videos)
 
     @application.route(approute + "article/<page_id>")
     @application.route(shortapproute + "article/<page_id>")
@@ -83,13 +81,10 @@ def assignroutes(application, root, db_uri):
     @application.route(approute + "tags/<tag>")
     @application.route(shortapproute + "tags/<tag>")
     def list_pages_with_this_tag(tag):
-        pages, videos, topics = DB.getTagResources(tag)
+        videos = DB.getTagResources(tag)
 
         tag = models.Tag.query.filter_by(id=tag).first()
 
         return render_template(templateroute+"tag.html",
                                tag=tag,
-                               videos=videos,
-                               pages=pages,
-                               tags=[],
-                               topics=topics)
+                               videos=videos)

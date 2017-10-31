@@ -22,25 +22,7 @@ class DBHelper:
 
         return pages,topics,tags
 
-    def getAllPagesByTag(self,tag_id):
-        pagestmp = models.Article.query.all()
-        pages=[]
-        tag = models.Tag.query.filter_by(id=tag_id).first()
-        for p in pagestmp:
-            if tag in p.tags:
-                pages.append(p)
 
-        return pages
-
-    def getAllPagesByTopic(self,topic_id):
-        pagestmp = models.Article.query.all()
-        pages=[]
-        topic = models.Topic.query.filter_by(id=topic_id).first()
-        for p in pagestmp:
-            if topic in p.topics:
-                pages.append(p)
-
-        return pages
 
     def getTopicsByTag(self,tag_id):
         pagestmp = models.Article.query.all()
@@ -81,25 +63,25 @@ class DBHelper:
 
     def getTopicResources(self,topic_id):
 
-        pages = self.getAllPagesByTopic(topic_id)
+        # pages = self.getAllPagesByTopic(topic_id)
 
         videos = self.getVideosByTopic(topic_id)
 
-        tags = self.getTagsByTopic(topic_id)
+        # tags = self.getTagsByTopic(topic_id)
 
-        return pages, tags, videos
+        return videos
 
 
     def getTagResources(self,tag_id):
 
-        pages = self.getAllPagesByTag(tag_id)
+        # pages = self.getAllPagesByTag(tag_id)
 
         videos = self.getVideosByTag(tag_id)
 
-        topics = self.getTopicsByTag(tag_id)
+        # topics = self.getTopicsByTag(tag_id)
 
 
-        return pages, videos, topics
+        return videos
 
 
     def getArticle(self,page_id):

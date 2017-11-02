@@ -493,7 +493,8 @@ class DBAS():
                 self.add_collection_of_views(svc_info.instance_identifier, d.database_name, self.classesdict,
                                              class_db_dict=self.class_db_dict,
                                              svc_group=d.database_name,
-                                             svc_info=svc_info)#svc_info.svc_access_group)
+                                             svc_info=svc_info,  is_dynamic=d.is_dynamic)
+
             except Exception as e:
                 print(e)
 
@@ -672,7 +673,7 @@ class DBAS():
         self._add_a_view(iaas_admin, iaas.iaas.comment, db_name=d, svc_group='superusers')
 
 
-    def add_collection_of_views(self, identifier, d, classesdict, class_db_dict, svc_group, svc_info=None):
+    def add_collection_of_views(self, identifier, d, classesdict, class_db_dict, svc_group, svc_info=None, is_dynamic=True):
 
         # print("ASHDIASDJKL",self.db_details_dict)
         # todo: change bootstrap3 back to foundation to use my templates
@@ -699,11 +700,12 @@ class DBAS():
                                                svc_group=svc_group,
                                                dbinfo=self.db_details_dict[d]))
 
-        proj_admin.add_links(ML('New Table', url='/projects/{}/databases/{}/{}_ops/newtable'.format(identifier,d,d)),
-                             ML('Import Data', url='/projects/{}/databases/{}/{}_ops/upload'.format(identifier,d,d)),
-                             # ML('Export Data',url='/admin/ops_download'),
-                             ML('Relationship Builder',
-                                url='/projects/{}/databases/{}/{}_ops/relationshipbuilder'.format(identifier,d,d)))
+        if is_dynamic:
+            proj_admin.add_links(ML('New Table', url='/projects/{}/databases/{}/{}_ops/newtable'.format(identifier,d,d)),
+                                 ML('Import Data', url='/projects/{}/databases/{}/{}_ops/upload'.format(identifier,d,d)),
+                                 # ML('Export Data',url='/admin/ops_download'),
+                                 ML('Relationship Builder',
+                                    url='/projects/{}/databases/{}/{}_ops/relationshipbuilder'.format(identifier,d,d)))
         for c in class_db_dict:
             if (identifier+"_"+d) == class_db_dict[c]:
                 if 'spatial_ref_sys' in c.lower():

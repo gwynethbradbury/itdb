@@ -32,38 +32,38 @@ def initialise2(db, dbs):
                 print(e)
 
         else:
-            # p = d.link_to_explicit_class_python_file
-            # if '/' in p:
-            #     import sys
-            #     # the mock-0.3.1 dir contains testcase.py, testutils.py & mock.py
-            #     sys.path.append(p)
-            #     import imp
-            #
-            #     i = imp.load_source(d.database_name, p+'models.py')
-            #     # i = importlib.import_module('models',d.database_name)
-            #
-            # else:
-            #     i = importlib.import_module(p,d.database_name)
-            #
-            # for name, c in inspect.getmembers(i):
-            #     if hasattr(c,'metadata') and hasattr(c,'id'):
-            #         md = {}
-            #         cn = "cls_" + d.svc_instance.instance_identifier + "_" + db_item + "_" + c.__tablename__
-            #
-            #         setattr(c,'__table__',c.__tablename__)
-            #         setattr(c,'__bind_key__',d.database_name)
-            #         setattr(c,'__display_name__',str(c.__tablename__).title().replace('_', ' '))
-            #
-            #         try:
-            #             cls = c#type(str(cn), (db.Model,), md)
-            #             globals()[cls.__name__] = cls
-            #             setattr(globals()[cls.__name__], "__str__", classes_master.ClassStr)
-            #             setattr(globals()[cls.__name__], "__repr__", classes_master.ClassStr)
-            #             print "Generated Class: " + cn
-            #             classesdict[cn] \
-            #                 = cls#getattr(my_db[db_item], cn)
-            #         except Exception as e:
-            #             print(e)
+            p = d.link_to_explicit_class_python_file
+            if '/' in p:
+                import sys
+                # the mock-0.3.1 dir contains testcase.py, testutils.py & mock.py
+                sys.path.append(p)
+                import imp
+
+                i = imp.load_source(d.database_name, p+'models.py')
+                # i = importlib.import_module('models',d.database_name)
+
+            else:
+                i = importlib.import_module(p,d.database_name)
+
+            for name, c in inspect.getmembers(i):
+                if hasattr(c,'metadata') and hasattr(c,'id'):
+                    md = {}
+                    cn = "cls_" + d.svc_instance.instance_identifier + "_" + db_item + "_" + c.__tablename__
+
+                    setattr(c,'__table__',c.__tablename__)
+                    setattr(c,'__bind_key__',d.database_name)
+                    setattr(c,'__display_name__',str(c.__tablename__).title().replace('_', ' '))
+
+                    try:
+                        cls = c#type(str(cn), (db.Model,), md)
+                        globals()[cls.__name__] = cls
+                        setattr(globals()[cls.__name__], "__str__", classes_master.ClassStr)
+                        setattr(globals()[cls.__name__], "__repr__", classes_master.ClassStr)
+                        print "Generated Class: " + cn
+                        classesdict[cn] \
+                            = cls#getattr(my_db[db_item], cn)
+                    except Exception as e:
+                        print(e)
 
 
             pass

@@ -600,7 +600,12 @@ class DBAS():
             try:
                 tns, cns = project_dba.getTableAndColumnNames()
                 for t in tns:
-                    self.class_db_dict['cls_{}_{}_{}'.format(r.svc_instance.instance_identifier,r.database_name, t)] = r.svc_instance.instance_identifier+"_"+r.database_name
+                    if not r.is_dynamic:
+                        pass
+                    self.class_db_dict['cls_{}_{}_{}'.format(r.svc_instance.instance_identifier, r.database_name, t)] \
+                        = r.svc_instance.instance_identifier + "_" + r.database_name
+                # main.web_apps_examples.[].models
+
             except Exception as e:
                 # flash(e,'error')
                 print(e)
@@ -711,7 +716,9 @@ class DBAS():
                     print("failed")
 
     def init_classes(self):
-        self.classesdict, self.my_db = classes.initialise(self.db, self.db_list, self.db_strings,self.db_identifiers)
+        list_of_dbs = iaas.iaas.DatabaseInstance.query.all()
+        self.classesdict, self.my_db = classes.initialise2(self.db,list_of_dbs)
+        # self.classesdict, self.my_db = classes.initialise(self.db, self.db_list, self.db_strings,self.db_identifiers)
         return
 
 

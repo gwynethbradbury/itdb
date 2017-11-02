@@ -76,6 +76,8 @@ class DatabaseInstance(Base):
     description = Column(Text)
     engine_type = Column(ForeignKey(u'database_engine.id'), nullable=False, index=True)
     database_name = Column(String(100))
+    is_dynamic = Column(Boolean,default=True)
+    link_to_explicit_class_python_file = Column(Text, nullable=True)
 
     database_engine = relationship(u'DatabaseEngine')
     # svc_instance = relationship(u'SvcInstance')

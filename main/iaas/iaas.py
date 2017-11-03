@@ -26,11 +26,18 @@ iaas_uri = '{}://{}:{}@{}/{}' \
 
 iaasapp.config['SQLALCHEMY_DATABASE_URI'] =iaas_uri
 SQLALCHEMY_BINDS={}
-SQLALCHEMY_BINDS['iaas']='mysql+pymysql://{}:{}@{}/{}'\
-    .format(dbconfig.db_user,
-            dbconfig.db_password,
-            dbconfig.db_hostname,
-            'iaas')
+if dbconfig.db_name.startswith('iaas'):
+    SQLALCHEMY_BINDS[dbconfig.db_name]='mysql+pymysql://{}:{}@{}/{}'\
+        .format(dbconfig.db_user,
+                dbconfig.db_password,
+                dbconfig.db_hostname,
+                dbconfig.db_name)
+else:
+    SQLALCHEMY_BINDS['iaas']='mysql+pymysql://{}:{}@{}/{}'\
+        .format(dbconfig.db_user,
+                dbconfig.db_password,
+                dbconfig.db_hostname,
+                'iaas')
 iaasapp.config['SQLALCHEMY_BINDS'] =SQLALCHEMY_BINDS
 
 

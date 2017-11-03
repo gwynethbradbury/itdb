@@ -466,6 +466,14 @@ class DBAS():
 
 
     def setup_pages(self):
+
+        self.SQLALCHEMY_BINDS2[dbconfig.db_name] = 'mysql+pymysql://{}:{}@{}/{}' \
+            .format(dbconfig.db_user,
+                    dbconfig.db_password,
+                    dbconfig.db_hostname,
+                    dbconfig.db_name)
+
+
         self.app.config['SQLALCHEMY_BINDS'] = self.SQLALCHEMY_BINDS2
         # Initialize flask-login
 

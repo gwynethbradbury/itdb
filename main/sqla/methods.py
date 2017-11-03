@@ -25,6 +25,8 @@ from flask_admin.base import Admin as Admin2
 import pymysql
 
 import importlib
+import pymysql
+
 
 from ..iaas.iaas import SvcInstance
 
@@ -289,7 +291,6 @@ class DatabaseOps(BaseView):
 
     def trigger_reload(self):
 
-        import pymysql
         # current_url = str.split(self.admin.url, '/')
         # application_name = self.svc_group
         print "Triggering reload: " + self.svc_group
@@ -611,8 +612,6 @@ class DBAS():
             try:
                 tns, cns = project_dba.getTableAndColumnNames()
                 for t in tns:
-                    if not r.is_dynamic:
-                        pass
                     self.class_db_dict['cls_{}_{}_{}'.format(r.svc_instance.instance_identifier, r.database_name, t)] \
                         = r.svc_instance.instance_identifier + "_" + r.database_name
                 # main.web_apps_examples.[].models

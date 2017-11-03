@@ -42,17 +42,20 @@ class IPAddressView(BaseView):
 class DatabaseOps(BaseView):
     can_export = True
 
-    def __init__(self, name, endpoint, database_name, db_string, svc_group,
+    def __init__(self, name, endpoint, database_name, db_string, svc_group=None,
                  menu_class_name=None, db=None, C=None, dbinfo=None):
         super(DatabaseOps, self).__init__(name,
                                           endpoint=endpoint,
                                           menu_class_name=menu_class_name)
         self.database_name = database_name
-        self.svc_group = svc_group
         self.db_string = db_string
         self.db = db
         self.classes = C
         self.dbinfo = dbinfo
+        if svc_group is None:
+            self.svc_group = self.dbinfo.svc_instance.instance_identifier
+        else:
+            self.svc_group=svc_group
 
     @expose('/')
     def index(self):
@@ -60,6 +63,8 @@ class DatabaseOps(BaseView):
 
     @expose('/newtable', methods=['GET', 'POST'])
     def newtable(self):
+        if not self.dbinfo.is_dynamic:
+            return abort(404)
         if not current_user.is_authorised(service_name=self.svc_group, is_admin_only_page=True):
             return abort(403)
 
@@ -141,15 +146,18 @@ class DatabaseOps(BaseView):
 
     @expose('/deletetable')
     def deletetable(self):
+        if not self.dbinfo.is_dynamic:
+            return abort(404)
         return "deletetable"  # self.render('analytics_index.html')
 
     @expose("/relationshipbuilder", methods=['GET', 'POST'])
     def relationshipbuilder(self):
-        application_name = self.database_name
-
+        if not self.dbinfo.is_dynamic:
+            return abort(404)
         if not current_user.is_authorised(service_name=self.svc_group, is_admin_only_page=True):
             return abort(403)
 
+        application_name = self.database_name
         dbbindkey = "project_" + application_name + "_db"
 
         DBA = devmodels.DatabaseAssistant(self.db_string, dbbindkey, application_name)  # , upload_folder=uploadfolder)
@@ -184,8 +192,8 @@ class DatabaseOps(BaseView):
 
     @expose('/upload', methods=['GET', 'POST'])
     def upload(self, msg="", err=""):
-        application_name = self.database_name
-        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+        application_name = self.dbinfo.svc_instance.instance_identifier
+        if not current_user.is_authorised(service_name=application_name, is_admin_only_page=True):
             return abort(403)
 
         if request.method == 'GET':
@@ -206,6 +214,8 @@ class DatabaseOps(BaseView):
             # check if the post request has the file part
             if 'file' not in request.files:
                 flash("No file part", category="error")
+            elif request.form.get("submit")==u'Download Template':
+                return DBA.genBlankCSV(tablename=request.form.get("tablename"))
             else:
                 file = request.files['file']
                 # if user does not select file, browser also
@@ -215,10 +225,10 @@ class DatabaseOps(BaseView):
                 if file:  # and allowed_file(file.filename):
                     filename = secure_filename(file.filename)
                     dt = datetime.utcnow().strftime("%Y-%m-%d_%H:%M:%S")
-                    file.save(os.path.join(DBA.uploadfolder, dt + '_' + filename))
+                    file.save(os.path.join(DBA.upload_folder, dt + '_' + filename))
                     tablename = str(request.form.get("tablename"))
 
-                    success, ret = DBA.createTableFrom(os.path.join(DBA.uploadfolder, dt + '_' + filename),
+                    success, ret = DBA.createTableFrom(os.path.join(DBA.upload_folder, dt + '_' + filename),
                                                        tablename)
                     if success:
                         ret = "Success, data added to table: %s%s%s" % (tablename, "<br/>", ret)
@@ -237,7 +247,7 @@ class DatabaseOps(BaseView):
     @expose('/download', methods=['GET', 'POST'])
     def download(self):
         application_name = self.database_name
-        if not current_user.is_authorised(application_name=application_name, is_admin_only_page=True):
+        if not current_user.is_authorised(service_name=application_name, is_admin_only_page=True):
             return abort(403)
 
         dbbindkey = "project_" + application_name + "_db"
@@ -280,9 +290,9 @@ class DatabaseOps(BaseView):
     def trigger_reload(self):
 
         import pymysql
-        current_url = str.split(self.admin.url, '/')
-        application_name = self.database_name
-        print "Triggering reload: " + application_name
+        # current_url = str.split(self.admin.url, '/')
+        # application_name = self.svc_group
+        print "Triggering reload: " + self.svc_group
         # update svc_instance set schema_id=schema_id+1 where project_display_name=self-config['db']
 
         try:
@@ -294,7 +304,7 @@ class DatabaseOps(BaseView):
 
             with connection.cursor() as cursor:
                 cursor.execute("update svc_instances set schema_id=schema_id+1 where instance_identifier=%s",
-                               (str(application_name),))
+                               (str(self.svc_group),))
                 connection.commit()
         except Exception as e:
             print(e)
@@ -493,7 +503,7 @@ class DBAS():
                 self.add_collection_of_views(svc_info.instance_identifier, d.database_name, self.classesdict,
                                              class_db_dict=self.class_db_dict,
                                              svc_group=d.database_name,
-                                             svc_info=svc_info,  is_dynamic=d.is_dynamic)
+                                             svc_info=svc_info)
 
             except Exception as e:
                 print(e)
@@ -673,7 +683,7 @@ class DBAS():
         self._add_a_view(iaas_admin, iaas.iaas.comment, db_name=d, svc_group='superusers')
 
 
-    def add_collection_of_views(self, identifier, d, classesdict, class_db_dict, svc_group, svc_info=None, is_dynamic=True):
+    def add_collection_of_views(self, identifier, d, classesdict, class_db_dict, svc_group, svc_info=None):
 
         # print("ASHDIASDJKL",self.db_details_dict)
         # todo: change bootstrap3 back to foundation to use my templates
@@ -700,11 +710,12 @@ class DBAS():
                                                svc_group=svc_group,
                                                dbinfo=self.db_details_dict[d]))
 
-        if is_dynamic:
-            proj_admin.add_links(ML('New Table', url='/projects/{}/databases/{}/{}_ops/newtable'.format(identifier,d,d)),
-                                 ML('Import Data', url='/projects/{}/databases/{}/{}_ops/upload'.format(identifier,d,d)),
-                                 # ML('Export Data',url='/admin/ops_download'),
-                                 ML('Relationship Builder',
+        proj_admin.add_links(ML('Import Data', url='/projects/{}/databases/{}/{}_ops/upload'.format(identifier, d, d)))
+        # ML('Export Data',url='/admin/ops_download'),
+
+        if self.db_details_dict[d].is_dynamic:
+            proj_admin.add_links(ML('New Table', url='/projects/{}/databases/{}/{}_ops/newtable'.format(identifier,d,d)))
+            proj_admin.add_links(ML('Relationship Builder',
                                     url='/projects/{}/databases/{}/{}_ops/relationshipbuilder'.format(identifier,d,d)))
         for c in class_db_dict:
             if (identifier+"_"+d) == class_db_dict[c]:

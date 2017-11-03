@@ -36,7 +36,7 @@
         <span style="color: #22bb5b">{{ message|safe }}</span>
     </h4>
 
-    <form action="genblankcsv" method="post" name="data">
+    <form action="upload" method="post" name="data" enctype=multipart/form-data>
 
 			<label for="tablename">Select table</label>
 			<select name="tablename" id="tablename"/>
@@ -47,30 +47,31 @@
                 {% endfor %}
 			</select>
 
-        <p><input type="submit" class="button" value="Download Template"></p>
 
 
-    </form>
-
+{#    </form>#}
+{##}
 {#    <form method=post enctype=multipart/form-data method="post">#}
 {#      <p><input type=file name=file>#}
 {#         <input type=submit value=uploadcsv>#}
 {#    </form>#}
-        <hr>
-
-		<form action="upload" method="post" enctype=multipart/form-data>
-
-			<label for="tablename">Select table</label>
-			<select name="tablename" id="tablename"/>
-                {% for t in tablenames %}
-				    <option value="{{ t }}" id="{{ t }}"
-                        onClick="JavaScript:toggleColumnHeaders(this,'project');">
-                        {{ t }}</option>
-                {% endfor %}
-			</select>
+{#        <hr>#}
+{##}
+{#		<form action="upload" method="post" enctype=multipart/form-data>#}
+{##}
+{#			<label for="tablename">Select table</label>#}
+{#			<select name="tablename" id="tablename"/>#}
+{#                {% for t in tablenames %}#}
+{#				    <option value="{{ t }}" id="{{ t }}"#}
+{#                        onClick="JavaScript:toggleColumnHeaders(this,'project');">#}
+{#                        {{ t }}</option>#}
+{#                {% endfor %}#}
+{#			</select>#}
 			<label for="filename">File Name</label>
 			<input type="file" name="file" size="40">
-			<input type="submit" name="submit" class="button">
+			<input type="submit" name="submit" class="button" content="upload" value="Submit"> or
+            <input type="submit" class="button" name="submit" content="downloadtemplate" value="Download Template" >
+
 		</form>
 
 

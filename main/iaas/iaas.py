@@ -5,12 +5,46 @@ from sqlalchemy.orm import relationship
 import pymysql
 
 
-import dbconfig
+# import dbconfig
 # if dbconfig.debug==True:
-from main.iaas import db
+# from main.iaas import db
 # else:
 #     pass
 # from ..app import db
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+import dbconfig
+iaasapp = Flask(__name__)
+
+
+# Create dummy secrey key so we can use sessions
+iaasapp.config['SECRET_KEY'] = '123456790'
+
+iaas_uri = '{}://{}:{}@{}/{}' \
+        .format(dbconfig.db_engine, dbconfig.db_user, dbconfig.db_password, dbconfig.db_hostname, dbconfig.db_name)
+
+iaasapp.config['SQLALCHEMY_DATABASE_URI'] =iaas_uri
+SQLALCHEMY_BINDS={}
+if dbconfig.db_name.startswith('iaas'):
+    SQLALCHEMY_BINDS[dbconfig.db_name]='mysql+pymysql://{}:{}@{}/{}'\
+        .format(dbconfig.db_user,
+                dbconfig.db_password,
+                dbconfig.db_hostname,
+                dbconfig.db_name)
+else:
+    SQLALCHEMY_BINDS['iaas']='mysql+pymysql://{}:{}@{}/{}'\
+        .format(dbconfig.db_user,
+                dbconfig.db_password,
+                dbconfig.db_hostname,
+                'iaas')
+iaasapp.config['SQLALCHEMY_BINDS'] =SQLALCHEMY_BINDS
+
+
+db = SQLAlchemy(iaasapp)
+
+
+
 
 Base = db.Model
 metadata = Base.metadata
@@ -310,7 +344,10 @@ class permitted_svc(Base):
 
 class IaasEvent(Base):
     __tablename__ = 'iaas_events'
-    # __bind_key__ = dbconfig.db_name
+    if dbconfig.db_name.startswith('iaas'):
+        __bind_key__ = dbconfig.db_name
+    else:
+        __bind_key__ = 'iaas'
     __display_name__ = 'IAAS Events'
 
     id = Column(Integer, primary_key=True)

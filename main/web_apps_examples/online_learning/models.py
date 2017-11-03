@@ -22,10 +22,10 @@ class Video(db.Model):
     # __tablename__ = 'Video'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Text,default='#')
+    name = db.Column(db.Text,default='#', nullable=True)
 
 
-    page_inst_id = Column(ForeignKey(u'article.id'), nullable=False, index=True)
+    page_inst_id = Column(ForeignKey(u'article.id'), nullable=True, index=True)
     page_inst = relationship(u'Article', back_populates=u'videos')
 
     def __init__(self, page_inst, link=""):
@@ -111,7 +111,7 @@ class Comment(db.Model):
     visible = Column(Boolean)
     created_on = Column(DateTime)
 
-    page_inst_id = Column(ForeignKey(u'article.id'), nullable=False, index=True)
+    page_inst_id = Column(ForeignKey(u'article.id'), nullable=True, index=True)
     page_inst = relationship(u'Article', back_populates=u'comments')
 
 
@@ -141,10 +141,10 @@ class Article(db.Model):
 
     topics=relationship(u"Topic",
                         secondary=PageTopic.__table__,
-                        backref=u"pagestopics")
+                        backref=u"pagestopics", lazy='dynamic')
     tags=relationship(u"Tag",
                         secondary=PageTag.__table__,
-                        backref=u"pagestags")
+                        backref=u"pagestags", lazy='dynamic')
 
     comments=db.relationship(u'Comment', back_populates=u'page_inst', lazy='dynamic')
     videos=db.relationship(u'Video', back_populates=u'page_inst', lazy='dynamic')

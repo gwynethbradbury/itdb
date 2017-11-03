@@ -22,17 +22,17 @@
 {% block body2 %}
 
 
-    {% if not pages|length>0 %}
+    {% if tags|length>0 %}
         {% for t in tags %}
-            <a class="button tag-colour{{ (4 * loop.index0 + 1) % 20 + 1 }}" href="/online_learning/tags/{{ t[0] }}">{{ t[1] }}</a>
+            <a class="button tag-colour{{ (4 * loop.index0 + 1) % 20 + 1 }}" href="/online_learning/tags/{{ t.id }}">{{ t }}</a>
         {% endfor %}
     {% else %}
 
-        <h2>{{ tag[0] }}</h2>
+        <h2>{{ tag }}</h2>
 
 
         {% if videos|length>0 %}
-            <h3>Videos</h3>
+            <h3>Videos ({{ videos|length }})</h3>
 
             <div class="fullscreen-image-slider">
                 <div class="orbit" role="region" aria-label="FullScreen Pictures" data-orbit>
@@ -50,11 +50,11 @@
                             <li class="
                                 {% if loop.index0==0 %}is-active {% endif %}
                                 orbit-slide">
-                                <div class="flex-video">
-                                    <iframe width="420" height="315" src="{{ v }}" frameborder="0" allowfullscreen></iframe>
+                               <div class="flex-video" style="width:420px; height:315px">
+                                    <iframe  style="width:420px; height:315px" src="{{ v.link }}" frameborder="0" allowfullscreen></iframe>
                                 </div>
                                 <figcaption class="orbit-caption">
-                                    <h1>{{ v }}</h1>
+                                    <h1>{{ v.page_inst.title }}</h1>
                                 </figcaption>
                             </li>
 
@@ -72,19 +72,22 @@
         {% endif %}
 
 
-        {% if pages|length>0 %}
-            <h3>Articles</h3>
+        {% if tag.pagestags|length>0 %}
+            <h3>Articles ({{ tag.pagestags|length }})</h3>
 
             <ul>
-                {% for instance in pages %}
+                {% for instance in tag.pagestags %}
 
 
                     <div>
-                        <h2><a class="button tag-colour{{ (4 * loop.index0 + 3) % 20 + 1 }}" href="/online_learning/topics/{{ topics[loop.index0] }}">{{ topics[loop.index0] }}</a> - <a href="/online_learning/article/{{instance[2]}}">{{instance[0]}}</a></h2>
-                        <p>{{instance[1][:100]|safe}}
+                        <h2>
+                            {% for t in instance.topics %}<a class="button tag-colour{{ (4 * loop.index0 + 3) % 20 + 1 }}" href="/online_learning/topics/{{ t.id }}">{{ t }}</a>
+                            {% endfor %}
+                            - <a href="/online_learning/article/{{instance.id}}">{{instance}}</a></h2>
+                        <p>{{instance.text[:100]|safe}}
                         <p>
-                        {% for thistag in tags[loop.index0] %}
-                            <a class="button tag-colour{{ (4 * loop.index0 + 1) % 20 + 1 }}" href="/online_learning/tags/{{ thistag[1] }}">{{ thistag[0] }}</a>
+                        {% for t in instance.tags %}
+                            <a class="button tag-colour{{ (4 * loop.index0 + 1) % 20 + 1 }}" href="/online_learning/tags/{{ t.id }}">{{ t }}</a>
                         {% endfor %}
                     </div>
                 {% endfor %}

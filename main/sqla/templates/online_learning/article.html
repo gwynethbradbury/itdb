@@ -22,12 +22,14 @@
 {% block body2 %}
     <hr>
 
-    <h2>{{ article[0] }} <a class="button tag-colour{{ (4 * 0 + 3) % 20 + 1 }}" href="/online_learning/topics/{{ topic }}">{{ topic }}</a></h2>
-    {{ article[1]|safe }}
+    <h2>{{ article }}
+        {% for topic in article.topics %}<a class="button tag-colour{{ (4 * 0 + 3) % 20 + 1 }}" href="/online_learning/topics/{{ topic.id }}">{{ topic }}</a>{% endfor %}
+    </h2>
+    {{ article.text|safe }}
 
     <p>
-    {% for tag in tags %}
-        <a class="button tag-colour{{ (4 * loop.index0 + 1) % 20 + 1 }}" href="/online_learning/tags/{{ tag[1] }}">{{ tag[0] }}</a>
+    {% for tag in article.tags %}
+        <a class="button tag-colour{{ (4 * loop.index0 + 1) % 20 + 1 }}" href="/online_learning/tags/{{ tag.id }}">{{ tag }}</a>
     {% endfor %}
     </p>
 

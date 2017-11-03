@@ -493,7 +493,8 @@ class DBAS():
                 self.add_collection_of_views(svc_info.instance_identifier, d.database_name, self.classesdict,
                                              class_db_dict=self.class_db_dict,
                                              svc_group=d.database_name,
-                                             svc_info=svc_info)#svc_info.svc_access_group)
+                                             svc_info=svc_info,  is_dynamic=d.is_dynamic)
+
             except Exception as e:
                 print(e)
 
@@ -600,7 +601,12 @@ class DBAS():
             try:
                 tns, cns = project_dba.getTableAndColumnNames()
                 for t in tns:
-                    self.class_db_dict['cls_{}_{}_{}'.format(r.svc_instance.instance_identifier,r.database_name, t)] = r.svc_instance.instance_identifier+"_"+r.database_name
+                    if not r.is_dynamic:
+                        pass
+                    self.class_db_dict['cls_{}_{}_{}'.format(r.svc_instance.instance_identifier, r.database_name, t)] \
+                        = r.svc_instance.instance_identifier + "_" + r.database_name
+                # main.web_apps_examples.[].models
+
             except Exception as e:
                 # flash(e,'error')
                 print(e)
@@ -667,7 +673,7 @@ class DBAS():
         self._add_a_view(iaas_admin, iaas.iaas.comment, db_name=d, svc_group='superusers')
 
 
-    def add_collection_of_views(self, identifier, d, classesdict, class_db_dict, svc_group, svc_info=None):
+    def add_collection_of_views(self, identifier, d, classesdict, class_db_dict, svc_group, svc_info=None, is_dynamic=True):
 
         # print("ASHDIASDJKL",self.db_details_dict)
         # todo: change bootstrap3 back to foundation to use my templates
@@ -694,11 +700,12 @@ class DBAS():
                                                svc_group=svc_group,
                                                dbinfo=self.db_details_dict[d]))
 
-        proj_admin.add_links(ML('New Table', url='/projects/{}/databases/{}/{}_ops/newtable'.format(identifier,d,d)),
-                             ML('Import Data', url='/projects/{}/databases/{}/{}_ops/upload'.format(identifier,d,d)),
-                             # ML('Export Data',url='/admin/ops_download'),
-                             ML('Relationship Builder',
-                                url='/projects/{}/databases/{}/{}_ops/relationshipbuilder'.format(identifier,d,d)))
+        if is_dynamic:
+            proj_admin.add_links(ML('New Table', url='/projects/{}/databases/{}/{}_ops/newtable'.format(identifier,d,d)),
+                                 ML('Import Data', url='/projects/{}/databases/{}/{}_ops/upload'.format(identifier,d,d)),
+                                 # ML('Export Data',url='/admin/ops_download'),
+                                 ML('Relationship Builder',
+                                    url='/projects/{}/databases/{}/{}_ops/relationshipbuilder'.format(identifier,d,d)))
         for c in class_db_dict:
             if (identifier+"_"+d) == class_db_dict[c]:
                 if 'spatial_ref_sys' in c.lower():
@@ -711,7 +718,9 @@ class DBAS():
                     print("failed")
 
     def init_classes(self):
-        self.classesdict, self.my_db = classes.initialise(self.db, self.db_list, self.db_strings,self.db_identifiers)
+        list_of_dbs = iaas.iaas.DatabaseInstance.query.all()
+        self.classesdict, self.my_db = classes.initialise2(self.db,list_of_dbs)
+        # self.classesdict, self.my_db = classes.initialise(self.db, self.db_list, self.db_strings,self.db_identifiers)
         return
 
 

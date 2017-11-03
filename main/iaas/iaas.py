@@ -337,7 +337,10 @@ class permitted_svc(Base):
 
 class IaasEvent(Base):
     __tablename__ = 'iaas_events'
-    __bind_key__ = 'iaas'
+    if dbconfig.db_name.startswith('iaas'):
+        __bind_key__ = dbconfig.db_name
+    else:
+        __bind_key__ = 'iaas'
     __display_name__ = 'IAAS Events'
 
     id = Column(Integer, primary_key=True)

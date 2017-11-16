@@ -435,6 +435,11 @@ class VirtualMachine(Base):
 
 
 class News(Base):
+
+    if dbconfig.db_name.startswith('iaas'):
+        __bind_key__ = dbconfig.db_name
+    else:
+        __bind_key__ = 'iaas'
     __tablename__ = 'news'
     # __bind_key__ = dbconfig.db_name
     __display_name__ = 'News'

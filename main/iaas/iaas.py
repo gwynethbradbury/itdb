@@ -15,6 +15,13 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 import dbconfig
+
+
+from markdown import markdown
+from markdown.extensions.codehilite import CodeHiliteExtension
+from markdown.extensions.extra import ExtraExtension
+
+
 iaasapp = Flask(__name__)
 
 
@@ -433,6 +440,11 @@ class VirtualMachine(Base):
     def __repr__(self):
         return self.__str__()
 
+from micawber import bootstrap_basic, parse_html
+from flask import (Markup)
+from micawber.cache import Cache as OEmbedCache
+oembed_providers = bootstrap_basic(OEmbedCache())
+
 
 class News(Base):
 
@@ -455,6 +467,25 @@ class News(Base):
 
     def __repr__(self):
         return self.__str__()
+
+
+    @property
+    def html_content(self):
+        """
+        Generate HTML representation of the markdown-formatted blog entry,
+        and also convert any media URLs into rich media objects such as video
+        players or images.
+        """
+        hilite = CodeHiliteExtension(linenums=False, css_class='highlight')
+        extras = ExtraExtension()
+        markdown_content = markdown(self.content, extensions=[hilite, extras])
+        oembed_content = parse_html(
+            markdown_content,
+            oembed_providers,
+            urlize_all=True,
+            # maxwidth=app.config['SITE_WIDTH']
+        )
+        return Markup(oembed_content)
 
 
 class comment(Base):

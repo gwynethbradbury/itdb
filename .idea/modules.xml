@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/dbas-dev.iml" filepath="$PROJECT_DIR$/.idea/dbas-dev.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/dbas-master.iml" filepath="$PROJECT_DIR$/.idea/dbas-master.iml" />
     </modules>
   </component>
 </project>

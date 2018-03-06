@@ -478,7 +478,7 @@ class News(Base):
         """
         hilite = CodeHiliteExtension(linenums=False, css_class='highlight')
         extras = ExtraExtension()
-        markdown_content = markdown(self.content, extensions=[hilite, extras])
+        markdown_content = markdown(self.body, extensions=[hilite, extras])
         oembed_content = parse_html(
             markdown_content,
             oembed_providers,
